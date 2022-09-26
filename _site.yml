@@ -1,0 +1,22 @@
+# Structure of this website: 
+# https://riesadohara.github.io/my_test_repo/index.html
+name: "DietR Package name"
+navbar:
+  title: "DietR Package"
+  href: index.html
+  left:
+  - text: Home
+    href: index.html
+  - text: ASA24
+    menu:
+    - text: ASA24_1
+      href: ASA24_1.html
+    - text: ASA24_2
+      href: ASA24_2.html
+  - text: NHANES
+    menu:
+    - text: NHANES_1
+      href: Links.html
+    - text: NHANES_2
+      href: thing1.html
+output_dir: "docs"

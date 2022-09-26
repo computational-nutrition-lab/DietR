@@ -1,0 +1,77 @@
+---
+title: "ASA24 No_1 load and clean ASA24 data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+
+## What this script does:
+1. Use Metadata 1 to filter out individuals.
+3. Remove users that has only a small number of totals (days of record). - if you know which one to remove.  
+2. Look for outliers in your totals by nutrient consumed on each day.
+
+## How to specify path to data.
+```{r}
+shape_path <- "~/GitHub/DietR"
+myfilepath <- paste(shape_path, "/eg_data/VVKAJ/VVKAJ_Items.txt", sep="")
+print(myfilepath)
+```
+
+## How to load data.
+```{r}
+myRobject <- read.table(myfilepath, sep="\t", header=T)
+
+head(myRobject)
+```
+
+What you need to to: 
+Need to hide the part to:
+1. Set working directory
+2. Load necessary functions and packages. (because the paths aren't correct for users)
+3. Load items data etc.
+
+### Load the necessary functions
+```{r}
+source(paste(shape_path, "/lib/specify_data_dir.R", sep=""))
+```
+
+### Load the necessary packages
+```{r}
+library(ggplot2)
+```
+
+
+need to do something like:
+"Load this file in your working directory called "dietary_patterns".
+REAL CODE = read.table(" ") 
+
+# Next section
+  
+```{r}
+# for loop solution
+# i becomes the number 1 to 100 at each step of the loop
+
+
+a <- length(100) # make empty variable, set length to 100
+for (i in 1:100){
+  a[i] <-i #assigns the number in i, to the ith index of a
+}
+
+print(a)
+
+# for loop solution #2
+
+a<-c() #create empty variable using combine command
+for (i in 1:100){
+  a<-c(a,i) # keeps combining a with itself and the new number in i
+}
+print(a)
+
+# seq solution
+a <- seq(1,100,1) # look up help for seq using ?seq() in console
+print(a)
+
+```
+
