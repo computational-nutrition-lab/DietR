@@ -34,6 +34,7 @@
 # Load your raw items data (as downloaded from the ASA24 study website).
 # The csv file will be loaded as a dataframe in R and be named as items_raw. 
   items_raw <-  read.csv("VVKAJ_Items.csv", sep = ",", header=T) 
+  head(items_raw)
   
 # Save it as a .txt file. 
   write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) 
