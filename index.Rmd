@@ -17,20 +17,15 @@ output: html_document
 <div class="row" style="padding-top: 30px;">
 <div class="col-sm-6">
 
-# **Gh pages mytestrepo**
+# **Welcome to DietR package tutorial**
 
-MyLabJournal_test_Rmarkdown3
-
-Let's test if I can change the name of this index file...
-
-This is a template example for lab journaling. Students in Matt Crump's Human Cognition and Performance Lab will use this template to learn R, and other things. Students can replace this text with more fun things. People not in my lab can use this too.
+This tutorial shows how to anaylze ASA24 and NHANES data.
 
 ## How to use
 
-1. fork the repo for this website and follow instructions on read me to get set up. [https://github.com/CrumpLab/LabJournalWebsite](https://github.com/CrumpLab/LabJournalWebsite)
+1. Download the whole repository of "DietR". It contains files and scripts in this tutorial.
 
-2. Blog/journal what you are doing in R, by editing the Journal.Rmd. See the [Journal page](https://crumplab.github.io/LabJournalWebsite/Journal.html) for an example of what to do to get started learning R.
+2. The easiest way to follow along this tutorial is to create "documents/Github" folder in your home directory, and bring unzipped DietR repository there, so that you can run tutorial codes without modifying paths.
 
 3. See the [links page](https://crumplab.github.io/LabJournalWebsite/Links.html) for lots of helpful links on learning R.
 
-4. Change everything to make it your own.
