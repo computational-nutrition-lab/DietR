@@ -1,2 +1,2 @@
-# DietR
-Repo to house DietR codes and website materials.
+### DietR
+This repo will house scripts to become a dietary pattern analysis R toolkit.

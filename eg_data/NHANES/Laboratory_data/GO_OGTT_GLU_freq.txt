@@ -1,0 +1,5 @@
+	Norm	Pred	Diab	Total
+Norm	936	667	20	1623
+Pred	74	238	28	340
+Diab	11	52	58	121
+Total	1021	957	106	2084
