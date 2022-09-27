@@ -6,7 +6,7 @@ code_folding: hide
 
 ### What this script does:
 1. Use Metadata 1 to filter out individuals.
-2. Remove users that has only a small number of totals (days of record). - if you know which one to remove.  
+2. Remove users that has only a small number of totals (days of record) - if you know which one to remove.  
 3. Look for outliers in your totals by nutrient consumed on each day.
 
 Name the path to DietR directory where input files are pulled.

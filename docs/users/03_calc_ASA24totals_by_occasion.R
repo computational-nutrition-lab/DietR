@@ -38,9 +38,9 @@
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ")
     
-    # Load your items data.
-      # Items_raw <- read.csv("VVKAJ_Items_NoCommas.csv", sep = ",", header=T)
-      items_f_id_s_m <- read.table("VVKAJ_Items_f_id_s_m.txt", sep = "\t", header=T)
+# Load your items data.
+# Items_raw <- read.csv("VVKAJ_Items_NoCommas.csv", sep = ",", header=T)
+  items_f_id_s_m <- read.table("VVKAJ_Items_f_id_s_m.txt", sep = "\t", header=T)
   
  
 # # Load your metadata if you have one. 
