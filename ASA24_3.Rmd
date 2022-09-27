@@ -1,0 +1,70 @@
+---
+title: "Data overview"
+output: html_document
+---
+
+Name the path to DietR directory where input files are pulled.
+```{r}
+  main_wd <- "~/GitHub/DietR"
+```
+
+Load the necessary functions
+```{r}
+  source("lib/specify_data_dir.R")
+  source("lib/data_overview.R")
+  source("lib/ggplot2themes.R")
+```
+
+Call color palette.
+```{r}
+  distinct100colors <- readRDS("lib/distinct100colors.rda")
+```
+
+You can come back to the main directory by:
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+
+<br>
+
+### Load and analyze (QC-ed) ASA24 items data
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
+```
+
+Specify the directory where the data is.
+```{r, eval = FALSE}
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+
+Load your items data to be analyzed.
+"_f_id_s_m" stands for: "food names formatted", "SampleID added", "selected individuals", and "metadata merged".
+```{r}
+  items_f_id_s_m <- read.table("VVKAJ_Items_f_id_s_m.txt", sep="\t", header=T)
+```
+
+```{r}
+  head(items_f_id_s_m)
+```
+
+<br>
+
+### Generate sum of foods consumed by each user, by day, and by occasion
+
+
+<br>
+
+---
+  
+Come back to the main directory before you start running another script.
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+  
+
+
+
