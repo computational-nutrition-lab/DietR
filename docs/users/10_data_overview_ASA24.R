@@ -95,9 +95,6 @@
 # Load and analyze (QC-ed) ASA24 totals data
 # ===============================================================================================================
   
-# Specify the directory where the data is.
-  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")  
-  
 # Load your QC-ed totals data to be analyzed.
   tot_m_QCed <- read.table("VVKAJ_Tot_m_QCed.txt", sep="\t", header=T)
   

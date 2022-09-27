@@ -14,6 +14,7 @@
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")
   source("lib/percent_kcal.R")
+  source("lib/ggplot2themes.R")
   
 # Call color palette.
   distinct100colors <- readRDS("lib/distinct100colors.rda")

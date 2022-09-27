@@ -15,6 +15,17 @@ Load the necessary functions
   source("lib/ggplot2themes.R")
 ```
 
+Name the path to DietR directory where input files are pulled.
+```{r}
+  main_wd <- "~/GitHub/DietR"
+```
+
+Load the necessary functions
+```{r}
+  source("lib/specify_data_dir.R")
+  source("lib/percent_kcal.R")
+```
+
 Call color palette.
 ```{r}
   distinct100colors <- readRDS("lib/distinct100colors.rda")

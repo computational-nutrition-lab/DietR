@@ -11,7 +11,7 @@
 
 
 
-<title>Load and clean NHANES data</title>
+<title>Percent kcal of CARB, PROT, TFAT</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -300,13 +300,86 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Load and clean NHANES data</h1>
+<h1 class="title toc-ignore">Percent kcal of CARB, PROT, TFAT</h1>
 
 </div>
 
 
-<div id="load-and-clean-nhanes-items-data" class="section level3">
-<h3>Load and clean NHANES items data</h3>
+<p>Name the path to DietR directory where input files are pulled.</p>
+<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
+<p>Load the necessary functions</p>
+<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
+  source(&quot;lib/percent_kcal.R&quot;)
+  source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
+<p>Call color palette.</p>
+<pre class="r"><code>  distinct100colors &lt;- readRDS(&quot;lib/distinct100colors.rda&quot;)</code></pre>
+<p>You can come back to the main directory by:</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
+<p><br></p>
+<div id="import-data-from-your-data-directory" class="section level2">
+<h2>Import data from your data directory</h2>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+<p>Load the totals data.</p>
+<pre class="r"><code>  totals &lt;- read.table(&quot;VVKAJ_Tot_m_QCed.txt&quot;,  sep = &quot;\t&quot;, header = T)</code></pre>
+<hr />
+<p>Calculate the mean and SD of CARB, PROT, and TFAT.</p>
+<pre class="r"><code>  CPTgramsPerUser(inputfn= totals, user.name = &quot;UserName&quot;, recall.no = &quot;RecallNo&quot;,
+                  outfn=&quot;VVKAJ_Tot_m_QCed_CPT_g.txt&quot;)</code></pre>
+<p>The output is not used in visualization below, but you may want to take a look at it.</p>
+<p><br></p>
+<p>Calculate the mean % of energy intake (kcal) and SD of CARB, PROT, and TFAT.</p>
+<pre class="r"><code>  CPTpctKcalPerUser(inputfn=totals, user.name = &quot;UserName&quot;, recall.no = &quot;RecallNo&quot;, 
+                   outfn=&quot;VVKAJ_Tot_m_QCed_CPT_kcal.txt&quot;)</code></pre>
+<p>Load the %kcal values</p>
+<pre class="r"><code>  CPT_kcal &lt;- read.table(&quot;VVKAJ_Tot_m_QCed_CPT_kcal.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p><strong>[NOTE]</strong> Do not alter the columnnames of CPT_kcal because the plotting functions below assume that CPT_kcal has “UserName”, “macronutrient”, “n”, “mean”, and “sd” columns in it.</p>
+<p><br></p>
+<hr />
+<p>Plot a barchart without SD.</p>
+<pre class="r"><code>  # Change the font size if necessary.
+  stacked_wo_SD &lt;- StackedwoSD(data= CPT_kcal) + theme(axis.text.x=element_text(size=11))  </code></pre>
+<pre class="r"><code>  stacked_wo_SD</code></pre>
+<p><img src="ASA24_4_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Save as a .pdf.</p>
+<pre class="r"><code>  ggsave(&quot;VVKAJ_Tot_m_QCed_CPT_kcal_wo_SD.pdf&quot;, stacked_wo_SD, 
+         device=&quot;pdf&quot;, width=6.2, height=4.2, units=&quot;in&quot;, dpi=300)</code></pre>
+<hr />
+<p>Plot the “dodge”-type of barchart (3 bars per user, NOT STACKED).</p>
+<pre class="r"><code>  # Change the font size if necessary.
+  dodgedtypebarchart &lt;- DodgedBarchart(data= CPT_kcal) + theme(axis.text.x=element_text(size=11))  </code></pre>
+<pre class="r"><code>  dodgedtypebarchart</code></pre>
+<p><img src="ASA24_4_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Save as a .pdf.</p>
+<pre class="r"><code>  ggsave(&quot;VVKAJ_Tot_m_QCed_CPT_kcal_CPT_kcal_dodgedtypebarchart.pdf&quot;, dodgedtypebarchart,
+         device=&quot;pdf&quot;, width=9.0, height=4, units=&quot;in&quot;, dpi=300)</code></pre>
+<hr />
+<p>Using CPT_kcal, create a stacked barchart.</p>
+<p>Create a vector that contains all the users (individuals).</p>
+<pre class="r"><code>  individuals &lt;- unique(CPT_kcal$UserName)</code></pre>
+<p>Calculate sd_base and sd_forstacked for stacked barchart.</p>
+<p>Note that this function assumes all users (individuals) have CARB, PROT, and TFAT values.</p>
+<pre class="r"><code>  CalcStackedSD(input.df= CPT_kcal, out.fn= &quot;CPT_kcal_forstacked.txt&quot;)</code></pre>
+<p>Load the saved file that has SD for stacked barchart.</p>
+<pre class="r"><code>  CPT_kcal_forstacked_read &lt;- read.table(&quot;CPT_kcal_forstacked.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Stacked barchart with SD as error bars.</p>
+<pre class="r"><code>  stacked_with_SD &lt;- StackedWithSD(data=CPT_kcal_forstacked_read) + theme(axis.text.x=element_text(size=11))</code></pre>
+<pre class="r"><code>  stacked_with_SD</code></pre>
+<p><img src="ASA24_4_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>Save as a .pdf.</p>
+<pre class="r"><code>  ggsave(&quot;VVKAJ_Tot_m_QCed_CPT_kcal_CPT_kcal_with_SD.pdf&quot;, stacked_with_SD, 
+         device=&quot;pdf&quot;, width=6.2, height=4.3, units=&quot;in&quot;, dpi=300)</code></pre>
+<p>Change the Y axis scale if necessary. Note that if the error bars of Carbohydrates disappear after changing the limits of Y axis, it may be because the error bars are higher than the max Y.</p>
+<p>Ensure you have enough max Y value to accommodate the error bars.</p>
+<p>You can also change the breakpoints of the Y axis.</p>
+<pre class="r"><code>  stacked_with_SD + scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100))</code></pre>
+<p><img src="ASA24_4_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><br></p>
+<hr />
+<p>Come back to the main directory before you start running another script.</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
 </div>
 
 
