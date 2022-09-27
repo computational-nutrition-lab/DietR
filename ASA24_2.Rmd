@@ -1,56 +1,84 @@
 ---
-title: "ASA24 Data Overview"
+title: "ASA24 Calc totals by occation"
 output: html_document
 ---
 
+Name the path to DietR directory where input files are pulled.
+```{r}
+  main_wd <- "~/GitHub/DietR"
+```
+
+Load the necessary functions
+```{r}
+  source("lib/specify_data_dir.R")
+  source("lib/calc_ASA24totals_by_occasion.R")
+```
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
 ```
 
-<!-- Name the path to DietR directory where input files are pulled. -->
-<!-- ```{r} -->
-<!--   main_wd <- "~/GitHub/DietR" -->
-<!--   main_wd -->
-<!-- ``` -->
+<br>
 
-<!-- Load the necessary functions -->
-<!-- ```{r} -->
-<!--   source(paste(main_wd, "/lib/specify_data_dir.R", sep="")) -->
-<!--   source(paste(main_wd, "/lib/load_clean_ASA24.R", sep="")) -->
-<!--   source(paste(main_wd, "/lib/format.file.R", sep="")) -->
-<!-- ``` -->
+### Load ASA24 Items data that has been formatted
 
-<!-- Define the path to items data in main_wd. -->
-<!-- ```{r} -->
-<!-- items_path <- paste(main_wd, "/testsheet.csv", sep="") -->
-<!-- print(items_path) -->
-<!-- ``` -->
+Specify the directory where the data is.
+```{r, eval = FALSE}
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
 
-<!-- ### Load ASA24 Items data -->
-<!-- Load items data which is in a csv format. -->
-<!-- ```{r} -->
-<!-- items_raw <- read.csv(items_path, sep = ",", header=T) -->
-<!-- ``` -->
-
-<!-- Show the first two lines of the items data. -->
-<!-- ```{r} -->
-<!-- head(items_raw, 2) -->
-<!-- ``` -->
-
-
-<!-- ### Summarize and visualize ASA24 items and totals data. -->
-
-<!-- ### Sample codes -->
-<!-- ```{r cars} -->
-<!-- summary(cars) -->
-<!-- ``` -->
-
-### Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+Load the formatted items data.
+```{r}
+  items_f_id_s_m <- read.table("VVKAJ_Items_f_id_s_m.txt", sep = "\t", header=T)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+<br>
+
+### Generate sum of foods consumed by each user, by day, and by occasion
+
+Calculate sum of nutrients and food categories of items by user and by occasion; output will be saved as: Items_by_User_Occ.
+```{r}
+  SumByOccasion(items.data=items_f_id_s_m, User.Name='UserName', 
+                  Recall.No='RecallNo',   Occ.No='Occ_No')
+```
+
+Take a look at the first 10 rows of the first 6 columns.
+Items are summed by occasion number for each participant's RecallNo. 
+```{r}
+  Items_by_User_Occ[1:10, 1:6]
+```
+
+Use Items_by_User_Occ and add occasion names (breakfast, snacks etc.) to it; output will be saved as: Sum_by_User_Day_Occ.
+```{r}
+  AddOccNames(items.data=items_f_id_s_m, User.Name='UserName', 
+                Recall.No='RecallNo', Occ.No='Occ_No', Occ.Name='Occ_Name'  )
+```
+
+Take a look at the first 6 rows. Spelt-out occasion names corresponding to occasion name have been added at the end.
+```{r}
+  head(Sum_by_User_Day_Occ)
+```
+
+Save Sum_by_User_Day_Occ as a txt file.
+```{r}
+  write.table(Sum_by_User_Day_Occ, 'VVKAJ_Sum_by_User_Day_Occ.txt', sep="\t", row.names=F, quote=F)
+```
+
+This will be useful if a researcher wants to look at the sum of each eating occasion 
+per participant. (Because Totals file sums all the occasions as one day)
+
+<br>
+
+---
+  
+Come back to the main directory before you start running another script.
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+  
+
+
+

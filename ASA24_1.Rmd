@@ -43,12 +43,12 @@ Specify the directory where the data is.
 
 Load items data which is in a csv format.
 ```{r}
-items_raw <- read.csv("VVKAJ_Items.csv", sep = ",", header=T)
+  items_raw <- read.csv("VVKAJ_Items.csv", sep = ",", header=T)
 ```
 
 Show the first two lines of the items data.
 ```{r}
-head(items_raw, 2)
+  head(items_raw, 2)
 ```
 
 Save it as a .txt file.
@@ -79,14 +79,25 @@ Load the formatted Items file.
 ```
 
 A combination of the specified prefix and sequential number should be added.
-```{r}
+```{r, eval=FALSE}
   head(items_f_id)
 ```
+
+<details>
+  <summary>Click to expand output</summary>
+    ```{r, echo=FALSE, eval=TRUE}
+    head(items_f_id)
+    ```
+</details> 
+
+<br>
 
 Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio, or you can also check the dimension of items_f by using the dim() function.
 ```{r}
   dim(items_f_id)
 ```
+
+<br>
 
 ### <Optional> Use individuals_to_remove.txt to filter out users marked as Remove = yes.
 Load your metadata that has information about which UserName(s) to remove.
@@ -123,6 +134,7 @@ Show unique usernames in items_f_id_s and confirm "VVKAJ116" has been removed.
   unique(items_f_id_s$UserName)
 ```
 
+<br>
 
 ### <Optional> Merge individuals' metadata to items.   
 
@@ -144,16 +156,27 @@ Add this metadata of each participant in totals or items. 'NA' will be inserted 
 ```
   
 Check that the items data and metadata are merged.
-```{r}
+```{r, eval=FALSE}
   head(items_f_id_s_m)
 ```
+
+<details>
+  <summary>Click to expand output</summary>
+    ```{r, echo=FALSE, eval=TRUE}
+    head(items_f_id_s_m)
+    ```
+</details> 
+
+<br>
 
 Save the merged dataframe as a .txt file.
 ```{r}
   write.table(items_f_id_s_m, "VVKAJ_Items_f_id_s_m.txt", sep="\t", row.names=F, quote=F)
 ```
 
-###Generate new totals file if any edits were made to the items file. 
+<br>
+
+### Generate new totals file if any edits were made to the items file. 
 
 Use one of the input files saved above as an input for calculating totals for. Specify which columns have usernames and Recall.No., which is the number of recorded days. 
 ```{r}
@@ -174,9 +197,18 @@ The number of rows should be {No. of users x No. days}. For the example data, 15
 ```
 
 View the new_totals.
-```{r}
+```{r, eval=FALSE}
   head(new_totals)
 ```
+
+<details>
+  <summary>Click to expand output</summary>
+    ```{r, echo=FALSE, eval=TRUE}
+    head(new_totals)
+    ```
+</details> 
+
+<br>
 
 ### <Optional> Add the participants' metadata back to totals.
 
@@ -198,7 +230,7 @@ Check that the items data and metadata are merged.
 <details>
   <summary>Click to expand output</summary>
     ```{r, echo=FALSE, eval=TRUE}
-  head(new_totals_m)
+    head(new_totals_m)
     ```
 </details> 
   
@@ -206,6 +238,8 @@ Save the merged dataframe as a .txt file.
 ```{r}
   write.table(new_totals_m, "VVKAJ_Tot_m.txt", sep="\t", row.names=F, quote=F)
 ```
+
+<br>
 
 ### QC totals data
 
@@ -258,6 +292,8 @@ Save as "Totals_m_QCed.txt"
 ```{r}
   write.table(QCtotals, "VVKAJ_Tot_m_QCed.txt", sep="\t", quote=F, row.names=F)
 ```
+
+<br>
 
 ---
   
