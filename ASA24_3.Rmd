@@ -47,18 +47,211 @@ Load your items data to be analyzed.
   items_f_id_s_m <- read.table("VVKAJ_Items_f_id_s_m.txt", sep="\t", header=T)
 ```
 
-```{r}
+```{r, eval=FALSE}
   head(items_f_id_s_m)
 ```
 
-<br>
-
-### Generate sum of foods consumed by each user, by day, and by occasion
+<details>
+  <summary>Click to expand output</summary>
+    ```{r, echo=FALSE, eval=TRUE}
+    head(items_f_id_s_m)
+    ```
+</details> 
 
 
 <br>
 
 ---
+
+### Summary statistics
+
+#### Summary statistics of one variable
+
+View min, quantiles, mean, etc. for a variable in your dataset.
+```{r}
+  summary(items_f_id_s_m$KCAL)
+```
+
+#### Summary statistics of all the variables
+
+Calculate the minimum, 1st quantile, median, mean, 3rd quantile, max, and standard deviation for each variable in the input dataframe and save as a .txt file. 
+```{r}
+  SummaryStats(inputdf = items_f_id_s_m, 
+               outfn = "VVKAJ_Items_f_id_s_m_summ.txt")
+```
+
+**[NOTE]** These are individual items, not by user or day. 
+
+<br>
+
+---
+
+#### Boxplot
+
+Generate a boxplot to view data distribution.
+  
+Boxplot of KCAL by users. 
+```{r}
+  users_kcal <- ggplot(items_f_id_s_m, aes(x=UserName, y=KCAL)) +
+    geom_boxplot() + no_grid + space_axes + rotate_X_labels
+```
+
+```{r}
+  users_kcal
+```
+  
+Save it as a .pdf file.
+```{r}
+  ggsave("VVKAJ_Items_f_id_s_m_users_kcal.pdf", users_kcal, device="pdf")
+```
+
+Similarly, generate a boxplot of KCAL by gender.
+```{r}
+  gender_kcal <- ggplot(items_f_id_s_m, aes(x=Gender, y=KCAL)) +
+    geom_boxplot() + no_grid + space_axes
+```
+
+```{r}
+  gender_kcal
+```
+  
+Save it as a .pdf file.
+```{r}
+  ggsave("VVKAJ_Items_f_id_s_m_gender_kcal.pdf", gender_kcal, device="pdf")
+```
+
+---
+
+#### Scatterplot
+  
+Scaterplot of two numeric variables: TFAT and KCAL. 
+```{r}
+  TFAT_KCAL <- ggplot(items_f_id_s_m, aes(x=TFAT, y=KCAL)) +
+    geom_point() + no_grid + space_axes 
+```
+
+```{r}
+  TFAT_KCAL
+```
+
+Save it as a .pdf file.
+```{r}
+  ggsave("VVKAJ_Items_f_id_s_m_TFAT_KCAL.pdf", TFAT_KCAL, device="pdf")
+```
+
+Test if the two variables are correlated. The output should show p-value and R correlation coefficient.
+```{r}
+  cor.test(x=items_f_id_s_m$TFAT, y=items_f_id_s_m$KCAL, method="pearson")
+```
+
+<br>
+
+<!-- TOTALS FROM HERE -->
+
+### Load and analyze (QC-ed) ASA24 totals data
+
+```{r}
+  tot_m_QCed <- read.table("VVKAJ_Tot_m_QCed.txt", sep="\t", header=T)
+```
+
+Note that each row is a total dietary intake of each user on each day.
+
+```{r, eval=FALSE}
+  head(tot_m_QCed)
+```
+
+<details>
+  <summary>Click to expand output</summary>
+    ```{r, echo=FALSE, eval=TRUE}
+    head(tot_m_QCed)
+    ```
+</details> 
+
+<br>
+
+---
+
+### Summary statistics
+
+#### Summary statistics of one variable
+
+View min, quantiles, mean, etc. for a variable in your dataset.
+```{r}
+  summary(tot_m_QCed$KCAL)
+```
+
+#### Summary statistics of all the variables
+
+Calculate the min, quantiles, mean, etc. for a variable in your dataset in the same way we did with the items. 
+```{r}
+  SummaryStats(inputdf = tot_m_QCed, 
+               outfn = "VVKAJ_Tot_m_QCed_summ.txt")
+```
+
+<br>
+
+---
+
+#### Boxplot
+
+Generate a boxplot to view data distribution.
+  
+Boxplot of KCAL by users. 
+This is a variation of the days, and note that some users may have less number of days due to the QC process or missing data.
+```{r}
+  users_kcal_t <- ggplot(tot_m_QCed, aes(x=UserName, y=KCAL)) +
+    geom_boxplot() + no_grid + space_axes + rotate_X_labels
+```
+
+```{r}
+  users_kcal_t
+```
+
+Save it as a .pdf file.
+```{r}
+  ggsave("VVKAJ_Tot_m_QCed_users_KCAL.pdf", users_kcal_t, device="pdf")
+```
+
+Boxplot of KCAL by gender.
+```{r}
+  gender_KCAL_t <- ggplot(tot_m_QCed, aes(x=Gender, y=KCAL)) +
+    geom_boxplot() + no_grid + space_axes 
+```
+
+```{r}
+  gender_KCAL_t
+```
+  
+Save it as a .pdf file.
+```{r}
+  ggsave("VVKAJ_Tot_m_QCed_gender_KCAL.pdf", gender_KCAL_t, device="pdf")
+```
+
+Boxplot of KCAL by gender, with each datapoint. Note that geom_boxplot must have outlier.shape = NA when plotted with geom_jitter. Otherwise, outlier points will be duplicated and will be misleading.
+```{r}
+  gender_KCAL_t_dots <- ggplot(tot_m_QCed, aes(x=Gender, y=KCAL)) +
+    geom_boxplot(outlier.shape = NA) + no_grid + space_axes +
+    geom_jitter(width=0.3)
+```
+
+```{r}
+  gender_KCAL_t_dots
+```
+
+Save it as a .pdf file.
+```{r}
+  ggsave("VVKAJ_Tot_m_QCed_gender_KCAL_dots.pdf", gender_KCAL_t_dots, device="pdf")
+```
+
+---
+
+
+
+
+
+
+
+
   
 Come back to the main directory before you start running another script.
 ```{r, eval=FALSE}
