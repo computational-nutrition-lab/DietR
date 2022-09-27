@@ -308,23 +308,23 @@ $(document).ready(function () {
 <li>Look for outliers in your totals by nutrient consumed on each day.</li>
 </ol>
 <p>Name the path to DietR directory where input files are pulled.</p>
-<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;
-  main_wd</code></pre>
-<pre><code>## [1] &quot;~/GitHub/DietR&quot;</code></pre>
+<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
 <p>Load the necessary functions</p>
-<pre class="r"><code>  source(&quot;../../lib/specify_data_dir.R&quot;)
-  source(&quot;../../lib/load_clean_ASA24.R&quot;)
-  source(&quot;../../lib/format.file.R&quot;)</code></pre>
+<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
+  source(&quot;lib/load_clean_ASA24.R&quot;)
+  source(&quot;lib/format.file.R&quot;)</code></pre>
+</div>
+<div id="load-asa24-items-data" class="section level3">
+<h3>Load ASA24 Items data</h3>
 <p>Specify the directory where the data is.</p>
 <pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
 <!-- Define the path to items data in main_wd. -->
 <!-- ```{r} -->
 <!-- items_path <- paste("/eg_data/VVKAJ/VVKAJ_Items.csv", sep="") -->
 <!-- print(items_path) -->
 <!-- ``` -->
-</div>
-<div id="load-asa24-items-data" class="section level3">
-<h3>Load ASA24 Items data</h3>
 <p>Load items data which is in a csv format.</p>
 <pre class="r"><code>items_raw &lt;- read.csv(&quot;VVKAJ_Items.csv&quot;, sep = &quot;,&quot;, header=T)</code></pre>
 <p>Show the first two lines of the items data.</p>
@@ -380,64 +380,622 @@ $(document).ready(function () {
 ##                                             Food_Description
 ## 1                                            Soft drink, NFS
 ## 2 Cereal (Post Great Grains Double Pecan Whole Grain Cereal)</code></pre>
-<!-- Save it as a .txt file. -->
-<!-- This will be saved in GitHub/DietR_gh_pages/ directory. -->
-<!-- ```{r} -->
-<!--   write.table(items_raw, "eg_data/VVKAJ/VVKAJ_Items.txt", sep="\t", row.names=F) -->
-<!-- ``` -->
-<!-- Special characters such as "'", ",", "%" may interfere correct data loading; thus, we replace them with an underscore "_". -->
-<!-- This function can only take .txt files as input. Specify column(s) to be processed in the "columns" argument and the output file name in the outfn argument; "_f" stands for "formatted". -->
-<!-- ```{r} -->
-<!--   format.file(filename = "eg_data/VVKAJ/VVKAJ_Items.txt", -->
-<!--               columns  = "eg_data/VVKAJ/Food_Description", -->
-<!--               outfn    = "eg_data/VVKAJ/VVKAJ_Items_f.txt") -->
-<!-- ``` -->
-<!-- Add SampleID with a desired prefix, and save it as a txt file. SampleIDs are IDs unique to each combination of users and day. -->
-<!-- ```{r} -->
-<!--   AddSampleIDtoItems(input.fn="eg_data/VVKAJ/VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", -->
-<!--                      prefix="vvkaj.", out.fn="eg_data/VVKAJ/VVKAJ_Items_f_id.txt") -->
-<!-- ``` -->
-<!-- Load the formatted Items file. -->
-<!-- ```{r} -->
-<!--   items_f_id <- read.table("eg_data/VVKAJ/VVKAJ_Items_f_id.txt", sep="\t", header=T) -->
-<!-- ``` -->
-<!-- A combination of the specified prefix and sequential number should be added. -->
-<!-- ```{r} -->
-<!--   head(items_f_id) -->
-<!-- ``` -->
-<!-- Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio, or you can also check the dimension of items_f by using the dim() function. -->
-<!-- ```{r} -->
-<!--   dim(items_f_id) -->
-<!-- ``` -->
-<!-- ### <Optional> Use individuals_to_remove.txt to filter out users marked as Remove = yes. -->
-<!-- Load your metadata that has information about which UserName(s) to remove. -->
-<!-- ```{r} -->
-<!-- ind_to_rm_path <- paste(main_wd, "/eg_data/VVKAJ/individuals_to_remove.txt", sep="") -->
-<!-- ind_to_rm <- read.table(ind_to_rm_path, sep="\t", header=T) -->
-<!-- ``` -->
-<!-- Take a look. Metadata for this purpose (ind_to_rm) has UserName and which one to be removed: -->
-<!-- ```{r} -->
-<!--   ind_to_rm -->
-<!-- ``` -->
-<!-- Show which has "yes" in the "Remove" column. -->
-<!-- ```{r} -->
-<!--   subset(ind_to_rm, Remove == "yes") -->
-<!-- ``` -->
-<!-- Remove the specified individuals. -->
-<!-- The output will be saved as a text file with the specified name. -->
-<!-- This assumes the usernames are in UserName column, and will print which user(s) will be removed. -->
-<!-- ```{r} -->
-<!--   RemoveRows(data=items_f_id, metadata.file= ind_to_rm, -->
-<!--              output.name= "VVKAJ_Items_f_id_s.txt") -->
-<!-- ``` -->
-<!-- Load the output for further processing. -->
-<!-- ```{r} -->
-<!--   items_f_id_s <- read.table("VVKAJ_Items_f_id_s.txt", header=T, sep="\t") -->
-<!-- ``` -->
-<!-- Show unique usernames in items_f_id_s and confirm "VVKAJ116" has been removed. -->
-<!-- ```{r} -->
-<!--   unique(items_f_id_s$UserName) -->
-<!-- ``` -->
+<p>Save it as a .txt file.</p>
+<p>This will be saved in GitHub/DietR/eg_data/VVKAJ directory.</p>
+<pre class="r"><code>  write.table(items_raw, &quot;VVKAJ_Items.txt&quot;, sep=&quot;\t&quot;, row.names=F)</code></pre>
+<p>Special characters such as “’”, “,”, “%” may interfere correct data loading; thus, we replace them with an underscore “_“.</p>
+<p>This function can only take .txt files as input. Specify column(s) to be processed in the “columns” argument and the output file name in the outfn argument; “_f” stands for “formatted”.</p>
+<pre class="r"><code>  format.file(filename = &quot;VVKAJ_Items.txt&quot;,
+              columns  = &quot;Food_Description&quot;,
+              outfn    = &quot;VVKAJ_Items_f.txt&quot;)</code></pre>
+<p>Add SampleID with a desired prefix, and save it as a txt file. SampleIDs are IDs unique to each combination of users and day.</p>
+<pre class="r"><code>  AddSampleIDtoItems(input.fn=&quot;VVKAJ_Items_f.txt&quot;, user.name=&quot;UserName&quot;, recall.no=&quot;RecallNo&quot;,
+                     prefix=&quot;vvkaj.&quot;, out.fn=&quot;VVKAJ_Items_f_id.txt&quot;)</code></pre>
+<p>Load the formatted Items file.</p>
+<pre class="r"><code>  items_f_id &lt;- read.table(&quot;VVKAJ_Items_f_id.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>A combination of the specified prefix and sequential number should be added.</p>
+<pre class="r"><code>  head(items_f_id)</code></pre>
+<pre><code>##      SampleID                          RecallRecId UserName
+## 1 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9 VVKAJ101
+## 2 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9 VVKAJ101
+## 3 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9 VVKAJ101
+## 4 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9 VVKAJ101
+## 5 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9 VVKAJ101
+## 6 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9 VVKAJ101
+##                                 UserID RecallNo RecallAttempt RecallStatus
+## 1 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 2 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 3 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 4 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 5 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 6 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+##   IntakeStartDateTime IntakeEndDateTime ReportingDate Lang Occ_No
+## 1      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      1
+## 2      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      1
+## 3      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      1
+## 4      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      1
+## 5      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      2
+## 6      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      3
+##          Occ_Time Occ_Name EatWith WatchTVuseComputer Location FoodNum FoodType
+## 1  11/5/2021 7:00        1      NA                 NA        1       1        1
+## 2  11/5/2021 7:00        1      NA                 NA        1       2        1
+## 3  11/5/2021 7:00        1      NA                 NA        1       3        2
+## 4  11/5/2021 7:00        1      NA                 NA        1       4        1
+## 5 11/5/2021 10:00        7      NA                 NA        1       5        1
+## 6 11/5/2021 12:00        3      NA                 NA        1       6        1
+##   FoodSrce CodeNum FoodCode ModCode HowMany SubCode PortionCode FoodAmt    KCAL
+## 1       NA       1 92400000       0     9.6       0       30001   297.6 124.992
+## 2       NA       2 57231250       0     1.0       0       10205   104.0 419.120
+## 3       NA       3 91302010       0     0.5       0       21000    10.5  31.920
+## 4       NA       4 63200200       0     0.5       0       10205    98.5  50.235
+## 5       NA       5 94000100       0     8.4       0       30000   252.0   0.000
+## 6       NA       6 32103000       0     0.5       0       10205   111.0 285.270
+##      PROT    TFAT     CARB      MOIS ALC   CAFF THEO     SUGR    FIBE   CALC
+## 1  0.0000  0.7440 30.83136 265.93536   0 26.784    0 29.58144  0.0000  2.976
+## 2  9.3600 10.9200 75.92000   5.40800   0  0.000    0 16.01600 10.0880 40.560
+## 3  0.0315  0.0000  8.65200   1.79550   0  0.000    0  8.62260  0.0210  0.630
+## 4  0.4137  0.6304 11.98745  85.29115   0  0.000    0  8.32325  2.6595  7.880
+## 5  0.0000  0.0000  0.00000 251.74800   0  0.000    0  0.00000  0.0000  7.560
+## 6 11.3886 25.6854  1.12110  70.99560   0  0.000    0  1.12110  0.0000 46.620
+##       IRON    MAGN    PHOS   POTA    SODI    ZINC     COPP    SELE     VC
+## 1  0.05952   0.000  26.784  14.88   8.928 0.26784 0.020832  0.2976 0.0000
+## 2 17.99200 101.920 307.840 350.48 298.480 2.39200 0.416000 43.4720 0.2080
+## 3  0.04410   0.210   0.420   5.46   0.420 0.02310 0.003780  0.0840 0.0525
+## 4  0.17730   4.925  10.835  53.19   0.985 0.06895 0.032505  0.0985 2.4625
+## 5  0.00000   2.520   0.000   0.00  10.080 0.02520 0.025200  0.0000 0.0000
+## 6  1.11000   8.880 157.620 116.55 420.690 0.96570 0.015540 27.8610 0.0000
+##       VB1      VB2     NIAC      VB6    FOLA     FA     FF    FDFE   VB12
+## 1 0.00000 0.000000 0.000000 0.000000   0.000   0.00  0.000   0.000 0.0000
+## 2 0.72800 0.832000 9.984000 1.040000 199.680 179.92 19.760 326.560 3.0160
+## 3 0.00000 0.003990 0.012705 0.002520   0.210   0.00  0.210   0.210 0.0000
+## 4 0.03152 0.036445 0.512200 0.058115   6.895   0.00  6.895   6.895 0.0000
+## 5 0.00000 0.000000 0.000000 0.000000   0.000   0.00  0.000   0.000 0.0000
+## 6 0.06105 0.459540 0.056610 0.108780  39.960   0.00 39.960  39.960 1.0101
+##     VARA    RET  BCAR ACAR CRYP LYCO     LZ   ATOC     VK  CHOLE     SFAT S040
+## 1   0.00   0.00  0.00    0 0.00    0   0.00 0.0000  0.000   0.00 0.000000    0
+## 2 447.20 447.20  5.20    0 1.04    0 142.48 0.7696  2.288   0.00 1.040000    0
+## 3   0.00   0.00  0.00    0 0.00    0   0.00 0.0000  0.000   0.00 0.000000    0
+## 4   1.97   0.00 27.58    0 0.00    0  66.98 0.4728 16.154   0.00 0.052205    0
+## 5   0.00   0.00  0.00    0 0.00    0   0.00 0.0000  0.000   0.00 0.000000    0
+## 6 135.42 134.31 11.10    0 9.99    0 316.35 1.6317 35.631 340.77 5.443440    0
+##   S060    S080    S100    S120    S140     S160     S180     MFAT    M161
+## 1    0 0.00000 0.00000 0.00000 0.00000 0.000000 0.000000 0.000000 0.00000
+## 2    0 0.00000 0.00000 0.00208 0.00208 0.803920 0.205920 6.032000 0.00312
+## 3    0 0.00000 0.00000 0.00000 0.00000 0.000000 0.000000 0.000000 0.00000
+## 4    0 0.00000 0.00000 0.00000 0.00000 0.030535 0.010835 0.089635 0.00197
+## 5    0 0.00000 0.00000 0.00000 0.00000 0.000000 0.000000 0.000000 0.00000
+## 6    0 0.00222 0.00222 0.00222 0.04329 3.803970 1.408590 7.279380 0.29415
+##       M181    M201    M221      PFAT     P182    P183 P184    P204    P205 P225
+## 1 0.000000 0.00000 0.00000  0.000000 0.000000 0.00000    0 0.00000 0.00000    0
+## 2 5.989360 0.03744 0.00104  3.224000 3.051360 0.17264    0 0.00000 0.00000    0
+## 3 0.000000 0.00000 0.00000  0.000000 0.000000 0.00000    0 0.00000 0.00000    0
+## 4 0.085695 0.00000 0.00000  0.274815 0.164495 0.11032    0 0.00000 0.00000    0
+## 5 0.000000 0.00000 0.00000  0.000000 0.000000 0.00000    0 0.00000 0.00000    0
+## 6 6.882000 0.07881 0.00777 10.960140 9.555990 1.21545    0 0.14319 0.00444    0
+##      P226  VITD    CHOLN VITE_ADD B12_ADD F_TOTAL F_CITMLB F_OTHER F_JUICE
+## 1 0.00000 0.000   0.8928        0   0.000 0.00000  0.00000       0       0
+## 2 0.00000 1.976  29.9520        0   3.016 0.00000  0.00000       0       0
+## 3 0.00000 0.000   0.2310        0   0.000 0.00000  0.00000       0       0
+## 4 0.00000 0.000   5.0235        0   0.000 0.65995  0.65995       0       0
+## 5 0.00000 0.000   0.0000        0   0.000 0.00000  0.00000       0       0
+## 6 0.03441 1.998 268.3980        0   0.000 0.00000  0.00000       0       0
+##   V_TOTAL V_DRKGR V_REDOR_TOTAL V_REDOR_TOMATO V_REDOR_OTHER V_STARCHY_TOTAL
+## 1       0       0             0              0             0               0
+## 2       0       0             0              0             0               0
+## 3       0       0             0              0             0               0
+## 4       0       0             0              0             0               0
+## 5       0       0             0              0             0               0
+## 6       0       0             0              0             0               0
+##   V_STARCHY_POTATO V_STARCHY_OTHER V_OTHER V_LEGUMES G_TOTAL G_WHOLE G_REFINED
+## 1                0               0       0         0  0.0000   0.000    0.0000
+## 2                0               0       0         0  2.7456   2.652    0.0936
+## 3                0               0       0         0  0.0000   0.000    0.0000
+## 4                0               0       0         0  0.0000   0.000    0.0000
+## 5                0               0       0         0  0.0000   0.000    0.0000
+## 6                0               0       0         0  0.0000   0.000    0.0000
+##   PF_TOTAL PF_MPS_TOTAL PF_MEAT PF_CUREDMEAT PF_ORGAN PF_POULT PF_SEAFD_HI
+## 1   0.0000            0       0            0        0        0           0
+## 2   0.7384            0       0            0        0        0           0
+## 3   0.0000            0       0            0        0        0           0
+## 4   0.0000            0       0            0        0        0           0
+## 5   0.0000            0       0            0        0        0           0
+## 6   1.8093            0       0            0        0        0           0
+##   PF_SEAFD_LOW PF_EGGS PF_SOY PF_NUTSDS PF_LEGUMES D_TOTAL D_MILK D_YOGURT
+## 1            0  0.0000      0    0.0000          0       0      0        0
+## 2            0  0.0000      0    0.7384          0       0      0        0
+## 3            0  0.0000      0    0.0000          0       0      0        0
+## 4            0  0.0000      0    0.0000          0       0      0        0
+## 5            0  0.0000      0    0.0000          0       0      0        0
+## 6            0  1.8093      0    0.0000          0       0      0        0
+##   D_CHEESE    OILS SOLID_FATS ADD_SUGARS A_DRINKS FoodComp
+## 1        0  0.0000     0.0000    7.05312        0        1
+## 2        0  6.0736     0.0000    3.43200        0        1
+## 3        0  0.0000     0.0000    2.05275        0        1
+## 4        0  0.0000     0.0000    0.00000        0        1
+## 5        0  0.0000     0.0000    0.00000        0        1
+## 6        0 15.8508     4.8507    0.00000        0        1
+##                                           Food_Description
+## 1                                           Soft_drink_NFS
+## 2 Cereal_Post_Great_Grains_Double_Pecan_Whole_Grain_Cereal
+## 3                                                    Honey
+## 4                                       Berries_frozen_NFS
+## 5                                                Water_tap
+## 6                           Egg_salad_made_with_mayonnaise</code></pre>
+<p>Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio, or you can also check the dimension of items_f by using the dim() function.</p>
+<pre class="r"><code>  dim(items_f_id)</code></pre>
+<pre><code>## [1] 684 131</code></pre>
+</div>
+<div id="use-individuals_to_remove.txt-to-filter-out-users-marked-as-remove-yes." class="section level3">
+<h3><Optional> Use individuals_to_remove.txt to filter out users marked as Remove = yes.</h3>
+<p>Load your metadata that has information about which UserName(s) to remove.</p>
+<pre class="r"><code>ind_to_rm &lt;- read.table(&quot;individuals_to_remove.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Take a look. Metadata for this purpose (ind_to_rm) has UserName and which one to be removed:</p>
+<pre class="r"><code>  ind_to_rm</code></pre>
+<pre><code>##    UserName Remove
+## 1  VVKAJ101       
+## 2  VVKAJ102       
+## 3  VVKAJ103       
+## 4  VVKAJ104       
+## 5  VVKAJ105       
+## 6  VVKAJ106       
+## 7  VVKAJ107       
+## 8  VVKAJ108       
+## 9  VVKAJ109       
+## 10 VVKAJ110       
+## 11 VVKAJ111       
+## 12 VVKAJ112       
+## 13 VVKAJ113       
+## 14 VVKAJ114       
+## 15 VVKAJ115       
+## 16 VVKAJ116    yes</code></pre>
+<p>Show which has “yes” in the “Remove” column.</p>
+<pre class="r"><code>  subset(ind_to_rm, Remove == &quot;yes&quot;)</code></pre>
+<pre><code>##    UserName Remove
+## 16 VVKAJ116    yes</code></pre>
+<p>Remove the specified individuals. The output will be saved as a text file with the specified name. This assumes the usernames are in UserName column, and will print which user(s) will be removed.</p>
+<pre class="r"><code>  RemoveRows(data=items_f_id, metadata.file= ind_to_rm,
+             output.name= &quot;VVKAJ_Items_f_id_s.txt&quot;)</code></pre>
+<pre><code>## 1 row(s) below are to be removed: 
+##    UserName Remove
+## 16 VVKAJ116    yes</code></pre>
+<p>Load the output for further processing.</p>
+<pre class="r"><code>  items_f_id_s &lt;- read.table(&quot;VVKAJ_Items_f_id_s.txt&quot;, header=T, sep=&quot;\t&quot;)</code></pre>
+<p>Show unique usernames in items_f_id_s and confirm “VVKAJ116” has been removed.</p>
+<pre class="r"><code>  unique(items_f_id_s$UserName)</code></pre>
+<pre><code>##  [1] &quot;VVKAJ101&quot; &quot;VVKAJ102&quot; &quot;VVKAJ103&quot; &quot;VVKAJ104&quot; &quot;VVKAJ105&quot; &quot;VVKAJ106&quot;
+##  [7] &quot;VVKAJ107&quot; &quot;VVKAJ108&quot; &quot;VVKAJ109&quot; &quot;VVKAJ110&quot; &quot;VVKAJ111&quot; &quot;VVKAJ112&quot;
+## [13] &quot;VVKAJ113&quot; &quot;VVKAJ114&quot; &quot;VVKAJ115&quot;</code></pre>
+</div>
+<div id="merge-individuals-metadata-to-items." class="section level3">
+<h3><Optional> Merge individuals’ metadata to items.</h3>
+<p>ind_metadata has the participants’ gender, age, height, weight, BMI, and Waist.Circumference, etc. If desired, this individual-specific information can be added to items data.</p>
+<p>Load ind_metadata.txt.</p>
+<pre class="r"><code>  ind_metadata &lt;- read.table(&quot;ind_metadata.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Look at what the metadata has.</p>
+<pre class="r"><code>  head(ind_metadata)</code></pre>
+<pre><code>##   UserName       Diet Gender Age Weight Height      BMI Waist.Circumference
+## 1 VVKAJ101 Vegetarian      M  31     79    186 22.83501                  80
+## 2 VVKAJ102      Vegan      F  60     73    163 27.47563                  90
+## 3 VVKAJ103       Keto      M  43     81    175 26.44898                  72
+## 4 VVKAJ104   American      F  25     85    169 29.76086                  89
+## 5 VVKAJ105   Japanese      M  71     60    169 21.00767                  75
+## 6 VVKAJ106 Vegetarian      F  53     68    159 26.89767                  85</code></pre>
+<p>Add this metadata of each participant in totals or items. ‘NA’ will be inserted to UserNames which are not in ind_metadata.</p>
+<pre class="r"><code>  items_f_id_s_m &lt;- merge(x=items_f_id_s, y=ind_metadata, by=&quot;UserName&quot;, all.x=T)</code></pre>
+<p>Check that the items data and metadata are merged.</p>
+<pre class="r"><code>  head(items_f_id_s_m)</code></pre>
+<pre><code>##   UserName    SampleID                          RecallRecId
+## 1 VVKAJ101 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9
+## 2 VVKAJ101 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9
+## 3 VVKAJ101 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9
+## 4 VVKAJ101 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9
+## 5 VVKAJ101 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9
+## 6 VVKAJ101 vvkaj.00001 41fee4cf-783f-469b-aadf-62c7e2cd33a9
+##                                 UserID RecallNo RecallAttempt RecallStatus
+## 1 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 2 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 3 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 4 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 5 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+## 6 7bd05142-312e-4648-b1ac-fc258540af52        1             0            2
+##   IntakeStartDateTime IntakeEndDateTime ReportingDate Lang Occ_No
+## 1      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      1
+## 2      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      1
+## 3      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      1
+## 4      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      1
+## 5      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      2
+## 6      11/5/2021 0:00   11/5/2021 23:59     11/6/2021    1      3
+##          Occ_Time Occ_Name EatWith WatchTVuseComputer Location FoodNum FoodType
+## 1  11/5/2021 7:00        1      NA                 NA        1       1        1
+## 2  11/5/2021 7:00        1      NA                 NA        1       2        1
+## 3  11/5/2021 7:00        1      NA                 NA        1       3        2
+## 4  11/5/2021 7:00        1      NA                 NA        1       4        1
+## 5 11/5/2021 10:00        7      NA                 NA        1       5        1
+## 6 11/5/2021 12:00        3      NA                 NA        1       6        1
+##   FoodSrce CodeNum FoodCode ModCode HowMany SubCode PortionCode FoodAmt    KCAL
+## 1       NA       1 92400000       0     9.6       0       30001   297.6 124.992
+## 2       NA       2 57231250       0     1.0       0       10205   104.0 419.120
+## 3       NA       3 91302010       0     0.5       0       21000    10.5  31.920
+## 4       NA       4 63200200       0     0.5       0       10205    98.5  50.235
+## 5       NA       5 94000100       0     8.4       0       30000   252.0   0.000
+## 6       NA       6 32103000       0     0.5       0       10205   111.0 285.270
+##      PROT    TFAT     CARB      MOIS ALC   CAFF THEO     SUGR    FIBE   CALC
+## 1  0.0000  0.7440 30.83136 265.93536   0 26.784    0 29.58144  0.0000  2.976
+## 2  9.3600 10.9200 75.92000   5.40800   0  0.000    0 16.01600 10.0880 40.560
+## 3  0.0315  0.0000  8.65200   1.79550   0  0.000    0  8.62260  0.0210  0.630
+## 4  0.4137  0.6304 11.98745  85.29115   0  0.000    0  8.32325  2.6595  7.880
+## 5  0.0000  0.0000  0.00000 251.74800   0  0.000    0  0.00000  0.0000  7.560
+## 6 11.3886 25.6854  1.12110  70.99560   0  0.000    0  1.12110  0.0000 46.620
+##       IRON    MAGN    PHOS   POTA    SODI    ZINC     COPP    SELE     VC
+## 1  0.05952   0.000  26.784  14.88   8.928 0.26784 0.020832  0.2976 0.0000
+## 2 17.99200 101.920 307.840 350.48 298.480 2.39200 0.416000 43.4720 0.2080
+## 3  0.04410   0.210   0.420   5.46   0.420 0.02310 0.003780  0.0840 0.0525
+## 4  0.17730   4.925  10.835  53.19   0.985 0.06895 0.032505  0.0985 2.4625
+## 5  0.00000   2.520   0.000   0.00  10.080 0.02520 0.025200  0.0000 0.0000
+## 6  1.11000   8.880 157.620 116.55 420.690 0.96570 0.015540 27.8610 0.0000
+##       VB1      VB2     NIAC      VB6    FOLA     FA     FF    FDFE   VB12
+## 1 0.00000 0.000000 0.000000 0.000000   0.000   0.00  0.000   0.000 0.0000
+## 2 0.72800 0.832000 9.984000 1.040000 199.680 179.92 19.760 326.560 3.0160
+## 3 0.00000 0.003990 0.012705 0.002520   0.210   0.00  0.210   0.210 0.0000
+## 4 0.03152 0.036445 0.512200 0.058115   6.895   0.00  6.895   6.895 0.0000
+## 5 0.00000 0.000000 0.000000 0.000000   0.000   0.00  0.000   0.000 0.0000
+## 6 0.06105 0.459540 0.056610 0.108780  39.960   0.00 39.960  39.960 1.0101
+##     VARA    RET  BCAR ACAR CRYP LYCO     LZ   ATOC     VK  CHOLE     SFAT S040
+## 1   0.00   0.00  0.00    0 0.00    0   0.00 0.0000  0.000   0.00 0.000000    0
+## 2 447.20 447.20  5.20    0 1.04    0 142.48 0.7696  2.288   0.00 1.040000    0
+## 3   0.00   0.00  0.00    0 0.00    0   0.00 0.0000  0.000   0.00 0.000000    0
+## 4   1.97   0.00 27.58    0 0.00    0  66.98 0.4728 16.154   0.00 0.052205    0
+## 5   0.00   0.00  0.00    0 0.00    0   0.00 0.0000  0.000   0.00 0.000000    0
+## 6 135.42 134.31 11.10    0 9.99    0 316.35 1.6317 35.631 340.77 5.443440    0
+##   S060    S080    S100    S120    S140     S160     S180     MFAT    M161
+## 1    0 0.00000 0.00000 0.00000 0.00000 0.000000 0.000000 0.000000 0.00000
+## 2    0 0.00000 0.00000 0.00208 0.00208 0.803920 0.205920 6.032000 0.00312
+## 3    0 0.00000 0.00000 0.00000 0.00000 0.000000 0.000000 0.000000 0.00000
+## 4    0 0.00000 0.00000 0.00000 0.00000 0.030535 0.010835 0.089635 0.00197
+## 5    0 0.00000 0.00000 0.00000 0.00000 0.000000 0.000000 0.000000 0.00000
+## 6    0 0.00222 0.00222 0.00222 0.04329 3.803970 1.408590 7.279380 0.29415
+##       M181    M201    M221      PFAT     P182    P183 P184    P204    P205 P225
+## 1 0.000000 0.00000 0.00000  0.000000 0.000000 0.00000    0 0.00000 0.00000    0
+## 2 5.989360 0.03744 0.00104  3.224000 3.051360 0.17264    0 0.00000 0.00000    0
+## 3 0.000000 0.00000 0.00000  0.000000 0.000000 0.00000    0 0.00000 0.00000    0
+## 4 0.085695 0.00000 0.00000  0.274815 0.164495 0.11032    0 0.00000 0.00000    0
+## 5 0.000000 0.00000 0.00000  0.000000 0.000000 0.00000    0 0.00000 0.00000    0
+## 6 6.882000 0.07881 0.00777 10.960140 9.555990 1.21545    0 0.14319 0.00444    0
+##      P226  VITD    CHOLN VITE_ADD B12_ADD F_TOTAL F_CITMLB F_OTHER F_JUICE
+## 1 0.00000 0.000   0.8928        0   0.000 0.00000  0.00000       0       0
+## 2 0.00000 1.976  29.9520        0   3.016 0.00000  0.00000       0       0
+## 3 0.00000 0.000   0.2310        0   0.000 0.00000  0.00000       0       0
+## 4 0.00000 0.000   5.0235        0   0.000 0.65995  0.65995       0       0
+## 5 0.00000 0.000   0.0000        0   0.000 0.00000  0.00000       0       0
+## 6 0.03441 1.998 268.3980        0   0.000 0.00000  0.00000       0       0
+##   V_TOTAL V_DRKGR V_REDOR_TOTAL V_REDOR_TOMATO V_REDOR_OTHER V_STARCHY_TOTAL
+## 1       0       0             0              0             0               0
+## 2       0       0             0              0             0               0
+## 3       0       0             0              0             0               0
+## 4       0       0             0              0             0               0
+## 5       0       0             0              0             0               0
+## 6       0       0             0              0             0               0
+##   V_STARCHY_POTATO V_STARCHY_OTHER V_OTHER V_LEGUMES G_TOTAL G_WHOLE G_REFINED
+## 1                0               0       0         0  0.0000   0.000    0.0000
+## 2                0               0       0         0  2.7456   2.652    0.0936
+## 3                0               0       0         0  0.0000   0.000    0.0000
+## 4                0               0       0         0  0.0000   0.000    0.0000
+## 5                0               0       0         0  0.0000   0.000    0.0000
+## 6                0               0       0         0  0.0000   0.000    0.0000
+##   PF_TOTAL PF_MPS_TOTAL PF_MEAT PF_CUREDMEAT PF_ORGAN PF_POULT PF_SEAFD_HI
+## 1   0.0000            0       0            0        0        0           0
+## 2   0.7384            0       0            0        0        0           0
+## 3   0.0000            0       0            0        0        0           0
+## 4   0.0000            0       0            0        0        0           0
+## 5   0.0000            0       0            0        0        0           0
+## 6   1.8093            0       0            0        0        0           0
+##   PF_SEAFD_LOW PF_EGGS PF_SOY PF_NUTSDS PF_LEGUMES D_TOTAL D_MILK D_YOGURT
+## 1            0  0.0000      0    0.0000          0       0      0        0
+## 2            0  0.0000      0    0.7384          0       0      0        0
+## 3            0  0.0000      0    0.0000          0       0      0        0
+## 4            0  0.0000      0    0.0000          0       0      0        0
+## 5            0  0.0000      0    0.0000          0       0      0        0
+## 6            0  1.8093      0    0.0000          0       0      0        0
+##   D_CHEESE    OILS SOLID_FATS ADD_SUGARS A_DRINKS FoodComp
+## 1        0  0.0000     0.0000    7.05312        0        1
+## 2        0  6.0736     0.0000    3.43200        0        1
+## 3        0  0.0000     0.0000    2.05275        0        1
+## 4        0  0.0000     0.0000    0.00000        0        1
+## 5        0  0.0000     0.0000    0.00000        0        1
+## 6        0 15.8508     4.8507    0.00000        0        1
+##                                           Food_Description       Diet Gender
+## 1                                           Soft_drink_NFS Vegetarian      M
+## 2 Cereal_Post_Great_Grains_Double_Pecan_Whole_Grain_Cereal Vegetarian      M
+## 3                                                    Honey Vegetarian      M
+## 4                                       Berries_frozen_NFS Vegetarian      M
+## 5                                                Water_tap Vegetarian      M
+## 6                           Egg_salad_made_with_mayonnaise Vegetarian      M
+##   Age Weight Height      BMI Waist.Circumference
+## 1  31     79    186 22.83501                  80
+## 2  31     79    186 22.83501                  80
+## 3  31     79    186 22.83501                  80
+## 4  31     79    186 22.83501                  80
+## 5  31     79    186 22.83501                  80
+## 6  31     79    186 22.83501                  80</code></pre>
+<p>Save the merged dataframe as a .txt file.</p>
+<pre class="r"><code>  write.table(items_f_id_s_m, &quot;VVKAJ_Items_f_id_s_m.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
+<p>###Generate new totals file if any edits were made to the items file.</p>
+<p>Use one of the input files saved above as an input for calculating totals for. Specify which columns have usernames and Recall.No., which is the number of recorded days.</p>
+<pre class="r"><code>  GenerateTotals(inputfn = &quot;VVKAJ_Items_f_id_s_m.txt&quot;, 
+                 User.Name = &#39;UserName&#39;, 
+                 Recall.No = &#39;RecallNo&#39;,
+                 outfn = &quot;VVKAJ_Tot.txt&quot;)</code></pre>
+<p>Load the total file generated above.</p>
+<pre class="r"><code>  new_totals &lt;- read.table(&quot;VVKAJ_Tot.txt&quot;, header=T, sep=&quot;\t&quot;)</code></pre>
+<p>The number of rows should be {No. of users x No. days}. For the example data, 15 users x 3 days = 45 rows (observations).</p>
+<pre class="r"><code>  nrow(new_totals) </code></pre>
+<pre><code>## [1] 45</code></pre>
+<p>View the new_totals.</p>
+<pre class="r"><code>  head(new_totals)</code></pre>
+<pre><code>##     User_Day UserName RecallNo  FoodAmt      KCAL     PROT     TFAT     CARB
+## 1 VVKAJ101_1 VVKAJ101        1 2402.500 2314.9040 80.15720 82.97721 337.7973
+## 2 VVKAJ101_2 VVKAJ101        2 1671.650  913.5955 35.13461 37.42791 118.5702
+## 3 VVKAJ101_3 VVKAJ101        3 1920.588 1604.8050 48.29881 70.08057 215.7318
+## 4 VVKAJ102_1 VVKAJ102        1 1957.475 1440.1995 38.54926 80.38863 152.8296
+## 5 VVKAJ102_2 VVKAJ102        2 1858.067 1508.9957 46.25199 56.89753 212.5225
+## 6 VVKAJ102_3 VVKAJ102        3 2049.400 1834.2306 58.89500 87.53381 211.8413
+##       MOIS ALC   CAFF THEO      SUGR     FIBE      CALC      IRON     MAGN
+## 1 1879.619   0 26.784 0.00 144.20847 52.62550  889.8455 31.282000 589.3865
+## 2 1467.035   0 76.800 0.00  47.67748 21.04413  619.2521  7.366001 273.2332
+## 3 1572.133   0 30.240 3.36 111.81870 23.27856 1427.6826 14.628896 320.9569
+## 4 1669.286   0 50.400 5.04  25.75794 33.90378  912.4538 11.797247 284.4450
+## 5 1521.262   0 22.680 2.52  55.29288 31.25067 1144.7673 14.180575 366.8420
+## 6 1666.272   0  0.000 0.00  31.41001 29.35169  700.0389 14.009471 373.1694
+##        PHOS     POTA     SODI      ZINC     COPP      SELE       VC      VB1
+## 1 1787.4540 4615.400 2298.662 11.776515 1.935984 113.91525 209.0321 1.882480
+## 2  794.2740 2093.175 1058.073  5.470231 1.325496  58.42284 147.7427 0.983826
+## 3 1249.7137 2571.690 2069.723  8.953749 1.565804  83.81562 137.9377 1.316055
+## 4  808.2387 2974.354 2550.088  5.641533 1.278044  42.76070 179.4785 1.137953
+## 5 1043.4290 4686.336 2840.423  6.408068 1.427889  38.26618 157.1404 2.909776
+## 6 1164.2706 4653.953 4285.981  6.745011 2.066325  72.05487 117.7118 4.570952
+##         VB2     NIAC      VB6     FOLA      FA       FF      FDFE     VB12
+## 1 2.9713065 18.72793 3.829823 719.3660 179.920 539.4460  846.2460  5.17202
+## 2 1.2894892 12.24912 1.386882 372.7493  85.070 287.6793  432.4393  2.23350
+## 3 2.0125987 14.49594 4.120610 918.5919 601.800 316.7919 1340.1919 13.23145
+## 4 0.9494982 10.92889 1.637870 459.3215  52.025 410.3265  495.5415  1.80990
+## 5 1.3127483 13.76033 2.560617 534.1780  20.200 515.9980  548.3180  3.97461
+## 6 1.2672856 18.25922 2.540221 506.4956  26.700 481.8156  525.2356  3.70270
+##        VARA      RET      BCAR      ACAR      CRYP     LYCO        LZ      ATOC
+## 1 1261.6665 673.1850  7004.547  106.7165  56.11800   13.350 14273.582  9.851310
+## 2 1412.8761  82.3500 13464.676 4921.4081  81.65188 1174.626  2444.209  4.628156
+## 3 1111.7093 504.9250  6476.761 1614.4750  19.37550    4.704  5437.084 16.765260
+## 4  310.6182 165.1115  1551.208  344.1073  68.67350 7582.125  1340.894 18.987955
+## 5 1265.3238 222.6810 10784.821 3226.1183 198.74500 3380.685  4032.658 16.267538
+## 6  344.2824 144.1200  2307.391  143.9169  12.66863 3374.064  3388.637  9.870323
+##         VK   CHOLE      SFAT     S040       S060      S080      S100       S120
+## 1 674.6513 375.967 18.696057 0.310902 0.11065100 0.1176030 0.2303450 0.18606100
+## 2 176.1320  18.300  8.035444 0.137250 0.13725000 0.1401794 0.1440906 0.16560063
+## 3 356.2514  64.265 21.762310 0.461520 0.35581000 0.6559880 0.7907570 3.08172600
+## 4 193.4643  63.277 12.393455 0.063991 0.04301325 0.0834395 0.1062550 0.06083225
+## 5 271.3043  53.980 10.073571 0.086720 0.06900500 0.2074300 0.2042550 0.43357300
+## 6 270.4181  65.830 17.110502 0.318160 0.16680000 0.2767274 0.3239814 0.26321963
+##        S140      S160     S180     MFAT      M161     M181      M201       M221
+## 1 1.2467585 11.448329 4.130060 28.14091 0.7393160 26.99568 0.2349650 0.00881000
+## 2 0.5821610  4.955292 1.532696 15.32206 0.3639200 14.79923 0.1110759 0.00346125
+## 3 2.6981170  9.237105 3.415553 24.67066 0.4838810 23.65191 0.1867220 0.00864600
+## 4 0.1955330  8.961791 2.439567 34.62131 0.9667318 33.33719 0.2755755 0.00450000
+## 5 0.5196547  6.309740 1.897680 22.20331 0.4462590 21.47338 0.2112680 0.02609700
+## 6 0.8637470 10.355075 3.764050 33.49530 0.3996655 32.60066 0.3411139 0.00658725
+##       PFAT      P182     P183 P184     P204    P205    P225    P226      VITD
+## 1 28.95861 25.201469 3.525870    0 0.157937 0.00444 0.00000 0.03441  4.881200
+## 2 10.24234  9.135821 1.092069    0 0.001315 0.00000 0.00000 0.00000  2.379000
+## 3 18.75467 16.930229 1.803171    0 0.006573 0.00000 0.00000 0.00000 10.193000
+## 4 28.41416 24.796558 3.534361    0 0.038890 0.00000 0.00000 0.00909  3.375425
+## 5 20.44748 17.914195 2.412754    0 0.026967 0.00000 0.00000 0.01881  4.985000
+## 6 31.17042 27.616109 3.344330    0 0.038623 0.00032 0.00208 0.00670  2.102000
+##      CHOLN VITE_ADD  B12_ADD  F_TOTAL F_CITMLB  F_OTHER F_JUICE  V_TOTAL
+## 1 572.5637  0.00000  3.01600 4.037445  0.65995 3.035495  0.3420 3.656365
+## 2 143.2537  0.00000  1.41000 0.640500  0.30625 0.323750  0.0105 2.727494
+## 3 195.7137  8.34700 10.79370 1.530100  1.01160 0.505000  0.0135 1.906206
+## 4 182.4953  6.85640  1.53720 0.000000  0.00000 0.000000  0.0000 4.280535
+## 5 212.2748  7.19922  3.21321 0.000000  0.00000 0.000000  0.0000 7.783067
+## 6 219.7563  0.00000  2.83410 0.000000  0.00000 0.000000  0.0000 7.084731
+##     V_DRKGR V_REDOR_TOTAL V_REDOR_TOMATO V_REDOR_OTHER V_STARCHY_TOTAL
+## 1 1.6658400      0.000000        0.00000      0.000000       0.0000000
+## 2 0.4840000      1.177100        0.04860      1.128500       0.0000000
+## 3 1.0143750      0.300500        0.00000      0.300500       0.0000000
+## 4 0.0099900      1.485350        1.48535      0.000000       0.1288625
+## 5 0.6186667      1.857575        0.84840      1.009175       3.3200000
+## 6 0.7412500      0.848400        0.84840      0.000000       4.6146000
+##   V_STARCHY_POTATO V_STARCHY_OTHER   V_OTHER V_LEGUMES G_TOTAL G_WHOLE
+## 1           0.0000       0.0000000 1.9905250  1.256750  5.4384  2.6520
+## 2           0.0000       0.0000000 1.0663938  0.105000  2.6500  1.7669
+## 3           0.0000       0.0000000 0.5913312  0.135000  4.4072  4.2542
+## 4           0.0000       0.1288625 2.6563325  1.085300  5.0421  1.5522
+## 5           3.3200       0.0000000 1.9868250  0.285000  2.2405  1.0285
+## 6           4.6146       0.0000000 0.8804812  0.192375  1.6050  0.0000
+##   G_REFINED PF_TOTAL PF_MPS_TOTAL PF_MEAT PF_CUREDMEAT PF_ORGAN PF_POULT
+## 1    2.7864 3.111700       0.0000       0       0.0000        0        0
+## 2    0.8831 3.316731       0.0000       0       0.0000        0        0
+## 3    0.1530 2.501000       0.0000       0       0.0000        0        0
+## 4    3.4899 0.644600       0.0000       0       0.0000        0        0
+## 5    1.2120 2.226680       0.0000       0       0.0000        0        0
+## 6    1.6050 4.697931       0.2016       0       0.2016        0        0
+##   PF_SEAFD_HI PF_SEAFD_LOW PF_EGGS PF_SOY PF_NUTSDS PF_LEGUMES D_TOTAL  D_MILK
+## 1           0            0  1.8093 0.0000 1.3024000   4.935150 1.34064 0.21168
+## 2           0            0  0.0000 1.9200 1.3967312   0.420000 0.75030 0.75030
+## 3           0            0  0.0000 0.0000 2.5010000   0.540000 2.39525 0.88850
+## 4           0            0  0.3030 0.0000 0.3416000   4.351050 0.15150 0.15150
+## 5           0            0  0.2020 1.6660 0.3586800   1.155000 0.57980 0.57980
+## 6           0            0  0.2020 3.3558 0.9385313   0.772875 0.70760 0.58900
+##   D_YOGURT D_CHEESE     OILS SOLID_FATS ADD_SUGARS A_DRINKS
+## 1  0.00000   0.5544 46.76440  14.582140   12.53787        0
+## 2  0.00000   0.0000 19.10275   4.932700    3.95306        0
+## 3  1.50675   0.0000 36.48778  18.798000   10.32484        0
+## 4  0.00000   0.0000 69.07104   2.439577    1.72710        0
+## 5  0.00000   0.0000 44.07012   3.130800    5.21406        0
+## 6  0.00000   0.0140 65.58897   9.271000    0.80064        0</code></pre>
+</div>
+<div id="add-the-participants-metadata-back-to-totals." class="section level3">
+<h3><Optional> Add the participants’ metadata back to totals.</h3>
+<p>Load ind_metadata.txt if you have not done so.</p>
+<pre class="r"><code>  ind_metadata &lt;- read.table(&quot;ind_metadata.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Add this metadata of each participant to totals. ‘NA’ will be inserted to UserNames which are not in ind_metadata.</p>
+<pre class="r"><code>  new_totals_m &lt;- merge(x=new_totals, y=ind_metadata, by=&quot;UserName&quot;, all.x=T)</code></pre>
+<p>Check that the items data and metadata are merged.</p>
+<pre class="r"><code>  head(new_totals_m)</code></pre>
+<details>
+<summary>
+Click to expand output
+</summary>
+<pre><code>  ##   UserName   User_Day RecallNo  FoodAmt      KCAL     PROT     TFAT     CARB
+  ## 1 VVKAJ101 VVKAJ101_1        1 2402.500 2314.9040 80.15720 82.97721 337.7973
+  ## 2 VVKAJ101 VVKAJ101_2        2 1671.650  913.5955 35.13461 37.42791 118.5702
+  ## 3 VVKAJ101 VVKAJ101_3        3 1920.588 1604.8050 48.29881 70.08057 215.7318
+  ## 4 VVKAJ102 VVKAJ102_1        1 1957.475 1440.1995 38.54926 80.38863 152.8296
+  ## 5 VVKAJ102 VVKAJ102_2        2 1858.067 1508.9957 46.25199 56.89753 212.5225
+  ## 6 VVKAJ102 VVKAJ102_3        3 2049.400 1834.2306 58.89500 87.53381 211.8413
+  ##       MOIS ALC   CAFF THEO      SUGR     FIBE      CALC      IRON     MAGN
+  ## 1 1879.619   0 26.784 0.00 144.20847 52.62550  889.8455 31.282000 589.3865
+  ## 2 1467.035   0 76.800 0.00  47.67748 21.04413  619.2521  7.366001 273.2332
+  ## 3 1572.133   0 30.240 3.36 111.81870 23.27856 1427.6826 14.628896 320.9569
+  ## 4 1669.286   0 50.400 5.04  25.75794 33.90378  912.4538 11.797247 284.4450
+  ## 5 1521.262   0 22.680 2.52  55.29288 31.25067 1144.7673 14.180575 366.8420
+  ## 6 1666.272   0  0.000 0.00  31.41001 29.35169  700.0389 14.009471 373.1694
+  ##        PHOS     POTA     SODI      ZINC     COPP      SELE       VC      VB1
+  ## 1 1787.4540 4615.400 2298.662 11.776515 1.935984 113.91525 209.0321 1.882480
+  ## 2  794.2740 2093.175 1058.073  5.470231 1.325496  58.42284 147.7427 0.983826
+  ## 3 1249.7137 2571.690 2069.723  8.953749 1.565804  83.81562 137.9377 1.316055
+  ## 4  808.2387 2974.354 2550.088  5.641533 1.278044  42.76070 179.4785 1.137953
+  ## 5 1043.4290 4686.336 2840.423  6.408068 1.427889  38.26618 157.1404 2.909776
+  ## 6 1164.2706 4653.953 4285.981  6.745011 2.066325  72.05487 117.7118 4.570952
+  ##         VB2     NIAC      VB6     FOLA      FA       FF      FDFE     VB12
+  ## 1 2.9713065 18.72793 3.829823 719.3660 179.920 539.4460  846.2460  5.17202
+  ## 2 1.2894892 12.24912 1.386882 372.7493  85.070 287.6793  432.4393  2.23350
+  ## 3 2.0125987 14.49594 4.120610 918.5919 601.800 316.7919 1340.1919 13.23145
+  ## 4 0.9494982 10.92889 1.637870 459.3215  52.025 410.3265  495.5415  1.80990
+  ## 5 1.3127483 13.76033 2.560617 534.1780  20.200 515.9980  548.3180  3.97461
+  ## 6 1.2672856 18.25922 2.540221 506.4956  26.700 481.8156  525.2356  3.70270
+  ##        VARA      RET      BCAR      ACAR      CRYP     LYCO        LZ      ATOC
+  ## 1 1261.6665 673.1850  7004.547  106.7165  56.11800   13.350 14273.582  9.851310
+  ## 2 1412.8761  82.3500 13464.676 4921.4081  81.65188 1174.626  2444.209  4.628156
+  ## 3 1111.7093 504.9250  6476.761 1614.4750  19.37550    4.704  5437.084 16.765260
+  ## 4  310.6182 165.1115  1551.208  344.1073  68.67350 7582.125  1340.894 18.987955
+  ## 5 1265.3238 222.6810 10784.821 3226.1183 198.74500 3380.685  4032.658 16.267538
+  ## 6  344.2824 144.1200  2307.391  143.9169  12.66863 3374.064  3388.637  9.870323
+  ##         VK   CHOLE      SFAT     S040       S060      S080      S100       S120
+  ## 1 674.6513 375.967 18.696057 0.310902 0.11065100 0.1176030 0.2303450 0.18606100
+  ## 2 176.1320  18.300  8.035444 0.137250 0.13725000 0.1401794 0.1440906 0.16560063
+  ## 3 356.2514  64.265 21.762310 0.461520 0.35581000 0.6559880 0.7907570 3.08172600
+  ## 4 193.4643  63.277 12.393455 0.063991 0.04301325 0.0834395 0.1062550 0.06083225
+  ## 5 271.3043  53.980 10.073571 0.086720 0.06900500 0.2074300 0.2042550 0.43357300
+  ## 6 270.4181  65.830 17.110502 0.318160 0.16680000 0.2767274 0.3239814 0.26321963
+  ##        S140      S160     S180     MFAT      M161     M181      M201       M221
+  ## 1 1.2467585 11.448329 4.130060 28.14091 0.7393160 26.99568 0.2349650 0.00881000
+  ## 2 0.5821610  4.955292 1.532696 15.32206 0.3639200 14.79923 0.1110759 0.00346125
+  ## 3 2.6981170  9.237105 3.415553 24.67066 0.4838810 23.65191 0.1867220 0.00864600
+  ## 4 0.1955330  8.961791 2.439567 34.62131 0.9667318 33.33719 0.2755755 0.00450000
+  ## 5 0.5196547  6.309740 1.897680 22.20331 0.4462590 21.47338 0.2112680 0.02609700
+  ## 6 0.8637470 10.355075 3.764050 33.49530 0.3996655 32.60066 0.3411139 0.00658725
+  ##       PFAT      P182     P183 P184     P204    P205    P225    P226      VITD
+  ## 1 28.95861 25.201469 3.525870    0 0.157937 0.00444 0.00000 0.03441  4.881200
+  ## 2 10.24234  9.135821 1.092069    0 0.001315 0.00000 0.00000 0.00000  2.379000
+  ## 3 18.75467 16.930229 1.803171    0 0.006573 0.00000 0.00000 0.00000 10.193000
+  ## 4 28.41416 24.796558 3.534361    0 0.038890 0.00000 0.00000 0.00909  3.375425
+  ## 5 20.44748 17.914195 2.412754    0 0.026967 0.00000 0.00000 0.01881  4.985000
+  ## 6 31.17042 27.616109 3.344330    0 0.038623 0.00032 0.00208 0.00670  2.102000
+  ##      CHOLN VITE_ADD  B12_ADD  F_TOTAL F_CITMLB  F_OTHER F_JUICE  V_TOTAL
+  ## 1 572.5637  0.00000  3.01600 4.037445  0.65995 3.035495  0.3420 3.656365
+  ## 2 143.2537  0.00000  1.41000 0.640500  0.30625 0.323750  0.0105 2.727494
+  ## 3 195.7137  8.34700 10.79370 1.530100  1.01160 0.505000  0.0135 1.906206
+  ## 4 182.4953  6.85640  1.53720 0.000000  0.00000 0.000000  0.0000 4.280535
+  ## 5 212.2748  7.19922  3.21321 0.000000  0.00000 0.000000  0.0000 7.783067
+  ## 6 219.7563  0.00000  2.83410 0.000000  0.00000 0.000000  0.0000 7.084731
+  ##     V_DRKGR V_REDOR_TOTAL V_REDOR_TOMATO V_REDOR_OTHER V_STARCHY_TOTAL
+  ## 1 1.6658400      0.000000        0.00000      0.000000       0.0000000
+  ## 2 0.4840000      1.177100        0.04860      1.128500       0.0000000
+  ## 3 1.0143750      0.300500        0.00000      0.300500       0.0000000
+  ## 4 0.0099900      1.485350        1.48535      0.000000       0.1288625
+  ## 5 0.6186667      1.857575        0.84840      1.009175       3.3200000
+  ## 6 0.7412500      0.848400        0.84840      0.000000       4.6146000
+  ##   V_STARCHY_POTATO V_STARCHY_OTHER   V_OTHER V_LEGUMES G_TOTAL G_WHOLE
+  ## 1           0.0000       0.0000000 1.9905250  1.256750  5.4384  2.6520
+  ## 2           0.0000       0.0000000 1.0663938  0.105000  2.6500  1.7669
+  ## 3           0.0000       0.0000000 0.5913312  0.135000  4.4072  4.2542
+  ## 4           0.0000       0.1288625 2.6563325  1.085300  5.0421  1.5522
+  ## 5           3.3200       0.0000000 1.9868250  0.285000  2.2405  1.0285
+  ## 6           4.6146       0.0000000 0.8804812  0.192375  1.6050  0.0000
+  ##   G_REFINED PF_TOTAL PF_MPS_TOTAL PF_MEAT PF_CUREDMEAT PF_ORGAN PF_POULT
+  ## 1    2.7864 3.111700       0.0000       0       0.0000        0        0
+  ## 2    0.8831 3.316731       0.0000       0       0.0000        0        0
+  ## 3    0.1530 2.501000       0.0000       0       0.0000        0        0
+  ## 4    3.4899 0.644600       0.0000       0       0.0000        0        0
+  ## 5    1.2120 2.226680       0.0000       0       0.0000        0        0
+  ## 6    1.6050 4.697931       0.2016       0       0.2016        0        0
+  ##   PF_SEAFD_HI PF_SEAFD_LOW PF_EGGS PF_SOY PF_NUTSDS PF_LEGUMES D_TOTAL  D_MILK
+  ## 1           0            0  1.8093 0.0000 1.3024000   4.935150 1.34064 0.21168
+  ## 2           0            0  0.0000 1.9200 1.3967312   0.420000 0.75030 0.75030
+  ## 3           0            0  0.0000 0.0000 2.5010000   0.540000 2.39525 0.88850
+  ## 4           0            0  0.3030 0.0000 0.3416000   4.351050 0.15150 0.15150
+  ## 5           0            0  0.2020 1.6660 0.3586800   1.155000 0.57980 0.57980
+  ## 6           0            0  0.2020 3.3558 0.9385313   0.772875 0.70760 0.58900
+  ##   D_YOGURT D_CHEESE     OILS SOLID_FATS ADD_SUGARS A_DRINKS       Diet Gender
+  ## 1  0.00000   0.5544 46.76440  14.582140   12.53787        0 Vegetarian      M
+  ## 2  0.00000   0.0000 19.10275   4.932700    3.95306        0 Vegetarian      M
+  ## 3  1.50675   0.0000 36.48778  18.798000   10.32484        0 Vegetarian      M
+  ## 4  0.00000   0.0000 69.07104   2.439577    1.72710        0      Vegan      F
+  ## 5  0.00000   0.0000 44.07012   3.130800    5.21406        0      Vegan      F
+  ## 6  0.00000   0.0140 65.58897   9.271000    0.80064        0      Vegan      F
+  ##   Age Weight Height      BMI Waist.Circumference
+  ## 1  31     79    186 22.83501                  80
+  ## 2  31     79    186 22.83501                  80
+  ## 3  31     79    186 22.83501                  80
+  ## 4  60     73    163 27.47563                  90
+  ## 5  60     73    163 27.47563                  90
+  ## 6  60     73    163 27.47563                  90
+  ```
+&lt;/details&gt; 
+
+Save the merged dataframe as a .txt file.
+
+```r
+write.table(new_totals_m, &quot;VVKAJ_Tot_m.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
+</div>
+<div id="qc-totals-data" class="section level3">
+<h3>QC totals data</h3>
+<p>Look for outliers in your totals.</p>
+<p>Note that input dataframe (QCtotals) will be overwritten after outlier removal.</p>
+<p>Load your totals if necessary - to be used as input for QC.</p>
+<pre class="r"><code>  new_totals &lt;- read.table(&quot;VVKAJ_Tot_m.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Define your totals dataset to be used as input.</p>
+<pre class="r"><code>  QCtotals &lt;- new_totals  </code></pre>
+<p>Flag if KCAL is &lt;600 or &gt;5700 –&gt; ask remove or not –&gt; if yes, remove those rows</p>
+<pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;KCAL&quot;, min = 600, max = 5700)</code></pre>
+<pre><code>## There are 0 observations with &lt; 600 or &gt; 5700 . 
+## There are no outlier rows, but the input data was renamed as QCtotals.
+##  45 rows remained.</code></pre>
+<p>Flag if PROT is &lt;10 or &gt;240 –&gt; ask remove or not –&gt; if yes, remove those rows</p>
+<pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;PROT&quot;, min = 10, max = 240)</code></pre>
+<pre><code>## There are 0 observations with &lt; 10 or &gt; 240 . 
+## There are no outlier rows, but the input data was renamed as QCtotals.
+##  45 rows remained.</code></pre>
+<p>Flag if TFAT is &lt;15 or &gt;230 –&gt; ask remove or not –&gt; if yes, remove those rows</p>
+<pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;TFAT&quot;, min = 15, max = 230)</code></pre>
+<pre><code>## There are 0 observations with &lt; 15 or &gt; 230 . 
+## There are no outlier rows, but the input data was renamed as QCtotals.
+##  45 rows remained.</code></pre>
+<p>Flag if VC (Vitamin C) is &lt;5 or &gt;400 –&gt; ask remove or not –&gt; if yes, remove those rows</p>
+<pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;VC&quot;, min = 5, max = 400)</code></pre>
+<pre><code>## There are 0 observations with &lt; 5 or &gt; 400 . 
+## There are no outlier rows, but the input data was renamed as QCtotals.
+##  45 rows remained.</code></pre>
+<p>You may find numerous potential outliers here. Then, click “No”, and view those outliers with their other nutrient intake information by running the following;</p>
+<pre class="r"><code>  VC_outliers &lt;- subset(new_totals, VC &lt; 5 | VC &gt; 400)    </code></pre>
+<p>Sort in the order of VC and show only the specified variables.</p>
+<pre class="r"><code>  VC_outliers[order(VC_outliers$BCAR, decreasing = T),
+              c(&#39;UserName&#39;, &#39;KCAL&#39;, &#39;VC&#39;, &#39;V_TOTAL&#39;, &#39;V_DRKGR&#39;, &#39;F_TOTAL&#39;)]  # F is fruits.</code></pre>
+<pre><code>## [1] UserName KCAL     VC       V_TOTAL  V_DRKGR  F_TOTAL 
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>Save as “Totals_m_QCed.txt”</p>
+<pre class="r"><code>  write.table(QCtotals, &quot;VVKAJ_Tot_m_QCed.txt&quot;, sep=&quot;\t&quot;, quote=F, row.names=F)</code></pre>
+<hr />
+<p>Come back to the main directory before you start running another script.</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
 </div>
 
 
