@@ -5,8 +5,6 @@ navbar:
   title: "DietR Package"
   href: index.html
   left:
-  - text: Home
-    href: index.html
   - text: ASA24
     menu:
     - text: ASA24_1
@@ -16,7 +14,9 @@ navbar:
   - text: NHANES
     menu:
     - text: NHANES_1
-      href: Links.html
+      href: NHANES_1.html
     - text: NHANES_2
-      href: thing1.html
+      href: NHANES_2.html
+  - text: Links
+    href: Links.html      
 output_dir: "docs"

@@ -1,77 +1,119 @@
 ---
-title: "ASA24 No_1 load and clean ASA24 data"
+title: "Load and clean ASA24 data"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+knitr::opts_chunk$set(echo=TRUE)
 ```
 
-## What this script does:
+### What this script does:
 1. Use Metadata 1 to filter out individuals.
-3. Remove users that has only a small number of totals (days of record). - if you know which one to remove.  
-2. Look for outliers in your totals by nutrient consumed on each day.
+2. Remove users that has only a small number of totals (days of record). - if you know which one to remove.  
+3. Look for outliers in your totals by nutrient consumed on each day.
 
-## How to specify path to data.
+Name the path to DietR directory where input files are pulled.
 ```{r}
-shape_path <- "~/GitHub/DietR"
-myfilepath <- paste(shape_path, "/eg_data/VVKAJ/VVKAJ_Items.txt", sep="")
-print(myfilepath)
+  main_wd <- "~/GitHub/DietR"
+  main_wd
 ```
 
-## How to load data.
+Load the necessary functions
 ```{r}
-myRobject <- read.table(myfilepath, sep="\t", header=T)
-
-head(myRobject)
+  source(paste(main_wd, "/lib/specify_data_dir.R", sep=""))
+  source(paste(main_wd, "/lib/load_clean_ASA24.R", sep=""))
+  source(paste(main_wd, "/lib/format.file.R", sep=""))
 ```
 
-What you need to to: 
-Need to hide the part to:
-1. Set working directory
-2. Load necessary functions and packages. (because the paths aren't correct for users)
-3. Load items data etc.
+<!-- Define the path to items data in main_wd. -->
+<!-- ```{r} -->
+<!-- items_path <- paste("/eg_data/VVKAJ/VVKAJ_Items.csv", sep="") -->
+<!-- print(items_path) -->
+<!-- ``` -->
 
-### Load the necessary functions
+### Load ASA24 Items data
+Load items data which is in a csv format.
 ```{r}
-source(paste(shape_path, "/lib/specify_data_dir.R", sep=""))
+items_raw <- read.csv("eg_data/VVKAJ/VVKAJ_Items.csv", sep = ",", header=T)
 ```
 
-### Load the necessary packages
+Show the first two lines of the items data.
 ```{r}
-library(ggplot2)
+head(items_raw, 2)
 ```
 
+Save it as a .txt file.
 
-need to do something like:
-"Load this file in your working directory called "dietary_patterns".
-REAL CODE = read.table(" ") 
+<!-- This will be saved in GitHub/DietR_gh_pages/ directory. -->
+<!-- ```{r} -->
+<!--   write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) -->
+<!-- ``` -->
 
-# Next section
-  
-```{r}
-# for loop solution
-# i becomes the number 1 to 100 at each step of the loop
+<!-- Special characters such as "'", ",", "%" may interfere correct data loading; thus, we replace them with an underscore "_". -->
+
+<!-- This function can only take .txt files as input. Specify column(s) to be processed in the "columns" argument and the output file name in the outfn argument; "_f" stands for "formatted". -->
+<!-- ```{r} -->
+<!--   format.file(filename = "VVKAJ_Items.txt", -->
+<!--               columns  = "Food_Description", -->
+<!--               outfn    = "VVKAJ_Items_f.txt") -->
+<!-- ``` -->
+
+<!-- Add SampleID with a desired prefix, and save it as a txt file. SampleIDs are IDs unique to each combination of users and day. -->
+<!-- ```{r} -->
+<!--   AddSampleIDtoItems(input.fn="VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", -->
+<!--                      prefix="vvkaj.", out.fn="VVKAJ_Items_f_id.txt") -->
+<!-- ``` -->
+
+<!-- Load the formatted Items file. -->
+<!-- ```{r} -->
+<!--   items_f_id <- read.table("VVKAJ_Items_f_id.txt", sep="\t", header=T) -->
+<!-- ``` -->
 
 
-a <- length(100) # make empty variable, set length to 100
-for (i in 1:100){
-  a[i] <-i #assigns the number in i, to the ith index of a
-}
+<!-- A combination of the specified prefix and sequential number should be added. -->
+<!-- ```{r} -->
+<!--   head(items_f_id) -->
+<!-- ``` -->
 
-print(a)
+<!-- Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio, or you can also check the dimension of items_f by using the dim() function. -->
+<!-- ```{r} -->
+<!--   dim(items_f_id) -->
+<!-- ``` -->
 
-# for loop solution #2
+<!-- ### <Optional> Use individuals_to_remove.txt to filter out users marked as Remove = yes. -->
+<!-- Load your metadata that has information about which UserName(s) to remove. -->
+<!-- ```{r} -->
+<!-- ind_to_rm_path <- paste(main_wd, "/eg_data/VVKAJ/individuals_to_remove.txt", sep="") -->
+<!-- ind_to_rm <- read.table(ind_to_rm_path, sep="\t", header=T) -->
+<!-- ``` -->
 
-a<-c() #create empty variable using combine command
-for (i in 1:100){
-  a<-c(a,i) # keeps combining a with itself and the new number in i
-}
-print(a)
+<!-- Take a look. Metadata for this purpose (ind_to_rm) has UserName and which one to be removed: -->
+<!-- ```{r} -->
+<!--   ind_to_rm -->
+<!-- ``` -->
 
-# seq solution
-a <- seq(1,100,1) # look up help for seq using ?seq() in console
-print(a)
+<!-- Show which has "yes" in the "Remove" column. -->
+<!-- ```{r} -->
+<!--   subset(ind_to_rm, Remove == "yes") -->
 
-```
+<!-- ``` -->
+
+<!-- Remove the specified individuals. -->
+<!-- The output will be saved as a text file with the specified name. -->
+<!-- This assumes the usernames are in UserName column, and will print which user(s) will be removed. -->
+<!-- ```{r} -->
+<!--   RemoveRows(data=items_f_id, metadata.file= ind_to_rm, -->
+<!--              output.name= "VVKAJ_Items_f_id_s.txt") -->
+<!-- ``` -->
+
+<!-- Load the output for further processing. -->
+<!-- ```{r} -->
+<!--   items_f_id_s <- read.table("VVKAJ_Items_f_id_s.txt", header=T, sep="\t") -->
+<!-- ``` -->
+
+<!-- Show unique usernames in items_f_id_s and confirm "VVKAJ116" has been removed. -->
+<!-- ```{r} -->
+<!--   unique(items_f_id_s$UserName) -->
+<!-- ``` -->
+
 

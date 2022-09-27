@@ -1,5 +1,5 @@
 ---
-title: "ASA24_No_2_title"
+title: "ASA24 Data Overview"
 output: html_document
 ---
 
@@ -7,17 +7,45 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## ASA24 - 2
+Name the path to DietR directory where input files are pulled.
+```{r}
+  main_wd <- "~/GitHub/DietR"
+  main_wd
+```
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Load the necessary functions
+```{r}
+  source(paste(main_wd, "/lib/specify_data_dir.R", sep=""))
+  source(paste(main_wd, "/lib/load_clean_ASA24.R", sep=""))
+  source(paste(main_wd, "/lib/format.file.R", sep=""))
+```
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Define the path to items data in main_wd.
+```{r}
+items_path <- paste(main_wd, "/testsheet.csv", sep="")
+print(items_path)
+```
 
+### Load ASA24 Items data
+Load items data which is in a csv format.
+```{r}
+items_raw <- read.csv(items_path, sep = ",", header=T)
+```
+
+Show the first two lines of the items data.
+```{r}
+head(items_raw, 2)
+```
+
+
+### Summarize and visualize ASA24 items and totals data.
+
+### Sample codes
 ```{r cars}
 summary(cars)
 ```
 
-## Including Plots
+### Including Plots
 
 You can also embed plots, for example:
 

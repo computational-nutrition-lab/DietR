@@ -11,7 +11,7 @@
 
 
 
-<title>ASA24_No_2_title</title>
+<title>ASA24 Data Overview</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -249,10 +249,7 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">Home</a>
-</li>
-<li class="dropdown">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     ASA24
      
@@ -275,12 +272,15 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Links.html">NHANES_1</a>
+      <a href="NHANES_1.html">NHANES_1</a>
     </li>
     <li>
-      <a href="thing1.html">NHANES_2</a>
+      <a href="NHANES_2.html">NHANES_2</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="Links.html">Links</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -294,15 +294,38 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">ASA24_No_2_title</h1>
+<h1 class="title toc-ignore">ASA24 Data Overview</h1>
 
 </div>
 
 
-<div id="asa24---2" class="section level2">
-<h2>ASA24 - 2</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<p>Name the path to DietR directory where input files are pulled.</p>
+<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;
+  main_wd</code></pre>
+<pre><code>## [1] &quot;~/GitHub/DietR&quot;</code></pre>
+<p>Load the necessary functions</p>
+<pre class="r"><code>  source(paste(main_wd, &quot;/lib/specify_data_dir.R&quot;, sep=&quot;&quot;))
+  source(paste(main_wd, &quot;/lib/load_clean_ASA24.R&quot;, sep=&quot;&quot;))
+  source(paste(main_wd, &quot;/lib/format.file.R&quot;, sep=&quot;&quot;))</code></pre>
+<p>Define the path to items data in main_wd.</p>
+<pre class="r"><code>items_path &lt;- paste(main_wd, &quot;/testsheet.csv&quot;, sep=&quot;&quot;)
+print(items_path)</code></pre>
+<pre><code>## [1] &quot;~/GitHub/DietR/testsheet.csv&quot;</code></pre>
+<div id="load-asa24-items-data" class="section level3">
+<h3>Load ASA24 Items data</h3>
+<p>Load items data which is in a csv format.</p>
+<pre class="r"><code>items_raw &lt;- read.csv(items_path, sep = &quot;,&quot;, header=T)</code></pre>
+<p>Show the first two lines of the items data.</p>
+<pre class="r"><code>head(items_raw, 2)</code></pre>
+<pre><code>##   One Two Three
+## 1   1   5    AA
+## 2   2  10    BB</code></pre>
+</div>
+<div id="summarize-and-visualize-asa24-items-and-totals-data." class="section level3">
+<h3>Summarize and visualize ASA24 items and totals data.</h3>
+</div>
+<div id="sample-codes" class="section level3">
+<h3>Sample codes</h3>
 <pre class="r"><code>summary(cars)</code></pre>
 <pre><code>##      speed           dist       
 ##  Min.   : 4.0   Min.   :  2.00  
@@ -312,8 +335,8 @@ $(document).ready(function () {
 ##  3rd Qu.:19.0   3rd Qu.: 56.00  
 ##  Max.   :25.0   Max.   :120.00</code></pre>
 </div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
+<div id="including-plots" class="section level3">
+<h3>Including Plots</h3>
 <p>You can also embed plots, for example:</p>
 <p><img src="ASA24_2_files/figure-html/pressure-1.png" width="672" /></p>
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>

@@ -1,0 +1,287 @@
+FoodCode	Main.food.description	ModCode	Old.Main.food.description	FoodID
+11100000	Milk_NFS	0	Milk, NFS	11100000.0
+11111000	Milk_cows_fluid_whole	0	Milk, cows, fluid, whole	11111000.0
+11112110	Milk_cows_fluid_2_fat	0	Milk, cows, fluid, 2% fat	11112110.0
+11112210	Milk_cows_fluid_1_fat	0	Milk, cows, fluid, 1% fat	11112210.0
+11320000	Milk_soy_ready_to_drink_not_babys	0	Milk, soy, ready-to-drink, not babys	11320000.0
+11350000	Milk_almond_ready_to_drink	0	Milk, almond, ready-to-drink	11350000.0
+11411100	Yogurt_plain_whole_milk	0	Yogurt, plain, whole milk	11411100.0
+11411200	Yogurt_plain_lowfat_milk	0	Yogurt, plain, lowfat milk	11411200.0
+11431000	Yogurt_fruit_variety_whole_milk	0	Yogurt, fruit variety, whole milk	11431000.0
+12130100	Cream_heavy_fluid	0	Cream, heavy, fluid	12130100.0
+14103020	Cheese_Brie	0	Cheese, Brie	14103020.0
+14104400	Cheese_Feta	0	Cheese, Feta	14104400.0
+14107020	Cheese_Mozzarella_whole_milk	0	Cheese, Mozzarella, whole milk	14107020.0
+14107030	Cheese_Mozzarella_part_skim	0	Cheese, Mozzarella, part skim	14107030.0
+14108010	Cheese_Parmesan_dry_grated	0	Cheese, Parmesan, dry grated	14108010.0
+14109010	Cheese_Swiss	0	Cheese, Swiss	14109010.0
+14410110	Cheese_American	0	Cheese, American	14410110.0
+14660200	Cheese_nuggets_or_pieces_breaded_baked_or_fried	0	Cheese, nuggets or pieces, breaded, baked, or fried	14660200.0
+21101120	Beef_steak_broiled_or_baked_lean_and_fat_eaten	0	Beef steak, broiled or baked, lean and fat eaten	21101120.0
+21104110	Beef_steak_battered_fried_NS_as_to_fat_eaten	0	Beef steak, battered, fried, NS as to fat eaten	21104110.0
+21105120	Beef_steak_braised_lean_and_fat_eaten	0	Beef steak, braised, lean and fat eaten	21105120.0
+21416000	Corned_beef_cooked_NS_as_to_fat_eaten	0	Corned beef, cooked, NS as to fat eaten	21416000.0
+21602100	Beef_jerky	0	Beef jerky	21602100.0
+22101520	Pork_chop_stewed_lean_only_eaten	0	Pork chop, stewed, lean only eaten	22101520.0
+22107020	Pork_chop_smoked_or_cured_cooked_lean_only_eaten	0	Pork chop, smoked or cured, cooked, lean only eaten	22107020.0
+22600200	Pork_bacon_NS_as_to_fresh_smoked_or_cured_cooked	0	Pork bacon, NS as to fresh, smoked or cured, cooked	22600200.0
+22701040	Pork_spareribs_barbecued_with_sauce_lean_and_fat_eaten	0	Pork, spareribs, barbecued, with sauce, lean and fat eaten	22701040.0
+24100000	Chicken_NS_as_to_part_and_cooking_method_NS_as_to_skin_eaten	0	Chicken, NS as to part and cooking method, NS as to skin eaten	24100000.0
+25210110	Frankfurter_wiener_or_hot_dog_NFS	0	Frankfurter, wiener, or hot dog, NFS	25210110.0
+25221405	Pork_sausage	0	Pork sausage	25221405.0
+26100100	Fish_NS_as_to_type_raw	0	Fish, NS as to type, raw	26100100.0
+26100120	Fish_NS_as_to_type_baked_or_broiled_made_with_oil	0	Fish, NS as to type, baked or broiled, made with oil	26100120.0
+26100160	Fish_NS_as_to_type_steamed	0	Fish, NS as to type, steamed	26100160.0
+26115160	Flounder_steamed_or_poached	0	Flounder, steamed or poached	26115160.0
+26121120	Mackerel_baked_or_broiled_fat_added_in_cooking	0	Mackerel, baked or broiled, fat added in cooking	26121120.0
+26121121	Mackerel_baked_or_broiled_fat_not_added_in_cooking	0	Mackerel, baked or broiled, fat not added in cooking	26121121.0
+26137110	Salmon_cooked_NS_as_to_cooking_method	0	Salmon, cooked, NS as to cooking method	26137110.0
+26137120	Salmon_baked_or_broiled_made_with_oil	0	Salmon, baked or broiled, made with oil	26137120.0
+26137121	Salmon_baked_or_broiled_made_with_butter	0	Salmon, baked or broiled, made with butter	26137121.0
+26151121	Trout_baked_or_broiled_made_with_butter	0	Trout, baked or broiled, made with butter	26151121.0
+26151190	Trout_smoked	0	Trout, smoked	26151190.0
+26153100	Tuna_fresh_raw	0	Tuna, fresh, raw	26153100.0
+26153120	Tuna_fresh_baked_or_broiled_fat_added_in_cooking	0	Tuna, fresh, baked or broiled, fat added in cooking	26153120.0
+26205160	Octopus_steamed	0	Octopus, steamed	26205160.0
+26303160	Clams_steamed_or_boiled	0	Clams, steamed or boiled	26303160.0
+26317120	Scallops_baked_or_broiled_fat_added_in_cooking	0	Scallops, baked or broiled, fat added in cooking	26317120.0
+26317130	Scallops_steamed_or_boiled	0	Scallops, steamed or boiled	26317130.0
+26319120	Shrimp_baked_or_broiled_made_with_oil	0	Shrimp, baked or broiled, made with oil	26319120.0
+27214110	Meat_loaf_made_with_beef_with_tomato_based_sauce	0	Meat loaf made with beef, with tomato-based sauce	27214110.0
+27260100	Meat_loaf_made_with_beef_and_pork_with_tomato_based_sauce	0	Meat loaf made with beef and pork, with tomato-based sauce	27260100.0
+27345320	Chicken_or_turkey_rice_and_vegetables_excluding_carrots_broccoli_and_dark_green_leafy_soy_based_sauce_mixture_	0	Chicken or turkey, rice, and vegetables (excluding carrots, broccoli, and dark-green leafy), soy-based sauce (mixture)	27345320.0
+27410250	Beef_shish_kabob_with_vegetables_excluding_potatoes	0	Beef shish kabob with vegetables, excluding potatoes	27410250.0
+27415200	Beef_and_vegetables_excluding_carrots_broccoli_and_dark_green_leafy_no_potatoes_soy_based_sauce_mixture_	0	Beef and vegetables (excluding carrots, broccoli, and dark-green leafy (no potatoes)), soy-based sauce (mixture)	27415200.0
+27440120	Chicken_or_turkey_and_vegetables_excluding_carrots_broccoli_and_dark_green_leafy_no_potatoes_no_sauce_mixture_	0	Chicken or turkey and vegetables (excluding carrots, broccoli, and dark-green leafy (no potatoes)), no sauce (mixture)	27440120.0
+27445110	Chicken_or_turkey_and_vegetables_including_carrots_broccoli_andor_dark_green_leafy_no_potatoes_soy_based_sauce_mixture_	0	Chicken or turkey and vegetables (including carrots, broccoli, andor dark-green leafy (no potatoes)), soy-based sauce (mixture)	27445110.0
+27445120	Chicken_or_turkey_and_vegetables_excluding_carrots_broccoli_and_dark_green_leafy_no_potatoes_soy_based_sauce_mixture_	0	Chicken or turkey and vegetables (excluding carrots, broccoli, and dark-green leafy (no potatoes)), soy-based sauce (mixture)	27445120.0
+28310110	Beef_broth_bouillon_or_consomme	0	Beef, broth, bouillon, or consomme	28310110.0
+28340110	Chicken_or_turkey_broth_bouillon_or_consomme	0	Chicken or turkey broth, bouillon, or consomme	28340110.0
+28350050	Fish_chowder	0	Fish chowder	28350050.0
+28355450	Seafood_soup_with_potatoes_and_vegetables_including_carrots_broccoli_andor_dark_green_leafy_	0	Seafood soup with potatoes and vegetables (including carrots, broccoli, andor dark-green leafy)	28355450.0
+31103010	Egg_whole_boiled_or_poached	0	Egg, whole, boiled or poached	31103010.0
+31105030	Egg_whole_fried_with_oil	0	Egg, whole, fried with oil	31105030.0
+31106020	Egg_whole_baked_fat_added_in_cooking	0	Egg, whole, baked, fat added in cooking	31106020.0
+32103000	Egg_salad_made_with_mayonnaise	0	Egg salad, made with mayonnaise	32103000.0
+32130010	Egg_omelet_or_scrambled_egg_made_with_oil	0	Egg omelet or scrambled egg, made with oil	32130010.0
+32130020	Egg_omelet_or_scrambled_egg_made_with_butter	0	Egg omelet or scrambled egg, made with butter	32130020.0
+32130310	Egg_omelet_or_scrambled_egg_with_cheese_and_meat_made_with_oil	0	Egg omelet or scrambled egg, with cheese and meat, made with oil	32130310.0
+32130690	Egg_omelet_or_scrambled_egg_with_cheese_and_vegetables_other_than_dark_green_andor_tomatoes_fat_added_in_cooking	0	Egg omelet or scrambled egg, with cheese and vegetables other than dark green andor tomatoes, fat added in cooking	32130690.0
+32131030	Egg_omelet_or_scrambled_egg_with_cheese_meat_and_dark_green_vegetables_fat_added_in_cooking	0	Egg omelet or scrambled egg, with cheese, meat, and dark-green vegetables, fat added in cooking	32131030.0
+41101120	White_beans_dry_cooked_fat_not_added_in_cooking	0	White beans, dry, cooked, fat not added in cooking	41101120.0
+41107000	Soybeans_cooked_fat_not_added_in_cooking	0	Soybeans, cooked, fat not added in cooking	41107000.0
+41205010	Refried_beans	0	Refried beans	41205010.0
+41205070	Hummus	0	Hummus	41205070.0
+41209000	Falafel	0	Falafel	41209000.0
+41302020	Chickpeas_dry_cooked_fat_not_added_in_cooking	0	Chickpeas, dry, cooked, fat not added in cooking	41302020.0
+41305000	Lentils_dry_cooked_fat_not_added_in_cooking	0	Lentils, dry, cooked, fat not added in cooking	41305000.0
+41420010	Soybean_curd	0	Soybean curd	41420010.0
+41420300	Soy_sauce	0	Soy sauce	41420300.0
+41421010	Soybean_curd_deep_fried	0	Soybean curd, deep fried	41421010.0
+41601070	Soybean_soup_miso_broth	0	Soybean soup, miso broth	41601070.0
+41811890	Vegetarian_burger_or_patty_meatless_no_bun	0	Vegetarian burger or patty, meatless, no bun	41811890.0
+41812450	Vegetarian_chili_made_with_meat_substitute_	0	Vegetarian chili (made with meat substitute)	41812450.0
+41812500	Tofu_and_vegetables_including_carrots_broccoli_andor_dark_green_leafy_vegetables_no_potatoes_with_soy_based_sauce_mixture_	0	Tofu and vegetables (including carrots, broccoli, andor dark-green leafy vegetables (no potatoes)), with soy-based sauce (mixture)	41812500.0
+42104100	Cashew_nuts_roasted_assume_salted_	0	Cashew nuts, roasted (assume salted)	42104100.0
+42110000	Mixed_nuts_NFS	0	Mixed nuts, NFS	42110000.0
+42111110	Peanuts_roasted_without_salt	0	Peanuts, roasted, without salt	42111110.0
+42202000	Peanut_butter	0	Peanut butter	42202000.0
+42204050	Peanut_sauce	0	Peanut sauce	42204050.0
+42404010	Coconut_water_canned_or_bottled	0	Coconut water, canned or bottled	42404010.0
+42501000	Nut_mixture_with_dried_fruit_and_seeds	0	Nut mixture with dried fruit and seeds	42501000.0
+43101150	Pumpkin_andor_squash_seeds_hulled_roasted_without_salt	0	Pumpkin andor squash seeds, hulled, roasted, without salt	43101150.0
+43102100	Sunflower_seeds_hulled_roasted_salted	0	Sunflower seeds, hulled, roasted, salted	43102100.0
+43103000	Sesame_seeds	0	Sesame seeds	43103000.0
+51101000	Bread_white	0	Bread, white	51101000.0
+51101010	Bread_white_toasted	0	Bread, white, toasted	51101010.0
+51109100	Bread_pita	0	Bread, pita	51109100.0
+51129010	Bread_raisin	0	Bread, raisin	51129010.0
+51185000	Croutons	0	Croutons	51185000.0
+51300120	Bread_whole_wheat_NS_as_to_100_toasted	0	Bread, whole wheat, NS as to 100%, toasted	51300120.0
+51301020	Bread_wheat_or_cracked_wheat_toasted	0	Bread, wheat or cracked wheat, toasted	51301020.0
+51301600	Bread_pita_whole_wheat_NS_as_to_100_	0	Bread, pita, whole wheat, NS as to 100%	51301600.0
+51320500	Roll_whole_wheat_NS_as_to_100_	0	Roll, whole wheat, NS as to 100%	51320500.0
+51401020	Bread_rye_toasted	0	Bread, rye, toasted	51401020.0
+51601010	Bread_multigrain_toasted	0	Bread, multigrain, toasted	51601010.0
+52215100	Tortilla_corn	0	Tortilla, corn	52215100.0
+52215200	Tortilla_flour_wheat_	0	Tortilla, flour (wheat)	52215200.0
+53105275	Cake_or_cupcake_chocolate_devils_food_or_fudge_without_icing_or_filling	0	Cake or cupcake, chocolate, devils food or fudge, without icing or filling	53105275.0
+53109200	Snack_cake_not_chocolate_with_icing_or_filling	0	Snack cake, not chocolate, with icing or filling	53109200.0
+53121270	Cake_or_cupcake_yellow_with_icing_or_filling	0	Cake or cupcake, yellow, with icing or filling	53121270.0
+53204100	Cookie_brownie_with_icing_or_filling	0	Cookie, brownie, with icing or filling	53204100.0
+53206000	Cookie_chocolate_chip	0	Cookie, chocolate chip	53206000.0
+53206020	Cookie_chocolate_chip_made_from_home_recipe_or_purchased_at_a_bakery	0	Cookie, chocolate chip, made from home recipe or purchased at a bakery	53206020.0
+53210900	Cookie_graham_cracker_with_chocolate_and_marshmallow	0	Cookie, graham cracker with chocolate and marshmallow	53210900.0
+53241500	Cookie_butter_or_sugar	0	Cookie, butter or sugar	53241500.0
+53301000	Pie_apple_two_crust	0	Pie, apple, two crust	53301000.0
+53301070	Pie_apple_individual_size_or_tart	0	Pie, apple, individual size or tart	53301070.0
+53381000	Pie_lemon_meringue	0	Pie, lemon meringue	53381000.0
+53521110	Doughnut_raised_or_yeast	0	Doughnut, raised or yeast	53521110.0
+53712210	Granola_bar_nonfat	0	Granola bar, nonfat	53712210.0
+53720700	Tigers_Milk_bar	0	Tigers Milk bar	53720700.0
+54318500	Rice_cake_cracker_type	0	Rice cake, cracker-type	54318500.0
+54326000	Crackers_multigrain_made_with_whole_wheat_wheat_oat_and_other_flours	0	Crackers, multigrain, made with whole wheat, wheat, oat, and other flours	54326000.0
+54338000	Crackers_wheat	0	Crackers, wheat	54338000.0
+56116000	Noodles_chow_mein	0	Noodles, chow mein	56116000.0
+56132990	Spaghetti_cooked_whole_wheat_NS_as_to_fat_added_in_cooking	0	Spaghetti, cooked, whole wheat, NS as to fat added in cooking	56132990.0
+56204005	Quinoa_cooked_fat_not_added_in_cooking	0	Quinoa, cooked, fat not added in cooking	56204005.0
+56205000	Rice_cooked_NFS	0	Rice, cooked, NFS	56205000.0
+56205002	Rice_white_cooked_fat_added_in_cooking_made_with_oil	0	Rice, white, cooked, fat added in cooking, made with oil	56205002.0
+56205008	Rice_white_cooked_fat_not_added_in_cooking	0	Rice, white, cooked, fat not added in cooking	56205008.0
+56207200	Whole_wheat_cereal_cooked_fat_not_added_in_cooking	0	Whole wheat cereal, cooked, fat not added in cooking	56207200.0
+57000100	Oat_cereal_NFS	0	Oat cereal, NFS	57000100.0
+57231250	Great_Grains_Double_Pecan_Whole_Grain_Cereal_Post	0	Great Grains Double Pecan Whole Grain Cereal, Post	57231250.0
+57308190	Muesli_dried_fruit_and_nuts_formerly_Muesli_with_raisins_dates_and_almonds_	0	Muesli, dried fruit and nuts (formerly Muesli with raisins, dates, and almonds)	57308190.0
+57316300	Oat_Bran_Flakes_Health_Valley	0	Oat Bran Flakes, Health Valley	57316300.0
+57602100	Oats_raw	0	Oats, raw	57602100.0
+58100015	Burrito_taco_or_quesadilla_with_egg_potato_and_breakfast_meat	0	Burrito, taco, or quesadilla with egg, potato, and breakfast meat	58100015.0
+58100125	Burrito_with_meat_and_beans_from_fast_food	0	Burrito with meat and beans, from fast food	58100125.0
+58100300	Burrito_with_beans_and_rice_meatless	0	Burrito with beans and rice, meatless	58100300.0
+58100325	Burrito_with_beans_meatless_from_fast_food	0	Burrito with beans, meatless, from fast food	58100325.0
+58100725	Enchilada_with_beans_green_chile_or_enchilada_sauce	0	Enchilada with beans, green-chile or enchilada sauce	58100725.0
+58101940	Taco_or_tostada_salad_meatless	0	Taco or tostada salad, meatless	58101940.0
+58106260	Pizza_extra_cheese_thick_crust	0	Pizza, extra cheese, thick crust	58106260.0
+58106560	Pizza_with_pepperoni_from_restaurant_or_fast_food_thick_crust	0	Pizza with pepperoni, from restaurant or fast food, thick crust	58106560.0
+58106730	Pizza_with_meat_and_vegetables_thick_crust	0	Pizza with meat and vegetables, thick crust	58106730.0
+58128000	Biscuit_with_gravy	0	Biscuit with gravy	58128000.0
+58145110	Macaroni_or_noodles_with_cheese	0	Macaroni or noodles with cheese	58145110.0
+58145117	Macaroni_or_noodles_with_cheese_Easy_Mac_type	0	Macaroni or noodles with cheese, Easy Mac type	58145117.0
+58150330	Rice_fried_with_pork	0	Rice, fried, with pork	58150330.0
+58160110	Rice_with_beans	0	Rice with beans	58160110.0
+58160530	Rice_white_with_tomatoes_andor_tomato_based_sauce_fat_not_added_in_cooking	0	Rice, white, with tomatoes (andor tomato based sauce), fat not added in cooking	58160530.0
+58160710	Rice_white_with_other_vegetables_fat_not_added_in_cooking	0	Rice, white, with other vegetables, fat not added in cooking	58160710.0
+58162120	Stuffed_pepper_with_rice_meatless	0	Stuffed pepper, with rice, meatless	58162120.0
+61119010	Orange_raw	0	Orange, raw	61119010.0
+61210220	Orange_juice_canned_bottled_or_in_a_carton	0	Orange juice, canned, bottled or in a carton	61210220.0
+62101100	Apple_dried_uncooked	0	Apple, dried, uncooked	62101100.0
+62125100	Raisins	0	Raisins	62125100.0
+63101000	Apple_raw	0	Apple, raw	63101000.0
+63105010	Avocado_raw	0	Avocado, raw	63105010.0
+63107010	Banana_raw	0	Banana, raw	63107010.0
+63123000	Grapes_raw_NS_as_to_type	0	Grapes, raw, NS as to type	63123000.0
+63143650	Plum_pickled	0	Plum, pickled	63143650.0
+63200200	Berries_frozen_NFS	0	Berries, frozen, NFS	63200200.0
+63201010	Blackberries_raw	0	Blackberries, raw	63201010.0
+63203010	Blueberries_raw	0	Blueberries, raw	63203010.0
+63223020	Strawberries_raw	0	Strawberries, raw	63223020.0
+63223620	Strawberries_frozen_with_sugar	0	Strawberries, frozen, with sugar	63223620.0
+63311000	Fruit_salad_fresh_or_raw_excluding_citrus_fruits_no_dressing	0	Fruit salad, fresh or raw, (excluding citrus fruits), no dressing	63311000.0
+63311050	Fruit_salad_fresh_or_raw_including_citrus_fruits_no_dressing	0	Fruit salad, fresh or raw, (including citrus fruits), no dressing	63311050.0
+63401010	Apple_salad_with_dressing	0	Apple salad with dressing	63401010.0
+63409010	Guacamole	0	Guacamole	63409010.0
+64104010	Apple_juice	0	Apple juice	64104010.0
+64401000	Vinegar	0	Vinegar	64401000.0
+71201050	White_potato_chips_reduced_fat	0	White potato, chips, reduced fat	71201050.0
+71220000	Vegetable_chips	0	Vegetable chips	71220000.0
+71401000	White_potato_french_fries_NS_as_to_from_fresh_or_frozen	0	White potato, french fries, NS as to from fresh or frozen	71401000.0
+71401030	White_potato_french_fries_from_frozen_deep_fried_from_fast_food_restaurant	0	White potato, french fries, from frozen, deep fried, from fast food  restaurant	71401030.0
+71508020	White_potato_stuffed_baked_peel_eaten_stuffed_with_cheese	0	White potato, stuffed, baked, peel eaten, stuffed with cheese	71508020.0
+71508030	White_potato_stuffed_baked_peel_eaten_stuffed_with_chili	0	White potato, stuffed, baked, peel eaten, stuffed with chili	71508030.0
+71801000	Potato_soup_NS_as_to_made_with_milk_or_water	0	Potato soup, NS as to made with milk or water	71801000.0
+72116000	Endive_chicory_escarole_or_romaine_lettuce_raw	0	Endive, chicory, escarole, or romaine lettuce, raw	72116000.0
+72125100	Spinach_raw	0	Spinach, raw	72125100.0
+72125211	Spinach_cooked_from_fresh_fat_not_added_in_cooking	0	Spinach, cooked, from fresh, fat not added in cooking	72125211.0
+72201230	Broccoli_cooked_NS_as_to_form_with_cheese_sauce	0	Broccoli, cooked, NS as to form, with cheese sauce	72201230.0
+72202020	Broccoli_casserole_broccoli_rice_cheese_and_mushroom_sauce_	0	Broccoli casserole (broccoli, rice, cheese, and mushroom sauce)	72202020.0
+73101010	Carrots_raw	0	Carrots, raw	73101010.0
+73102211	Carrots_cooked_from_fresh_fat_not_added_in_cooking	0	Carrots, cooked, from fresh, fat not added in cooking	73102211.0
+73402010	Sweet_potato_baked_peel_eaten_fat_not_added_in_cooking	0	Sweet potato, baked, peel eaten, fat not added in cooking	73402010.0
+74101000	Tomatoes_raw	0	Tomatoes, raw	74101000.0
+74201001	Tomatoes_cooked_from_fresh_NS_as_to_method	0	Tomatoes, cooked, from fresh, NS as to method	74201001.0
+74202051	Tomatoes_red_from_fresh_fried	0	Tomatoes, red, from fresh, fried	74202051.0
+74401010	Tomato_catsup	0	Tomato catsup	74401010.0
+74402150	Salsa_red_commercially_prepared	0	Salsa, red, commercially-prepared	74402150.0
+74402350	Salsa_verde_or_salsa_green	0	Salsa verde or salsa, green	74402350.0
+74406100	Steak_sauce_tomato_base	0	Steak sauce, tomato-base	74406100.0
+75100250	Raw_vegetable_NFS	0	Raw vegetable, NFS	75100250.0
+75103000	Cabbage_green_raw	0	Cabbage, green, raw	75103000.0
+75105000	Cabbage_red_raw	0	Cabbage, red, raw	75105000.0
+75107000	Cauliflower_raw	0	Cauliflower, raw	75107000.0
+75109550	Cilantro_raw	0	Cilantro, raw	75109550.0
+75111000	Cucumber_raw	0	Cucumber, raw	75111000.0
+75113000	Lettuce_raw	0	Lettuce, raw	75113000.0
+75113060	Lettuce_Boston_raw	0	Lettuce, Boston, raw	75113060.0
+75113080	Lettuce_arugula_raw	0	Lettuce, arugula, raw	75113080.0
+75114000	Mixed_salad_greens_raw	0	Mixed salad greens, raw	75114000.0
+75122100	Pepper_sweet_green_raw	0	Pepper, sweet, green, raw	75122100.0
+75122200	Pepper_sweet_red_raw	0	Pepper, sweet, red, raw	75122200.0
+75124000	Pepper_banana_raw	0	Pepper, banana, raw	75124000.0
+75127500	Seaweed_raw	0	Seaweed, raw	75127500.0
+75128000	Squash_summer_yellow_raw	0	Squash, summer, yellow, raw	75128000.0
+75132000	Mixed_vegetable_juice_vegetables_other_than_tomato_	0	Mixed vegetable juice (vegetables other than tomato)	75132000.0
+75140500	Broccoli_salad_with_cauliflower_cheese_bacon_bits_and_dressing	0	Broccoli salad with cauliflower, cheese, bacon bits, and dressing	75140500.0
+75140990	Cabbage_salad_or_coleslaw_from_fast_food_restaurant	0	Cabbage salad or coleslaw, from fast food  restaurant	75140990.0
+75141000	Cabbage_salad_or_coleslaw_made_with_coleslaw_dressing	0	Cabbage salad or coleslaw, made with coleslaw dressing	75141000.0
+75200110	Vegetables_NS_as_to_type_cooked_fat_not_added_in_cooking	0	Vegetables, NS as to type, cooked, fat not added in cooking	75200110.0
+75207011	Bean_sprouts_cooked_from_fresh_fat_not_added_in_cooking	0	Bean sprouts, cooked, from fresh, fat not added in cooking	75207011.0
+75210010	Cabbage_Chinese_cooked_fat_not_added_in_cooking	0	Cabbage, Chinese, cooked, fat not added in cooking	75210010.0
+75211010	Cabbage_green_cooked_NS_as_to_fat_added_in_cooking	0	Cabbage, green, cooked, NS as to fat added in cooking	75211010.0
+75211020	Cabbage_green_cooked_fat_not_added_in_cooking	0	Cabbage, green, cooked, fat not added in cooking	75211020.0
+75215010	Celery_cooked_fat_not_added_in_cooking	0	Celery, cooked, fat not added in cooking	75215010.0
+75216000	Corn_cooked_NS_as_to_form_NS_as_to_color_NS_as_to_fat_added_in_cooking	0	Corn, cooked, NS as to form, NS as to color, NS as to fat added in cooking	75216000.0
+75217400	Garlic_cooked	0	Garlic, cooked	75217400.0
+75221000	Onions_mature_cooked_NS_as_to_form_NS_as_to_fat_added_in_cooking	0	Onions, mature, cooked, NS as to form, NS as to fat added in cooking	75221000.0
+75224022	Peas_green_cooked_from_frozen_fat_not_added_in_cooking	0	Peas, green, cooked, from frozen, fat not added in cooking	75224022.0
+75226000	Peppers_green_cooked_NS_as_to_fat_added_in_cooking	0	Peppers, green, cooked, NS as to fat added in cooking	75226000.0
+75226040	Peppers_red_cooked_NS_as_to_fat_added_in_cooking	0	Peppers, red, cooked, NS as to fat added in cooking	75226040.0
+75226090	Peppers_hot_cooked_NS_as_to_form_NS_as_to_fat_added_in_cooking	0	Peppers, hot, cooked, NS as to form, NS as to fat added in cooking	75226090.0
+75227100	Radish_Japanese_daikon_cooked_fat_not_added_in_cooking	0	Radish, Japanese (daikon), cooked, fat not added in cooking	75227100.0
+75230000	Sauerkraut_cooked_NS_as_to_fat_added_in_cooking	0	Sauerkraut, cooked, NS as to fat added in cooking	75230000.0
+75232000	Seaweed_dried	0	Seaweed, dried	75232000.0
+75232100	Seaweed_cooked_NS_as_to_fat_added_in_cooking	0	Seaweed, cooked, NS as to fat added in cooking	75232100.0
+75233000	Squash_summer_cooked_NS_as_to_form_NS_as_to_fat_added_in_cooking	0	Squash, summer, cooked, NS as to form, NS as to fat added in cooking	75233000.0
+75233220	Squash_spaghetti_cooked_fat_not_added_in_cooking	0	Squash, spaghetti, cooked, fat not added in cooking	75233220.0
+75302080	Bean_salad_yellow_andor_green_string_beans	0	Bean salad, yellow andor green string beans	75302080.0
+75317020	Vegetables_stew_type_including_potatoes_carrots_onions_celery_cooked_fat_not_added_in_cooking	0	Vegetables, stew type (including potatoes, carrots, onions, celery) cooked, fat not added in cooking	75317020.0
+75403023	Beans_string_green_cooked_from_canned_with_mushroom_sauce	0	Beans, string, green, cooked, from canned, with mushroom sauce	75403023.0
+75409012	Cauliflower_from_frozen_creamed	0	Cauliflower, from frozen, creamed	75409012.0
+75440100	Vegetable_combination_including_carrots_broccoli_andor_dark_green_leafy_cooked_with_soy_based_sauce	0	Vegetable combination (including carrots, broccoli, andor dark-green leafy), cooked, with soy-based sauce	75440100.0
+75440110	Vegetable_combination_excluding_carrots_broccoli_and_dark_green_leafy_cooked_with_soy_based_sauce	0	Vegetable combination (excluding carrots, broccoli, and dark-green leafy), cooked, with soy-based sauce	75440110.0
+75440200	Vegetable_tempura	0	Vegetable tempura	75440200.0
+75440600	Vegetable_curry	0	Vegetable curry	75440600.0
+75503020	Cucumber_pickles_relish	0	Cucumber pickles, relish	75503020.0
+75503040	Cucumber_pickles_sweet	0	Cucumber pickles, sweet	75503040.0
+75506010	Mustard	0	Mustard	75506010.0
+75511100	Pickles_NS_as_to_vegetable	0	Pickles, NS as to vegetable	75511100.0
+75607000	Mushroom_soup_NFS	0	Mushroom soup, NFS	75607000.0
+75647000	Seaweed_soup	0	Seaweed soup	75647000.0
+75649110	Vegetable_soup_home_recipe	0	Vegetable soup, home recipe	75649110.0
+81101000	Butter_stick_salted	0	Butter, stick, salted	81101000.0
+81101500	Light_butter_stick_salted	0	Light butter, stick, salted	81101500.0
+81102000	Margarine_NFS	0	Margarine, NFS	81102000.0
+83105500	Honey_mustard_dressing	0	Honey mustard dressing	83105500.0
+83106000	Italian_dressing_made_with_vinegar_and_oil	0	Italian dressing, made with vinegar and oil	83106000.0
+83107000	Mayonnaise_regular	0	Mayonnaise, regular	83107000.0
+83112500	Creamy_dressing	0	Creamy dressing	83112500.0
+83112990	Sesame_dressing	0	Sesame dressing	83112990.0
+83114000	Thousand_Island_dressing	0	Thousand Island dressing	83114000.0
+83115000	Yogurt_dressing	0	Yogurt dressing	83115000.0
+83202020	French_or_Catalina_dressing_light	0	French or Catalina dressing, light	83202020.0
+83206500	Sesame_dressing_light	0	Sesame dressing, light	83206500.0
+91101010	Sugar_white_granulated_or_lump	0	Sugar, white, granulated or lump	91101010.0
+91102010	Sugar_brown	0	Sugar, brown	91102010.0
+91104100	Sugar_cinnamon	0	Sugar, cinnamon	91104100.0
+91302010	Honey	0	Honey	91302010.0
+91402000	Jam_preserves_all_flavors	0	Jam, preserves, all flavors	91402000.0
+91705300	Chocolate_sweet_or_dark	0	Chocolate, sweet or dark	91705300.0
+91746100	MMs_Milk_Chocolate_Candies_formerly_MMs_Plain_Chocolate_Candies_	0	MMs Milk Chocolate Candies (formerly MMs Plain Chocolate Candies)	91746100.0
+92101000	Coffee_made_from_ground_regular	0	Coffee, made from ground, regular	92101000.0
+92101610	Coffee_espresso	0	Coffee, espresso	92101610.0
+92101950	Coffee_mocha	0	Coffee, mocha	92101950.0
+92161000	Cappuccino	0	Cappuccino	92161000.0
+92306000	Tea_herbal	0	Tea, herbal	92306000.0
+92306090	Tea_hibiscus	0	Tea, hibiscus	92306090.0
+92400000	Soft_drink_NFS	0	Soft drink, NFS	92400000.0
+92410210	Carbonated_water_unsweetened	0	Carbonated water, unsweetened	92410210.0
+92410310	Soft_drink_cola_type	0	Soft drink, cola-type	92410310.0
+92410320	Soft_drink_cola_type_sugar_free	0	Soft drink, cola-type, sugar-free	92410320.0
+92410510	Soft_drink_fruit_flavored_caffeine_free	0	Soft drink, fruit-flavored, caffeine free	92410510.0
+92530610	Fruit_juice_drink_with_high_vitamin_C	0	Fruit juice drink, with high vitamin C	92530610.0
+93101000	Beer	0	Beer	93101000.0
+93301170	Bourbon_and_soda	0	Bourbon and soda	93301170.0
+93401010	Wine_table_red	0	Wine, table, red	93401010.0
+93401100	Wine_rice	0	Wine, rice	93401100.0
+94000100	Water_tap	0	Water, tap	94000100.0
+94100100	Water_bottled_unsweetened	0	Water, bottled, unsweetened	94100100.0
+95230000	Protein_powder_whey_based_NFS	0	Protein powder, whey based, NFS	95230000.0
+95230020	Protein_powder_light_NFS	0	Protein powder, light, NFS	95230020.0
