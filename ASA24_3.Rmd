@@ -27,7 +27,7 @@ You can come back to the main directory by:
 
 <br>
 
-### Load and analyze (QC-ed) ASA24 items data
+## Load and analyze (QC-ed) ASA24 items data
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE)
@@ -53,11 +53,10 @@ Load your items data to be analyzed.
 
 <details>
   <summary>Click to expand output</summary>
-    ```{r, echo=FALSE, eval=TRUE}
-    head(items_f_id_s_m)
-    ```
-</details> 
-
+```{r, echo=FALSE, eval=TRUE}
+head(items_f_id_s_m)
+```
+</details>
 
 <br>
 
@@ -148,7 +147,7 @@ Test if the two variables are correlated. The output should show p-value and R c
 
 <!-- TOTALS FROM HERE -->
 
-### Load and analyze (QC-ed) ASA24 totals data
+## Load and analyze (QC-ed) ASA24 totals data
 
 ```{r}
   tot_m_QCed <- read.table("VVKAJ_Tot_m_QCed.txt", sep="\t", header=T)
@@ -162,10 +161,10 @@ Note that each row is a total dietary intake of each user on each day.
 
 <details>
   <summary>Click to expand output</summary>
-    ```{r, echo=FALSE, eval=TRUE}
-    head(tot_m_QCed)
-    ```
-</details> 
+```{r, echo=FALSE, eval=TRUE}
+head(tot_m_QCed)
+```
+</details>
 
 <br>
 
@@ -245,19 +244,79 @@ Save it as a .pdf file.
 
 ---
 
-
-
-
-
-
-
-
+#### Scatterplot
   
+Scaterplot of two variables.
+```{r}
+  TFAT_KCAL_t <- ggplot(tot_m_QCed, aes(x=TFAT, y=KCAL)) +
+    geom_point() + no_grid + space_axes
+```
+
+```{r}
+  TFAT_KCAL_t
+```
+
+Save it as a .pdf file.
+```{r}
+  ggsave("VVKAJ_Tot_m_QCed_TFAT_KCAL.pdf", TFAT_KCAL_t, device="pdf")
+```
+
+Test if the two variables are correlated.
+
+The output should show p-value and R correlation coefficient.
+```{r}
+  cor.test(x=tot_m_QCed$TFAT, y=tot_m_QCed$KCAL, method="pearson")
+```
+
+---
+
+#### Lineplot 
+  
+Prepare your totals dataset for line plot - insert NA to missing combinations of UserName and RecallNo (day), and separate rows into NA's and no NAs.
+```{r}
+  PrepLinePlot(inputdf= tot_m_QCed, day="RecallNo", username="UserName", 
+               all.fn=              "VVKAJ_Tot_m_QCed_wNA.txt",
+               full.days.only.fn=   "VVKAJ_Tot_m_QCed_fullonly.txt",
+               partial.days.only.fn="VVKAJ_Tot_m_QCed_partialonly.txt")
+```
+
+Load the files.
+```{r}
+  tot_m_QCed_w_NA <-        read.table("VVKAJ_Tot_m_QCed_wNA.txt", sep="\t", header=T)
+  tot_m_QCed_fullonly <-    read.table("VVKAJ_Tot_m_QCed_fullonly.txt", sep="\t", header=T)
+  tot_m_QCed_partialonly <- read.table("VVKAJ_Tot_m_QCed_partialonly.txt", sep="\t", header=T)
+```
+
+Make RecallNo (day) as a factor so that it can be used as a variable on the X (or Y) axes.
+```{r}
+  tot_m_QCed$RecallNo <-             as.factor(tot_m_QCed$RecallNo)
+  tot_m_QCed_w_NA$RecallNo <-        as.factor(tot_m_QCed_w_NA$RecallNo)
+  tot_m_QCed_fullonly$RecallNo <-    as.factor(tot_m_QCed_fullonly$RecallNo)
+  tot_m_QCed_partialonly$RecallNo <- as.factor(tot_m_QCed_partialonly$RecallNo)
+```
+
+Plot points and lines separately. Ensure to specify your "x" and "y" twice. The geom_line function only connects the data of individuals with all days of data.
+```{r}
+  lineplot_1 <- ggplot() + 
+    geom_point(tot_m_QCed,          mapping = aes(x=RecallNo, y=KCAL, group=UserName, color=UserName)) +
+    geom_line( tot_m_QCed_fullonly, mapping = aes(x=RecallNo, y=KCAL, group=UserName, color=UserName), 
+              linetype="dashed") + no_grid +
+    scale_color_manual(values = distinct100colors)
+```
+
+```{r}
+  lineplot_1
+```
+
+Save it as a .pdf file.
+```{r}
+  ggsave("VVKAJ_Tot_m_QCed_KCAL_lineplot.pdf", lineplot_1, device="pdf")
+```
+
+---
+
 Come back to the main directory before you start running another script.
 ```{r, eval=FALSE}
   setwd(main_wd)
 ```
   
-
-
-

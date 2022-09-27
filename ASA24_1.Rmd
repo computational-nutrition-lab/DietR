@@ -85,10 +85,10 @@ A combination of the specified prefix and sequential number should be added.
 
 <details>
   <summary>Click to expand output</summary>
-    ```{r, echo=FALSE, eval=TRUE}
-    head(items_f_id)
-    ```
-</details> 
+```{r, echo=FALSE, eval=TRUE}
+head(items_f_id)
+```
+</details>
 
 <br>
 
@@ -162,10 +162,10 @@ Check that the items data and metadata are merged.
 
 <details>
   <summary>Click to expand output</summary>
-    ```{r, echo=FALSE, eval=TRUE}
-    head(items_f_id_s_m)
-    ```
-</details> 
+```{r, echo=FALSE, eval=TRUE}
+head(items_f_id_s_m)
+```
+</details>
 
 <br>
 
@@ -203,10 +203,10 @@ View the new_totals.
 
 <details>
   <summary>Click to expand output</summary>
-    ```{r, echo=FALSE, eval=TRUE}
-    head(new_totals)
-    ```
-</details> 
+```{r, echo=FALSE, eval=TRUE}
+head(new_totals)
+```
+</details>
 
 <br>
 
@@ -229,11 +229,13 @@ Check that the items data and metadata are merged.
 
 <details>
   <summary>Click to expand output</summary>
-    ```{r, echo=FALSE, eval=TRUE}
-    head(new_totals_m)
-    ```
-</details> 
-  
+```{r, echo=FALSE, eval=TRUE}
+head(new_totals_m)
+```
+</details>
+
+<br>
+
 Save the merged dataframe as a .txt file.
 ```{r}
   write.table(new_totals_m, "VVKAJ_Tot_m.txt", sep="\t", row.names=F, quote=F)

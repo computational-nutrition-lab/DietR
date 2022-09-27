@@ -1,0 +1,287 @@
+#FOODID	VVKAJ113	VVKAJ101	VVKAJ108	VVKAJ110	VVKAJ115	VVKAJ106	VVKAJ111	VVKAJ103	VVKAJ112	VVKAJ102	VVKAJ104	VVKAJ109	VVKAJ114	VVKAJ105	VVKAJ107	taxonomy
+Milk NFS	244	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid;L4_;Milk_NFS
+Milk cows fluid whole	0	183	488	195.2	414.8	0	0	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid;L4_Milk_fluid_cow_goat_buttermilk;Milk_cows_fluid_whole
+Milk cows fluid 2 fat	244	0	854	0	0	0	0	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid;L4_Milk_fluid_cow_goat_buttermilk;Milk_cows_fluid_2_fat
+Milk cows fluid 1 fat	323.3	61	0	0	0	244	167.75	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid;L4_Milk_fluid_cow_goat_buttermilk;Milk_cows_fluid_1_fat
+Milk soy ready to drink not babys	0	0	0	0	0	0	0	256.2	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid_imitation;L4_Milk_soy;Milk_soy_ready_to_drink_not_babys
+Milk almond ready to drink	0	0	0	0	0	0	0	0	329.4	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid_imitation;L4_Milk_almond;Milk_almond_ready_to_drink
+Yogurt plain whole milk	0	367.5	0	0	0	0	0	0	0	0	30.625	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Yogurt;L4_Yogurt_plain;Yogurt_plain_whole_milk
+Yogurt plain lowfat milk	0	0	0	122.5	0	0	0	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Yogurt;L4_Yogurt_plain;Yogurt_plain_lowfat_milk
+Yogurt fruit variety whole milk	0	0	0	0	0	122.5	0	0	0	0	113	0	0	0	0	L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Yogurt;L4_Yogurt_fruit_variety;Yogurt_fruit_variety_whole_milk
+Cream heavy fluid	0	0	0	0	0	0	0	0	0	0	0	45.12	0	0	0	L1_Milk_and_Milk_Products;L2_Creams_and_cream_substitutes;L3_Sweet_dairy_cream;L4_Cream_heavy;Cream_heavy_fluid
+Cheese Brie	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Cheeses;L3_Natural_cheeses;L4_Natural_cheeses;Cheese_Brie
+Cheese Feta	56.7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Cheeses;L3_Natural_cheeses;L4_Natural_cheeses;Cheese_Feta
+Cheese Mozzarella whole milk	33	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Cheeses;L3_Natural_cheeses;L4_Natural_cheeses;Cheese_Mozzarella_whole_milk
+Cheese Mozzarella part skim	0	0	28.35	0	0	0	0	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Cheeses;L3_Natural_cheeses;L4_Natural_cheeses;Cheese_Mozzarella_part_skim
+Cheese Parmesan dry grated	28.35	0	0	0	0	0	85.05	0	0	0	0	0	0	0	0	L1_Milk_and_Milk_Products;L2_Cheeses;L3_Natural_cheeses;L4_Natural_cheeses;Cheese_Parmesan_dry_grated
+Cheese Swiss	0	0	0	0	0	0	0	0	0	0	42.525	28.35	0	0	0	L1_Milk_and_Milk_Products;L2_Cheeses;L3_Natural_cheeses;L4_Natural_cheeses;Cheese_Swiss
+Cheese American	0	0	0	0	28.35	0	0	0	0	0	42.525	21	84	0	0	L1_Milk_and_Milk_Products;L2_Cheeses;L3_Processed_cheeses_and_cheese_spreads;L4_Cheese_processed;Cheese_American
+Cheese nuggets or pieces breaded baked or fried	0	0	0	0	0	0	0	0	0	0	0	396	0	0	0	L1_Milk_and_Milk_Products;L2_Cheeses;L3_Cheese_mixtures;L4_Cheese_fried;Cheese_nuggets_or_pieces_breaded_baked_or_fried
+Beef steak broiled or baked lean and fat eaten	0	0	0	0	0	0	0	0	0	0	0	0	340.2	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Beef;L3_Beef_steak;L4_;Beef_steak_broiled_or_baked_lean_and_fat_eaten
+Beef steak battered fried NS as to fat eaten	0	0	0	0	0	0	0	0	0	0	0	0	283.5	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Beef;L3_Beef_steak;L4_;Beef_steak_battered_fried_NS_as_to_fat_eaten
+Beef steak braised lean and fat eaten	226.8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Beef;L3_Beef_steak;L4_;Beef_steak_braised_lean_and_fat_eaten
+Corned beef cooked NS as to fat eaten	0	0	0	0	0	0	0	0	0	0	0	84	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Beef;L3_Beef_roasts_stew_meat_corned_beef_beef_brisket_sandwich_steaks;L4_;Corned_beef_cooked_NS_as_to_fat_eaten
+Beef jerky	0	0	19.2	0	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Beef;L3_Other_beef_items_beef_bacon_dried_beef_pastrami;L4_;Beef_jerky
+Pork chop stewed lean only eaten	0	0	0	56.7	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Pork;L3_Pork_chops;L4_;Pork_chop_stewed_lean_only_eaten
+Pork chop smoked or cured cooked lean only eaten	0	0	0	0	0	0	0	170.1	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Pork;L3_Pork_chops;L4_;Pork_chop_smoked_or_cured_cooked_lean_only_eaten
+Pork bacon NS as to fresh smoked or cured cooked	56	0	8	8	0	0	0	0	0	8	0	0	24	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Pork;L3_Bacon_salt_pork;L4_Bacon_NS;Pork_bacon_NS_as_to_fresh_smoked_or_cured_cooked
+Pork spareribs barbecued with sauce lean and fat eaten	0	0	0	0	0	0	0	0	0	0	0	160	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Pork;L3_Other_pork_items;L4_;Pork_spareribs_barbecued_with_sauce_lean_and_fat_eaten
+Chicken NS as to part and cooking method NS as to skin eaten	0	0	0	0	0	0	0	0	0	0	60	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Poultry;L3_Chicken;L4_Chicken_NS_as_to_part;Chicken_NS_as_to_part_and_cooking_method_NS_as_to_skin_eaten
+Frankfurter wiener or hot dog NFS	0	0	0	0	0	0	0	0	0	0	114	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Organ_meats_sausages_and_lunchmeats;L3_Frankfurters_sausages_lunchmeats_meat_spreads;L4_Frankfurters;Frankfurter_wiener_or_hot_dog_NFS
+Pork sausage	0	0	0	20	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Organ_meats_sausages_and_lunchmeats;L3_Frankfurters_sausages_lunchmeats_meat_spreads;L4_Sausages;Pork_sausage
+Fish NS as to type raw	0	0	0	0	0	0	0	226.8	0	0	0	0	0	113.4	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Fish_NS_as_to_type_raw
+Fish NS as to type baked or broiled made with oil	0	0	0	0	56.7	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Fish_NS_as_to_type_baked_or_broiled_made_with_oil
+Fish NS as to type steamed	0	0	0	0	0	0	0	0	0	0	0	0	0	113.4	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Fish_NS_as_to_type_steamed
+Flounder steamed or poached	0	0	0	0	113.4	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Flounder_steamed_or_poached
+Mackerel baked or broiled fat added in cooking	0	0	0	0	113.4	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Mackerel_baked_or_broiled_fat_added_in_cooking
+Mackerel baked or broiled fat not added in cooking	0	0	0	113.4	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Mackerel_baked_or_broiled_fat_not_added_in_cooking
+Salmon cooked NS as to cooking method	0	0	136	0	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Salmon_cooked_NS_as_to_cooking_method
+Salmon baked or broiled made with oil	0	0	0	226.8	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Salmon_baked_or_broiled_made_with_oil
+Salmon baked or broiled made with butter	0	0	226.8	0	0	0	0	340.2	0	0	0	0	226.8	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Salmon_baked_or_broiled_made_with_butter
+Trout baked or broiled made with butter	0	0	226.8	0	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Trout_baked_or_broiled_made_with_butter
+Trout smoked	0	0	0	0	0	0	0	0	0	0	0	0	0	56.7	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Trout_smoked
+Tuna fresh raw	0	0	0	0	56.7	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Tuna_fresh_raw
+Tuna fresh baked or broiled fat added in cooking	0	0	0	0	0	0	0	0	0	0	0	0	0	170.1	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Finfish;L4_Finfish_NS;Tuna_fresh_baked_or_broiled_fat_added_in_cooking
+Octopus steamed	0	0	0	0	0	0	0	0	0	0	0	0	0	56.7	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Other_seafood;L4_Other_seafood_NS;Octopus_steamed
+Clams steamed or boiled	0	0	0	0	150	0	0	0	0	0	0	0	0	62.5	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Shellfish;L4_Shellfish_NS;Clams_steamed_or_boiled
+Scallops baked or broiled fat added in cooking	0	0	0	0	0	0	0	0	0	0	0	0	0	283.5	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Shellfish;L4_Shellfish_NS;Scallops_baked_or_broiled_fat_added_in_cooking
+Scallops steamed or boiled	0	0	0	0	28.35	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Shellfish;L4_Shellfish_NS;Scallops_steamed_or_boiled
+Shrimp baked or broiled made with oil	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Fish_and_shellfish;L3_Shellfish;L4_Shellfish_NS;Shrimp_baked_or_broiled_made_with_oil
+Meat loaf made with beef with tomato based sauce	0	0	0	0	0	0	0	0	0	0	283.5	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Meatpoultry_fish_with_nonmeat;L3_Meatpoultry_fish_with_starch_item;L4_Beef_with_starch_item;Meat_loaf_made_with_beef_with_tomato_based_sauce
+Meat loaf made with beef and pork with tomato based sauce	90	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Meatpoultry_fish_with_nonmeat;L3_Meatpoultry_fish_with_starch_item;L4_Miscellaneous_meats_with_starch_item;Meat_loaf_made_with_beef_and_pork_with_tomato_based_sauce
+Chicken or turkey rice and vegetables excluding carrots broccoli and dark green leafy soy based sauce mixture 	0	0	0	0	325.5	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Meatpoultry_fish_with_nonmeat;L3_Meatpoultry_fish_with_starch_item_and_vegetables;L4_Poultry_with_starch_and_vegetable;Chicken_or_turkey_rice_and_vegetables_excluding_carrots_broccoli_and_dark_green_leafy_soy_based_sauce_mixture_
+Beef shish kabob with vegetables excluding potatoes	0	0	202	0	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Meatpoultry_fish_with_nonmeat;L3_Meat_poultry_fish_with_vegetables;L4_Beef_with_vegetable_no_potatoes;Beef_shish_kabob_with_vegetables_excluding_potatoes
+Beef and vegetables excluding carrots broccoli and dark green leafy no potatoes soy based sauce mixture 	0	0	0	108.5	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Meatpoultry_fish_with_nonmeat;L3_Meat_poultry_fish_with_vegetables;L4_Beef_with_vegetable_no_potatoes;Beef_and_vegetables_excluding_carrots_broccoli_and_dark_green_leafy_no_potatoes_soy_based_sauce_mixture_
+Chicken or turkey and vegetables excluding carrots broccoli and dark green leafy no potatoes no sauce mixture 	0	0	0	0	0	0	0	243	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Meatpoultry_fish_with_nonmeat;L3_Meat_poultry_fish_with_vegetables;L4_Poultry_with_vegetables_no_potatoes;Chicken_or_turkey_and_vegetables_excluding_carrots_broccoli_and_dark_green_leafy_no_potatoes_no_sauce_mixture_
+Chicken or turkey and vegetables including carrots broccoli andor dark green leafy no potatoes soy based sauce mixture 	217	0	0	108.5	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Meatpoultry_fish_with_nonmeat;L3_Meat_poultry_fish_with_vegetables;L4_Poultry_with_vegetables_no_potatoes;Chicken_or_turkey_and_vegetables_including_carrots_broccoli_andor_dark_green_leafy_no_potatoes_soy_based_sauce_mixture_
+Chicken or turkey and vegetables excluding carrots broccoli and dark green leafy no potatoes soy based sauce mixture 	0	0	0	0	217	0	0	325.5	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Meatpoultry_fish_with_nonmeat;L3_Meat_poultry_fish_with_vegetables;L4_Poultry_with_vegetables_no_potatoes;Chicken_or_turkey_and_vegetables_excluding_carrots_broccoli_and_dark_green_leafy_no_potatoes_soy_based_sauce_mixture_
+Beef broth bouillon or consomme	0	0	0	0	240	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Frozen_and_shelfstable_plate_meals_soups_and_gravies;L3_Soups_broths_extracts_from_meat_poultry_fish_base;L4_Beef_soups;Beef_broth_bouillon_or_consomme
+Chicken or turkey broth bouillon or consomme	0	0	0	180	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Frozen_and_shelfstable_plate_meals_soups_and_gravies;L3_Soups_broths_extracts_from_meat_poultry_fish_base;L4_Poultry_soups;Chicken_or_turkey_broth_bouillon_or_consomme
+Fish chowder	732	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Frozen_and_shelfstable_plate_meals_soups_and_gravies;L3_Soups_broths_extracts_from_meat_poultry_fish_base;L4_Fishshellfish_soups;Fish_chowder
+Seafood soup with potatoes and vegetables including carrots broccoli andor dark green leafy 	0	0	0	0	0	0	0	0	0	0	0	0	0	488	0	L1_Meat_Poultry_Fish_and_Mixtures;L2_Frozen_and_shelfstable_plate_meals_soups_and_gravies;L3_Soups_broths_extracts_from_meat_poultry_fish_base;L4_Fishshellfish_soups;Seafood_soup_with_potatoes_and_vegetables_including_carrots_broccoli_andor_dark_green_leafy_
+Egg whole boiled or poached	5	0	88	0	44	0	44	0	0	0	0	0	0	88	0	L1_Eggs;L2_Eggs;L3_Chicken_eggs;L4_Egg_whole_or_white;Egg_whole_boiled_or_poached
+Egg whole fried with oil	92	0	138	40	0	0	0	0	0	0	0	0	0	0	0	L1_Eggs;L2_Eggs;L3_Chicken_eggs;L4_Egg_whole_or_white;Egg_whole_fried_with_oil
+Egg whole baked fat added in cooking	177	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Eggs;L2_Eggs;L3_Chicken_eggs;L4_Egg_whole_or_white;Egg_whole_baked_fat_added_in_cooking
+Egg salad made with mayonnaise	0	111	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Eggs;L2_Egg_mixtures;L3_Egg_dishes_made_with_whole_eggs;L4_;Egg_salad_made_with_mayonnaise
+Egg omelet or scrambled egg made with oil	0	0	0	61	108	0	108	0	0	0	0	0	0	54	0	L1_Eggs;L2_Egg_mixtures;L3_Egg_dishes_made_with_whole_eggs;L4_Egg_omelet_or_scrambled;Egg_omelet_or_scrambled_egg_made_with_oil
+Egg omelet or scrambled egg made with butter	0	0	0	0	0	0	0	122	0	0	0	183	0	0	0	L1_Eggs;L2_Egg_mixtures;L3_Egg_dishes_made_with_whole_eggs;L4_Egg_omelet_or_scrambled;Egg_omelet_or_scrambled_egg_made_with_butter
+Egg omelet or scrambled egg with cheese and meat made with oil	0	0	0	0	0	0	0	258	0	0	0	0	0	0	0	L1_Eggs;L2_Egg_mixtures;L3_Egg_dishes_made_with_whole_eggs;L4_Egg_omelet_or_scrambled;Egg_omelet_or_scrambled_egg_with_cheese_and_meat_made_with_oil
+Egg omelet or scrambled egg with cheese and vegetables other than dark green andor tomatoes fat added in cooking	0	0	279	0	0	0	0	246	0	0	0	0	0	0	0	L1_Eggs;L2_Egg_mixtures;L3_Egg_dishes_made_with_whole_eggs;L4_Egg_omelet_or_scrambled;Egg_omelet_or_scrambled_egg_with_cheese_and_vegetables_other_than_dark_green_andor_tomatoes_fat_added_in_cooking
+Egg omelet or scrambled egg with cheese meat and dark green vegetables fat added in cooking	237	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Eggs;L2_Egg_mixtures;L3_Egg_dishes_made_with_whole_eggs;L4_Egg_omelet_or_scrambled;Egg_omelet_or_scrambled_egg_with_cheese_meat_and_dark_green_vegetables_fat_added_in_cooking
+White beans dry cooked fat not added in cooking	0	0	0	0	0	22.5	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Dried_beans;L4_Beans_NS_to_type;White_beans_dry_cooked_fat_not_added_in_cooking
+Soybeans cooked fat not added in cooking	0	0	0	135	180	0	0	0	0	0	0	0	0	45	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Dried_beans;L4_Beans_NS_to_type;Soybeans_cooked_fat_not_added_in_cooking
+Refried beans	0	0	0	0	0	0	0	0	0	126.5	0	0	0	0	63.25	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Dried_beans_mixtures;L4_Dried_beans_mixtures;Refried_beans
+Hummus	0	0	0	0	0	0	30	0	65	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Dried_beans_mixtures;L4_Dried_beans_mixtures;Hummus
+Falafel	0	0	0	0	0	8.5	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Dried_beans_mixtures;L4_Dried_beans_mixtures;Falafel
+Chickpeas dry cooked fat not added in cooking	0	0	0	0	0	0	0	0	0	33.75	0	0	0	0	112.5	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Dried_peas_lentils_and_mixtures;L4_;Chickpeas_dry_cooked_fat_not_added_in_cooking
+Lentils dry cooked fat not added in cooking	0	0	0	0	0	45	0	0	90	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Dried_peas_lentils_and_mixtures;L4_;Lentils_dry_cooked_fat_not_added_in_cooking
+Soybean curd	0	120	0	182	180	0	120	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Soybean_derived_products_excluding_milks;L4_Soybean_derived_products;Soybean_curd
+Soy sauce	0	0	0	66.2415	109.62585	0	0	0	0	0	0	0	0	19.62585	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Soybean_derived_products_excluding_milks;L4_Soybean_derived_products;Soy_sauce
+Soybean curd deep fried	0	0	0	28.35	0	0	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Soybean_derived_products_excluding_milks;L4_Soybean_derived_products;Soybean_curd_deep_fried
+Soybean soup miso broth	0	0	0	1080	720	0	0	240	0	0	0	0	0	1080	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Soups_with_legumes_as_major_ingredient;L4_;Soybean_soup_miso_broth
+Vegetarian burger or patty meatless no bun	0	0	0	0	0	70	0	0	0	211	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Meat_substitutes_mainly_legume_protein;L4_;Vegetarian_burger_or_patty_meatless_no_bun
+Vegetarian chili made with meat substitute 	0	0	0	0	0	381	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Meat_substitutes_mainly_legume_protein;L4_;Vegetarian_chili_made_with_meat_substitute_
+Tofu and vegetables including carrots broccoli andor dark green leafy vegetables no potatoes with soy based sauce mixture 	0	0	217	0	54.25	0	0	0	0	0	0	0	0	434	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Legumes;L3_Meat_substitutes_mainly_legume_protein;L4_;Tofu_and_vegetables_including_carrots_broccoli_andor_dark_green_leafy_vegetables_no_potatoes_with_soy_based_sauce_mixture_
+Cashew nuts roasted assume salted 	0	0	0	0	0	7.5	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Nuts_nut_butters_and_nut_mixtures;L3_Nuts;L4_Nuts_NFS;Cashew_nuts_roasted_assume_salted_
+Mixed nuts NFS	0	13.3125	0	0	0	0	0	0	0	13.3125	0	0	0	0	13.3125	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Nuts_nut_butters_and_nut_mixtures;L3_Nuts;L4_Mixed_nuts_NFS;Mixed_nuts_NFS
+Peanuts roasted without salt	0	0	0	0	0	0	0	18.25	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Nuts_nut_butters_and_nut_mixtures;L3_Nuts;L4_Mixed_nuts_NFS;Peanuts_roasted_without_salt
+Peanut butter	0	0	0	0	0	40	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Nuts_nut_butters_and_nut_mixtures;L3_Nut_butters;L4_Nut_butters;Peanut_butter
+Peanut sauce	0	0	42.5625	0	0	0	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Nuts_nut_butters_and_nut_mixtures;L3_Nut_butters;L4_Nut_butters;Peanut_sauce
+Coconut water canned or bottled	0	0	0	0	0	0	0	0	0	0	0	0	0	0	360	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Nuts_nut_butters_and_nut_mixtures;L3_Coconut_beverages;L4_;Coconut_water_canned_or_bottled
+Nut mixture with dried fruit and seeds	0	50	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Nuts_nut_butters_and_nut_mixtures;L3_Nut_mixtures;L4_;Nut_mixture_with_dried_fruit_and_seeds
+Pumpkin andor squash seeds hulled roasted without salt	0	0	0	0	0	0	50	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Seeds_and_seed_mixtures;L3_Seeds;L4_Seeds_NS;Pumpkin_andor_squash_seeds_hulled_roasted_without_salt
+Sunflower seeds hulled roasted salted	0	0	0	0	0	0	0	11.5	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Seeds_and_seed_mixtures;L3_Seeds;L4_Seeds_NS;Sunflower_seeds_hulled_roasted_salted
+Sesame seeds	0	8	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds;L2_Seeds_and_seed_mixtures;L3_Seeds;L4_Seeds_NS;Sesame_seeds
+Bread white	0	0	0	0	56	0	0	0	0	0	112	0	110.0008	0	0	L1_Grain_Product;L2_Yeast;L3_White_breads_rolls;L4_White_breads_rolls;Bread_white
+Bread white toasted	0	0	0	0	25	0	25	0	0	0	0	0	100	0	0	L1_Grain_Product;L2_Yeast;L3_White_breads_rolls;L4_White_breads_rolls;Bread_white_toasted
+Bread pita	0	0	0	0	0	57	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Yeast;L3_White_breads_rolls;L4_White_breads_rolls;Bread_pita
+Bread raisin	0	0	0	28	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Yeast;L3_White_breads_rolls;L4_Bread_with_additions;Bread_raisin
+Croutons	0	0	0	0	0	0	0	0	0	10	0	0	0	0	0	L1_Grain_Product;L2_Yeast;L3_White_breads_rolls;L4_Bagels_bread_sticks_English_muffins;Croutons
+Bread whole wheat NS as to 100 toasted	0	0	0	0	0	0	66	0	0	39	0	0	0	0	0	L1_Grain_Product;L2_Yeast;L3_Wheat_cracked_wheat_breads_rolls;L4_Wheat_cracked_wheat_breads_rolls;Bread_whole_wheat_NS_as_to_100_toasted
+Bread wheat or cracked wheat toasted	0	0	0	25	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Yeast;L3_Wheat_cracked_wheat_breads_rolls;L4_Wheat_cracked_wheat_breads_rolls;Bread_wheat_or_cracked_wheat_toasted
+Bread pita whole wheat NS as to 100 	0	57	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Yeast;L3_Wheat_cracked_wheat_breads_rolls;L4_Wheat_cracked_wheat_breads_rolls;Bread_pita_whole_wheat_NS_as_to_100_
+Roll whole wheat NS as to 100 	0	0	0	0	0	0	43	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Yeast;L3_Wheat_cracked_wheat_breads_rolls;L4_Wheat_cracked_wheat_breads_rolls;Roll_whole_wheat_NS_as_to_100_
+Bread rye toasted	0	0	0	0	0	0	0	0	0	0	0	58	0	0	0	L1_Grain_Product;L2_Yeast;L3_Rye_breads_rolls;L4_Bread_rye;Bread_rye_toasted
+Bread multigrain toasted	0	39	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Yeast;L3_Multigrain_breads_rolls;L4_Bread_multigrain;Bread_multigrain_toasted
+Tortilla corn	0	0	0	0	0	0	0	0	0	28	0	0	0	0	0	L1_Grain_Product;L2_Quick_breads;L3_Cornbread_corn_muffins_tortillas;L4_Tortillas;Tortilla_corn
+Tortilla flour wheat 	0	0	0	0	0	0	0	0	0	0	45	0	0	0	71	L1_Grain_Product;L2_Quick_breads;L3_Cornbread_corn_muffins_tortillas;L4_Tortillas;Tortilla_flour_wheat_
+Cake or cupcake chocolate devils food or fudge without icing or filling	0	0	0	0	0	0	0	0	0	0	0	0	63.65	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Cakes;L4_Cakes;Cake_or_cupcake_chocolate_devils_food_or_fudge_without_icing_or_filling
+Snack cake not chocolate with icing or filling	0	0	0	0	0	0	0	0	0	0	0	0	94.5	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Cakes;L4_Cakes;Snack_cake_not_chocolate_with_icing_or_filling
+Cake or cupcake yellow with icing or filling	0	0	0	0	0	0	0	0	0	0	0	0	75	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Cakes;L4_Cake;Cake_or_cupcake_yellow_with_icing_or_filling
+Cookie brownie with icing or filling	0	0	0	0	0	0	0	0	0	0	0	195	0	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Cookies;L4_Cookies;Cookie_brownie_with_icing_or_filling
+Cookie chocolate chip	0	0	0	0	0	0	0	0	0	0	45	0	0	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Cookies;L4_Cookies;Cookie_chocolate_chip
+Cookie chocolate chip made from home recipe or purchased at a bakery	0	0	0	0	0	0	0	0	0	0	0	90	45	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Cookies;L4_Cookies;Cookie_chocolate_chip_made_from_home_recipe_or_purchased_at_a_bakery
+Cookie graham cracker with chocolate and marshmallow	0	0	0	0	0	0	0	0	0	0	0	0	38	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Cookies;L4_Cookies;Cookie_graham_cracker_with_chocolate_and_marshmallow
+Cookie butter or sugar	0	0	0	0	20	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Cookies;L4_Cookies;Cookie_butter_or_sugar
+Pie apple two crust	0	0	0	0	0	0	0	0	0	0	0	139.5	0	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Pies_fruit_pies_pie_tarts;L4_Pies_fruit_pies_pie_tarts;Pie_apple_two_crust
+Pie apple individual size or tart	0	0	0	0	0	0	0	0	0	0	0	0	300	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Pies_fruit_pies_pie_tarts;L4_Pies_fruit_pies_pie_tarts;Pie_apple_individual_size_or_tart
+Pie lemon meringue	0	0	0	0	0	0	0	0	0	0	0	273.48	0	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Pies_fruit_pies_pie_tarts;L4_Pies_pudding_and_lemon_meringue;Pie_lemon_meringue
+Doughnut raised or yeast	0	0	0	0	0	0	0	0	0	0	0	0	75	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Danish_breakfast_pastries_doughnuts;L4_Doughnut;Doughnut_raised_or_yeast
+Granola bar nonfat	0	0	0	0	0	43	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Bars;L4_Cereal_bars_granola_bars;Granola_bar_nonfat
+Tigers Milk bar	35	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Cakes_cookies_pies_pastries_bars;L3_Bars;L4_Nutrition_bars_protein_energy_meal;Tigers_Milk_bar
+Rice cake cracker type	0	0	0	0	0	0	0	0	0	0	0	0	0	3	0	L1_Grain_Product;L2_Crackers_and_salty_snacks_from_grain;L3_Nonsweet_crackers;L4_Nonsweet_crackers;Rice_cake_cracker_type
+Crackers multigrain made with whole wheat wheat oat and other flours	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Crackers_and_salty_snacks_from_grain;L3_Nonsweet_crackers;L4_Nonsweet_crackers;Crackers_multigrain_made_with_whole_wheat_wheat_oat_and_other_flours
+Crackers wheat	0	0	0	0	0	0	9	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Crackers_and_salty_snacks_from_grain;L3_Nonsweet_crackers;L4_Nonsweet_crackers;Crackers_wheat
+Noodles chow mein	0	0	0	42	0	0	0	0	0	0	0	0	0	56	0	L1_Grain_Product;L2_Pastas_cooked_cereals_rice;L3_Pastas;L4_Noodles;Noodles_chow_mein
+Spaghetti cooked whole wheat NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	0	0	0	0	280	0	L1_Grain_Product;L2_Pastas_cooked_cereals_rice;L3_Pastas;L4_Spaghetti;Spaghetti_cooked_whole_wheat_NS_as_to_fat_added_in_cooking
+Quinoa cooked fat not added in cooking	0	0	0	0	0	0	0	0	0	85	0	0	0	0	0	L1_Grain_Product;L2_Pastas_cooked_cereals_rice;L3_Cooked_cereals_rice;L4_Cooked_cereals_rice;Quinoa_cooked_fat_not_added_in_cooking
+Rice cooked NFS	0	0	0	0	0	0	0	0	0	39.5	0	0	0	0	0	L1_Grain_Product;L2_Pastas_cooked_cereals_rice;L3_Cooked_cereals_rice;L4_Cooked_cereals_rice;Rice_cooked_NFS
+Rice white cooked fat added in cooking made with oil	0	0	0	0	0	0	0	0	0	0	0	0	0	0	326	L1_Grain_Product;L2_Pastas_cooked_cereals_rice;L3_Cooked_cereals_rice;L4_Cooked_cereals_rice;Rice_white_cooked_fat_added_in_cooking_made_with_oil
+Rice white cooked fat not added in cooking	0	0	0	474	632	0	0	0	0	0	0	0	0	711	0	L1_Grain_Product;L2_Pastas_cooked_cereals_rice;L3_Cooked_cereals_rice;L4_Cooked_cereals_rice;Rice_white_cooked_fat_not_added_in_cooking
+Whole wheat cereal cooked fat not added in cooking	0	0	0	0	0	0	120	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Pastas_cooked_cereals_rice;L3_Cooked_cereals_rice;L4_Cooked_cereals_rice;Whole_wheat_cereal_cooked_fat_not_added_in_cooking
+Oat cereal NFS	0	0	0	0	0	0	0	0	0	0	0	0	0	0	41.25	L1_Grain_Product;L2_Cereals_not_cooked_or_NS_as_to_cooked;L3_Cereal_NS_as_to_cooked;L4_;Oat_cereal_NFS
+Great Grains Double Pecan Whole Grain Cereal Post	0	104	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Cereals_not_cooked_or_NS_as_to_cooked;L3_Readytoeat_cereals;L4_;Great_Grains_Double_Pecan_Whole_Grain_Cereal_Post
+Muesli dried fruit and nuts formerly Muesli with raisins dates and almonds 	0	85	0	0	0	0	0	0	106.25	0	0	0	0	0	0	L1_Grain_Product;L2_Cereals_not_cooked_or_NS_as_to_cooked;L3_Readytoeat_cereals;L4_;Muesli_dried_fruit_and_nuts_formerly_Muesli_with_raisins_dates_and_almonds_
+Oat Bran Flakes Health Valley	0	47	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Cereals_not_cooked_or_NS_as_to_cooked;L3_Readytoeat_cereals;L4_;Oat_Bran_Flakes_Health_Valley
+Oats raw	0	0	0	0	0	0	0	0	81	0	0	0	0	0	0	L1_Grain_Product;L2_Cereals_not_cooked_or_NS_as_to_cooked;L3_Cereal_grains_not_cooked;L4_;Oats_raw
+Burrito taco or quesadilla with egg potato and breakfast meat	0	0	0	0	0	0	0	0	0	0	259	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Burrito_taco_or_quesadilla_with_egg_potato_and_breakfast_meat
+Burrito with meat and beans from fast food	0	0	0	0	0	0	0	0	0	0	0	0	241	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Burrito_with_meat_and_beans_from_fast_food
+Burrito with beans and rice meatless	0	0	0	0	0	0	0	0	0	0	0	0	0	0	305	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Burrito_with_beans_and_rice_meatless
+Burrito with beans meatless from fast food	0	0	0	0	0	198	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Burrito_with_beans_meatless_from_fast_food
+Enchilada with beans green chile or enchilada sauce	0	396	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Enchilada_with_beans_green_chile_or_enchilada_sauce
+Taco or tostada salad meatless	0	0	0	0	0	0	0	0	311	0	0	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Taco_or_tostada_salad_meatless
+Pizza extra cheese thick crust	0	0	0	0	0	0	0	0	0	0	0	0	297	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Pizza_extra_cheese_thick_crust
+Pizza with pepperoni from restaurant or fast food thick crust	0	0	0	0	0	0	0	0	0	0	0	417	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Pizza_with_pepperoni_from_restaurant_or_fast_food_thick_crust
+Pizza with meat and vegetables thick crust	0	0	0	0	0	0	0	0	0	0	0	354	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Pizza_with_meat_and_vegetables_thick_crust
+Biscuit with gravy	0	0	0	0	0	0	0	0	0	0	0	442	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Biscuit_with_gravy
+Macaroni or noodles with cheese	0	0	0	0	0	0	0	0	0	0	230	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Macaroni_or_noodles_with_cheese
+Macaroni or noodles with cheese Easy Mac type	0	0	0	0	0	0	0	0	0	0	0	0	460	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Macaroni_or_noodles_with_cheese_Easy_Mac_type
+Rice fried with pork	0	0	0	297	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Rice_fried_with_pork
+Rice with beans	0	0	0	0	0	0	0	0	0	0	0	0	0	0	239	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Rice_with_beans
+Rice white with tomatoes andor tomato based sauce fat not added in cooking	0	0	0	0	206	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Rice_white_with_tomatoes_andor_tomato_based_sauce_fat_not_added_in_cooking
+Rice white with other vegetables fat not added in cooking	0	0	0	86	0	0	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Rice_white_with_other_vegetables_fat_not_added_in_cooking
+Stuffed pepper with rice meatless	0	0	0	0	0	198	0	0	0	0	0	0	0	0	0	L1_Grain_Product;L2_Grain_mixtures_frozen_plate_meals_soups;L3_Mixtures_mainly_grain_pasta_or_bread;L4_Mixtures_mainly_grain_pasta_or_bread;Stuffed_pepper_with_rice_meatless
+Orange raw	0	0	0	0	0	0	131	0	0	0	0	0	0	0	0	L1_Fruits;L2_Citrus_fruits_juices;L3_Citrus_fruits;L4_Citrus_fruits;Orange_raw
+Orange juice canned bottled or in a carton	0	0	0	0	0	260.4	0	0	0	0	0	0	0	0	0	L1_Fruits;L2_Citrus_fruits_juices;L3_Citrus_fruit_juices;L4_Orange_tangerine_or_juice_blend;Orange_juice_canned_bottled_or_in_a_carton
+Apple dried uncooked	0	0	0	0	0	0	0	0	32	0	0	0	0	0	0	L1_Fruits;L2_Dried_fruits;L3_Dried_fruits;L4_Dried_fruits;Apple_dried_uncooked
+Raisins	0	0	0	0	0	0	0	0	5.67	0	0	0	0	0	0	L1_Fruits;L2_Dried_fruits;L3_Dried_fruits;L4_Dried_fruits;Raisins
+Apple raw	0	0	0	0	0	149	0	0	0	0	0	149	0	0	0	L1_Fruits;L2_Other_fruits;L3_Fruits_excluding_berries;L4_Fruits_excluding_berries;Apple_raw
+Avocado raw	54.75	40	371.5	0	0	0	118.75	140.5	0	138.25	0	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Fruits_excluding_berries;L4_Fruits_excluding_berries;Avocado_raw
+Banana raw	0	236	0	0	0	177	0	0	84	0	0	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Fruits_excluding_berries;L4_Fruits_excluding_berries;Banana_raw
+Grapes raw NS as to type	0	113.25	0	0	0	0	151	0	0	0	0	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Fruits_excluding_berries;L4_Fruits_excluding_berries;Grapes_raw_NS_as_to_type
+Plum pickled	0	0	0	0	0	0	0	0	0	0	0	0	0	28	0	L1_Fruits;L2_Other_fruits;L3_Fruits_excluding_berries;L4_Fruits_excluding_berries;Plum_pickled
+Berries frozen NFS	0	98.5	98.5	0	0	0	0	0	0	0	0	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Berries;L4_Berries;Berries_frozen_NFS
+Blackberries raw	0	0	0	0	0	0	72	0	0	0	0	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Berries;L4_Berries;Blackberries_raw
+Blueberries raw	0	0	0	0	0	0	0	0	18.5	0	0	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Berries;L4_Berries;Blueberries_raw
+Strawberries raw	0	114	0	0	0	0	38	0	0	0	76	0	0	0	114	L1_Fruits;L2_Other_fruits;L3_Berries;L4_Berries;Strawberries_raw
+Strawberries frozen with sugar	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	L1_Fruits;L2_Other_fruits;L3_Berries;L4_Berries;Strawberries_frozen_with_sugar
+Fruit salad fresh or raw excluding citrus fruits no dressing	0	0	0	65.625	87.5	0	0	0	0	0	43.75	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Mixtures_of_two_or_more_fruits;L4_Fruit_salad_or_cocktail;Fruit_salad_fresh_or_raw_excluding_citrus_fruits_no_dressing
+Fruit salad fresh or raw including citrus fruits no dressing	0	87.5	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Mixtures_of_two_or_more_fruits;L4_Fruit_salad_or_cocktail;Fruit_salad_fresh_or_raw_including_citrus_fruits_no_dressing
+Apple salad with dressing	0	0	0	0	0	0	0	0	102.75	0	0	0	0	0	0	L1_Fruits;L2_Other_fruits;L3_Mixtures_of_fruits_and_nonfruit_items;L4_Mixtures_of_fruits_and_nonfruit_items;Apple_salad_with_dressing
+Guacamole	0	0	0	0	0	0	0	0	0	0	0	45	0	0	0	L1_Fruits;L2_Other_fruits;L3_Mixtures_of_fruits_and_nonfruit_items;L4_Mixtures_of_fruits_and_nonfruit_items;Guacamole
+Apple juice	0	0	0	0	0	0	248	0	0	0	0	0	0	0	0	L1_Fruits;L2_Fruit_juices_and_nectars_excluding_citrus;L3_Fruit_juices_excluding_citrus;L4_;Apple_juice
+Vinegar	0	0	0	0	0	0	0	0	0	0	0	0	0	4.992	0	L1_Fruits;L2_Fruit_juices_and_nectars_excluding_citrus;L3_Vinegar;L4_;Vinegar
+White potato chips reduced fat	0	0	0	0	0	0	0	0	0	0	0	28	0	0	0	L1_Vegetables;L2_White_potatoes_and_Puerto_Rican_starchy_vegetables;L3_White_potatoes_chips_and_sticks;L4_White_potatoes_chips_and_sticks;White_potato_chips_reduced_fat
+Vegetable chips	0	0	28	0	0	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_White_potatoes_and_Puerto_Rican_starchy_vegetables;L3_White_potatoes_chips_and_sticks;L4_;Vegetable_chips
+White potato french fries NS as to from fresh or frozen	0	0	0	0	0	0	0	0	0	0	60	0	0	0	0	L1_Vegetables;L2_White_potatoes_and_Puerto_Rican_starchy_vegetables;L3_White_potatoes_fried;L4_White_potatoes_fried;White_potato_french_fries_NS_as_to_from_fresh_or_frozen
+White potato french fries from frozen deep fried from fast food restaurant	0	0	0	0	0	0	0	0	0	0	145	0	0	0	0	L1_Vegetables;L2_White_potatoes_and_Puerto_Rican_starchy_vegetables;L3_White_potatoes_fried;L4_White_potatoes_fried;White_potato_french_fries_from_frozen_deep_fried_from_fast_food_restaurant
+White potato stuffed baked peel eaten stuffed with cheese	0	0	0	0	0	0	0	0	0	0	0	315	0	0	0	L1_Vegetables;L2_White_potatoes_and_Puerto_Rican_starchy_vegetables;L3_White_potatoes_mashed_stuffed_puffs;L4_White_potatoes_mashed_stuffed_puffs;White_potato_stuffed_baked_peel_eaten_stuffed_with_cheese
+White potato stuffed baked peel eaten stuffed with chili	0	0	0	0	0	0	260	0	0	0	0	0	0	0	0	L1_Vegetables;L2_White_potatoes_and_Puerto_Rican_starchy_vegetables;L3_White_potatoes_mashed_stuffed_puffs;L4_White_potatoes_mashed_stuffed_puffs;White_potato_stuffed_baked_peel_eaten_stuffed_with_chili
+Potato soup NS as to made with milk or water	0	0	0	0	0	0	0	0	0	488	0	0	0	0	0	L1_Vegetables;L2_White_potatoes_and_Puerto_Rican_starchy_vegetables;L3_Potato_soups;L4_Potato_soup;Potato_soup_NS_as_to_made_with_milk_or_water
+Endive chicory escarole or romaine lettuce raw	35	0	39	0	0	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Darkgreen_vegetables;L3_Darkgreen_leafy_vegetables;L4_Darkgreen_leafy_vegetables;Endive_chicory_escarole_or_romaine_lettuce_raw
+Spinach raw	0	78.75	0	0	0	0	1.5625	0	0	29.16666667	0	0	0	0	0	L1_Vegetables;L2_Darkgreen_vegetables;L3_Darkgreen_leafy_vegetables;L4_Darkgreen_leafy_vegetables;Spinach_raw
+Spinach cooked from fresh fat not added in cooking	0	0	0	22.5	0	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Darkgreen_vegetables;L3_Darkgreen_leafy_vegetables;L4_Darkgreen_leafy_vegetables;Spinach_cooked_from_fresh_fat_not_added_in_cooking
+Broccoli cooked NS as to form with cheese sauce	0	0	171	0	0	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Darkgreen_vegetables;L3_Darkgreen_nonleafy_vegetables;L4_Broccoli;Broccoli_cooked_NS_as_to_form_with_cheese_sauce
+Broccoli casserole broccoli rice cheese and mushroom sauce 	0	0	0	0	0	0	0	0	513	0	0	0	0	0	0	L1_Vegetables;L2_Darkgreen_vegetables;L3_Darkgreen_nonleafy_vegetables;L4_Broccoli;Broccoli_casserole_broccoli_rice_cheese_and_mushroom_sauce_
+Carrots raw	0	20.625	3.4375	0	0	0	20.625	0	16	27.5	0	0	0	0	0	L1_Vegetables;L2_Deepyellow_vegetables;L3_Carrots;L4_Carrots;Carrots_raw
+Carrots cooked from fresh fat not added in cooking	0	0	0	0	0	0	0	0	16.8	0	0	0	0	0	0	L1_Vegetables;L2_Deepyellow_vegetables;L3_Carrots;L4_Carrots;Carrots_cooked_from_fresh_fat_not_added_in_cooking
+Sweet potato baked peel eaten fat not added in cooking	0	0	0	0	0	150	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Deepyellow_vegetables;L3_Sweet_potatoes;L4_Sweet_potatoes;Sweet_potato_baked_peel_eaten_fat_not_added_in_cooking
+Tomatoes raw	22.5	0	0	0	30	0	22.5	0	0	22.5	91	0	0	0	0	L1_Vegetables;L2_Tomatoes_and_tomato_mixtures;L3_Tomatoes_raw;L4_Tomatoes_raw;Tomatoes_raw
+Tomatoes cooked from fresh NS as to method	0	0	0	0	0	60	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Tomatoes_and_tomato_mixtures;L3_Tomatoes_cooked;L4_Tomatoes_cooked;Tomatoes_cooked_from_fresh_NS_as_to_method
+Tomatoes red from fresh fried	0	0	0	0	0	0	0	0	0	707	0	0	0	0	0	L1_Vegetables;L2_Tomatoes_and_tomato_mixtures;L3_Tomatoes_cooked;L4_Tomatoes_cooked;Tomatoes_red_from_fresh_fried
+Tomato catsup	0	0	0	0	0	0	0	0	0	0	30	10	0	0	0	L1_Vegetables;L2_Tomatoes_and_tomato_mixtures;L3_Tomato_sauces;L4_Tomato_sauces;Tomato_catsup
+Salsa red commercially prepared	0	0	0	0	0	0	0	17.8	0	32	0	0	0	0	0	L1_Vegetables;L2_Tomatoes_and_tomato_mixtures;L3_Tomato_sauces;L4_Tomato_sauces;Salsa_red_commercially_prepared
+Salsa verde or salsa green	0	0	0	0	0	0	0	0	0	0	0	0	0	0	30	L1_Vegetables;L2_Tomatoes_and_tomato_mixtures;L3_Tomato_sauces;L4_Tomato_sauces;Salsa_verde_or_salsa_green
+Steak sauce tomato base	0	0	0	0	0	0	0	0	0	0	0	0	31.25	0	0	L1_Vegetables;L2_Tomatoes_and_tomato_mixtures;L3_Tomato_sauces;L4_Tomato_sauces;Steak_sauce_tomato_base
+Raw vegetable NFS	0	120	0	0	0	0	0	0	0	60	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Raw_vegetable_NFS
+Cabbage green raw	0	0	0	0	0	22.25	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Cabbage_green_raw
+Cabbage red raw	0	66.75	0	0	0	0	0	0	0	22.25	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Cabbage_red_raw
+Cauliflower raw	0	20.0625	0	0	0	0	20.0625	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Cauliflower_raw
+Cilantro raw	0	4	0	0	0	0	0	0	0	0.3	0.3	0	0	0	0.3	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Cilantro_raw
+Cucumber raw	0	22.3125	0	0	7.4375	59.5	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Cucumber_raw
+Lettuce raw	0	17.5	0	0	0	0	17.5	0	0	0	17.5	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Lettuce_raw
+Lettuce Boston raw	0	0	6.25	0	0	0	12.5	0	0	16.66666667	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Lettuce_Boston_raw
+Lettuce arugula raw	10	0	0	0	0	0	0	40	0	10	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Lettuce_arugula_raw
+Mixed salad greens raw	52.5	17.5	35	0	17.5	0	87.5	0	0	23.33333333	0	0	0	0	52.5	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Mixed_salad_greens_raw
+Pepper sweet green raw	0	27.9375	0	0	0	0	0	0	0	27.9375	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Pepper_sweet_green_raw
+Pepper sweet red raw	0	0	0	0	0	0	0	0	0	37.25	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Pepper_sweet_red_raw
+Pepper banana raw	0	0	62	0	0	0	0	0	0	93	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Pepper_banana_raw
+Seaweed raw	0	0	60	0	0	0	0	0	0	0	0	0	0	60	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Seaweed_raw
+Squash summer yellow raw	0	21.1875	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Other_vegetables_raw;Squash_summer_yellow_raw
+Mixed vegetable juice vegetables other than tomato 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	369.6	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Mixed_vegetable_juice;Mixed_vegetable_juice_vegetables_other_than_tomato_
+Broccoli salad with cauliflower cheese bacon bits and dressing	0	0	0	0	0	0	0	0	0	0	0	0	0	0	308	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Raw_vegetable_mixtures;Broccoli_salad_with_cauliflower_cheese_bacon_bits_and_dressing
+Cabbage salad or coleslaw from fast food restaurant	0	0	0	0	0	0	0	219	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Raw_vegetable_mixtures;Cabbage_salad_or_coleslaw_from_fast_food_restaurant
+Cabbage salad or coleslaw made with coleslaw dressing	0	0	0	0	0	0	0	0	0	0	109.5	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_raw;L4_Raw_vegetable_mixtures;Cabbage_salad_or_coleslaw_made_with_coleslaw_dressing
+Vegetables NS as to type cooked fat not added in cooking	0	0	0	0	0	0	0	0	0	0	0	0	0	132.75	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Vegetables_NS_as_to_type_cooked_fat_not_added_in_cooking
+Bean sprouts cooked from fresh fat not added in cooking	0	0	0	31	0	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Bean_sprouts_cooked_from_fresh_fat_not_added_in_cooking
+Cabbage Chinese cooked fat not added in cooking	0	0	0	7	14	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Cabbage_Chinese_cooked_fat_not_added_in_cooking
+Cabbage green cooked NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	19.375	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Cabbage_green_cooked_NS_as_to_fat_added_in_cooking
+Cabbage green cooked fat not added in cooking	0	0	0	21	6.5	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Cabbage_green_cooked_fat_not_added_in_cooking
+Celery cooked fat not added in cooking	0	0	0	0	0	0	0	0	36	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Celery_cooked_fat_not_added_in_cooking
+Corn cooked NS as to form NS as to color NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	21.125	21.125	0	0	0	21.125	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Corn_cooked_NS_as_to_form_NS_as_to_color_NS_as_to_fat_added_in_cooking
+Garlic cooked	0	0	0	0	0	2	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Garlic_cooked
+Onions mature cooked NS as to form NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	0	26.875	0	0	0	26.875	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Onions_mature_cooked_NS_as_to_form_NS_as_to_fat_added_in_cooking
+Peas green cooked from frozen fat not added in cooking	0	0	0	0	0	0	80	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Peas_green_cooked_from_frozen_fat_not_added_in_cooking
+Peppers green cooked NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	17.625	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Peppers_green_cooked_NS_as_to_fat_added_in_cooking
+Peppers red cooked NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	0	0	0	0	0	17.625	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Peppers_red_cooked_NS_as_to_fat_added_in_cooking
+Peppers hot cooked NS as to form NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	8.8	17.6	0	0	0	17.6	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Peppers_hot_cooked_NS_as_to_form_NS_as_to_fat_added_in_cooking
+Radish Japanese daikon cooked fat not added in cooking	0	0	0	0	36.75	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Radish_Japanese_daikon_cooked_fat_not_added_in_cooking
+Sauerkraut cooked NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	0	0	6.6598	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Sauerkraut_cooked_NS_as_to_fat_added_in_cooking
+Seaweed dried	0	0	0	3.75	0	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Seaweed_dried
+Seaweed cooked NS as to fat added in cooking	0	0	6.4032	3.1968	24	0	0	0	0	0	0	0	0	51.2256	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Seaweed_cooked_NS_as_to_fat_added_in_cooking
+Squash summer cooked NS as to form NS as to fat added in cooking	0	0	0	0	0	0	0	0	0	0	0	0	0	0	23.125	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Squash_summer_cooked_NS_as_to_form_NS_as_to_fat_added_in_cooking
+Squash spaghetti cooked fat not added in cooking	0	0	0	0	0	0	193.75	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetables_cooked;L4_Other_vegetables_cooked;Squash_spaghetti_cooked_fat_not_added_in_cooking
+Bean salad yellow andor green string beans	0	0	0	0	0	0	0	0	0	375	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetable_mixtures_cooked;L4_Other_vegetable_mixtures_cooked;Bean_salad_yellow_andor_green_string_beans
+Vegetables stew type including potatoes carrots onions celery cooked fat not added in cooking	0	0	0	40	80	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_vegetable_mixtures_cooked;L4_Other_vegetable_mixtures_cooked;Vegetables_stew_type_including_potatoes_carrots_onions_celery_cooked_fat_not_added_in_cooking
+Beans string green cooked from canned with mushroom sauce	0	0	0	0	0	0	114	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_cooked_vegetables_cooked_with_sauces_batters_casseroles;L4_Other_cooked_vegetables_cooked_with_sauces_batters_casseroles;Beans_string_green_cooked_from_canned_with_mushroom_sauce
+Cauliflower from frozen creamed	0	0	0	0	0	0	0	171	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_cooked_vegetables_cooked_with_sauces_batters_casseroles;L4_Other_cooked_vegetables_cooked_with_sauces_batters_casseroles;Cauliflower_from_frozen_creamed
+Vegetable combination including carrots broccoli andor dark green leafy cooked with soy based sauce	0	185	0	0	0	0	0	0	1480	0	0	0	0	416.25	0	L1_Vegetables;L2_Other_vegetables;L3_Other_cooked_vegetables_cooked_with_sauces_batters_casseroles;L4_Vegetable_combinations_with_tomato_or_curry;Vegetable_combination_including_carrots_broccoli_andor_dark_green_leafy_cooked_with_soy_based_sauce
+Vegetable combination excluding carrots broccoli and dark green leafy cooked with soy based sauce	0	0	0	0	0	0	0	0	0	0	0	0	138.75	0	0	L1_Vegetables;L2_Other_vegetables;L3_Other_cooked_vegetables_cooked_with_sauces_batters_casseroles;L4_Vegetable_combinations_with_tomato_or_curry;Vegetable_combination_excluding_carrots_broccoli_and_dark_green_leafy_cooked_with_soy_based_sauce
+Vegetable tempura	0	0	0	0	0	0	0	0	0	0	0	0	0	28	0	L1_Vegetables;L2_Other_vegetables;L3_Other_cooked_vegetables_cooked_with_sauces_batters_casseroles;L4_Vegetable_combinations_with_tomato_or_curry;Vegetable_tempura
+Vegetable curry	0	0	0	0	0	0	0	0	0	0	0	0	0	0	708	L1_Vegetables;L2_Other_vegetables;L3_Other_cooked_vegetables_cooked_with_sauces_batters_casseroles;L4_Vegetable_combinations_with_tomato_or_curry;Vegetable_curry
+Cucumber pickles relish	0	0	0	0	0	0	0	0	0	0	30.625	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Olives_pickles_relishes_excluding_tomatoes;L4_;Cucumber_pickles_relish
+Cucumber pickles sweet	0	0	0	0	0	0	0	0	0	0	37.5	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Olives_pickles_relishes_excluding_tomatoes;L4_;Cucumber_pickles_sweet
+Mustard	0	0	0	0	0	0	0	0	0	0	30	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Olives_pickles_relishes_excluding_tomatoes;L4_;Mustard
+Pickles NS as to vegetable	0	0	0	0	0	0	0	0	0	0	0	0	0	77.5	0	L1_Vegetables;L2_Other_vegetables;L3_Olives_pickles_relishes_excluding_tomatoes;L4_;Pickles_NS_as_to_vegetable
+Mushroom soup NFS	0	0	0	0	0	0	0	0	0	0	0	0	0	244	0	L1_Vegetables;L2_Other_vegetables;L3_Vegetable_soups;L4_Vegetable_soups;Mushroom_soup_NFS
+Seaweed soup	0	0	0	345	0	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Vegetable_soups;L4_Vegetable_soup;Seaweed_soup
+Vegetable soup home recipe	0	0	0	0	234	0	0	0	0	0	0	0	0	0	0	L1_Vegetables;L2_Other_vegetables;L3_Vegetable_soups;L4_Vegetable_soup;Vegetable_soup_home_recipe
+Butter stick salted	0	0	0	0	0	0	0	0	0	0	0	5	7.5	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Fats;L3_Table_fats;L4_Table_fats;Butter_stick_salted
+Light butter stick salted	0	0	0	0	0	0	4.73286	0	0	0	0	0	0	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Fats;L3_Table_fats;L4_Table_fats;Light_butter_stick_salted
+Margarine NFS	0	0	0	0	0	0	0	0	0	0	0	0	19.0476	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Fats;L3_Table_fats;L4_Table_fats;Margarine_NFS
+Honey mustard dressing	62.4	0	0	0	0	0	0	0	0	0	0	0	0	31.2	0	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Regular_salad_dressings;L4_;Honey_mustard_dressing
+Italian dressing made with vinegar and oil	14.7	29.4	0	0	0	0	29.4	0	0	29.4	0	0	0	44	0	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Regular_salad_dressings;L4_;Italian_dressing_made_with_vinegar_and_oil
+Mayonnaise regular	0	0	41.4	0	0	0	0	0	0	0	0	0	0	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Regular_salad_dressings;L4_;Mayonnaise_regular
+Creamy dressing	0	0	0	0	0	0	0	29.4	0	0	0	0	0	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Regular_salad_dressings;L4_;Creamy_dressing
+Sesame dressing	0	0	0	0	29.4	0	0	0	0	0	0	0	0	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Regular_salad_dressings;L4_;Sesame_dressing
+Thousand Island dressing	0	0	0	0	0	0	0	0	0	0	0	0	0	0	31.2	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Regular_salad_dressings;L4_;Thousand_Island_dressing
+Yogurt dressing	0	0	0	0	0	0	61.6	0	0	0	0	0	0	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Regular_salad_dressings;L4_;Yogurt_dressing
+French or Catalina dressing light	0	32.4	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Light_salad_dressings;L4_;French_or_Catalina_dressing_light
+Sesame dressing light	0	0	0	0	0	0	0	0	0	14.7	0	0	0	0	0	L1_Fats_Oils_and_Salad_Dressings;L2_Salad_dressings;L3_Light_salad_dressings;L4_;Sesame_dressing_light
+Sugar white granulated or lump	0	0	0	0	0	0	0	0	0	0	2.3	7	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Sugars_and_sweets;L3_Sugars_and_sugarsugar_substitute_blends;L4_Sugars_and_sugarsugar_substitute_blends;Sugar_white_granulated_or_lump
+Sugar brown	0	0	0	0	0	0	0	0	0	0	0	0	9.2	0	0	L1_Sugars_Sweets_and_Beverages;L2_Sugars_and_sweets;L3_Sugars_and_sugarsugar_substitute_blends;L4_Sugars_and_sugarsugar_substitute_blends;Sugar_brown
+Sugar cinnamon	0	0	0	0	0	0	0	0	0	0	8.4	0	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Sugars_and_sweets;L3_Sugars_and_sugarsugar_substitute_blends;L4_Sugars_and_sugarsugar_substitute_blends;Sugar_cinnamon
+Honey	0	10.5	0	0	0	0	0	0	0	0	63	0	0	0	21	L1_Sugars_Sweets_and_Beverages;L2_Sugars_and_sweets;L3_Syrups_honey_molasses_sweet_toppings;L4_Syrups_honey_molasses;Honey
+Jam preserves all flavors	0	0	0	0	0	0	0	0	0	0	0	0	20	0	0	L1_Sugars_Sweets_and_Beverages;L2_Sugars_and_sweets;L3_Jellies_jams_preserves;L4_Jellies_jams_preserves;Jam_preserves_all_flavors
+Chocolate sweet or dark	0	0	0	0	0	0	0	0	0	0	0	0	0	10.25	0	L1_Sugars_Sweets_and_Beverages;L2_Sugars_and_sweets;L3_Candies;L4_Candies;Chocolate_sweet_or_dark
+MMs Milk Chocolate Candies formerly MMs Plain Chocolate Candies 	0	0	0	0	0	0	0	0	0	0	0	52	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Sugars_and_sweets;L3_Candies;L4_Candies;MMs_Milk_Chocolate_Candies_formerly_MMs_Plain_Chocolate_Candies_
+Coffee made from ground regular	252	192	0	0	0	192	0	0	240	0	672	252	360	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Coffee;L4_Coffee;Coffee_made_from_ground_regular
+Coffee espresso	0	0	0	0	0	0	0	0	0	0	0	108	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Coffee;L4_Coffee;Coffee_espresso
+Coffee mocha	0	0	0	0	0	0	0	0	0	0	0	496	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Coffee;L4_Coffee;Coffee_mocha
+Cappuccino	0	0	0	0	0	0	0	0	0	0	411	324	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Coffee;L4_Cappuccino;Cappuccino
+Tea herbal	0	0	0	0	0	0	0	0	162	0	0	0	0	0	126	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Tea;L4_Tea;Tea_herbal
+Tea hibiscus	0	288	0	0	0	0	324	0	0	216	0	0	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Tea;L4_Tea;Tea_hibiscus
+Soft drink NFS	0	297.6	0	0	0	0	0	0	0	0	0	0	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Soft_drinks_carbonated;L4_Soft_drink_NS;Soft_drink_NFS
+Carbonated water unsweetened	0	216	0	0	0	0	360	507	720	0	0	330	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Soft_drinks_carbonated;L4_Carbonated_soft_drinks;Carbonated_water_unsweetened
+Soft drink cola type	0	0	0	0	0	0	0	0	0	0	372	0	372	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Soft_drinks_carbonated;L4_Carbonated_soft_drinks;Soft_drink_cola_type
+Soft drink cola type sugar free	0	0	0	0	0	0	0	0	0	0	720	0	360	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Soft_drinks_carbonated;L4_Carbonated_soft_drinks;Soft_drink_cola_type_sugar_free
+Soft drink fruit flavored caffeine free	0	0	0	0	0	0	0	0	0	0	372	0	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Soft_drinks_carbonated;L4_Carbonated_soft_drinks;Soft_drink_fruit_flavored_caffeine_free
+Fruit juice drink with high vitamin C	0	0	0	0	0	0	0	0	0	0	0	0	372	0	0	L1_Sugars_Sweets_and_Beverages;L2_Nonalcoholic_beverages;L3_Fruit_drinks;L4_Fruit_juice_drinks_and_fruit_flavored_drinks_with_high_vitamin_C;Fruit_juice_drink_with_high_vitamin_C
+Beer	0	0	0	0	0	0	0	0	0	0	1044	1080	720	0	0	L1_Sugars_Sweets_and_Beverages;L2_Alcoholic_beverages;L3_Beers_and_ales;L4_;Beer
+Bourbon and soda	0	0	0	0	0	0	0	0	0	0	0	60	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Alcoholic_beverages;L3_Cocktails;L4_;Bourbon_and_soda
+Wine table red	0	0	0	0	0	0	0	0	0	0	0	0	144	0	0	L1_Sugars_Sweets_and_Beverages;L2_Alcoholic_beverages;L3_Wines;L4_;Wine_table_red
+Wine rice	0	0	0	0	60	0	0	0	0	0	0	0	0	48	0	L1_Sugars_Sweets_and_Beverages;L2_Alcoholic_beverages;L3_Wines;L4_;Wine_rice
+Water tap	768	876	288	0	0	1620	828	336	324	672	252	297	552	0	972	L1_Sugars_Sweets_and_Beverages;L2_Water_noncarbonated;L3_Water_not_bottled;L4_;Water_tap
+Water bottled unsweetened	432	0	330	0	0	735.6	0	0	0	0	0	0	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Water_noncarbonated;L3_Water_bottled;L4_;Water_bottled_unsweetened
+Protein powder whey based NFS	143	0	104	0	0	52	0	0	0	0	0	0	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Formulated_nutrition_beverages_energy_drinks_sports_drinks_function;L3_Nutrition_powders;L4_;Protein_powder_whey_based_NFS
+Protein powder light NFS	0	0	4	0	0	0	0	0	0	0	0	0	0	0	0	L1_Sugars_Sweets_and_Beverages;L2_Formulated_nutrition_beverages_energy_drinks_sports_drinks_function;L3_Nutrition_powders;L4_;Protein_powder_light_NFS
