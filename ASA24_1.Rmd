@@ -5,6 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
 ```
 
 ### What this script does:
@@ -20,9 +21,14 @@ Name the path to DietR directory where input files are pulled.
 
 Load the necessary functions
 ```{r}
-  source(paste(main_wd, "/lib/specify_data_dir.R", sep=""))
-  source(paste(main_wd, "/lib/load_clean_ASA24.R", sep=""))
-  source(paste(main_wd, "/lib/format.file.R", sep=""))
+  source("../../lib/specify_data_dir.R")
+  source("../../lib/load_clean_ASA24.R")
+  source("../../lib/format.file.R")
+```
+
+Specify the directory where the data is.
+```{r, results = 'hide'}
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
 ```
 
 <!-- Define the path to items data in main_wd. -->
@@ -34,7 +40,7 @@ Load the necessary functions
 ### Load ASA24 Items data
 Load items data which is in a csv format.
 ```{r}
-items_raw <- read.csv("eg_data/VVKAJ/VVKAJ_Items.csv", sep = ",", header=T)
+items_raw <- read.csv("VVKAJ_Items.csv", sep = ",", header=T)
 ```
 
 Show the first two lines of the items data.
@@ -42,33 +48,32 @@ Show the first two lines of the items data.
 head(items_raw, 2)
 ```
 
-Save it as a .txt file.
+<!-- Save it as a .txt file. -->
 
 <!-- This will be saved in GitHub/DietR_gh_pages/ directory. -->
 <!-- ```{r} -->
-<!--   write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) -->
+<!--   write.table(items_raw, "eg_data/VVKAJ/VVKAJ_Items.txt", sep="\t", row.names=F) -->
 <!-- ``` -->
 
 <!-- Special characters such as "'", ",", "%" may interfere correct data loading; thus, we replace them with an underscore "_". -->
 
 <!-- This function can only take .txt files as input. Specify column(s) to be processed in the "columns" argument and the output file name in the outfn argument; "_f" stands for "formatted". -->
 <!-- ```{r} -->
-<!--   format.file(filename = "VVKAJ_Items.txt", -->
-<!--               columns  = "Food_Description", -->
-<!--               outfn    = "VVKAJ_Items_f.txt") -->
+<!--   format.file(filename = "eg_data/VVKAJ/VVKAJ_Items.txt", -->
+<!--               columns  = "eg_data/VVKAJ/Food_Description", -->
+<!--               outfn    = "eg_data/VVKAJ/VVKAJ_Items_f.txt") -->
 <!-- ``` -->
 
 <!-- Add SampleID with a desired prefix, and save it as a txt file. SampleIDs are IDs unique to each combination of users and day. -->
 <!-- ```{r} -->
-<!--   AddSampleIDtoItems(input.fn="VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", -->
-<!--                      prefix="vvkaj.", out.fn="VVKAJ_Items_f_id.txt") -->
+<!--   AddSampleIDtoItems(input.fn="eg_data/VVKAJ/VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", -->
+<!--                      prefix="vvkaj.", out.fn="eg_data/VVKAJ/VVKAJ_Items_f_id.txt") -->
 <!-- ``` -->
 
 <!-- Load the formatted Items file. -->
 <!-- ```{r} -->
-<!--   items_f_id <- read.table("VVKAJ_Items_f_id.txt", sep="\t", header=T) -->
+<!--   items_f_id <- read.table("eg_data/VVKAJ/VVKAJ_Items_f_id.txt", sep="\t", header=T) -->
 <!-- ``` -->
-
 
 <!-- A combination of the specified prefix and sequential number should be added. -->
 <!-- ```{r} -->

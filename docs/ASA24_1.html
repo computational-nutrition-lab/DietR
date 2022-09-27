@@ -312,9 +312,11 @@ $(document).ready(function () {
   main_wd</code></pre>
 <pre><code>## [1] &quot;~/GitHub/DietR&quot;</code></pre>
 <p>Load the necessary functions</p>
-<pre class="r"><code>  source(paste(main_wd, &quot;/lib/specify_data_dir.R&quot;, sep=&quot;&quot;))
-  source(paste(main_wd, &quot;/lib/load_clean_ASA24.R&quot;, sep=&quot;&quot;))
-  source(paste(main_wd, &quot;/lib/format.file.R&quot;, sep=&quot;&quot;))</code></pre>
+<pre class="r"><code>  source(&quot;../../lib/specify_data_dir.R&quot;)
+  source(&quot;../../lib/load_clean_ASA24.R&quot;)
+  source(&quot;../../lib/format.file.R&quot;)</code></pre>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
 <!-- Define the path to items data in main_wd. -->
 <!-- ```{r} -->
 <!-- items_path <- paste("/eg_data/VVKAJ/VVKAJ_Items.csv", sep="") -->
@@ -324,7 +326,7 @@ $(document).ready(function () {
 <div id="load-asa24-items-data" class="section level3">
 <h3>Load ASA24 Items data</h3>
 <p>Load items data which is in a csv format.</p>
-<pre class="r"><code>items_raw &lt;- read.csv(&quot;eg_data/VVKAJ/VVKAJ_Items.csv&quot;, sep = &quot;,&quot;, header=T)</code></pre>
+<pre class="r"><code>items_raw &lt;- read.csv(&quot;VVKAJ_Items.csv&quot;, sep = &quot;,&quot;, header=T)</code></pre>
 <p>Show the first two lines of the items data.</p>
 <pre class="r"><code>head(items_raw, 2)</code></pre>
 <pre><code>##                            RecallRecId UserName
@@ -378,26 +380,26 @@ $(document).ready(function () {
 ##                                             Food_Description
 ## 1                                            Soft drink, NFS
 ## 2 Cereal (Post Great Grains Double Pecan Whole Grain Cereal)</code></pre>
-<p>Save it as a .txt file.</p>
+<!-- Save it as a .txt file. -->
 <!-- This will be saved in GitHub/DietR_gh_pages/ directory. -->
 <!-- ```{r} -->
-<!--   write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) -->
+<!--   write.table(items_raw, "eg_data/VVKAJ/VVKAJ_Items.txt", sep="\t", row.names=F) -->
 <!-- ``` -->
 <!-- Special characters such as "'", ",", "%" may interfere correct data loading; thus, we replace them with an underscore "_". -->
 <!-- This function can only take .txt files as input. Specify column(s) to be processed in the "columns" argument and the output file name in the outfn argument; "_f" stands for "formatted". -->
 <!-- ```{r} -->
-<!--   format.file(filename = "VVKAJ_Items.txt", -->
-<!--               columns  = "Food_Description", -->
-<!--               outfn    = "VVKAJ_Items_f.txt") -->
+<!--   format.file(filename = "eg_data/VVKAJ/VVKAJ_Items.txt", -->
+<!--               columns  = "eg_data/VVKAJ/Food_Description", -->
+<!--               outfn    = "eg_data/VVKAJ/VVKAJ_Items_f.txt") -->
 <!-- ``` -->
 <!-- Add SampleID with a desired prefix, and save it as a txt file. SampleIDs are IDs unique to each combination of users and day. -->
 <!-- ```{r} -->
-<!--   AddSampleIDtoItems(input.fn="VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", -->
-<!--                      prefix="vvkaj.", out.fn="VVKAJ_Items_f_id.txt") -->
+<!--   AddSampleIDtoItems(input.fn="eg_data/VVKAJ/VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", -->
+<!--                      prefix="vvkaj.", out.fn="eg_data/VVKAJ/VVKAJ_Items_f_id.txt") -->
 <!-- ``` -->
 <!-- Load the formatted Items file. -->
 <!-- ```{r} -->
-<!--   items_f_id <- read.table("VVKAJ_Items_f_id.txt", sep="\t", header=T) -->
+<!--   items_f_id <- read.table("eg_data/VVKAJ/VVKAJ_Items_f_id.txt", sep="\t", header=T) -->
 <!-- ``` -->
 <!-- A combination of the specified prefix and sequential number should be added. -->
 <!-- ```{r} -->
