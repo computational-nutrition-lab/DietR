@@ -12,6 +12,8 @@ As is or Averaged                      | Nutrients (PROT - B12_ADD) | Food categ
 As is (1 row = user/day)               | Nut_asis                   | Cat_asis
 Averaged across days (1 row = user)    | Nut_ave                    | Cat_ave
 
+<br>
+
 Name the path to DietR directory where input files are pulled.
 ```{r}
   main_wd <- "~/GitHub/DietR"

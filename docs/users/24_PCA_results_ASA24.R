@@ -4,6 +4,9 @@
 # Created on 07/15/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# Here, we will color-code the datapoints in PCA biplots by a desired variable in the metadata to 
+# facilitate understanding of clustering of individuals. 
+
 # Set working directory to "dietary_patterns".
   Session --> Set working direHctory --> Choose directory.  
   setwd(main_wd)
@@ -16,7 +19,7 @@
   distinct100colors <- readRDS("lib/distinct100colors.rda")
   
 # You can come back to the main directory by:
-  setwd(main_wd)] 
+  setwd(main_wd) 
 
 
 # ===============================================================================================================
@@ -33,7 +36,6 @@
 # Load the variance explained by each PC.
   PC_var_exp <- read.table("VVKAJ_Nut_asis_PC_var_explained.txt", sep="\t", header=T)
   head(PC_var_exp)
-  colnames(PC_var_exp)
 
   
 # ---------------------------------------------------------------------------------------------------------------
@@ -54,7 +56,9 @@
   ggsave("VVKAJ_Nut_asis_PC12_diet.pdf", PC12_diet, 
          device="pdf", width=7, height=6.5)
 
-
+# Similar charts can be generated using the PCA results of Nut_ave, Cat_asis, and Cat_ave by 
+# loading their PCA output.
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.
   setwd(main_wd)    

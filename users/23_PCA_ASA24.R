@@ -13,7 +13,6 @@
 
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")
-  # source("lib/prep_data_for_clustering.R")
   source("lib/ggplot2themes.R")
   source("lib/PCA.R")
 

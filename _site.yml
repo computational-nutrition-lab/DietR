@@ -20,6 +20,8 @@ navbar:
       href: ASA24_5.html
     - text: "PCA"
       href: ASA24_6_PCA.html
+    - text: "PCA results"
+      href: ASA24_7_PCA_results.html
   - text: NHANES
     menu:
     - text: NHANES_1
