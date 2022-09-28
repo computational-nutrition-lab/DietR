@@ -3,7 +3,7 @@
 # ========================================================================================
 # k-means clustering 
 # Version 1
-# Created on 01.06.2022 by Rie Sadohara
+# Created on 01/06/2022 by Rie Sadohara
 # ========================================================================================
 
 # ========================================================================================
@@ -199,7 +199,7 @@
     km_results_one <- kmeans(x=kmeans_input, centers = myK, nstart = 25)
     # Define your plot title
     plot_title_one <- paste("K=", myK, sep = "")
-    oneKplot <- factoextra::fviz_cluster(km_results_one, 
+    oneKplot <<- factoextra::fviz_cluster(km_results_one, 
                              data = kmeans_input, 
                              ellipse = T, ellipse.alpha = 0.1,
                              show.clust.cent = F,

@@ -46,7 +46,7 @@
 # Specify the prefix of filenames to be saved. 
   res_prefix_nut_asis = "VVKAJ_Nut_asis"
   
-# Run elbow, silhouette, and gap methods to find an optimum K (number of clusters). 
+# Run the elbow, silhouette, and gap methods to find an optimum K (number of clusters). 
 # Do not alter the name of the input file: kmeans_input. This function below assumes that
 # the input is named as "kmeans_input". 
 # You can only run those three methods for K = 1 through (number of observations - 1). 
@@ -58,13 +58,15 @@
 # distinct peak, but the silhouette method gave a peak at K=3. K=2,4,5 also has relatively high silhouette 
 # width (~goodness of fit).
   
-# With specific K values in mind, perform k-means analysis with one specified K.
-# Also, change the file name to be saved as a PDF. 
+# With specific K values in mind, perform k-means analysis with one specified K. This will save 
+# Dim1 x Dim2 plot as a .pdf file in your out.dir. Change the filename as necessary. 
   OneK(myK= 3, out.dir= res_dir_nut_asis, out.fn = "VKAJ_Nut_asis_K3")
   
-# Or try multiple Ks and print the biplots in one panel.
-# Likewise, change the file name to be saved as a PDF as necessary. 
-# This uses the factoextra and gridExtra packages.  
+  oneKplot
+  
+# Or try multiple Ks and print the biplots in one panel. Likewise, This will save a Dim1 x Dim2 plot for 
+# each of the chosen K as a .pdf file in your out.dir. Change the filename to be saved as a PDF as necessary. 
+# This function uses the factoextra and gridExtra packages. 
   MultipleK(myKs = c(3,4,5,6), out.dir = res_dir_nut_asis, out.fn = "VKAJ_Nut_asis_K3-6")
 
   
