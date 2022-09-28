@@ -11,7 +11,7 @@
 
 
 
-<title>MyLabJournal_test_Rmarkdown3</title>
+<title>PCA</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -307,37 +307,133 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">MyLabJournal_test_Rmarkdown3</h1>
+<h1 class="title toc-ignore">PCA</h1>
 
 </div>
 
 
-<style type="text/css">
-.title {
-  display: none;
-}
-
-#getting-started img {
-  margin-right: 10px;
-}
-
-</style>
-<div class="row" style="padding-top: 30px;">
-<div id="welcome-to-dietr-package-tutorial" class="section level1 col-sm-6">
-<h1><strong>Welcome to DietR package tutorial</strong></h1>
-<p>This tutorial shows how to analyze ASA24 and NHANES data.</p>
-<div id="get-started" class="section level3">
-<h3>Get started</h3>
-<ol style="list-style-type: decimal">
-<li><p>Download the <a href="https://github.com/computational-nutrition-lab/DietR">whole repository of DietR</a>. It contains files and scripts used in this tutorial.</p></li>
-<li><p>The easiest way to follow along this tutorial is to create “documents/Github” folder in your home directory and bring unzipped DietR repository there, so that you can run tutorial codes without modifying paths.</p></li>
-<li><p>See the <a href="https://computational-nutrition-lab.github.io/DietR_gh_pages/Links.html">links page</a> for additional resources for using R.</p></li>
-</ol>
-</div>
-</div>
-<div id="computational-nutrition-lab" class="section level3 col-sm-6">
-<h3><a href="https://github.com/computational-nutrition-lab">Computational Nutrition Lab</a></h3>
-<p><a href = "https://crumplab.github.io"> <img src="images/DietR_Logo.png" /> </a></p>
+<p>In this section, we are going to perform PCA (Principal Component Analysis) with the totals nutrients as is of the totals dataset, processed for clustering in the previous section.</p>
+<p>Before proceeding, ensure to have four directories (folders) named as:</p>
+<ul>
+<li>PCA_Nut_asis</li>
+<li>PCA_Nut_ave</li>
+<li>PCA_Cat_asis</li>
+<li>PCA_Cat_ave</li>
+</ul>
+<p>PCA results will be saved in these folders. You can change those directory names, but if you do so, you will need to modify the directory name, “res_dir_xxx_xxxx”, to match your new directory name.</p>
+<p>PCA can be done with the following four data types generated above:</p>
+<ul>
+<li>Nutrients as is (<code>Nut_asis</code>),</li>
+<li>Nutrients averaged across days (<code>Nut_ave</code>),</li>
+<li>Food categories as is (<code>Cat_asis</code>), and</li>
+<li>Food categories averaged across days (<code>Cat_ave</code>).</li>
+</ul>
+<p>With <code>Nut_asis</code> and <code>Cat_asis</code>, each datapoint will be users on each day. Suited to track potential changes in users’ dietary habits over the course of the trial days.</p>
+<p>With <code>Nut_ave</code> and <code>Cat_ave</code>, each datapoint will be users data averaged across days. Suited to analyze the average dietary pattern of users.</p>
+<p>Use <code>scale = TRUE</code> for the prcomp function to take care of variables measurements in different units. <code>scale = TRUE</code> transforms data by <span class="math inline">\((x_{i} - mean(x)) / SD(x)\)</span> so that all the variables will have zero mean and one standard deviation (and variance) and so they are comparable.</p>
+<p><br></p>
+<p>Name the path to DietR directory where input files are pulled.</p>
+<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
+<p>Load the necessary functions</p>
+<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
+  source(&quot;lib/ggplot2themes.R&quot;)
+  source(&quot;lib/PCA.R&quot;)</code></pre>
+<p>Set the default font size for plots.</p>
+<pre class="r"><code>  ggplot2::theme_set(theme_bw(base_size = 14))</code></pre>
+<p>You can come back to the main directory by:</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+<p><br></p>
+<div id="nutrient-data-as-is-processed-for-clustering-analyses" class="section level3">
+<h3>Nutrient data as is, processed for clustering analyses</h3>
+<p>Load Nut_asis data.</p>
+<pre class="r"><code>  Tot_m_QCed_Nut_asis &lt;- read.table(file=&quot;VVKAJ_Tot_m_QCed_Nut_asis.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Name your input data.</p>
+<pre class="r"><code>  pca_input &lt;- Tot_m_QCed_Nut_asis</code></pre>
+<p>Ensure your input file has the correct number of rows and columns.</p>
+<pre class="r"><code>  dim(pca_input)</code></pre>
+<pre><code>## [1] 45 39</code></pre>
+<p>Perform PCA with the subset data, scaled.</p>
+<pre class="r"><code>  scaled_pca &lt;- prcomp(x=pca_input, scale = TRUE)   </code></pre>
+<p>Specify the directory (folder) to save the results.</p>
+<pre class="r"><code>  res_dir_nut_asis = &quot;PCA_Nut_asis&quot; </code></pre>
+<p>Specify the prefix of filenames to be saved.</p>
+<pre class="r"><code>  res_prefix_nut_asis = &quot;VVKAJ_Nut_asis&quot;</code></pre>
+<p>Save PCA output files in a specified folder (out.dir) and a prefix (out.prefix).</p>
+<pre class="r"><code>  OutputPCA(pca.data=pca_input, pca.result=scaled_pca, 
+             out.dir= res_dir_nut_asis, out.prefix= res_prefix_nut_asis )</code></pre>
+<pre><code>## Loading required package: ggfortify</code></pre>
+<p>This code will generate several output files all at once in the res_dir:</p>
+<table>
+<colgroup>
+<col width="35%" />
+<col width="64%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Output file postfix</th>
+<th>File content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>_biplotdots.pdf PCA</td>
+<td>biplot with the datapoints as dots and with the variables shown as arrows</td>
+</tr>
+<tr class="even">
+<td>_biplotlabeled.pdf</td>
+<td>PCA biplot with the datapoints labed with numbers and with the variables shown as arrows</td>
+</tr>
+<tr class="odd">
+<td>_biplotlabeledwoarrows.pdf</td>
+<td>The datapoints labed with numbers; variables are hidden</td>
+</tr>
+<tr class="even">
+<td>_directions.pdf</td>
+<td>Variables shown as arrows only; the datapoints are hidden</td>
+</tr>
+<tr class="odd">
+<td>_loadings_PC1.pdf</td>
+<td>Loadings of PC1 shown as a bar chart.</td>
+</tr>
+<tr class="even">
+<td>_loadings_PC2.pdf</td>
+<td>Loadings of PC2 shown as a bar chart.</td>
+</tr>
+<tr class="odd">
+<td>_PC_loadings.txt</td>
+<td>Text file with loadings of each PC for the variables.</td>
+</tr>
+<tr class="even">
+<td>_PC_var_explained.txt</td>
+<td>Amount of variation explained by each PC</td>
+</tr>
+<tr class="odd">
+<td>_PCs.txt</td>
+<td>The input file (totals/items) and the PCA results combined</td>
+</tr>
+<tr class="even">
+<td>_scree.pdf</td>
+<td>PCA scree plot, showing the amount of variance explained by each PC.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Combine the input (totals before processing) with all the variables and the PC results.</p>
+<pre class="r"><code>  SaveInputAndPCs(input=&quot;VVKAJ_Tot_m_QCed.txt&quot;, pca.results = scaled_pca, 
+                  out.dir= res_dir_nut_asis, out.prefix= res_prefix_nut_asis)</code></pre>
+<p><strong>[Note]</strong> Even though the input file has both nutrients (Nut) and food categories (Cat) data, PCA was done with only either Nut or Cat, not both.</p>
+<p><br></p>
+<hr />
+<p>PCA can be done in a similar way with the remaining <code>Nut_ave</code>, <code>Cat_asis</code>, and <code>Cat_ave</code> dataset. The R script has the codes to run PCA with those three datasets. But here they are omitted for brevity in this tutorial.</p>
+<p>Furthermore, the PCA script has each of the function to generate the outputs in case users would like to tweak the visualization conditions. The functions’ names are hopefully self-explanatory – <code>LineScreePlot</code>, <code>BiplotDots</code>, <code>Biplotlabeled</code>, <code>BiplotLabeledwoArrows</code>, and <code>LoadingsPlot</code>.</p>
+<p><br></p>
+<hr />
+<p>Come back to the main directory before you start running another script.</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
 </div>
 
 

@@ -5,6 +5,13 @@ output: html_document
 
 Here, we will prepare ASA24 totals data for PCA and clustering analyses. We will need to calculate average dietary data per person across all days (if desired), remove variables that have zero variance, and collapse variables by correlation (i.e. remove redundancy of variables that are highly correlated).
 
+Table. Part of descriptors of filenames for data type and processing pattern
+
+As is or Averaged                      | Nutrients (PROT - B12_ADD) | Food categories (F_TOTAL - A_DRINKS)
+-------------------------------------- | -------------------------- | ------------------------------------
+As is (1 row = user/day)               | Nut_asis                   | Cat_asis
+Averaged across days (1 row = user)    | Nut_ave                    | Cat_ave
+
 Name the path to DietR directory where input files are pulled.
 ```{r}
   main_wd <- "~/GitHub/DietR"

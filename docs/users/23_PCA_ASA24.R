@@ -10,18 +10,18 @@
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
-  
-# Come back to the main directory
-  setwd(main_wd) 
 
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")
-  source("lib/prep_data_for_clustering.R")
+  # source("lib/prep_data_for_clustering.R")
   source("lib/ggplot2themes.R")
   source("lib/PCA.R")
 
 # Set the default font size for plots.
   ggplot2::theme_set(theme_bw(base_size = 14))
+
+# You can come back to the main directory by:
+  setwd(main_wd) 
 
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
