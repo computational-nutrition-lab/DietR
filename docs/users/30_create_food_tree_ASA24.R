@@ -26,7 +26,6 @@
   
 # Load source scripts
   source("lib/specify_data_dir.R")
-  
   source("lib/Food_tree_scripts/newick.tree.r")
   source("lib/Food_tree_scripts/check.db.r")
   source("lib/Food_tree_scripts/format.foods.r")
@@ -40,7 +39,7 @@
 # Prep data
 # ===============================================================================================================
 
-# Current ASA24 database doesn't have modcodes, so de-duplicate database file, 
+# Current ASA24 database does not have modcodes, so de-duplicate database file, 
 # replace special characters with "_", and create a new FoodID out of foodcode and modcode.
 # It leaves all other columns intact.
   FormatFoods(input_fn="eg_data/Food_tree_eg/all.food.desc.txt", output_fn="eg_data/Food_tree_eg/ASA24Database.txt")
@@ -53,6 +52,7 @@
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
   
 # Create a folder called "Foodtree" in the current working directory ("VVKAJ").
+  
 # Format your items data, and save the formatted items file to the "Foodtree" folder.
   FormatFoods(input_fn="VVKAJ_Items_f_id_s_m.txt", 
               output_fn="Foodtree/VVKAJ_Items_f_id_s_m_ff.txt", dedupe=F)
@@ -78,7 +78,7 @@
 # Generate a food tree with your own items dataset. 
 # ===============================================================================================================
   
-# Move to Foodtree folder in VVKAJ again.
+# Move to Foodtree folder in VVKAJ/Foodtree again.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Foodtree")
   
 # Limit to just the foods reported in your study (formatted dietrecords.txt as the input)

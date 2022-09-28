@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Create food tree</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DietR Package</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    ASA24
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ASA24_1.html">Load and clean ASA24 data</a>
+    </li>
+    <li>
+      <a href="ASA24_2.html">Calculate totals by occasion</a>
+    </li>
+    <li>
+      <a href="ASA24_3.html">Data overview</a>
+    </li>
+    <li>
+      <a href="ASA24_4.html">Percent kcal of CARB, PROT, TFAT</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="ASA24_5.html">Prepare for clustering</a>
+    </li>
+    <li>
+      <a href="ASA24_6_PCA.html">PCA</a>
+    </li>
+    <li>
+      <a href="ASA24_7_PCA_results.html">PCA results</a>
+    </li>
+    <li>
+      <a href="ASA24_8_k-means.html">k-means</a>
+    </li>
+    <li>
+      <a href="ASA24_9_create_food_tree.html">Create food tree</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    NHANES
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="NHANES_1.html">NHANES_1</a>
+    </li>
+    <li>
+      <a href="NHANES_2.html">NHANES_2</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Links.html">Links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Create food tree</h1>
+
+</div>
+
+
+<p>Food trees show the classification of each food item entered in your dietary data. For details, please read <a href="https://doi.org/10.1016/j.chom.2019.05.005">Johnson et al., 2021</a>.</p>
+<p><strong>[IMPORTANT]</strong> Create a new folder called “Foodtree” in the “VVKAJ” folder.</p>
+<p>Before running the following code, one needs to have cleaned input data and obtained ‘New_totals’ or ‘totals’, which are going to be used here.</p>
+<p>The following code expects that input files are tab-delimited txt file.</p>
+<p>Ensure your input files have no special characters that interfere loading:</p>
+<ul>
+<li><code>"</code></li>
+<li><code>'</code></li>
+<li><code>#</code></li>
+<li><code>&amp;</code></li>
+</ul>
+<p><br></p>
+<p>Name the path to DietR directory where input files are pulled.</p>
+<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
+<p>Load the necessary functions</p>
+<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
+  source(&quot;lib/Food_tree_scripts/newick.tree.r&quot;)</code></pre>
+<pre><code>## Loading required package: data.tree</code></pre>
+<pre class="r"><code>  source(&quot;lib/Food_tree_scripts/check.db.r&quot;)
+  source(&quot;lib/Food_tree_scripts/format.foods.r&quot;)
+  source(&quot;lib/Food_tree_scripts/filter.db.by.diet.records.r&quot;)
+  source(&quot;lib/Food_tree_scripts/make.food.tree.r&quot;)
+  source(&quot;lib/Food_tree_scripts/make.food.otu.r&quot;)
+  source(&quot;lib/Food_tree_scripts/make.fiber.otu.r&quot;)
+  source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
+<p>You can come back to the main directory by:</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
+<p><br></p>
+<div id="prepare-data" class="section level3">
+<h3>Prepare data</h3>
+<p>Current ASA24 database does not have modcodes, so de-duplicate database file, replace special characters with “_“, and create a new FoodID out of foodcode and modcode. It leaves all other columns intact.</p>
+<pre class="r"><code>   FormatFoods(input_fn=&quot;eg_data/Food_tree_eg/all.food.desc.txt&quot;, 
+               output_fn=&quot;eg_data/Food_tree_eg/ASA24Database.txt&quot;)</code></pre>
+<p>all.food.desc.txt</p>
+<pre><code>##   FoodCode                        Main.food.description ModCode
+## 1 11000000                                  Milk, human       0
+## 2 11100000                                    Milk, NFS       0
+## 3 11111000                     Milk, cows, fluid, whole       0
+## 4 11111100         Milk, cows, fluid, whole, low-sodium       0
+## 5 11111150  Milk, calcium fortified, cows, fluid, whole       0
+## 6 11111160 Milk, calcium fortified, cows, fluid, 1% fat       0</code></pre>
+<p><br></p>
+<p>ASA24Database.txt</p>
+<pre><code>##   FoodCode                   Main.food.description ModCode
+## 1 11000000                              Milk_human       0
+## 2 11100000                                Milk_NFS       0
+## 3 11111000                   Milk_cows_fluid_whole       0
+## 4 11111100        Milk_cows_fluid_whole_low_sodium       0
+## 5 11111150 Milk_calcium_fortified_cows_fluid_whole       0
+## 6 11111160 Milk_calcium_fortified_cows_fluid_1_fat       0
+##                      Old.Main.food.description   FoodID
+## 1                                  Milk, human 11000000
+## 2                                    Milk, NFS 11100000
+## 3                     Milk, cows, fluid, whole 11111000
+## 4         Milk, cows, fluid, whole, low-sodium 11111100
+## 5  Milk, calcium fortified, cows, fluid, whole 11111150
+## 6 Milk, calcium fortified, cows, fluid, 1% fat 11111160</code></pre>
+<p><br></p>
+<p>You can also create a list of FoodCode and Main.food.description of additional foods that are not in ASA24 but you would like to include in the analysis. As an example, Soylent_codes.txt has two columns: FoodCode and Main.food.description. You can generate food codes for the food items unique to your dataset. Be sure to use a nine-digit number that is not already in the all.food.desc.txt.</p>
+<p>Soylent_codes.txt</p>
+<pre><code>##   FoodCode Main.food.description
+## 1 95120051      Soylent_Original
+## 2 95120053         Soylent_Cacoa
+## 3 95120052        Soylent_Nectar
+## 4 95120054      Soylent_Coffiest</code></pre>
+<p><br></p>
+<p>Format this soylent_codes.txt for use - replace special characters with “_”. There are no special characters in this file, so Main.food.description will result in the same as Old.Main.food.description with this particular file.</p>
+<pre class="r"><code>  FormatFoods(input_fn=&quot;eg_data/Food_tree_eg/Soylent_codes.txt&quot;, 
+              output_fn=&quot;eg_data/Food_tree_eg/Soylent_codes_formatted.txt&quot;)</code></pre>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+<p><strong>[IMPORTANT]</strong> Ensure you have a “Foodtree” folder in the current working directory (“VVKAJ”).</p>
+<p>Format your items data, and save the formatted items file to the “Foodtree” folder.</p>
+<pre class="r"><code>  FormatFoods(input_fn=&quot;VVKAJ_Items_f_id_s_m.txt&quot;, 
+              output_fn=&quot;Foodtree/VVKAJ_Items_f_id_s_m_ff.txt&quot;, dedupe=F)</code></pre>
+<p><br></p>
+</div>
+<div id="generate-a-food-tree-with-the-whole-asa24-database" class="section level3">
+<h3>Generate a food tree with the whole ASA24 database</h3>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/Food_tree_eg/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+<p><br></p>
+<p>Generate a tree with the whole ASA24 food database first. If there are missing foods, then create new files to add them in below under <code>addl_foods</code>.</p>
+<pre class="r"><code>  MakeFoodTree(nodes_fn=         &quot;NodeLabelsMCT.txt&quot;, 
+               food_database_fn= &quot;ASA24Database.txt&quot;, 
+               addl_foods_fn=    &quot;Soylent_codes_formatted.txt&quot;, 
+               num.levels = 4,  # How many levels of foods to be classified
+               output_taxonomy_fn = &quot;Food_tree_all_ASA24/ASA24_Lv4.taxonomy.txt&quot;,  # Name your output taxonomy file
+               output_tree_fn=      &quot;Food_tree_all_ASA24/ASA24_Lv4.tree.nwk&quot;       # Name your output tree
+               )</code></pre>
+<ul>
+<li><code>nodes_fn argument</code> specifies the food level (node) information for each food item. NodeLabelsMCT.txt has the classification level of each food items and its Main.food.description. The classification level will be the basis of hierarchical food tree generation.</li>
+</ul>
+<p>NodeLabelsMCT.txt</p>
+<pre><code>##    Level.code               Main.food.description
+## 1           1              Milk_and_Milk_Products
+## 2          11               Milks_and_milk_drinks
+## 3         110                          Milk_human
+## 4         111                          Milk_fluid
+## 5        1111      Milk_fluid_cow_goat_buttermilk
+## 6        1112              Milk_dry_reconstituted
+## 7         112 Milk_fluid_evaporated_and_condensed
+## 8        1121                     Milk_evaporated
+## 9        1122                      Milk_condensed
+## 10        113                Milk_fluid_imitation</code></pre>
+<ul>
+<li><code>food_database_fn</code> specifies the whole ASA24 database to use.</li>
+<li><code>addl_foods_fn</code> specifies additional foods that are not in ASA24 database but you would like to add; soylent_codes in this case. If none, enter “NULL” instead.</li>
+<li><code>num.levels</code> means the number of food levels (1 - 5) to save.</li>
+<li><code>output_taxonomy_fn</code> specifies the output taxonomy file (to be used later) name. Should end with “.txt”.</li>
+<li><code>output_tree_fn</code> specifies the output tree file name. Should end with “.tree”.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="generate-a-food-tree-with-your-own-items-dataset" class="section level3">
+<h3>Generate a food tree with your own items dataset</h3>
+<p>Move to Foodtree folder in VVKAJ/Foodtree again.</p>
+<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/Foodtree/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+<p>Reduce the input dataset first - create a database with foods in your items file only. (formatted dietrecords.txt as the input)</p>
+<pre class="r"><code>  FilterDbByDietRecords(food_database_fn = &quot;../../Food_tree_eg/ASA24Database.txt&quot;, 
+                        food_records_fn  = &quot;VVKAJ_Items_f_id_s_m_ff.txt&quot;,   # output of FormatFoods above.
+                        output_fn        = &quot;VVKAJ_Items_f_id_s_m_ff_database.txt&quot;)</code></pre>
+<ul>
+<li>The <code>food_database_fn</code> is the whole ASA24 dataset.</li>
+<li>The <code>food_records_fn</code> is the output of FormatFoods of your items above.</li>
+<li>The <code>output_fn</code> is the decreased database that only contains food items present in your data.</li>
+</ul>
+<p>Make a food tree with the reduced data.</p>
+<pre class="r"><code>  MakeFoodTree(nodes_fn=         &quot;../../Food_tree_eg/NodeLabelsMCT.txt&quot;, 
+               food_database_fn= &quot;VVKAJ_Items_f_id_s_m_ff_database.txt&quot;,  # output of FilterDbByDietRecords above.
+               addl_foods_fn   = NULL,
+               num.levels      = 4,
+               output_taxonomy_fn = &quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt&quot;,
+               output_tree_fn=      &quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk&quot; 
+               )</code></pre>
+<ul>
+<li>With the <code>food_record_id</code> argument, specify the SampleID (participants x day).</li>
+<li>The <code>food_taxonomy_fn</code> argument specifies your taxonomy file produced by the MakeFoodTree function above.</li>
+<li>Name your output files according to the <code>num.levels</code>.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="generate-standard-grams-of-fiber-and-dehydrated-grams-per-kcal-otu-tables-for-later-use" class="section level3">
+<h3>Generate standard, grams of fiber, and dehydrated grams per kcal OTU tables for later use</h3>
+<p>Make the standard food otu table with data in gram weights of food.</p>
+<p>It is OK to see see a warning message that says: <code>In write.table(dhydrt.otu, output_fn, sep = "\t", quote = F, append = TRUE) : appending column names to file</code></p>
+<pre class="r"><code>  MakeFoodOtu(food_records_fn=  &quot;VVKAJ_Items_f_id_s_m_ff.txt&quot;, 
+              food_record_id =  &quot;SampleID&quot;,               # Specify SampleID (User x Day)
+              food_taxonomy_fn= &quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt&quot;,  # Specify your taxonomy file produced by MakeFoodTree
+              output_fn =       &quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.food.otu.txt&quot;)  # Name your output otu file</code></pre>
+<pre><code>## Warning in write.table(food.otu, output_fn, sep = &quot;\t&quot;, quote = F, append =
+## TRUE): appending column names to file</code></pre>
+<p>Make a food otu table with data in grams of fiber per food.</p>
+<pre class="r"><code>  MakeFiberOtu(food_records_fn=  &quot;VVKAJ_Items_f_id_s_m_ff.txt&quot;, 
+               food_record_id=   &quot;SampleID&quot;, 
+               food_taxonomy_fn= &quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt&quot;, 
+               output_fn=        &quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.fiber.otu.txt&quot;)</code></pre>
+<pre><code>## Warning in write.table(fiber.otu, output_fn, sep = &quot;\t&quot;, quote = F, append =
+## TRUE): appending column names to file</code></pre>
+<p>Make a food otu table as dehydrated grams per kcal.</p>
+<pre class="r"><code>  MakeDhydrtOtu(food_records_fn=  &quot;VVKAJ_Items_f_id_s_m_ff.txt&quot;, 
+                food_record_id =  &quot;SampleID&quot;, 
+                food_taxonomy_fn= &quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt&quot;, 
+                output_fn =       &quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.dhydrt.otu.txt&quot;)</code></pre>
+<pre><code>## Warning in write.table(dhydrt.otu, output_fn, sep = &quot;\t&quot;, quote = F, append =
+## TRUE): appending column names to file</code></pre>
+<p><br></p>
+<hr />
+<p>Come back to the main directory before you start running another script.</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+---
+title: "Create food tree"
+output: html_document
+---
+
+Food trees show the classification of each food item entered in your dietary data. For details, please read [Johnson et al., 2021](https://doi.org/10.1016/j.chom.2019.05.005).
+
+**[IMPORTANT]** Create a new folder called “Foodtree” in the “VVKAJ” folder.
+
+Before running the following code, one needs to have cleaned input data and obtained 'New_totals' or 'totals', which are going to be used here. 
+
+The following code expects that input files are tab-delimited txt file. 
+
+Ensure your input files have no special characters that interfere loading:
+
+-   `"`
+-   `'`
+-   `#`
+-   `&`
+
+<br>
+
+Name the path to DietR directory where input files are pulled.
+```{r}
+  main_wd <- "~/GitHub/DietR"
+```
+
+Load the necessary functions
+```{r}
+  source("lib/specify_data_dir.R")
+  source("lib/Food_tree_scripts/newick.tree.r")
+  source("lib/Food_tree_scripts/check.db.r")
+  source("lib/Food_tree_scripts/format.foods.r")
+  source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
+  source("lib/Food_tree_scripts/make.food.tree.r")
+  source("lib/Food_tree_scripts/make.food.otu.r")
+  source("lib/Food_tree_scripts/make.fiber.otu.r")
+  source("lib/Food_tree_scripts/make.dhydrt.otu.r")
+```
+
+You can come back to the main directory by:
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+
+<br>
+
+### Prepare data
+
+Current ASA24 database does not have modcodes, so de-duplicate database file, replace special characters with "_", and create a new FoodID out of foodcode and modcode. It leaves all other columns intact.
+```{r}
+   FormatFoods(input_fn="eg_data/Food_tree_eg/all.food.desc.txt", 
+               output_fn="eg_data/Food_tree_eg/ASA24Database.txt")
+```
+
+all.food.desc.txt
+```{r, include=FALSE}
+   all_food_desc <- read.table("eg_data/Food_tree_eg/all.food.desc.txt", sep="\t", header=T)
+```
+
+```{r, echo=FALSE}
+  head(all_food_desc)
+```
+
+<br>
+
+ASA24Database.txt
+```{r, include=FALSE}
+   ASA24Database <- read.table("eg_data/Food_tree_eg/ASA24Database.txt", sep="\t", header=T)
+```
+
+```{r, echo=FALSE}
+  head(ASA24Database)
+```
+
+<br>
+
+You can also create a list of FoodCode and Main.food.description of additional foods that are not in ASA24 but you would like to include in the analysis. As an example, Soylent_codes.txt has two columns: FoodCode and Main.food.description. You can generate food codes for the food items unique to your dataset. Be sure to use a nine-digit number that is not already in the all.food.desc.txt.
+
+Soylent_codes.txt
+```{r, include=FALSE}
+   Soylent_codes <- read.table("eg_data/Food_tree_eg/Soylent_codes.txt", sep="\t", header=T)
+```
+
+```{r, echo=FALSE}
+  head(Soylent_codes)
+```
+
+<br>
+
+Format this soylent_codes.txt for use - replace special characters with “_”. There are no special characters in this file, so Main.food.description will result in the same as Old.Main.food.description with this particular file.
+
+```{r}
+  FormatFoods(input_fn="eg_data/Food_tree_eg/Soylent_codes.txt", 
+              output_fn="eg_data/Food_tree_eg/Soylent_codes_formatted.txt")
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
+```
+
+Specify the directory where the data is.
+```{r, eval = FALSE}
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+
+
+**[IMPORTANT]** Ensure you have a "Foodtree" folder in the current working directory ("VVKAJ"). 
+
+Format your items data, and save the formatted items file to the "Foodtree" folder.
+```{r}
+  FormatFoods(input_fn="VVKAJ_Items_f_id_s_m.txt", 
+              output_fn="Foodtree/VVKAJ_Items_f_id_s_m_ff.txt", dedupe=F)
+```
+
+<br>
+
+### Generate a food tree with the whole ASA24 database 
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/Food_tree_eg')
+```
+
+Specify the directory where the data is.
+```{r, eval = FALSE}
+  SpecifyDataDirectory(directory.name= "eg_data/Food_tree_eg/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+
+<br>
+
+Generate a tree with the whole ASA24 food database first. If there are missing foods, then create new files to add them in below under `addl_foods`.
+```{r}
+  MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
+               food_database_fn= "ASA24Database.txt", 
+               addl_foods_fn=    "Soylent_codes_formatted.txt", 
+               num.levels = 4,  # How many levels of foods to be classified
+               output_taxonomy_fn = "Food_tree_all_ASA24/ASA24_Lv4.taxonomy.txt",  # Name your output taxonomy file
+               output_tree_fn=      "Food_tree_all_ASA24/ASA24_Lv4.tree.nwk"       # Name your output tree
+               )
+```
+
+* `nodes_fn argument` specifies the food level (node) information for each food item. NodeLabelsMCT.txt has the classification level of each food items and its Main.food.description. The classification level will be the basis of hierarchical food tree generation.
+
+NodeLabelsMCT.txt
+```{r, include=FALSE}
+   NodeLabelsMCT <- read.table("NodeLabelsMCT.txt", sep="\t", header=T)
+```
+
+```{r, echo=FALSE}
+  head(NodeLabelsMCT, 10)
+```
+
+* `food_database_fn` specifies the whole ASA24 database to use. 
+* `addl_foods_fn` specifies additional foods that are not in ASA24 database but you would like to add;  soylent_codes in this case. If none, enter “NULL” instead.
+* `num.levels` means the number of food levels (1 - 5) to save.
+* `output_taxonomy_fn` specifies the output taxonomy file (to be used later) name. Should end with “.txt”.
+* `output_tree_fn` specifies the output tree file name. Should end with “.tree”. 
+
+
+<br>
+
+### Generate a food tree with your own items dataset
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ/Foodtree')
+```
+
+Move to Foodtree folder in VVKAJ/Foodtree again.
+```{r, eval = FALSE}
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/Foodtree/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+
+Reduce the input dataset first - create a database with foods in your items file only. (formatted dietrecords.txt as the input)
+```{r}
+  FilterDbByDietRecords(food_database_fn = "../../Food_tree_eg/ASA24Database.txt", 
+                        food_records_fn  = "VVKAJ_Items_f_id_s_m_ff.txt",   # output of FormatFoods above.
+                        output_fn        = "VVKAJ_Items_f_id_s_m_ff_database.txt")
+```
+
+* The `food_database_fn` is the whole ASA24 dataset.
+* The `food_records_fn` is the output of FormatFoods of your items above.
+* The `output_fn` is the decreased database that only contains food items present in your data.
+
+
+Make a food tree with the reduced data.
+```{r}
+  MakeFoodTree(nodes_fn=         "../../Food_tree_eg/NodeLabelsMCT.txt", 
+               food_database_fn= "VVKAJ_Items_f_id_s_m_ff_database.txt",  # output of FilterDbByDietRecords above.
+               addl_foods_fn   = NULL,
+               num.levels      = 4,
+               output_taxonomy_fn = "VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt",
+               output_tree_fn=      "VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk" 
+               )
+```
+
+* With the `food_record_id` argument, specify the SampleID (participants x day). 
+* The `food_taxonomy_fn` argument specifies your taxonomy file produced by the MakeFoodTree function above.
+* Name your output files according to the `num.levels`.
+
+
+<br>
+
+
+### Generate standard, grams of fiber, and dehydrated grams per kcal OTU tables for later use
+
+Make the standard food otu table with data in gram weights of food.
+
+It is OK to see see a warning message that says: 
+`In write.table(dhydrt.otu, output_fn, sep = "\t", quote = F, append = TRUE) : appending column names to file`
+
+```{r}
+  MakeFoodOtu(food_records_fn=  "VVKAJ_Items_f_id_s_m_ff.txt", 
+              food_record_id =  "SampleID",               # Specify SampleID (User x Day)
+              food_taxonomy_fn= "VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt",  # Specify your taxonomy file produced by MakeFoodTree
+              output_fn =       "VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.food.otu.txt")  # Name your output otu file
+```
+
+  
+Make a food otu table with data in grams of fiber per food.
+```{r}
+  MakeFiberOtu(food_records_fn=  "VVKAJ_Items_f_id_s_m_ff.txt", 
+               food_record_id=   "SampleID", 
+               food_taxonomy_fn= "VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt", 
+               output_fn=        "VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.fiber.otu.txt")
+```
+
+
+Make a food otu table as dehydrated grams per kcal.
+```{r}
+  MakeDhydrtOtu(food_records_fn=  "VVKAJ_Items_f_id_s_m_ff.txt", 
+                food_record_id =  "SampleID", 
+                food_taxonomy_fn= "VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt", 
+                output_fn =       "VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.dhydrt.otu.txt")
+```
+
+<br>
+
+---
+
+Come back to the main directory before you start running another script.
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+  
