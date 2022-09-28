@@ -9,6 +9,7 @@
 
 # Set working directory to "dietary_patterns".
   Session --> Set working direHctory --> Choose directory.  
+
   setwd(main_wd)
 
 # Load necessary functions.
