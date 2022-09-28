@@ -268,6 +268,10 @@ $(document).ready(function () {
     <li>
       <a href="ASA24_4.html">Percent kcal of CARB, PROT, TFAT</a>
     </li>
+    <li class="divider"></li>
+    <li>
+      <a href="ASA24_5.html">Prepare for clustering</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -307,7 +311,7 @@ $(document).ready(function () {
 
 <p>Name the path to DietR directory where input files are pulled.</p>
 <pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
-<p>Load the necessary functions</p>
+<p>Load the necessary functions.</p>
 <pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
   source(&quot;lib/calc_ASA24totals_by_occasion.R&quot;)</code></pre>
 <p><br></p>
@@ -323,7 +327,7 @@ $(document).ready(function () {
 </div>
 <div id="generate-sum-of-foods-consumed-by-each-user-by-day-and-by-occasion" class="section level3">
 <h3>Generate sum of foods consumed by each user, by day, and by occasion</h3>
-<p>Calculate sum of nutrients and food categories of items by user and by occasion; output will be saved as: Items_by_User_Occ.</p>
+<p>Calculate sum of nutrients and food categories of items by user and by occasion; output will be saved as: <code>Items_by_User_Occ</code>.</p>
 <pre class="r"><code>  SumByOccasion(items.data=items_f_id_s_m, User.Name=&#39;UserName&#39;, 
                   Recall.No=&#39;RecallNo&#39;,   Occ.No=&#39;Occ_No&#39;)</code></pre>
 <p>Take a look at the first 10 rows of the first 6 columns. Items are summed by occasion number for each participant’s RecallNo.</p>
@@ -339,11 +343,15 @@ $(document).ready(function () {
 ## 8    VVKAJ101_2_3 VVKAJ101        2      3  155.00 139.5000
 ## 9    VVKAJ101_2_4 VVKAJ101        2      4  304.15 258.9555
 ## 10   VVKAJ101_2_5 VVKAJ101        2      5  288.00   0.0000</code></pre>
-<p>Use Items_by_User_Occ and add occasion names (breakfast, snacks etc.) to it; output will be saved as: Sum_by_User_Day_Occ.</p>
+<p>Use <code>Items_by_User_Occ</code> and add occasion names (breakfast, snacks etc.) to it; output will be saved as: <code>Sum_by_User_Day_Occ</code>.</p>
 <pre class="r"><code>  AddOccNames(items.data=items_f_id_s_m, User.Name=&#39;UserName&#39;, 
                 Recall.No=&#39;RecallNo&#39;, Occ.No=&#39;Occ_No&#39;, Occ.Name=&#39;Occ_Name&#39;  )</code></pre>
-<p>Take a look at the first 6 rows. Spelt-out occasion names corresponding to occasion name have been added at the end.</p>
+<p>Take a look at the first 6 rows. Spelled-out occasion names corresponding to occasion name have been added at the end.</p>
 <pre class="r"><code>  head(Sum_by_User_Day_Occ)</code></pre>
+<details>
+<summary>
+Click to expand output
+</summary>
 <pre><code>##   User_Day_OccNo UserName RecallNo Occ_No FoodAmt     KCAL     PROT     TFAT
 ## 1   VVKAJ101_1_1 VVKAJ101        1      1  510.60 626.2670  9.80520 12.29440
 ## 2   VVKAJ101_1_2 VVKAJ101        1      2  252.00   0.0000  0.00000  0.00000
@@ -442,7 +450,9 @@ $(document).ready(function () {
 ## 4    0.78624    0.00000        0        6        Snack
 ## 5    8.94520    0.00000        0        4       Dinner
 ## 6    4.83120    2.27480        0        1    Breakfast</code></pre>
-<p>Save Sum_by_User_Day_Occ as a txt file.</p>
+</details>
+<p><br></p>
+<p>Save <code>Sum_by_User_Day_Occ</code> as a txt file.</p>
 <pre class="r"><code>  write.table(Sum_by_User_Day_Occ, &#39;VVKAJ_Sum_by_User_Day_Occ.txt&#39;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
 <p>This will be useful if a researcher wants to look at the sum of each eating occasion per participant. (Because Totals file sums all the occasions as one day)</p>
 <p><br></p>

@@ -268,6 +268,10 @@ $(document).ready(function () {
     <li>
       <a href="ASA24_4.html">Percent kcal of CARB, PROT, TFAT</a>
     </li>
+    <li class="divider"></li>
+    <li>
+      <a href="ASA24_5.html">Prepare for clustering</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -389,7 +393,7 @@ $(document).ready(function () {
 <p>Save it as a .txt file.</p>
 <p>This will be saved in GitHub/DietR/eg_data/VVKAJ directory.</p>
 <pre class="r"><code>  write.table(items_raw, &quot;VVKAJ_Items.txt&quot;, sep=&quot;\t&quot;, row.names=F)</code></pre>
-<p>Special characters such as “’”, “,”, “%” may interfere correct data loading; thus, we replace them with an underscore “_“.</p>
+<p>Special characters such as <code>'</code>, <code>,</code>, <code>%</code> may interfere correct data loading; thus, we replace them with an underscore <code>_</code>.</p>
 <p>This function can only take .txt files as input. Specify column(s) to be processed in the “columns” argument and the output file name in the outfn argument; “_f” stands for “formatted”.</p>
 <pre class="r"><code>  format.file(filename = &quot;VVKAJ_Items.txt&quot;,
               columns  = &quot;Food_Description&quot;,
@@ -533,7 +537,7 @@ Click to expand output
 ## 6                           Egg_salad_made_with_mayonnaise</code></pre>
 </details>
 <p><br></p>
-<p>Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio, or you can also check the dimension of items_f by using the dim() function.</p>
+<p>Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio, or you can also check the dimension of <code>items_f</code> by using the dim() function.</p>
 <pre class="r"><code>  dim(items_f_id)</code></pre>
 <pre><code>## [1] 684 131</code></pre>
 <p><br></p>
@@ -542,7 +546,7 @@ Click to expand output
 <h3><Optional> Use individuals_to_remove.txt to filter out users marked as Remove = yes.</h3>
 <p>Load your metadata that has information about which UserName(s) to remove.</p>
 <pre class="r"><code>ind_to_rm &lt;- read.table(&quot;individuals_to_remove.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
-<p>Take a look. Metadata for this purpose (ind_to_rm) has UserName and which one to be removed:</p>
+<p>Take a look. Metadata for this purpose (<code>ind_to_rm</code>) has <code>UserName</code> and which one to be removed:</p>
 <pre class="r"><code>  ind_to_rm</code></pre>
 <pre><code>##    UserName Remove
 ## 1  VVKAJ101       
@@ -565,7 +569,7 @@ Click to expand output
 <pre class="r"><code>  subset(ind_to_rm, Remove == &quot;yes&quot;)</code></pre>
 <pre><code>##    UserName Remove
 ## 16 VVKAJ116    yes</code></pre>
-<p>Remove the specified individuals. The output will be saved as a text file with the specified name. This assumes the usernames are in UserName column, and will print which user(s) will be removed.</p>
+<p>Remove the specified individuals. The output will be saved as a text file with the specified name. This assumes the usernames are in <code>UserName</code> column, and will print which user(s) will be removed.</p>
 <pre class="r"><code>  RemoveRows(data=items_f_id, metadata.file= ind_to_rm,
              output.name= &quot;VVKAJ_Items_f_id_s.txt&quot;)</code></pre>
 <pre><code>## 1 row(s) below are to be removed: 
@@ -573,7 +577,7 @@ Click to expand output
 ## 16 VVKAJ116    yes</code></pre>
 <p>Load the output for further processing.</p>
 <pre class="r"><code>  items_f_id_s &lt;- read.table(&quot;VVKAJ_Items_f_id_s.txt&quot;, header=T, sep=&quot;\t&quot;)</code></pre>
-<p>Show unique usernames in items_f_id_s and confirm “VVKAJ116” has been removed.</p>
+<p>Show unique usernames in <code>items_f_id_s</code> and confirm <code>VVKAJ116</code> has been removed.</p>
 <pre class="r"><code>  unique(items_f_id_s$UserName)</code></pre>
 <pre><code>##  [1] &quot;VVKAJ101&quot; &quot;VVKAJ102&quot; &quot;VVKAJ103&quot; &quot;VVKAJ104&quot; &quot;VVKAJ105&quot; &quot;VVKAJ106&quot;
 ##  [7] &quot;VVKAJ107&quot; &quot;VVKAJ108&quot; &quot;VVKAJ109&quot; &quot;VVKAJ110&quot; &quot;VVKAJ111&quot; &quot;VVKAJ112&quot;
@@ -582,7 +586,7 @@ Click to expand output
 </div>
 <div id="merge-individuals-metadata-to-items." class="section level3">
 <h3><Optional> Merge individuals’ metadata to items.</h3>
-<p>ind_metadata has the participants’ gender, age, height, weight, BMI, and Waist.Circumference, etc. If desired, this individual-specific information can be added to items data.</p>
+<p><code>ind_metadata</code> has the participants’ gender, age, height, weight, BMI, and Waist.Circumference, etc. If desired, this individual-specific information can be added to items data.</p>
 <p>Load ind_metadata.txt.</p>
 <pre class="r"><code>  ind_metadata &lt;- read.table(&quot;ind_metadata.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
 <p>Look at what the metadata has.</p>
@@ -864,7 +868,7 @@ Click to expand output
 <h3><Optional> Add the participants’ metadata back to totals.</h3>
 <p>Load ind_metadata.txt if you have not done so.</p>
 <pre class="r"><code>  ind_metadata &lt;- read.table(&quot;ind_metadata.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
-<p>Add this metadata of each participant to totals. ‘NA’ will be inserted to UserNames which are not in ind_metadata.</p>
+<p>Add this metadata of each participant to totals. ‘NA’ will be inserted to UserNames which are not in <code>ind_metadata</code>.</p>
 <pre class="r"><code>  new_totals_m &lt;- merge(x=new_totals, y=ind_metadata, by=&quot;UserName&quot;, all.x=T)</code></pre>
 <p>Check that the items data and metadata are merged.</p>
 <pre class="r"><code>  head(new_totals_m)</code></pre>

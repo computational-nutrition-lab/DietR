@@ -8,7 +8,7 @@ Name the path to DietR directory where input files are pulled.
   main_wd <- "~/GitHub/DietR"
 ```
 
-Load the necessary functions
+Load the necessary functions.
 ```{r}
   source("lib/specify_data_dir.R")
   source("lib/calc_ASA24totals_by_occasion.R")
@@ -39,7 +39,7 @@ Load the formatted items data.
 
 ### Generate sum of foods consumed by each user, by day, and by occasion
 
-Calculate sum of nutrients and food categories of items by user and by occasion; output will be saved as: Items_by_User_Occ.
+Calculate sum of nutrients and food categories of items by user and by occasion; output will be saved as: `Items_by_User_Occ`.
 ```{r}
   SumByOccasion(items.data=items_f_id_s_m, User.Name='UserName', 
                   Recall.No='RecallNo',   Occ.No='Occ_No')
@@ -51,18 +51,27 @@ Items are summed by occasion number for each participant's RecallNo.
   Items_by_User_Occ[1:10, 1:6]
 ```
 
-Use Items_by_User_Occ and add occasion names (breakfast, snacks etc.) to it; output will be saved as: Sum_by_User_Day_Occ.
+Use `Items_by_User_Occ` and add occasion names (breakfast, snacks etc.) to it; output will be saved as: `Sum_by_User_Day_Occ`.
 ```{r}
   AddOccNames(items.data=items_f_id_s_m, User.Name='UserName', 
                 Recall.No='RecallNo', Occ.No='Occ_No', Occ.Name='Occ_Name'  )
 ```
 
-Take a look at the first 6 rows. Spelt-out occasion names corresponding to occasion name have been added at the end.
-```{r}
+Take a look at the first 6 rows. Spelled-out occasion names corresponding to occasion name have been added at the end.
+```{r, eval=FALSE}
   head(Sum_by_User_Day_Occ)
 ```
 
-Save Sum_by_User_Day_Occ as a txt file.
+<details>
+  <summary>Click to expand output</summary>
+```{r, echo=FALSE, eval=TRUE}
+head(Sum_by_User_Day_Occ)
+```
+</details>
+
+<br>
+
+Save `Sum_by_User_Day_Occ` as a txt file.
 ```{r}
   write.table(Sum_by_User_Day_Occ, 'VVKAJ_Sum_by_User_Day_Occ.txt', sep="\t", row.names=F, quote=F)
 ```

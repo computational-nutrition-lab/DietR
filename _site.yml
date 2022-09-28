@@ -1,5 +1,5 @@
 # Structure of this website: 
-# https://riesadohara.github.io/my_test_repo/index.html
+# https://computational-nutrition-lab.github.io/DietR/index.html
 name: "DietR Package name"
 navbar:
   title: "DietR Package"
@@ -15,6 +15,9 @@ navbar:
       href: ASA24_3.html
     - text: "Percent kcal of CARB, PROT, TFAT"
       href: ASA24_4.html
+    - text: "---------"
+    - text: "Prepare for clustering"
+      href: ASA24_5.html
   - text: NHANES
     menu:
     - text: NHANES_1

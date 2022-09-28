@@ -58,7 +58,7 @@ This will be saved in GitHub/DietR/eg_data/VVKAJ directory.
   write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F)
 ```
 
-Special characters such as "'", ",", "%" may interfere correct data loading; thus, we replace them with an underscore "_".
+Special characters such as `'`, `,`, `%` may interfere correct data loading; thus, we replace them with an underscore `_`.
 
 This function can only take .txt files as input. Specify column(s) to be processed in the "columns" argument and the output file name in the outfn argument; "_f" stands for "formatted".
 ```{r}
@@ -92,7 +92,7 @@ head(items_f_id)
 
 <br>
 
-Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio, or you can also check the dimension of items_f by using the dim() function.
+Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio, or you can also check the dimension of `items_f` by using the dim() function.
 ```{r}
   dim(items_f_id)
 ```
@@ -105,7 +105,7 @@ Load your metadata that has information about which UserName(s) to remove.
 ind_to_rm <- read.table("individuals_to_remove.txt", sep="\t", header=T)
 ```
 
-Take a look. Metadata for this purpose (ind_to_rm) has UserName and which one to be removed:
+Take a look. Metadata for this purpose (`ind_to_rm`) has `UserName` and which one to be removed:
 ```{r}
   ind_to_rm
 ```
@@ -118,7 +118,7 @@ Show which has "yes" in the "Remove" column.
 
 Remove the specified individuals.
 The output will be saved as a text file with the specified name.
-This assumes the usernames are in UserName column, and will print which user(s) will be removed.
+This assumes the usernames are in `UserName` column, and will print which user(s) will be removed.
 ```{r}
   RemoveRows(data=items_f_id, metadata.file= ind_to_rm,
              output.name= "VVKAJ_Items_f_id_s.txt")
@@ -129,7 +129,7 @@ Load the output for further processing.
   items_f_id_s <- read.table("VVKAJ_Items_f_id_s.txt", header=T, sep="\t")
 ```
 
-Show unique usernames in items_f_id_s and confirm "VVKAJ116" has been removed.
+Show unique usernames in `items_f_id_s` and confirm `VVKAJ116` has been removed.
 ```{r}
   unique(items_f_id_s$UserName)
 ```
@@ -138,7 +138,7 @@ Show unique usernames in items_f_id_s and confirm "VVKAJ116" has been removed.
 
 ### <Optional> Merge individuals' metadata to items.   
 
-ind_metadata has the participants' gender, age, height, weight, BMI, and Waist.Circumference, etc. If desired, this individual-specific information can be added to items data.
+`ind_metadata` has the participants' gender, age, height, weight, BMI, and Waist.Circumference, etc. If desired, this individual-specific information can be added to items data.
   
 Load ind_metadata.txt.
 ```{r}
@@ -217,7 +217,7 @@ Load ind_metadata.txt if you have not done so.
   ind_metadata <- read.table("ind_metadata.txt", sep="\t", header=T)
 ```
 
-Add this metadata of each participant to totals. 'NA' will be inserted to UserNames which are not in ind_metadata. 
+Add this metadata of each participant to totals. 'NA' will be inserted to UserNames which are not in `ind_metadata`. 
 ```{r}
   new_totals_m <- merge(x=new_totals, y=ind_metadata, by="UserName", all.x=T)
 ```

@@ -1,0 +1,220 @@
+---
+title: "Prepare for clustering"
+output: html_document
+---
+
+Here, we will prepare ASA24 totals data for PCA and clustering analyses. We will need to calculate average dietary data per person across all days (if desired), remove variables that have zero variance, and collapse variables by correlation (i.e. remove redundancy of variables that are highly correlated).
+
+Name the path to DietR directory where input files are pulled.
+```{r}
+  main_wd <- "~/GitHub/DietR"
+```
+
+Load the necessary functions
+```{r}
+  source("lib/specify_data_dir.R")
+  source("lib/prep_data_for_clustering.R")
+```
+
+You can come back to the main directory by:
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+
+<br>
+
+### Import data from your data directory
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
+```
+
+Specify the directory where the data is.
+```{r, eval = FALSE}
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+
+Load the totals data.
+```{r}
+  totals <- read.table("VVKAJ_Tot_m_QCed.txt",  sep = "\t", header = T)
+```
+
+---
+
+### NUTRIENTS: Use data as is
+
+Subset nutrients data.
+
+The columns specified as start.col, end.col, and all columns in between will be selected. For nutrients, specify `start.col = "PROT"`,  and `end.col = "B12_ADD"`; 64 variables in total.
+```{r}
+  SubsetColumns(data = totals, start.col = "PROT", end.col = "B12_ADD")  
+```
+
+Pick up only the columns with non-zero variance, in order to run PCA, cluster analysis etc. The removed columns will be shown if any.
+```{r}
+  KeepNonZeroVarColumns(data = subsetted)
+```
+
+`subsetted_non0var` is the dataframe to be used in the subsequent collapse by correlation procedure.
+
+<br>
+
+---
+
+Collapse variables by correlation: take only one variables if they are highly correlated.
+```{r}
+  cbc_res <- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75, 
+                                   select.rep.fcn = 'mean', verbose = T)
+```
+
+Filter out highly correlated variables from the original dataset.
+```{r}
+  selected_variables <- subsetted_non0var[, cbc_res$reps]
+```
+
+**[NOTE]** `selected_variables` is the dataframe to be used for PCA, cluster analyses etc.
+  
+Check the name of the original and filtered variables.
+
+
+The dimension and the first row of the **filtered dataset**
+```{r}
+  dim( selected_variables)
+```
+
+```{r}
+  head(selected_variables, 1)
+```
+
+The dimension and the first row of the **original dataset**
+```{r}
+  dim( subsetted_non0var)
+```
+
+```{r}
+  head(subsetted_non0var, 1)
+```
+
+Among the variables in the same group, the one with the highest variance is kept. As a result, 39 variables remained out of 64.
+
+---
+
+Save the selected_variables as a .txt file. This will be the input for clustering analyses. 
+```{r}
+  write.table(x=selected_variables, file="VVKAJ_Tot_m_QCed_Nut_asis.txt", sep="\t", row.names=F, quote=F)
+```
+
+---
+
+Save the correlation matrix for record in the results folder.
+
+cc is the correlation matrix produced when variables are collapsed by correlation by using the CollapseByCorrelation function.
+```{r}
+  SaveCorrMatrix(x=cc, out.fn = "VVKAJ_Tot_m_QCed_Nut_asis_corr_matrix.txt")
+```
+
+---
+
+### NUTRIENTS: Take average of each user across all days 
+
+Specify the data to be used, category to group by, and the range of columns (variables) to calculate the means of each variable.
+
+For nutrients, specify `start.col = "PROT"`,  and `end.col = "B12_ADD"`; 64 variables in total.
+```{r}
+AverageBy(data= totals, by= "UserName", start.col= "PROT", end.col= "B12_ADD")
+```
+
+Save the averaged results.
+```{r}
+  write.table(x=meansbycategorydf, "VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt", sep="\t", row.names=F, quote=F)
+```
+
+The column names should be the same as `start.col`--`end.col`.
+```{r}
+  colnames(meansbycategorydf)
+```
+
+The `UserName` column has the users to calculate means for.
+```{r}
+  meansbycategorydf$UserName
+```
+
+Pick up only the columns with non-zero variance, in order to run PCA and cluster analysis etc.  The removed columns will be shown if any.
+
+[,-1] is to exclude the UserName column that is not numeric and not used for variance calculation.
+```{r}
+  KeepNonZeroVarColumns(data = meansbycategorydf[, -1])
+```
+
+`subsetted_non0var` is the dataframe to be used in the subsequent collapse by correlation procedure.
+
+Collapse variables by correlation: take only one variables if they are highly correlated.
+```{r}
+  cbc_res <- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75, 
+                                   select.rep.fcn = 'mean', verbose = T)
+```
+
+Filter out highly correlated variables from the original dataset.
+```{r}
+  selected_variables <- subsetted_non0var[, cbc_res$reps]
+```
+
+**[NOTE]** `selected_variables` is the dataframe to be used for PCA, cluster analyses etc.
+
+Check the name of the original and filtered variables.
+
+
+The dimension and the first row of the **filtered dataset**
+```{r}
+  dim( selected_variables)
+```
+
+```{r}
+  head(selected_variables, 1)
+```
+
+The dimension and the first row of the **original dataset**
+```{r}
+  dim( subsetted_non0var)
+```
+
+```{r}
+  head(subsetted_non0var, 1)
+```
+
+Among the variables in the same group, the one with the highest variance is kept. As a result, 29 variables remained out of 64.
+
+<br>
+
+---
+
+Save the selected_variables as a .txt file. This will be the input for clustering analyses.
+```{r}
+  write.table(x=selected_variables, file="VVKAJ_Tot_m_QCed_Nut_ave_subset.txt", sep="\t", row.names=F, quote=F)
+```
+
+---
+
+Save the correlation matrix for record in the results folder.
+
+"cc" is the correlation matrix produced when variables are collapsed by correlation by using the CollapseByCorrelation function.
+```{r}
+  SaveCorrMatrix(x=cc, out.fn = "VVKAJ_Tot_m_QCed_Nut_ave_corr_matrix.txt")
+```
+
+<br>
+
+Preparation for clustering can be done in a similar way with the food category data, resulting in `Cat_asis` and `Cat_ave` datasets. The R script has the codes to do so with the food category, which includes 37 variables, `F_TOTAL` through `A_DRINKS`. But here the codes are omitted for brevity in this tutorial.
+
+<br>
+
+---
+
+Come back to the main directory before you start running another script.
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+  
