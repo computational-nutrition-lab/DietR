@@ -315,15 +315,12 @@ $(document).ready(function () {
 </div>
 
 
-<p>Here, we will color-code the datapoints in PCA biplots by a desired variable in the metadata to facilitate understanding of clustering of the individuals.</p>
-<p><br></p>
 <p>Name the path to DietR directory where input files are pulled.</p>
 <pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
-<p>Load the necessary packages.</p>
-<pre class="r"><code>  library(ggplot2)</code></pre>
-<p>Load the necessary functions</p>
+<p>Load the necessary functions.</p>
 <pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
-  source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
+  source(&quot;lib/ggplot2themes.R&quot;)
+  source(&quot;lib/PCA.R&quot;)</code></pre>
 <p>Call color palette.</p>
 <pre class="r"><code>  distinct100colors &lt;- readRDS(&quot;lib/distinct100colors.rda&quot;)</code></pre>
 <p>You can come back to the main directory by:</p>
@@ -384,6 +381,7 @@ Click to expand output
 ## 1 -0.01689953 -0.003124576</code></pre>
 </details>
 <p><br></p>
+<hr />
 <p>PCA results contains the input (UserNames, nutrients, food categories), metadata (Diet, Gender etc.), and corresponding PC axis values.</p>
 <p><br></p>
 <p>Load the variance explained by each PC.</p>
@@ -399,7 +397,7 @@ Click to expand output
 <p><br></p>
 <hr />
 <p>Generate a PC1 x PC2 plot with the users colored by their diets.</p>
-<pre class="r"><code>  PC12_diet &lt;- ggplot(pcares, aes(x=PC1, y=PC2, color=Diet, fill=Diet)) + 
+<pre class="r"><code>  PC12_diet &lt;- ggplot2::ggplot(pcares, aes(x=PC1, y=PC2, color=Diet, fill=Diet)) + 
     geom_point(size=3) +
     no_grid + space_axes +
     scale_fill_manual( values = distinct100colors) +
@@ -410,7 +408,7 @@ Click to expand output
          y = paste(&quot;PC2 (&quot;, round(PC_var_exp[2,2]*100, 1), &quot;%)&quot;, sep=&quot;&quot;)) +
     theme(aspect.ratio = 1)</code></pre>
 <pre class="r"><code>  PC12_diet</code></pre>
-<p><img src="ASA24_7_PCA_results_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="ASA24_7_PCA_results_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Save as a .pdf.</p>
 <pre class="r"><code>  ggsave(&quot;VVKAJ_Nut_asis_PC12_diet.pdf&quot;, PC12_diet, 
          device=&quot;pdf&quot;, width=7, height=6.5)</code></pre>

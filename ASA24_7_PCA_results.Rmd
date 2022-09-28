@@ -3,25 +3,16 @@ title: "PCA results"
 output: html_document
 ---
 
-Here, we will color-code the datapoints in PCA biplots by a desired variable in the metadata to facilitate understanding of clustering of the individuals.
-
-<br>
-
 Name the path to DietR directory where input files are pulled.
 ```{r}
   main_wd <- "~/GitHub/DietR"
 ```
 
-Load the necessary packages.
-```{r}
-  library(ggplot2)
-```
-
-
-Load the necessary functions
+Load the necessary functions.
 ```{r}
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R")
+  source("lib/PCA.R")
 ```
 
 Call color palette.
@@ -69,6 +60,8 @@ head(pcares, 1)
 
 <br>
 
+---
+
 PCA results contains the input (UserNames, nutrients, food categories), metadata (Diet, Gender etc.), and corresponding PC axis values.
 
 <br>
@@ -88,7 +81,7 @@ Load the variance explained by each PC.
 
 Generate a PC1 x PC2 plot with the users colored by their diets.
 ```{r}
-  PC12_diet <- ggplot(pcares, aes(x=PC1, y=PC2, color=Diet, fill=Diet)) + 
+  PC12_diet <- ggplot2::ggplot(pcares, aes(x=PC1, y=PC2, color=Diet, fill=Diet)) + 
     geom_point(size=3) +
     no_grid + space_axes +
     scale_fill_manual( values = distinct100colors) +
@@ -99,7 +92,6 @@ Generate a PC1 x PC2 plot with the users colored by their diets.
          y = paste("PC2 (", round(PC_var_exp[2,2]*100, 1), "%)", sep="")) +
     theme(aspect.ratio = 1)
 ```
-
 
 ```{r}
   PC12_diet

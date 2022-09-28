@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Prepare for clustering</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DietR Package</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    ASA24
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ASA24_1.html">Load and clean ASA24 data</a>
+    </li>
+    <li>
+      <a href="ASA24_2.html">Calculate totals by occasion</a>
+    </li>
+    <li>
+      <a href="ASA24_3.html">Data overview</a>
+    </li>
+    <li>
+      <a href="ASA24_4.html">Percent kcal of CARB, PROT, TFAT</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="ASA24_5.html">Prepare for clustering</a>
+    </li>
+    <li>
+      <a href="ASA24_6_PCA.html">PCA</a>
+    </li>
+    <li>
+      <a href="ASA24_7_PCA_results.html">PCA results</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    NHANES
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="NHANES_1.html">NHANES_1</a>
+    </li>
+    <li>
+      <a href="NHANES_2.html">NHANES_2</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Links.html">Links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Prepare for clustering</h1>
+
+</div>
+
+
+<p>Here, we will prepare ASA24 totals data for PCA and clustering analyses. We will need to calculate average dietary data per person across all days (if desired), remove variables that have zero variance, and collapse variables by correlation (i.e. remove redundancy of variables that are highly correlated).</p>
+<p>Table. Part of descriptors of filenames for data type and processing pattern</p>
+<table>
+<colgroup>
+<col width="38%" />
+<col width="26%" />
+<col width="36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>As is or Averaged</th>
+<th>Nutrients (PROT - B12_ADD)</th>
+<th>Food categories (F_TOTAL - A_DRINKS)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>As is (1 row = user/day)</td>
+<td>Nut_asis</td>
+<td>Cat_asis</td>
+</tr>
+<tr class="even">
+<td>Averaged across days (1 row = user)</td>
+<td>Nut_ave</td>
+<td>Cat_ave</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Name the path to DietR directory where input files are pulled.</p>
+<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
+<p>Load the necessary functions</p>
+<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
+  source(&quot;lib/prep_data_for_clustering.R&quot;)</code></pre>
+<p>You can come back to the main directory by:</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
+<p><br></p>
+<div id="import-data-from-your-data-directory" class="section level3">
+<h3>Import data from your data directory</h3>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+<p>Load the totals data.</p>
+<pre class="r"><code>  totals &lt;- read.table(&quot;VVKAJ_Tot_m_QCed.txt&quot;,  sep = &quot;\t&quot;, header = T)</code></pre>
+<hr />
+</div>
+<div id="nutrients-use-data-as-is" class="section level3">
+<h3>NUTRIENTS: Use data as is</h3>
+<p>Subset nutrients data.</p>
+<p>The columns specified as start.col, end.col, and all columns in between will be selected. For nutrients, specify <code>start.col = "PROT"</code>, and <code>end.col = "B12_ADD"</code>; 64 variables in total.</p>
+<pre class="r"><code>  SubsetColumns(data = totals, start.col = &quot;PROT&quot;, end.col = &quot;B12_ADD&quot;)  </code></pre>
+<pre><code>## &#39;subsetted&#39; contains the following 64 columns. 
+##  [1] &quot;PROT&quot;     &quot;TFAT&quot;     &quot;CARB&quot;     &quot;MOIS&quot;     &quot;ALC&quot;      &quot;CAFF&quot;    
+##  [7] &quot;THEO&quot;     &quot;SUGR&quot;     &quot;FIBE&quot;     &quot;CALC&quot;     &quot;IRON&quot;     &quot;MAGN&quot;    
+## [13] &quot;PHOS&quot;     &quot;POTA&quot;     &quot;SODI&quot;     &quot;ZINC&quot;     &quot;COPP&quot;     &quot;SELE&quot;    
+## [19] &quot;VC&quot;       &quot;VB1&quot;      &quot;VB2&quot;      &quot;NIAC&quot;     &quot;VB6&quot;      &quot;FOLA&quot;    
+## [25] &quot;FA&quot;       &quot;FF&quot;       &quot;FDFE&quot;     &quot;VB12&quot;     &quot;VARA&quot;     &quot;RET&quot;     
+## [31] &quot;BCAR&quot;     &quot;ACAR&quot;     &quot;CRYP&quot;     &quot;LYCO&quot;     &quot;LZ&quot;       &quot;ATOC&quot;    
+## [37] &quot;VK&quot;       &quot;CHOLE&quot;    &quot;SFAT&quot;     &quot;S040&quot;     &quot;S060&quot;     &quot;S080&quot;    
+## [43] &quot;S100&quot;     &quot;S120&quot;     &quot;S140&quot;     &quot;S160&quot;     &quot;S180&quot;     &quot;MFAT&quot;    
+## [49] &quot;M161&quot;     &quot;M181&quot;     &quot;M201&quot;     &quot;M221&quot;     &quot;PFAT&quot;     &quot;P182&quot;    
+## [55] &quot;P183&quot;     &quot;P184&quot;     &quot;P204&quot;     &quot;P205&quot;     &quot;P225&quot;     &quot;P226&quot;    
+## [61] &quot;VITD&quot;     &quot;CHOLN&quot;    &quot;VITE_ADD&quot; &quot;B12_ADD&quot;</code></pre>
+<p>Pick up only the columns with non-zero variance, in order to run PCA, cluster analysis etc. The removed columns will be shown if any.</p>
+<pre class="r"><code>  KeepNonZeroVarColumns(data = subsetted)</code></pre>
+<pre><code>## No columns were removed.</code></pre>
+<p><code>subsetted_non0var</code> is the dataframe to be used in the subsequent collapse by correlation procedure.</p>
+<p><br></p>
+<hr />
+<p>Collapse variables by correlation: take only one variables if they are highly correlated.</p>
+<pre class="r"><code>  cbc_res &lt;- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75, 
+                                   select.rep.fcn = &#39;mean&#39;, verbose = T)</code></pre>
+<pre><code>## Clustering 64 features...getting means...choosing reps...collapsed from 64 to 39.</code></pre>
+<p>Filter out highly correlated variables from the original dataset.</p>
+<pre class="r"><code>  selected_variables &lt;- subsetted_non0var[, cbc_res$reps]</code></pre>
+<p><strong>[NOTE]</strong> <code>selected_variables</code> is the dataframe to be used for PCA, cluster analyses etc.</p>
+<p>Check the name of the original and filtered variables.</p>
+<p>The dimension and the first row of the <strong>filtered dataset</strong></p>
+<pre class="r"><code>  dim( selected_variables)</code></pre>
+<pre><code>## [1] 45 39</code></pre>
+<pre class="r"><code>  head(selected_variables, 1)</code></pre>
+<pre><code>##       PHOS     TFAT     CARB     MOIS ALC   CAFF THEO      FF     CALC   IRON
+## 1 1787.454 82.97721 337.7973 1879.619   0 26.784    0 539.446 889.8455 31.282
+##       MAGN   POTA     SODI     ZINC     COPP     SELE       VC     VB1      VB2
+## 1 589.3865 4615.4 2298.662 11.77651 1.935984 113.9153 209.0321 1.88248 2.971306
+##        VB6    FDFE    VB12     VARA     RET     BCAR   CRYP  LYCO       LZ
+## 1 3.829823 846.246 5.17202 1261.667 673.185 7004.547 56.118 13.35 14273.58
+##      ATOC    CHOLN     SFAT     S120     M161   VITD    M221     PFAT    P226
+## 1 9.85131 572.5637 18.69606 0.186061 0.739316 4.8812 0.00881 28.95861 0.03441
+##   VITE_ADD B12_ADD
+## 1        0   3.016</code></pre>
+<p>The dimension and the first row of the <strong>original dataset</strong></p>
+<pre class="r"><code>  dim( subsetted_non0var)</code></pre>
+<pre><code>## [1] 45 64</code></pre>
+<pre class="r"><code>  head(subsetted_non0var, 1)</code></pre>
+<pre><code>##      PROT     TFAT     CARB     MOIS ALC   CAFF THEO     SUGR    FIBE     CALC
+## 1 80.1572 82.97721 337.7973 1879.619   0 26.784    0 144.2085 52.6255 889.8455
+##     IRON     MAGN     PHOS   POTA     SODI     ZINC     COPP     SELE       VC
+## 1 31.282 589.3865 1787.454 4615.4 2298.662 11.77651 1.935984 113.9153 209.0321
+##       VB1      VB2     NIAC      VB6    FOLA     FA      FF    FDFE    VB12
+## 1 1.88248 2.971306 18.72793 3.829823 719.366 179.92 539.446 846.246 5.17202
+##       VARA     RET     BCAR     ACAR   CRYP  LYCO       LZ    ATOC       VK
+## 1 1261.667 673.185 7004.547 106.7165 56.118 13.35 14273.58 9.85131 674.6513
+##     CHOLE     SFAT     S040     S060     S080     S100     S120     S140
+## 1 375.967 18.69606 0.310902 0.110651 0.117603 0.230345 0.186061 1.246759
+##       S160    S180     MFAT     M161     M181     M201    M221     PFAT
+## 1 11.44833 4.13006 28.14091 0.739316 26.99568 0.234965 0.00881 28.95861
+##       P182    P183 P184     P204    P205 P225    P226   VITD    CHOLN VITE_ADD
+## 1 25.20147 3.52587    0 0.157937 0.00444    0 0.03441 4.8812 572.5637        0
+##   B12_ADD
+## 1   3.016</code></pre>
+<p>Among the variables in the same group, the one with the highest variance is kept. As a result, 39 variables remained out of 64.</p>
+<hr />
+<p>Save the selected_variables as a .txt file. This will be the input for clustering analyses.</p>
+<pre class="r"><code>  write.table(x=selected_variables, file=&quot;VVKAJ_Tot_m_QCed_Nut_asis.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
+<hr />
+<p>Save the correlation matrix for record in the results folder.</p>
+<p>cc is the correlation matrix produced when variables are collapsed by correlation by using the CollapseByCorrelation function.</p>
+<pre class="r"><code>  SaveCorrMatrix(x=cc, out.fn = &quot;VVKAJ_Tot_m_QCed_Nut_asis_corr_matrix.txt&quot;)</code></pre>
+<hr />
+</div>
+<div id="nutrients-take-average-of-each-user-across-all-days" class="section level3">
+<h3>NUTRIENTS: Take average of each user across all days</h3>
+<p>Specify the data to be used, category to group by, and the range of columns (variables) to calculate the means of each variable.</p>
+<p>For nutrients, specify <code>start.col = "PROT"</code>, and <code>end.col = "B12_ADD"</code>; 64 variables in total.</p>
+<pre class="r"><code>AverageBy(data= totals, by= &quot;UserName&quot;, start.col= &quot;PROT&quot;, end.col= &quot;B12_ADD&quot;)</code></pre>
+<p>Save the averaged results.</p>
+<pre class="r"><code>  write.table(x=meansbycategorydf, &quot;VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
+<p>The column names should be the same as <code>start.col</code>–<code>end.col</code>.</p>
+<pre class="r"><code>  colnames(meansbycategorydf)</code></pre>
+<pre><code>##  [1] &quot;UserName&quot; &quot;PROT&quot;     &quot;TFAT&quot;     &quot;CARB&quot;     &quot;MOIS&quot;     &quot;ALC&quot;     
+##  [7] &quot;CAFF&quot;     &quot;THEO&quot;     &quot;SUGR&quot;     &quot;FIBE&quot;     &quot;CALC&quot;     &quot;IRON&quot;    
+## [13] &quot;MAGN&quot;     &quot;PHOS&quot;     &quot;POTA&quot;     &quot;SODI&quot;     &quot;ZINC&quot;     &quot;COPP&quot;    
+## [19] &quot;SELE&quot;     &quot;VC&quot;       &quot;VB1&quot;      &quot;VB2&quot;      &quot;NIAC&quot;     &quot;VB6&quot;     
+## [25] &quot;FOLA&quot;     &quot;FA&quot;       &quot;FF&quot;       &quot;FDFE&quot;     &quot;VB12&quot;     &quot;VARA&quot;    
+## [31] &quot;RET&quot;      &quot;BCAR&quot;     &quot;ACAR&quot;     &quot;CRYP&quot;     &quot;LYCO&quot;     &quot;LZ&quot;      
+## [37] &quot;ATOC&quot;     &quot;VK&quot;       &quot;CHOLE&quot;    &quot;SFAT&quot;     &quot;S040&quot;     &quot;S060&quot;    
+## [43] &quot;S080&quot;     &quot;S100&quot;     &quot;S120&quot;     &quot;S140&quot;     &quot;S160&quot;     &quot;S180&quot;    
+## [49] &quot;MFAT&quot;     &quot;M161&quot;     &quot;M181&quot;     &quot;M201&quot;     &quot;M221&quot;     &quot;PFAT&quot;    
+## [55] &quot;P182&quot;     &quot;P183&quot;     &quot;P184&quot;     &quot;P204&quot;     &quot;P205&quot;     &quot;P225&quot;    
+## [61] &quot;P226&quot;     &quot;VITD&quot;     &quot;CHOLN&quot;    &quot;VITE_ADD&quot; &quot;B12_ADD&quot;</code></pre>
+<p>The <code>UserName</code> column has the users to calculate means for.</p>
+<pre class="r"><code>  meansbycategorydf$UserName</code></pre>
+<pre><code>##  [1] &quot;VVKAJ101&quot; &quot;VVKAJ102&quot; &quot;VVKAJ103&quot; &quot;VVKAJ104&quot; &quot;VVKAJ105&quot; &quot;VVKAJ106&quot;
+##  [7] &quot;VVKAJ107&quot; &quot;VVKAJ108&quot; &quot;VVKAJ109&quot; &quot;VVKAJ110&quot; &quot;VVKAJ111&quot; &quot;VVKAJ112&quot;
+## [13] &quot;VVKAJ113&quot; &quot;VVKAJ114&quot; &quot;VVKAJ115&quot;</code></pre>
+<p>Pick up only the columns with non-zero variance, in order to run PCA and cluster analysis etc. The removed columns will be shown if any.</p>
+<p>[,-1] is to exclude the UserName column that is not numeric and not used for variance calculation.</p>
+<pre class="r"><code>  KeepNonZeroVarColumns(data = meansbycategorydf[, -1])</code></pre>
+<pre><code>## No columns were removed.</code></pre>
+<p><code>subsetted_non0var</code> is the dataframe to be used in the subsequent collapse by correlation procedure.</p>
+<p>Collapse variables by correlation: take only one variables if they are highly correlated.</p>
+<pre class="r"><code>  cbc_res &lt;- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75, 
+                                   select.rep.fcn = &#39;mean&#39;, verbose = T)</code></pre>
+<pre><code>## Clustering 64 features...getting means...choosing reps...collapsed from 64 to 29.</code></pre>
+<p>Filter out highly correlated variables from the original dataset.</p>
+<pre class="r"><code>  selected_variables &lt;- subsetted_non0var[, cbc_res$reps]</code></pre>
+<p><strong>[NOTE]</strong> <code>selected_variables</code> is the dataframe to be used for PCA, cluster analyses etc.</p>
+<p>Check the name of the original and filtered variables.</p>
+<p>The dimension and the first row of the <strong>filtered dataset</strong></p>
+<pre class="r"><code>  dim( selected_variables)</code></pre>
+<pre><code>## [1] 15 29</code></pre>
+<pre class="r"><code>  head(selected_variables, 1)</code></pre>
+<pre><code>##             CHOLN     TFAT     CARB     MOIS   CAFF       VC     CALC     FA
+## VVKAJ101 303.8437 63.49523 224.0331 1639.596 44.608 164.9042 978.9267 288.93
+##              MAGN     PHOS     POTA     SODI     ZINC     COPP     SELE     VB1
+## VVKAJ101 394.5255 1277.147 3093.422 1808.819 8.733498 1.609095 85.38457 1.39412
+##              NIAC      VB6    FDFE     VARA      RET     BCAR     CRYP     LYCO
+## VVKAJ101 15.15766 3.112438 872.959 1262.084 420.1533 8981.995 52.38179 397.5601
+##                LZ     ATOC     VITD        M221     PFAT
+## VVKAJ101 7384.958 10.41491 5.817733 0.006972417 19.31854</code></pre>
+<p>The dimension and the first row of the <strong>original dataset</strong></p>
+<pre class="r"><code>  dim( subsetted_non0var)</code></pre>
+<pre><code>## [1] 15 64</code></pre>
+<pre class="r"><code>  head(subsetted_non0var, 1)</code></pre>
+<pre><code>##             PROT     TFAT     CARB     MOIS ALC   CAFF THEO     SUGR     FIBE
+## VVKAJ101 54.5302 63.49523 224.0331 1639.596   0 44.608 1.12 101.2349 32.31606
+##              CALC     IRON     MAGN     PHOS     POTA     SODI     ZINC
+## VVKAJ101 978.9267 17.75897 394.5255 1277.147 3093.422 1808.819 8.733498
+##              COPP     SELE       VC     VB1      VB2     NIAC      VB6     FOLA
+## VVKAJ101 1.609095 85.38457 164.9042 1.39412 2.091131 15.15766 3.112438 670.2357
+##              FA       FF    FDFE    VB12     VARA      RET     BCAR   ACAR
+## VVKAJ101 288.93 381.3057 872.959 6.87899 1262.084 420.1533 8981.995 2214.2
+##              CRYP     LYCO       LZ     ATOC       VK   CHOLE    SFAT     S040
+## VVKAJ101 52.38179 397.5601 7384.958 10.41491 402.3449 152.844 16.1646 0.303224
+##              S060      S080      S100     S120     S140     S160     S180
+## VVKAJ101 0.201237 0.3045901 0.3883975 1.144463 1.509012 8.546908 3.026103
+##              MFAT     M161     M181      M201        M221     PFAT     P182
+## VVKAJ101 22.71121 0.529039 21.81561 0.1775876 0.006972417 19.31854 17.08917
+##             P183 P184     P204    P205 P225    P226     VITD    CHOLN VITE_ADD
+## VVKAJ101 2.14037    0 0.055275 0.00148    0 0.01147 5.817733 303.8437 2.782333
+##           B12_ADD
+## VVKAJ101 5.073233</code></pre>
+<p>Among the variables in the same group, the one with the highest variance is kept. As a result, 29 variables remained out of 64.</p>
+<p><br></p>
+<hr />
+<p>Save the selected_variables as a .txt file. This will be the input for clustering analyses.</p>
+<pre class="r"><code>  write.table(x=selected_variables, file=&quot;VVKAJ_Tot_m_QCed_Nut_ave_subset.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
+<hr />
+<p>Save the correlation matrix for record in the results folder.</p>
+<p>“cc” is the correlation matrix produced when variables are collapsed by correlation by using the CollapseByCorrelation function.</p>
+<pre class="r"><code>  SaveCorrMatrix(x=cc, out.fn = &quot;VVKAJ_Tot_m_QCed_Nut_ave_corr_matrix.txt&quot;)</code></pre>
+<p><br></p>
+<p>Preparation for clustering can be done in a similar way with the food category data, resulting in <code>Cat_asis</code> and <code>Cat_ave</code> datasets. The R script has the codes to do so with the food category, which includes 37 variables, <code>F_TOTAL</code> through <code>A_DRINKS</code>. But here the codes are omitted for brevity in this tutorial.</p>
+<p><br></p>
+<hr />
+<p>Come back to the main directory before you start running another script.</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
