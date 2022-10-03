@@ -23,12 +23,14 @@ navbar:
     - text: "PCA results"
       href: ASA24_7_PCA_results.html
     - text: "---------"
-    - text: "k-means"
+    - text: "K-means"
       href: ASA24_8_k-means.html
     - text: "Create food tree"
       href: ASA24_9_create_food_tree.html
     - text: "Visualize food tree"
       href: ASA24_10_viz_food_tree.html
+    - text: "Ordination"
+      href: ASA24_11_ordination.html
   - text: NHANES
     menu:
     - text: NHANES_1

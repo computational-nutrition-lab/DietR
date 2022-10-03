@@ -11,7 +11,7 @@
 
 
 
-<title>Visualize food tree</title>
+<title>Perform ordination</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -280,13 +280,16 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="ASA24_8_k-means.html">k-means</a>
+      <a href="ASA24_8_k-means.html">K-means</a>
     </li>
     <li>
       <a href="ASA24_9_create_food_tree.html">Create food tree</a>
     </li>
     <li>
       <a href="ASA24_10_viz_food_tree.html">Visualize food tree</a>
+    </li>
+    <li>
+      <a href="ASA24_11_ordination.html">Ordination</a>
     </li>
   </ul>
 </li>
@@ -320,22 +323,23 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Visualize food tree</h1>
+<h1 class="title toc-ignore">Perform ordination</h1>
 
 </div>
 
 
-<p>One can visualize food trees by using the ggtree package.</p>
-<p><br></p>
+<p>In this section, we will take the phylogeny of food items into account in clustering individuals according to their dietary data. In order to do so, we will use <a href="https://joey711.github.io/phyloseq/index.html">the phyloseq package</a>, which uses phylogeny of microbes and their abundance. We will replace microbes with food items consumed by our dietary study participants.</p>
 <p>Name the path to DietR directory where input files are pulled.</p>
 <pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
-<p>If you have not downloaded and installed the ggtree package yet, you can do so by first installing BiocManager (if you have not done so):</p>
-<pre class="r"><code>  if (!require(&quot;BiocManager&quot;, quietly = TRUE))install.packages(&quot;BiocManager&quot;)</code></pre>
-<p>Then, use BiocManager to install the “ggtree” package.</p>
-<pre class="r"><code>  BiocManager::install(&quot;ggtree&quot;)</code></pre>
-<p>Load the necessary functions.</p>
-<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
-  source(&quot;lib/viz_food_tree.R&quot;)</code></pre>
+<p><br></p>
+<p>If you have not downloaded and installed the phyloseq package yet, you can do so by first installing BiocManager (if you have not done so):</p>
+<pre class="r"><code>  if (!require(&quot;BiocManager&quot;, quietly = TRUE)) install.packages(&quot;BiocManager&quot;)</code></pre>
+<p>Then download and install the phyloseq package.</p>
+<pre class="r"><code>  BiocManager::install(&quot;phyloseq&quot;)</code></pre>
+<p><br></p>
+<p>Load the necessary packages.</p>
+<pre class="r"><code>  library(phyloseq)
+  library(ggtree)</code></pre>
 <pre><code>## ggtree v3.2.1  For help: https://yulab-smu.top/treedata-book/
 ## 
 ## If you use ggtree in published research, please cite the most appropriate paper(s):
@@ -343,47 +347,15 @@ $(document).ready(function () {
 ## 1. Guangchuang Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96
 ## 2. Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods for mapping and visualizing associated data on phylogeny using ggtree. Molecular Biology and Evolution. 2018, 35(12):3041-3043. doi:10.1093/molbev/msy194
 ## 3. Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
+<p>Load the necessary functions.</p>
+<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
+  source(&quot;lib/ordination.R&quot;)</code></pre>
 <p>You can come back to the main directory by:</p>
 <pre class="r"><code>  setwd(main_wd)</code></pre>
 <p><br></p>
-<hr />
-<p>Go to the “Foodtree” directory where the tree files are saved.</p>
-<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/Foodtree&quot;)</code></pre>
-<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
-<!--  the code so that this tutorial will have the same code as the R script.  -->
-<p>Load the generated food tree. This will load the .nwk file and save it as a tree object called “tree”. It is OK to see a message saying: Found more than one class “phylo” in cache; using the first, from namespace ‘phyloseq’ also defined by ‘tidytree’.</p>
-<pre class="r"><code>  tree &lt;- read.tree(&quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk&quot;)
-
-  tree</code></pre>
-<pre><code>## 
-## Phylogenetic tree with 286 tips and 261 internal nodes.
-## 
-## Tip labels:
-##   Milk_NFS, Milk_cows_fluid_whole, Milk_cows_fluid_2_fat, Milk_cows_fluid_1_fat, Milk_soy_ready_to_drink_not_babys, Milk_almond_ready_to_drink, ...
-## Node labels:
-##   foodtreeroot, L1_Milk_and_Milk_Products, L2_Milks_and_milk_drinks, L3_Milk_fluid, L4_, L4_Milk_fluid_cow_goat_buttermilk, ...
-## 
-## Rooted; includes branch lengths.</code></pre>
-<p><br></p>
-<p>Prepare node labels of L1 for plotting. It assumes that the tree file has 9 L1 levels.</p>
-<pre class="r"><code>  PrepFoodTreePlots(input.tree=tree)</code></pre>
-<p>Create a color-coded and annotated food tree with 9 L1 levels. Choose either ‘circular’ or ‘radial’ for layout. It is OK to see some warning messages about Coordinate system and scale for ‘y’ already being present.</p>
-<pre class="r"><code>  VizFoodTree(input.tree=tree, layout=&quot;radial&quot;)</code></pre>
-<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-## replace the existing scale.
-## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-## replace the existing scale.</code></pre>
-<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
-<p>Look at the color-coded and annotated food tree, saved as annotated_tree.</p>
-<pre class="r"><code>  annotated_tree</code></pre>
-<p><img src="ASA24_10_viz_food_tree_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>Save the tree as a PDF file.</p>
-<pre class="r"><code>ggsave(&quot;VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.pdf&quot;, annotated_tree, device=&quot;pdf&quot;, width=6, height=6, units=&quot;in&quot;, dpi=300)</code></pre>
-<hr />
-<p><br></p>
-<p>Come back to the main directory.</p>
-<pre class="r"><code>  setwd(main_wd)  </code></pre>
+<div id="create-a-phyloseq-object-for-ordination" class="section level3">
+<h3>Create a phyloseq object for ordination</h3>
+</div>
 
 
 
