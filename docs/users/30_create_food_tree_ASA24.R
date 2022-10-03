@@ -81,6 +81,10 @@
 # Move to Foodtree folder in VVKAJ/Foodtree again.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Foodtree")
   
+# Reduce the input dataset first - create a database with foods in your items file only.
+# The food_database_fn is the whole ASA24 dataset. 
+# The food_records_fn is the output of FormatFoods of your items above.
+# The output_fn is the decreased database that only contains food items present in your data.
 # Limit to just the foods reported in your study (formatted dietrecords.txt as the input)
   FilterDbByDietRecords(food_database_fn = "../../Food_tree_eg/ASA24Database.txt", 
                         food_records_fn  = "VVKAJ_Items_f_id_s_m_ff.txt",   # output of FormatFoods above.
