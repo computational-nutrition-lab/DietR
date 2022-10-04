@@ -43,8 +43,107 @@ You can come back to the main directory by:
 
 <br>
 
-### Create a phyloseq object for ordination
+## Create a phyloseq object for ordination
 
+### Load the necessary files for creating a phyloseq object  
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
+```
 
+Specify the directory where the data is.
+```{r, eval = FALSE}
+SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+  
+#### Food
+Load food OTU table - this is our food OTU data
+```{r}
+food <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.food.otu.txt", row.names = 1)
+```
+
+"food" is a matrix of Food descriptions (rows) x SampleID (columns) with food taxonomy info at the end.
+```{r, eval=FALSE}
+head(food, 3)
+```
+
+<details>
+  <summary>Click to expand output</summary>
+```{r, echo=FALSE, eval=TRUE}
+head(food, 3)
+```
+</details>
+\
+Format the food file and create an otu_table called 'OTU'.
+```{r}
+PrepFood(data= food)
+```
+
+<br>
+
+#### Taxonomy (tax)
+```{r}
+tax <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt")
+```
+
+Format the tax file and create a taxonomy table called 'TAX'.
+```{r}
+PrepTax(data= tax)
+```
+
+<br>
+  
+#### Sample (Users' metadata)
+```{r}
+meta <- read.table( "ind_metadata_UserxDay.txt", sep="\t", header=T)
+```
+
+Format the metadata file and save it as 'SAMPLES'.
+```{r}
+PrepMeta(data= meta)
+```
+
+<br>
+
+#### Food tree
+```{r}
+foodtree <- read_tree("Foodtree/VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk")
+```
+
+It is OK to see a message saying that\
+"Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'\
+Also defined by 'tidytree'".
+  
+Format food tree and save it as 'TREE'.
+```{r}
+PrepTree(data=foodtree)
+```
+
+It is OK to see the same message as the previous line. 
+
+---
+#### Make a phyloseq object with OTU, TAX, SAMPLES, and TREE loaded above
+It is OK to see the same message as the previous line. 
+```{r}
+phyfoods <- phyloseq(OTU, TAX, SAMPLES, TREE)
+```
+
+Check your metadata - show the sample names and ensure they are vvkaj.00xxx. 
+```{r}
+sample_names(phyfoods)
+```
+
+Show metadata.
+```{r}
+head(sample_data(phyfoods), n=3)
+```
+
+Check the level 1 foods in your food tree. There should be nine categories.
+```{r}
+L1s = tax_table(phyfoods)[, "L1"]
+as.vector(unique(L1s))
+```
 

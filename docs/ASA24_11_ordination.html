@@ -346,8 +346,146 @@ $(document).ready(function () {
 <p>You can come back to the main directory by:</p>
 <pre class="r"><code>  setwd(main_wd)</code></pre>
 <p><br></p>
-<div id="create-a-phyloseq-object-for-ordination" class="section level3">
-<h3>Create a phyloseq object for ordination</h3>
+<div id="create-a-phyloseq-object-for-ordination" class="section level2">
+<h2>Create a phyloseq object for ordination</h2>
+<div id="load-the-necessary-files-for-creating-a-phyloseq-object" class="section level3">
+<h3>Load the necessary files for creating a phyloseq object</h3>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+<div id="food" class="section level4">
+<h4>Food</h4>
+<p>Load food OTU table - this is our food OTU data</p>
+<pre class="r"><code>food &lt;- read.delim(&quot;Foodtree/VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.food.otu.txt&quot;, row.names = 1)</code></pre>
+<p>“food” is a matrix of Food descriptions (rows) x SampleID (columns) with food taxonomy info at the end.</p>
+<pre class="r"><code>head(food, 3)</code></pre>
+<details>
+<summary>
+Click to expand output
+</summary>
+<pre><code>##                       vvkaj.00037 vvkaj.00002 vvkaj.00023 vvkaj.00029
+## Milk NFS                      244           0           0         0.0
+## Milk cows fluid whole           0         183         488       195.2
+## Milk cows fluid 2 fat         244           0           0         0.0
+##                       vvkaj.00044 vvkaj.00045 vvkaj.00022 vvkaj.00024
+## Milk NFS                      0.0           0           0           0
+## Milk cows fluid whole       170.8         244           0           0
+## Milk cows fluid 2 fat         0.0           0         488         366
+##                       vvkaj.00003 vvkaj.00016 vvkaj.00032 vvkaj.00038
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00039 vvkaj.00007 vvkaj.00034 vvkaj.00004
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00005 vvkaj.00011 vvkaj.00030 vvkaj.00010
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00018 vvkaj.00033 vvkaj.00009 vvkaj.00026
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00008 vvkaj.00031 vvkaj.00012 vvkaj.00027
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00042 vvkaj.00025 vvkaj.00041 vvkaj.00006
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00015 vvkaj.00013 vvkaj.00043 vvkaj.00028
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00040 vvkaj.00014 vvkaj.00001 vvkaj.00021
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00036 vvkaj.00019 vvkaj.00020 vvkaj.00035
+## Milk NFS                        0           0           0           0
+## Milk cows fluid whole           0           0           0           0
+## Milk cows fluid 2 fat           0           0           0           0
+##                       vvkaj.00017
+## Milk NFS                        0
+## Milk cows fluid whole           0
+## Milk cows fluid 2 fat           0
+##                                                                                                                                       taxonomy
+## Milk NFS                                                         L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid;L4_;Milk_NFS
+## Milk cows fluid whole L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid;L4_Milk_fluid_cow_goat_buttermilk;Milk_cows_fluid_whole
+## Milk cows fluid 2 fat L1_Milk_and_Milk_Products;L2_Milks_and_milk_drinks;L3_Milk_fluid;L4_Milk_fluid_cow_goat_buttermilk;Milk_cows_fluid_2_fat</code></pre>
+</details>
+<p><br />
+Format the food file and create an otu_table called ‘OTU’.</p>
+<pre class="r"><code>PrepFood(data= food)</code></pre>
+<p><br></p>
+</div>
+<div id="taxonomy-tax" class="section level4">
+<h4>Taxonomy (tax)</h4>
+<pre class="r"><code>tax &lt;- read.delim(&quot;Foodtree/VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tax.txt&quot;)</code></pre>
+<p>Format the tax file and create a taxonomy table called ‘TAX’.</p>
+<pre class="r"><code>PrepTax(data= tax)</code></pre>
+<p><br></p>
+</div>
+<div id="sample-users-metadata" class="section level4">
+<h4>Sample (Users’ metadata)</h4>
+<pre class="r"><code>meta &lt;- read.table( &quot;ind_metadata_UserxDay.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Format the metadata file and save it as ‘SAMPLES’.</p>
+<pre class="r"><code>PrepMeta(data= meta)</code></pre>
+<p><br></p>
+</div>
+<div id="food-tree" class="section level4">
+<h4>Food tree</h4>
+<pre class="r"><code>foodtree &lt;- read_tree(&quot;Foodtree/VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk&quot;)</code></pre>
+<p>It is OK to see a message saying that<br />
+“Found more than one class”phylo” in cache; using the first, from namespace ‘phyloseq’<br />
+Also defined by ‘tidytree’“.</p>
+<p>Format food tree and save it as ‘TREE’.</p>
+<pre class="r"><code>PrepTree(data=foodtree)</code></pre>
+<p>It is OK to see the same message as the previous line.</p>
+<hr />
+</div>
+<div id="make-a-phyloseq-object-with-otu-tax-samples-and-tree-loaded-above" class="section level4">
+<h4>Make a phyloseq object with OTU, TAX, SAMPLES, and TREE loaded above</h4>
+<p>It is OK to see the same message as the previous line.</p>
+<pre class="r"><code>phyfoods &lt;- phyloseq(OTU, TAX, SAMPLES, TREE)</code></pre>
+<p>Check your metadata - show the sample names and ensure they are vvkaj.00xxx.</p>
+<pre class="r"><code>sample_names(phyfoods)</code></pre>
+<pre><code>##  [1] &quot;vvkaj.00037&quot; &quot;vvkaj.00002&quot; &quot;vvkaj.00023&quot; &quot;vvkaj.00029&quot; &quot;vvkaj.00044&quot;
+##  [6] &quot;vvkaj.00045&quot; &quot;vvkaj.00022&quot; &quot;vvkaj.00024&quot; &quot;vvkaj.00003&quot; &quot;vvkaj.00016&quot;
+## [11] &quot;vvkaj.00032&quot; &quot;vvkaj.00038&quot; &quot;vvkaj.00039&quot; &quot;vvkaj.00007&quot; &quot;vvkaj.00034&quot;
+## [16] &quot;vvkaj.00004&quot; &quot;vvkaj.00005&quot; &quot;vvkaj.00011&quot; &quot;vvkaj.00030&quot; &quot;vvkaj.00010&quot;
+## [21] &quot;vvkaj.00018&quot; &quot;vvkaj.00033&quot; &quot;vvkaj.00009&quot; &quot;vvkaj.00026&quot; &quot;vvkaj.00008&quot;
+## [26] &quot;vvkaj.00031&quot; &quot;vvkaj.00012&quot; &quot;vvkaj.00027&quot; &quot;vvkaj.00042&quot; &quot;vvkaj.00025&quot;
+## [31] &quot;vvkaj.00041&quot; &quot;vvkaj.00006&quot; &quot;vvkaj.00015&quot; &quot;vvkaj.00013&quot; &quot;vvkaj.00043&quot;
+## [36] &quot;vvkaj.00028&quot; &quot;vvkaj.00040&quot; &quot;vvkaj.00014&quot; &quot;vvkaj.00001&quot; &quot;vvkaj.00021&quot;
+## [41] &quot;vvkaj.00036&quot; &quot;vvkaj.00019&quot; &quot;vvkaj.00020&quot; &quot;vvkaj.00035&quot; &quot;vvkaj.00017&quot;</code></pre>
+<p>Show metadata.</p>
+<pre class="r"><code>head(sample_data(phyfoods), n=3)</code></pre>
+<pre><code>##                SampleID UserName StudyDayNo       Diet Gender Age Weight Height
+## vvkaj.00037 vvkaj.00037 VVKAJ113          1       Keto      M  43   80.0  183.0
+## vvkaj.00002 vvkaj.00002 VVKAJ101          2 Vegetarian      M  31   79.0  186.0
+## vvkaj.00023 vvkaj.00023 VVKAJ108          2       Keto      F  47   53.9  161.3
+##                  BMI Waist.Circumference
+## vvkaj.00037 23.88844                98.0
+## vvkaj.00002 22.83501                80.0
+## vvkaj.00023 20.71667                85.5</code></pre>
+<p>Check the level 1 foods in your food tree. There should be nine categories.</p>
+<pre class="r"><code>L1s = tax_table(phyfoods)[, &quot;L1&quot;]
+as.vector(unique(L1s))</code></pre>
+<pre><code>## [1] &quot;L1_Milk_and_Milk_Products&quot;                     
+## [2] &quot;L1_Meat_Poultry_Fish_and_Mixtures&quot;             
+## [3] &quot;L1_Eggs&quot;                                       
+## [4] &quot;L1_Dry_Beans_Peas_Other_Legumes_Nuts_and_Seeds&quot;
+## [5] &quot;L1_Grain_Product&quot;                              
+## [6] &quot;L1_Fruits&quot;                                     
+## [7] &quot;L1_Vegetables&quot;                                 
+## [8] &quot;L1_Fats_Oils_and_Salad_Dressings&quot;              
+## [9] &quot;L1_Sugars_Sweets_and_Beverages&quot;</code></pre>
+</div>
+</div>
 </div>
 
 
