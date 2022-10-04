@@ -64,7 +64,7 @@
   by_user_pathconnected <- by_user + geom_path(aes(color = UserName))  
   by_user_pathconnected
   
-  # Save pathconnected as a PDF.
+  # Save by_user_pathconnected as a PDF.
   ggsave("4Lv_ordinated_Weighted_Axis12_users_pathconnected.pdf", 
          by_user_pathconnected, device="pdf", height=6, width=6, unit="in", dpi=300)
   
@@ -93,7 +93,7 @@
     scale_fill_manual(values = distinct100colors)
   by_diet_polygons
   
-  # Save polygons as a PDF. 
+  # Save by_diet_polygons as a PDF. 
   ggsave("4Lv_ordinated_Weighted_Axis12_diet_polygons.pdf", 
          by_diet_polygons, device="pdf", height=6, width=6, unit="in", dpi=300)
 

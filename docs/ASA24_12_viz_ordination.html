@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Visualize ordination</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DietR Package</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    ASA24
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ASA24_1.html">Load and clean ASA24 data</a>
+    </li>
+    <li>
+      <a href="ASA24_2.html">Calculate totals by occasion</a>
+    </li>
+    <li>
+      <a href="ASA24_3.html">Data overview</a>
+    </li>
+    <li>
+      <a href="ASA24_4.html">Percent kcal of CARB, PROT, TFAT</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="ASA24_5.html">Prepare for clustering</a>
+    </li>
+    <li>
+      <a href="ASA24_6_PCA.html">PCA</a>
+    </li>
+    <li>
+      <a href="ASA24_7_PCA_results.html">PCA results</a>
+    </li>
+    <li>
+      <a href="ASA24_8_k-means.html">K-means</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="ASA24_9_create_food_tree.html">Create food tree</a>
+    </li>
+    <li>
+      <a href="ASA24_10_viz_food_tree.html">Visualize food tree</a>
+    </li>
+    <li>
+      <a href="ASA24_11_ordination.html">Ordination</a>
+    </li>
+    <li>
+      <a href="ASA24_12_viz_ordination.html">Visualize ordination</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    NHANES
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="NHANES_1.html">NHANES_1</a>
+    </li>
+    <li>
+      <a href="NHANES_2.html">NHANES_2</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Links.html">Links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Visualize ordination</h1>
+
+</div>
+
+
+<p>Name the path to DietR directory where input files are pulled.</p>
+<pre class="r"><code>main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
+<p><br></p>
+<p>Load the necessary packages.</p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<p>Load the necessary functions.</p>
+<pre class="r"><code>source(&quot;lib/specify_data_dir.R&quot;)
+source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
+<p>Load the distinct 100 colors for use.</p>
+<pre class="r"><code>distinct100colors &lt;- readRDS(&quot;lib/distinct100colors.rda&quot;)</code></pre>
+<p>You can come back to the main directory by:</p>
+<pre class="r"><code>setwd(main_wd)</code></pre>
+<p><br></p>
+<div id="load-ordination-results" class="section level3">
+<h3>Load ordination results</h3>
+<p>Change to the folder called “Unifrac” in your “VVKAJ” folder.</p>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/Unifrac/&quot;)</code></pre>
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+<p>Read in the metadata and users’ Axis values.</p>
+<pre class="r"><code>meta_usersdf &lt;- read.table(&quot;4Lv_ordinated_Weighted_meta_users.txt&quot;, header=T)</code></pre>
+<p>Take a look at meta_usersdf_loaded.</p>
+<pre class="r"><code>head(meta_usersdf,3)</code></pre>
+<pre><code>##     Row.names    SampleID UserName StudyDayNo       Diet Gender Age Weight
+## 1 vvkaj.00001 vvkaj.00001 VVKAJ101          1 Vegetarian      M  31     79
+## 2 vvkaj.00002 vvkaj.00002 VVKAJ101          2 Vegetarian      M  31     79
+## 3 vvkaj.00003 vvkaj.00003 VVKAJ101          3 Vegetarian      M  31     79
+##   Height      BMI Waist.Circumference      Axis.1      Axis.2       Axis.3
+## 1    186 22.83501                  80 -0.10461756  0.03466870 -0.003893643
+## 2    186 22.83501                  80 -0.06180756 -0.12335486 -0.050884187
+## 3    186 22.83501                  80 -0.08683209 -0.02997397  0.123098653
+##        Axis.4       Axis.5      Axis.6       Axis.7      Axis.8      Axis.9
+## 1 -0.09334767 -0.130461083 -0.07752561 -0.006092689 -0.05943245 -0.04339574
+## 2 -0.06280652  0.081075016 -0.03091141 -0.019005155 -0.14894653  0.13209731
+## 3  0.04024638 -0.008896418  0.00331667  0.104152601  0.05477010  0.10475290
+##       Axis.10
+## 1 -0.03007552
+## 2  0.01036006
+## 3 -0.07487135</code></pre>
+<p>Read in the eigenvalues for axis labels of biplots.</p>
+<pre class="r"><code>eigen_loaded &lt;- read.table(&quot;4Lv_ordinated_Weighted_eigen_percent.txt&quot;, header=T)</code></pre>
+<hr />
+</div>
+<div id="plot-axis-1-and-axis-2-to-show-the-separation-of-samples-colored-by-username-gender-timing-etc.-in-the-metadata" class="section level3">
+<h3>Plot Axis 1 and Axis 2 to show the separation of samples colored by UserName, gender, timing, etc. in the metadata</h3>
+<div id="by-username" class="section level4">
+<h4>By UserName</h4>
+<pre class="r"><code>by_user &lt;- ggplot(meta_usersdf, aes(x=Axis.1, y=Axis.2, color=UserName)) +
+        geom_point(aes(color=UserName), size=2) + 
+        scale_color_manual(values = distinct100colors) + # OR use viridis theme.
+        # scale_color_viridis_d() +
+        xlab( paste(&quot;Axis.1 (&quot;, paste(round(eigen_loaded[1,2]*100, 1)), &quot;%)&quot;, sep=&quot;&quot;) ) +
+        ylab( paste(&quot;Axis.2 (&quot;, paste(round(eigen_loaded[2,2]*100, 1)), &quot;%)&quot;, sep=&quot;&quot;) ) +
+        no_grid + space_axes + theme(aspect.ratio = 1)</code></pre>
+<pre class="r"><code>by_user</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-11-1.png" width="60%" /></p>
+<p>Save by_user plot as a PDF.</p>
+<pre class="r"><code>ggsave(&quot;4Lv_ordinated_Weighted_Axis12_users.pdf&quot;, by_user,
+       device=&quot;pdf&quot;, height=6, width=6, unit=&quot;in&quot;, dpi=300)</code></pre>
+<p>Add lines to connect samples in the order in which they appear in the data using <code>geom_path</code>.<br />
+<strong>[NOTE]</strong> <code>geom_line</code> connects in the order of the variable (small to large) on the x axis, so it could be misleading.</p>
+<pre class="r"><code>by_user_pathconnected &lt;- by_user + geom_path(aes(color = UserName))  </code></pre>
+<pre class="r"><code>by_user_pathconnected</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-14-1.png" width="60%" /></p>
+<p>Save by_user_pathconnected as a PDF.</p>
+<pre class="r"><code>ggsave(&quot;4Lv_ordinated_Weighted_Axis12_users_pathconnected.pdf&quot;, 
+       by_user_pathconnected, device=&quot;pdf&quot;, height=6, width=6, unit=&quot;in&quot;, dpi=300)</code></pre>
+<hr />
+</div>
+<div id="by-diet-vegan-vegetarian-keto-american-and-japanese" class="section level4">
+<h4>By diet (Vegan, Vegetarian, Keto, American, and Japanese)</h4>
+<pre class="r"><code>by_diet &lt;- ggplot(meta_usersdf, aes(x=Axis.1, y=Axis.2, color=Diet)) +
+  geom_point(aes(color=Diet), size=2) + 
+  scale_color_manual(values = distinct100colors) + # OR use viridis theme.
+  # scale_color_viridis_d() +
+  xlab( paste(&quot;Axis.1 (&quot;, paste(round(eigen_loaded[1,2]*100, 1)), &quot;%)&quot;, sep=&quot;&quot;) ) +
+  ylab( paste(&quot;Axis.2 (&quot;, paste(round(eigen_loaded[2,2]*100, 1)), &quot;%)&quot;, sep=&quot;&quot;) ) +
+  no_grid + space_axes + theme(aspect.ratio = 1)</code></pre>
+<pre class="r"><code>by_diet</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-17-1.png" width="60%" /></p>
+<p>You can add ellipses at a desired confidence level.</p>
+<pre class="r"><code>by_diet_ellipses &lt;- by_diet + stat_ellipse(level=0.95) </code></pre>
+<pre class="r"><code>by_diet_ellipses</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-19-1.png" width="60%" /></p>
+<p>Save by_user_diet_ellipses as a PDF.</p>
+<pre class="r"><code>ggsave(&quot;4Lv_ordinated_Weighted_Axis12_diet_ellipses.pdf&quot;, by_diet_ellipses, 
+       device=&quot;pdf&quot;, height=6, width=6, unit=&quot;in&quot;, dpi=300)</code></pre>
+<p>Make polygons by diet.</p>
+<pre class="r"><code>by_diet_polygons &lt;- by_diet + geom_polygon(aes(fill = Diet)) + 
+  geom_point(aes(color = Diet), size=2) + 
+  scale_fill_manual(values = distinct100colors)</code></pre>
+<pre class="r"><code>by_diet_polygons</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-22-1.png" width="60%" /></p>
+<p>Save by_diet_polygons as a PDF.</p>
+<pre class="r"><code>ggsave(&quot;4Lv_ordinated_Weighted_Axis12_diet_polygons.pdf&quot;, 
+       by_diet_polygons, device=&quot;pdf&quot;, height=6, width=6, unit=&quot;in&quot;, dpi=300)</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="change-colors-for-specific-users" class="section level3">
+<h3>Change colors for specific user(s)</h3>
+<div id="a-highlight-one-sample-with-others-being-grey" class="section level4">
+<h4>[A] Highlight one sample with others being grey</h4>
+<p>Specify which user to highlight; e.g. VVKAJ101.</p>
+<pre class="r"><code>select_point_1 &lt;- subset(meta_usersdf, UserName==&quot;VVKAJ101&quot;) </code></pre>
+<pre class="r"><code>panelA &lt;- by_user + 
+  geom_point(size=2, color=&quot;grey&quot;) +  
+  geom_point(data=select_point_1, aes(x=Axis.1, y=Axis.2), color=&quot;black&quot;, size=2) </code></pre>
+<pre class="r"><code>panelA</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-26-1.png" width="60%" /></p>
+<p>Save the panel as a PDF.</p>
+<pre class="r"><code>ggsave(&quot;4Lv_ordinated_Weighted_Axis12_users_VVKAJ101_grey.pdf&quot;, 
+       panelA, device=&quot;pdf&quot;, height=6, width=6, unit=&quot;in&quot;, dpi=300)</code></pre>
+<hr />
+</div>
+<div id="b-highlight-multiple-samples-with-others-being-grey" class="section level4">
+<h4>[B] Highlight multiple samples with others being grey</h4>
+<p>Specify colors for each samples to be highlighted in the scale_color_manual argument.</p>
+<pre class="r"><code>select_points &lt;- subset(meta_usersdf, UserName==&quot;VVKAJ101&quot; | UserName==&quot;VVKAJ106&quot; )</code></pre>
+<p>It is OK to see a message: “Scale for ‘colour’ is already present.<br />
+Adding another scale for ‘colour’, which will replace the existing scale.”</p>
+<pre class="r"><code>panelB &lt;- 
+  by_user + 
+  geom_point(data=select_points, aes(x=Axis.1, y=Axis.2, color=as.factor(UserName))) +
+  scale_color_manual(values = c(&quot;VVKAJ101&quot;=&quot;red&quot;, &quot;VVKAJ106&quot;=&quot;blue&quot;)) </code></pre>
+<pre><code>## Scale for &#39;colour&#39; is already present. Adding another scale for &#39;colour&#39;,
+## which will replace the existing scale.</code></pre>
+<pre class="r"><code>panelB</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-30-1.png" width="60%" /></p>
+<p>Save the panel as a PDF.</p>
+<pre class="r"><code>ggsave(&quot;4Lv_ordinated_Weighted_Axis12_users_VVKAJ101_106_grey.pdf&quot;, 
+       panelB, device=&quot;pdf&quot;, height=6, width=6, unit=&quot;in&quot;, dpi=300)</code></pre>
+<hr />
+</div>
+<div id="c-highlight-one-sample-other-points-will-retain-their-original-colors" class="section level4">
+<h4>[C] Highlight one sample; other points will retain their original colors</h4>
+<pre class="r"><code>select_point_1 &lt;- subset(meta_usersdf, UserName==&quot;VVKAJ101&quot;) </code></pre>
+<p>Changing the shape sizes might help find the dots. Note that points may be overlapping</p>
+<pre class="r"><code>panelC &lt;- by_user + 
+  geom_point(data=select_point_1, aes(x=Axis.1, y=Axis.2), color=&quot;black&quot;, size=4) </code></pre>
+<pre class="r"><code>panelC</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-34-1.png" width="60%" /></p>
+<p>Save the panel as a PDF.</p>
+<pre class="r"><code>ggsave(&quot;4Lv_ordinated_Weighted_Axis12_users_VVKAJ101_color.pdf&quot;, 
+       panelC, device=&quot;pdf&quot;, height=6, width=6, unit=&quot;in&quot;, dpi=300)</code></pre>
+<hr />
+</div>
+<div id="d-highlight-multiple-samples-other-points-will-retain-their-original-colors" class="section level4">
+<h4>[D] Highlight multiple samples; other points will retain their original colors</h4>
+<pre class="r"><code>select_point_1 &lt;- subset(meta_usersdf, UserName==&quot;VVKAJ101&quot;) 
+select_point_2 &lt;- subset(meta_usersdf, UserName==&quot;VVKAJ106&quot;) </code></pre>
+<pre class="r"><code>panelD &lt;- by_user + 
+  geom_point(data=select_point_1, aes(x=Axis.1, y=Axis.2), color=&quot;black&quot;, size=4) +
+  geom_point(data=select_point_2, aes(x=Axis.1, y=Axis.2), color=&quot;green&quot;, size=4) </code></pre>
+<pre class="r"><code>panelD</code></pre>
+<p><img src="ASA24_12_viz_ordination_files/figure-html/unnamed-chunk-38-1.png" width="60%" /></p>
+<p>Save the panel as a PDF.</p>
+<pre class="r"><code>  ggsave(&quot;4Lv_ordinated_Weighted_Axis12_users_VVKAJ101_106_color.png&quot;, 
+         panelD, device=&quot;png&quot;, height=6, width=6, unit=&quot;in&quot;, dpi=300)</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

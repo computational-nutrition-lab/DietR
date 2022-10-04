@@ -115,7 +115,7 @@
                        output.fn= "4Lv_ordinated_Weighted_meta_users.txt")
 
 # ===============================================================================================================
-# Save unifrac distance (unweighted or weighted) matrices. 
+# Save unifrac distance (unweighted or weighted) matrices
 # ===============================================================================================================
 # Generate and save a weighted unifrac distance matrix of "Samples". 
   WeightedUnifracDis(input.phyloseq.obj = phyfoods, 

@@ -147,3 +147,60 @@ L1s = tax_table(phyfoods)[, "L1"]
 as.vector(unique(L1s))
 ```
 
+### Use your phyloseq object and perform ordination
+
+Change to the folder called "Unifrac" in your "VVKAJ" folder.
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir= 'eg_data/VVKAJ/Unifrac')
+```
+
+Specify the directory where the data is.
+```{r, eval = FALSE}
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/Unifrac/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+
+Perform Principal Coordinate Analysis (PCoA) with weighted unifrac distance of your food data. This may take a few minutes depending on your data size; e.g., a large phyloseq object (8 MB) takes ~ 1 min. Ordination by *UNweighted* unifrac distances can be done by `weighted=FALSE`. 
+```{r}
+ordinated <- phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", weighted=TRUE) 
+```
+
+Save the percent variance explained by the axes as a vector to use in plots.  
+```{r}
+eigen_percent <- ordinated$values$Relative_eig
+```
+
+Save the percent variance explained as a txt file.
+```{r}
+Eigen(eigen.input = eigen_percent, output.fn="4Lv_ordinated_Weighted_eigen_percent.txt")
+```
+
+Merge the first n axes to the metadata and save it as a txt file. This will be used for plotting ordination results.
+```{r}
+MergeAxesAndMetadata(ord.object= ordinated, number.of.axes= 10, meta.data= meta, 
+                     output.fn= "4Lv_ordinated_Weighted_meta_users.txt")
+```
+
+<br>
+
+---
+
+### Save unifrac distance (unweighted or weighted) matrices. 
+
+Generate and save a weighted unifrac distance matrix of "Samples". 
+```{r}
+WeightedUnifracDis(input.phyloseq.obj= phyfoods, 
+                   output.fn= "4Lv_WEIGHTED_uni_dis.txt")        
+```
+
+Generate and save an unweighted unifrac distance matrix of "Samples". 
+```{r}
+UnweightedUnifracDis(input.phyloseq.obj= phyfoods, 
+                     output.fn= "4Lv_UNweighted_uni_dis.txt")        
+```
+
+
+
+
