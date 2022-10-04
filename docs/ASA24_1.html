@@ -304,7 +304,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="NHANES_1.html">NHANES_1</a>
+      <a href="NHANES_1_load_and_clean.html">Load and clean NHANES data</a>
     </li>
     <li>
       <a href="NHANES_2.html">NHANES_2</a>
@@ -331,21 +331,21 @@ $(document).ready(function () {
 </div>
 
 
-<div id="what-this-script-does" class="section level3">
-<h3>What this script does:</h3>
+<p>In this tutorial, we will use VVKAJ dataset recorded by using ASA24 platform. This study included 15 participants who reported their dietary data for three days.</p>
+<p>In this script, you will:<br />
+</p>
 <ol style="list-style-type: decimal">
-<li>Use Metadata 1 to filter out individuals.</li>
-<li>Remove users that has only a small number of totals (days of record) - if you know which one to remove.<br />
-</li>
+<li>Use Metadata 1 to filter out individuals;</li>
+<li>Remove users that has only a small number of totals (days of record) - if you know which one to remove; and</li>
 <li>Look for outliers in your totals by nutrient consumed on each day.</li>
 </ol>
+<p><br></p>
 <p>Name the path to DietR directory where input files are pulled.</p>
 <pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
-<p>Load the necessary functions</p>
+<p>Load the necessary functions.</p>
 <pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
   source(&quot;lib/load_clean_ASA24.R&quot;)
   source(&quot;lib/format.file.R&quot;)</code></pre>
-</div>
 <div id="load-asa24-items-data" class="section level3">
 <h3>Load ASA24 Items data</h3>
 <p>Specify the directory where the data is.</p>
@@ -569,7 +569,7 @@ Click to expand output
 <p>Load your metadata that has information about which UserName(s) to remove.</p>
 <pre class="r"><code>ind_to_rm &lt;- read.table(&quot;individuals_to_remove.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
 <p>Take a look. Metadata for this purpose (<code>ind_to_rm</code>) has <code>UserName</code> and which one to be removed:</p>
-<pre class="r"><code>  ind_to_rm</code></pre>
+<pre class="r"><code>ind_to_rm</code></pre>
 <pre><code>##    UserName Remove
 ## 1  VVKAJ101       
 ## 2  VVKAJ102       
@@ -588,10 +588,11 @@ Click to expand output
 ## 15 VVKAJ115       
 ## 16 VVKAJ116    yes</code></pre>
 <p>Show which has “yes” in the “Remove” column.</p>
-<pre class="r"><code>  subset(ind_to_rm, Remove == &quot;yes&quot;)</code></pre>
+<pre class="r"><code>subset(ind_to_rm, Remove == &quot;yes&quot;)</code></pre>
 <pre><code>##    UserName Remove
 ## 16 VVKAJ116    yes</code></pre>
-<p>Remove the specified individuals. The output will be saved as a text file with the specified name. This assumes the usernames are in <code>UserName</code> column, and will print which user(s) will be removed.</p>
+<p>Remove the specified individuals.<br />
+The output will be saved as a text file with the specified name. This assumes the usernames are in <code>UserName</code> column, and will print which user(s) will be removed.</p>
 <pre class="r"><code>  RemoveRows(data=items_f_id, metadata.file= ind_to_rm,
              output.name= &quot;VVKAJ_Items_f_id_s.txt&quot;)</code></pre>
 <pre><code>## 1 row(s) below are to be removed: 

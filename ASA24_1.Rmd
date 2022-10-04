@@ -4,17 +4,22 @@ output: html_document
 code_folding: hide
 ---
 
-### What this script does:
-1. Use Metadata 1 to filter out individuals.
-2. Remove users that has only a small number of totals (days of record) - if you know which one to remove.  
+In this tutorial, we will use VVKAJ dataset recorded by using ASA24 platform. This study included 15 participants who reported their dietary data for three days.
+
+In this script, you will:\
+
+1. Use Metadata 1 to filter out individuals;
+2. Remove users that has only a small number of totals (days of record) - if you know which one to remove; and
 3. Look for outliers in your totals by nutrient consumed on each day.
+
+<br>
 
 Name the path to DietR directory where input files are pulled.
 ```{r}
   main_wd <- "~/GitHub/DietR"
 ```
 
-Load the necessary functions
+Load the necessary functions.
 ```{r}
   source("lib/specify_data_dir.R")
   source("lib/load_clean_ASA24.R")
@@ -25,6 +30,8 @@ Load the necessary functions
 knitr::opts_chunk$set(echo=TRUE)
 knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
 ```
+
+<br>
 
 ### Load ASA24 Items data
 
@@ -107,18 +114,17 @@ ind_to_rm <- read.table("individuals_to_remove.txt", sep="\t", header=T)
 
 Take a look. Metadata for this purpose (`ind_to_rm`) has `UserName` and which one to be removed:
 ```{r}
-  ind_to_rm
+ind_to_rm
 ```
 
 Show which has "yes" in the "Remove" column.
 ```{r}
-  subset(ind_to_rm, Remove == "yes")
+subset(ind_to_rm, Remove == "yes")
 
 ```
 
-Remove the specified individuals.
-The output will be saved as a text file with the specified name.
-This assumes the usernames are in `UserName` column, and will print which user(s) will be removed.
+Remove the specified individuals.\
+The output will be saved as a text file with the specified name. This assumes the usernames are in `UserName` column, and will print which user(s) will be removed.
 ```{r}
   RemoveRows(data=items_f_id, metadata.file= ind_to_rm,
              output.name= "VVKAJ_Items_f_id_s.txt")
