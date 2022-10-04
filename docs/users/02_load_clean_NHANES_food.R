@@ -36,9 +36,10 @@
   setwd(main_wd)
 
 # ===============================================================================================================
-# Load "food items" data and add food descriptions
+# Prepare food codes, FPED, and food items files
 # ===============================================================================================================
-  
+
+### Load and prepare food codes  
 # Download food code data from NHANES website and save it in "Raw_data" folder. 
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DRXFCD_I.XPT", 
                 destfile= "eg_data/NHANES/Raw_data/FoodCodes_DRXFCD_I.XPT", mode="wb")
@@ -57,10 +58,12 @@
   foodcodetable_f[1:10, ]
   
 # ---------------------------------------------------------------------------------------------------------------
-# FPED
+# Load and prepare FPED
+  
 # FPED has the composition of nutrients and food categories of each food item coded by food codes.
 # FPED can be downloaded from USDA -ARS FPED databases 
 # (https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/food-surveys-research-group/docs/fped-databases/)
+
 # You need to use the correct version of FPED. With NHANES, use FPED with the same release year
 # as the year of NHANES you are analyzing. For this tutorial, FPED was downloaded from NHANES
 # the FPED table is formatted by renaming the variables with R-loadable ones (e.g., "F_CITMLB (cup eq.)" 
@@ -77,7 +80,8 @@
   colnames(FPED)[1] <- "Food_code"
 
 # ---------------------------------------------------------------------------------------------------------------
-
+# Load "food items" data and add food descriptions
+  
 # Food data can be downloaded from NHANES website.
 # Name the file name and destination. mod="wb" is needed for Windows OS.
 # Other OS users may need to delete it.
@@ -94,6 +98,9 @@
 # variable names) in order to run this script with other releases of NHANES. For example, 
 # DR1IFDCD is a column name for the food code used in the NHANES 2015-2016, and the 
 # alphabet for this release is "I".   
+
+# ---------------------------------------------------------------------------------------------------------------
+# Load and prepare Day 1 food items data
   
 # Import items data Day 1, add food item descriptions, and save it as a txt file.
 # OUTPUT WILL LIKELY BE A HUGE FILE.
@@ -117,6 +124,8 @@
   # NAs will be removed later in the filtering process.
 
 # ---------------------------------------------------------------------------------------------------------------
+# Load and prepare Day 2 food items data
+  
 # Import items data Day 2, add food item descriptions, and save it as a txt file.
   ImportNHANESFoodItems(data.name="eg_data/NHANES/DR2IFF_I.XPT",
                         food.code.column = "DR2IFDCD",
@@ -139,8 +148,11 @@
   # NAs will be removed later in the filtering process.
 
 # ===============================================================================================================
-# Load the Food_Dx_FC which has the food category data. 
+# Load the Food_Dx_FC which has the food category data 
 # ===============================================================================================================
+
+# Change column names to more intuitive ones
+  
 # Food Day 1 with Food Category *** WILL BE A HUGE TABLE. ***
   Food_D1_FC <- read.table("eg_data/NHANES/Food_D1_FC.txt", sep="\t", header=T)
   
@@ -156,14 +168,15 @@
   names(Food_D2_FC)[names(Food_D2_FC) == "DR2IGRMS"] <- "FoodAmt"
   names(Food_D2_FC)[names(Food_D2_FC) == "DRXFCLD"] <- "Main.food.description"
   
-# Check the first row and ensure the column names are changed. 
-  head(Food_D1_FC,1)
+# Ensure the column names are changed. 
+  colnames(Food_D1_FC)
   
 # Save after changing the column names. "cc" stands for column names changed.
   write.table(Food_D1_FC, "eg_data/NHANES/Food_D1_FC_cc.txt", sep="\t", row.names=F, quote=F)
   write.table(Food_D2_FC, "eg_data/NHANES/Food_D2_FC_cc.txt", sep="\t", row.names=F, quote=F)
   
-# Replace special characters with "_" using FormatFoods
+# Replace special characters with "_" using FormatFoods.
+  
 # FotmatFoods() function adds "Main.Food.Description" where special characters are removed/replaced, the previous
 # Main.Food.Description as Old.Main.Food.Description, ModCode, and FoodID. $FoodID is a cha vector, but has .0 at the end. 
 # MAKE SURE dedupe=F. If true (default!), duplicated foods will be removed! 
