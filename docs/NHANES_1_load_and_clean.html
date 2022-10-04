@@ -351,114 +351,11 @@ $(document).ready(function () {
   source(&quot;lib/Food_tree_scripts/format.foods.r&quot;)</code></pre>
 <p>Install the SASxport package if it is not installed yet.</p>
 <pre class="r"><code>  if (!require(&quot;SASxport&quot;, quietly = TRUE)) install.packages(&quot;SASxport&quot;)</code></pre>
+<p>Load the necessary packages.</p>
+<pre class="r"><code>library(SASxport)</code></pre>
 <p>You can come back to the main directory by:</p>
 <pre class="r"><code>  setwd(main_wd)</code></pre>
 <hr />
-<div id="load-food-items-data-and-add-food-descriptions" class="section level3">
-<h3>Load “food items” data and add food descriptions</h3>
-<div id="prepare-the-code-table---replace-special-characters-with-_-or-and." class="section level4">
-<h4>Prepare the code table - replace special characters with “_” or “and”.</h4>
-<p>Format the food table and save it as a .txt file.</p>
-<pre class="r"><code>PrepareFoodCodeTable(raw.food.code.table = &quot;eg_data/NHANES/Raw_data/FoodCodes_DRXFCD_I.XPT&quot;, 
-                     out.fn =              &quot;eg_data/NHANES/FoodCodes_DRXFCD_I_f.txt&quot;)  </code></pre>
-<p>Load the formatted foodcode table.</p>
-<pre class="r"><code>foodcodetable_f &lt;- read.table(&quot;eg_data/NHANES/FoodCodes_DRXFCD_I_f.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
-<p>Check the first 10 rows of the output.</p>
-<pre class="r"><code>foodcodetable_f[1:10, ]</code></pre>
-<pre><code>##     DRXFDCD                                  DRXFCSD
-## 1  11000000                              MILK, HUMAN
-## 2  11100000                                MILK, NFS
-## 3  11111000                              MILK, WHOLE
-## 4  11111100                  MILK, LOW SODIUM, WHOLE
-## 5  11111150           MILK, CALCIUM FORTIFIED, WHOLE
-## 6  11111160    MILK, CALCIUM FORTIFIED, LOW FAT (1_)
-## 7  11111170 MILK, CALCIUM FORTIFIED, FAT FREE (SKIM)
-## 8  11112110                   MILK, REDUCED FAT (2_)
-## 9  11112120          MILK, ACIDOPHILUS, LOW FAT (1_)
-## 10 11112130      MILK, ACIDOPHILUS, REDUCED FAT (2_)
-##                                     DRXFCLD
-## 1                               Milk, human
-## 2                                 Milk, NFS
-## 3                               Milk, whole
-## 4                   Milk, low sodium, whole
-## 5            Milk, calcium fortified, whole
-## 6     Milk, calcium fortified, low fat (1_)
-## 7  Milk, calcium fortified, fat free (skim)
-## 8                    Milk, reduced fat (2_)
-## 9           Milk, acidophilus, low fat (1_)
-## 10      Milk, acidophilus, reduced fat (2_)</code></pre>
-<hr />
-</div>
-<div id="load-fped15-16-needed-for-the-addfoodcat-function." class="section level4">
-<h4>Load FPED15-16, needed for the AddFoodCat function.</h4>
-<pre class="r"><code>FPED &lt;- read.table(&quot;eg_data/NHANES/FPED/FPED_1516_forR.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
-<p>Check the first 2 rows of FPED.</p>
-<pre class="r"><code>head(FPED, 2)</code></pre>
-<pre><code>##   FOODCODE F_CITMLB F_OTHER F_JUICE F_TOTAL V_DRKGR V_REDOR_TOMATO
-## 1 11000000        0       0       0       0       0              0
-## 2 11100000        0       0       0       0       0              0
-##   V_REDOR_OTHER V_REDOR_TOTAL V_STARCHY_POTATO V_STARCHY_OTHER V_STARCHY_TOTAL
-## 1             0             0                0               0               0
-## 2             0             0                0               0               0
-##   V_OTHER V_TOTAL V_LEGUMES G_WHOLE G_REFINED G_TOTAL PF_MEAT PF_CUREDMEAT
-## 1       0       0         0       0         0       0       0            0
-## 2       0       0         0       0         0       0       0            0
-##   PF_ORGAN PF_POULT PF_SEAFD_HI PF_SEAFD_LOW PF_MPS_TOTAL PF_EGGS PF_SOY
-## 1        0        0           0            0            0       0      0
-## 2        0        0           0            0            0       0      0
-##   PF_NUTSDS PF_LEGUMES PF_TOTAL D_MILK D_YOGURT D_CHEESE D_TOTAL OILS
-## 1         0          0        0   0.00        0        0    0.00    0
-## 2         0          0        0   0.41        0        0    0.41    0
-##   SOLID_FATS ADD_SUGARS A_DRINKS
-## 1       0.00          0        0
-## 2       1.43          0        0</code></pre>
-<p><strong>Important!</strong> Change the food code column name as Food_code.</p>
-<pre class="r"><code>colnames(FPED)[1] &lt;- &quot;Food_code&quot;</code></pre>
-<hr />
-<p><strong>[NOTE]</strong> Raw food data (DR1IFF_I.XPT and DR2IFF_I.XPT) are very large files and cannot be accommodated by GitHub. Thus, you will want to download them separately, and save them in a directory of your choice. Replace the path to your directory that contains the raw food data in the following code that uses the <code>ImportNHANESFoodItems</code> function.</p>
-<p>Different alphabets are used on the variables’ names in different release of NHANES data. Therefore, you will need to change the alphabet (and potentially the other parts of the variable names) in order to run this script with other releases of NHANES. For example, DR1IFDCD is a column name for the food code used in the NHANES 2015-2016, and the alphabet for this release is “I”.</p>
-<p>Import items data Day 1, add food item descriptions, and save it as a txt file.<br />
-IT WILL LIKELY BE A HUGE FILE.</p>
-<pre class="r"><code>download.file(&quot;https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.XPT&quot;, 
-              destfile= &quot;eg_data/NHANES/DR1IFF_I.XPT&quot;)</code></pre>
-<!-- ```{r} -->
-<!-- ImportNHANESFoodItems(data.name="E:/MSU OneDrive 20210829/UMinn/20_NHANES/2015-16/Data/DR1IFF_I.XPT",  -->
-<!--                         food.code.column = "DR1IFDCD",  -->
-<!--                         food.code.table = foodcodetable_f, -->
-<!--                         out.fn = "eg_data/NHANES/DR1IFF_I_d.txt")  -->
-<!--                         # 'd' stands for food descriptions -->
-<!-- ``` -->
-<!-- # Load the saved food items file. -->
-<!--   Food_D1 <- read.table("eg_data/NHANES/DR1IFF_I_d.txt", sep="\t", header=T) -->
-<!-- # Count the number of participants - should be 8505 people. -->
-<!--   length(unique(Food_D1$SEQN))  -->
-<!-- # Add the food category info and serving for each item. #### WILL TAKE A FEW MOMENTS. #### -->
-<!--   AddFoodCat(input.food= Food_D1, -->
-<!--              fped= FPED, -->
-<!--              grams= "DR1IGRMS",  -->
-<!--              out.fn= "eg_data/NHANES/Food_D1_FC.txt") -->
-<!--   # It is OK to see a message saying "NAs introduced by coercion." -->
-<!--   # NAs will be removed later in the filtering process. -->
-<!-- # --------------------------------------------------------------------------------------------------------------- -->
-<!-- # Import items data Day 2, add food item descriptions, and save it as a txt file. -->
-<!--   ImportNHANESFoodItems(data.name="E:/MSU OneDrive 20210829/UMinn/20_NHANES/2015-16/Data/DR2IFF_I.XPT", -->
-<!--                         food.code.column = "DR2IFDCD", -->
-<!--                         food.code.table = foodcodetable_f, -->
-<!--                         out.fn = "eg_data/NHANES/DR2IFF_I_d.txt") -->
-<!-- # Add food item description and save it as a txt file. -->
-<!--   Food_D2 <- read.table("eg_data/NHANES/DR2IFF_I_d.txt", sep="\t", header=T) -->
-<!-- # Count the number of participants - should be 7027 people. -->
-<!--   length(unique(Food_D2$SEQN))  -->
-<!-- # Do the same for Day 2. Add the food items info and serving for each item.  -->
-<!-- #### WILL TAKE A FEW MOMENTS. #### -->
-<!--   AddFoodCat(input.food= Food_D2,  -->
-<!--              fped= FPED,  -->
-<!--              grams= "DR2IGRMS",  -->
-<!--              out.fn= "eg_data/NHANES/Food_D2_FC.txt") -->
-<!--   # It is OK to see a message saying "NAs introduced by coercion." -->
-<!--   # NAs will be removed later in the filtering process. -->
-</div>
-</div>
 
 
 

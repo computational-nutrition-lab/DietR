@@ -16,13 +16,13 @@
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
-  setwd("~/GitHub/dietary_patterns")
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use.
   main_wd <- file.path(getwd())
   
-# First time only: install the packages you need.
-  install.packages("SASxport")
+# Install the SASxport package if it is not installed yet.
+  if (!require("SASxport", quietly = TRUE)) install.packages("SASxport")
 
 # Load SASeport, necessary to import NHANES data.
   library(SASxport)
@@ -39,7 +39,11 @@
 # Load "food items" data and add food descriptions
 # ===============================================================================================================
   
-# Prepare the code table - replace special characters with "_" or "and"
+# Download food code data from NHANES website and save it in "Raw_data" folder. 
+  download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DRXFCD_I.XPT", 
+                destfile= "eg_data/NHANES/Raw_data/FoodCodes_DRXFCD_I.XPT", mode="wb")
+  
+# Prepare the food code table - replace special characters with "_" or "and".
   
   # Format the food table and save it as a .txt file.
   PrepareFoodCodeTable(raw.food.code.table = "eg_data/NHANES/Raw_data/FoodCodes_DRXFCD_I.XPT", 
@@ -48,11 +52,22 @@
   # Load the formatted foodcode table.
   foodcodetable_f <- read.table("eg_data/NHANES/FoodCodes_DRXFCD_I_f.txt", sep="\t", header=T)
   
-  # Check the first 10 rows of the output. 
-  foodcodetable_f[1:10, ]  
+  # Show the first 10 rows of the output and ensure special characters are gone; e.g., 
+  # MILK, REDUCED FAT (2%) is now MILK, REDUCED FAT (2_).
+  foodcodetable_f[1:10, ]
   
 # ---------------------------------------------------------------------------------------------------------------
-# Load FPED15-16, needed for the AddFoodCat function. 
+# FPED
+# FPED has the composition of nutrients and food categories of each food item coded by food codes.
+# FPED can be downloaded from USDA -ARS FPED databases 
+# (https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/food-surveys-research-group/docs/fped-databases/)
+# You need to use the correct version of FPED. With NHANES, use FPED with the same release year
+# as the year of NHANES you are analyzing. For this tutorial, FPED was downloaded from NHANES
+# the FPED table is formatted by renaming the variables with R-loadable ones (e.g., "F_CITMLB (cup eq.)" 
+# --> "F_CITMLB" and saved as "FPED_1516_forR.txt". 
+ 
+    
+# Load FPED15-16, needed for the AddFoodCat function.
   FPED <- read.table("eg_data/NHANES/FPED/FPED_1516_forR.txt", sep="\t", header=T)
   
   # Check the first 2 rows of FPED. 
@@ -63,11 +78,17 @@
 
 # ---------------------------------------------------------------------------------------------------------------
 
-# [NOTE] Raw food data (DR1IFF_I.XPT and DR2IFF_I.XPT) are very large files and cannot be 
-# accommodated by GitHub. Thus, you will want to download them separately, and save them in a 
-# directory of your choice. Replace the path to your directory that contains the raw food data in 
-# the following code that uses the ImportNHANESFoodItems function.
- 
+# Food data can be downloaded from NHANES website.
+# Name the file name and destination. mod="wb" is needed for Windows OS.
+# Other OS users may need to delete it.
+  # Download day 1 data.
+  download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.XPT", 
+                destfile= "eg_data/NHANES/DR1IFF_I.XPT", mode="wb")
+  
+  # Download day 2 data.
+  download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR2IFF_I.XPT",
+                destfile= "eg_data/NHANES/DR2IFF_I.XPT", mode="wb")
+  
 # [NOTE] Different alphabets are used on the variables' names in different release of NHANES 
 # data.  Therefore, you will need to change the alphabet (and potentially the other parts of the 
 # variable names) in order to run this script with other releases of NHANES. For example, 
@@ -75,8 +96,8 @@
 # alphabet for this release is "I".   
   
 # Import items data Day 1, add food item descriptions, and save it as a txt file.
-# IT WILL LIKELY BE A HUGE FILE.
-  ImportNHANESFoodItems(data.name="E:/MSU OneDrive 20210829/UMinn/20_NHANES/2015-16/Data/DR1IFF_I.XPT", 
+# OUTPUT WILL LIKELY BE A HUGE FILE.
+  ImportNHANESFoodItems(data.name="eg_data/NHANES/DR1IFF_I.XPT", 
                         food.code.column = "DR1IFDCD", 
                         food.code.table = foodcodetable_f,
                         out.fn = "eg_data/NHANES/DR1IFF_I_d.txt") # 'd' stands for food descriptions
@@ -84,7 +105,7 @@
 # Load the saved food items file.
   Food_D1 <- read.table("eg_data/NHANES/DR1IFF_I_d.txt", sep="\t", header=T)
 
-# Count the number of participants - should be 8505 people.
+# Count the number of participants - should be 8,505 people.
   length(unique(Food_D1$SEQN)) 
 
 # Add the food category info and serving for each item. #### WILL TAKE A FEW MOMENTS. ####
@@ -97,7 +118,7 @@
 
 # ---------------------------------------------------------------------------------------------------------------
 # Import items data Day 2, add food item descriptions, and save it as a txt file.
-  ImportNHANESFoodItems(data.name="E:/MSU OneDrive 20210829/UMinn/20_NHANES/2015-16/Data/DR2IFF_I.XPT",
+  ImportNHANESFoodItems(data.name="eg_data/NHANES/DR2IFF_I.XPT",
                         food.code.column = "DR2IFDCD",
                         food.code.table = foodcodetable_f,
                         out.fn = "eg_data/NHANES/DR2IFF_I_d.txt")
@@ -148,7 +169,10 @@
 # MAKE SURE dedupe=F. If true (default!), duplicated foods will be removed! 
   FormatFoods(input_fn="eg_data/NHANES/Food_D1_FC_cc.txt", output_fn= "eg_data/NHANES/Food_D1_FC_cc_f.txt", dedupe=F)
   FormatFoods(input_fn="eg_data/NHANES/Food_D2_FC_cc.txt", output_fn= "eg_data/NHANES/Food_D2_FC_cc_f.txt", dedupe=F)
+
+# could cut here and split the scripts into two.... ######################################################################################### 
   
+    
 # Load the result file. 
   Food_D1_FC_cc_f <- read.table("eg_data/NHANES/Food_D1_FC_cc_f.txt", sep="\t", header=T)
   Food_D2_FC_cc_f <- read.table("eg_data/NHANES/Food_D2_FC_cc_f.txt", sep="\t", header=T)
@@ -163,6 +187,7 @@
 # Load the demographics file, then filter by age > 18.
   demog <- read.xport("eg_data/NHANES/Raw_data/DEMO_I.XPT")
   head(demog,1)
+
 # Remove children (under 18 years of age).  
   adults <- demog[demog$RIDAGEYR >= 18, ]
   
@@ -172,8 +197,8 @@
 # Check the number of complete and incomplete data. According to the documentation  
 # (https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm), value 4 is incomplete, 
 # so 2,208 rows are marked incomplete for Day 1, and 1,902 rows for Day 2.
-  table(Food_D1_FC$DR1DRSTZ) 
-  table(Food_D2_FC$DR2DRSTZ) 
+  table(Food_D1_FC_cc_f$DR1DRSTZ) 
+  table(Food_D2_FC_cc_f$DR1DRSTZ) 
 
 # Retain those with complete data (STZ==1)
   food1 <- subset(Food_D1_FC_cc_f, DR1DRSTZ == 1)
