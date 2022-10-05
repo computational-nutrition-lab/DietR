@@ -3,10 +3,5 @@ title: "Test"
 output: html_document
 ---
 
-
-Flag if VC (Vitamin C) is <5 or >400 &rarr; aaa  then
-
-sym("trademark")
-sym("alpha")
-sym("arrow-right")
-sym(144)
+# arrows!
+Flag if VC (Vitamin C) is <5 or >400 &rarr; then, ...

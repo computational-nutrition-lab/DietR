@@ -304,10 +304,13 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="NHANES_1_load_and_clean.html">Load and clean NHANES data - 1</a>
+      <a href="NHANES_1_load_and_clean_1.html">Load and clean NHANES data - 1</a>
     </li>
     <li>
-      <a href="NHANES_2.html">NHANES_2</a>
+      <a href="NHANES_2_load_and_clean_2.html">Load and clean NHANES data - 2</a>
+    </li>
+    <li>
+      <a href="NHANES_3_data_overview.html">Data overview</a>
     </li>
   </ul>
 </li>
@@ -332,27 +335,27 @@ $(document).ready(function () {
 
 
 <p>Name the path to DietR directory where input files are pulled.</p>
-<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
+<pre class="r"><code>main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
 <p>Load the necessary functions.</p>
-<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
-  source(&quot;lib/data_overview.R&quot;)
-  source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
+<pre class="r"><code>source(&quot;lib/specify_data_dir.R&quot;)
+source(&quot;lib/data_overview.R&quot;)
+source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
 <p>Name the path to DietR directory where input files are pulled.</p>
-<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
+<pre class="r"><code>main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
 <p>Call color palette.</p>
-<pre class="r"><code>  distinct100colors &lt;- readRDS(&quot;lib/distinct100colors.rda&quot;)</code></pre>
+<pre class="r"><code>distinct100colors &lt;- readRDS(&quot;lib/distinct100colors.rda&quot;)</code></pre>
 <p>You can come back to the main directory by:</p>
-<pre class="r"><code>  setwd(main_wd)</code></pre>
+<pre class="r"><code>setwd(main_wd)</code></pre>
 <p><br></p>
 <div id="load-and-analyze-qc-ed-asa24-items-data" class="section level2">
 <h2>Load and analyze (QC-ed) ASA24 items data</h2>
 <p>Specify the directory where the data is.</p>
-<pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
+<pre class="r"><code>SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
 <!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
 <!--  the code so that this tutorial will have the same code as the R script.  -->
 <p>Load your items data to be analyzed. <code>_f_id_s_m</code> stands for: “food names formatted”, “SampleID added”, “selected individuals”, and “metadata merged”.</p>
-<pre class="r"><code>  items_f_id_s_m &lt;- read.table(&quot;VVKAJ_Items_f_id_s_m.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
-<pre class="r"><code>  head(items_f_id_s_m)</code></pre>
+<pre class="r"><code>items_f_id_s_m &lt;- read.table(&quot;VVKAJ_Items_f_id_s_m.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<pre class="r"><code>head(items_f_id_s_m)</code></pre>
 <details>
 <summary>
 Click to expand output
@@ -498,16 +501,31 @@ Click to expand output
 <div id="summary-statistics-of-one-variable" class="section level4">
 <h4>Summary statistics of one variable</h4>
 <p>View min, quantiles, mean, etc. for a variable in your dataset.</p>
-<pre class="r"><code>  summary(items_f_id_s_m$KCAL)</code></pre>
+<pre class="r"><code>summary(items_f_id_s_m$KCAL)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    0.00   10.03   76.80  130.15  167.78 1196.79</code></pre>
 </div>
 <div id="summary-statistics-of-all-the-variables" class="section level4">
 <h4>Summary statistics of all the variables</h4>
-<p>Calculate the minimum, 1st quantile, median, mean, 3rd quantile, max, and standard deviation for each variable in the input dataframe and save as a .txt file.</p>
-<pre class="r"><code>  SummaryStats(inputdf = items_f_id_s_m, 
-               outfn = &quot;VVKAJ_Items_f_id_s_m_summ.txt&quot;)</code></pre>
-<p><strong>[NOTE]</strong> These are individual items, not by user or day.</p>
+<p>Calculate the minimum, 1st quantile, median, mean, 3rd quantile, max, and standard deviation for each variable in the input dataframe and save as a .txt file.<br />
+<strong>[NOTE]</strong> These are individual items, not by user or day.</p>
+<pre class="r"><code>SummaryStats(inputdf = items_f_id_s_m, 
+             outfn = &quot;VVKAJ_Items_f_id_s_m_summ.txt&quot;)</code></pre>
+<p>The first six rows of VVKAJ_Items_f_id_s_m_summ.txt looks like this. Summary statistics of some variables are not useful such as RecallNo and RecallAttempt, as they are not to be treated as continuous variables.</p>
+<pre><code>##       Variables         Min     FirstQu      Median             Mean
+## 1      UserName not_numeric not_numeric not_numeric      not_numeric
+## 2      SampleID not_numeric not_numeric not_numeric      not_numeric
+## 3   RecallRecId not_numeric not_numeric not_numeric      not_numeric
+## 4        UserID not_numeric not_numeric not_numeric      not_numeric
+## 5      RecallNo           1           1           2 2.02507374631268
+## 6 RecallAttempt           0           0           0                0
+##       ThirdQu         Max                SD
+## 1 not_numeric not_numeric       not_numeric
+## 2 not_numeric not_numeric       not_numeric
+## 3 not_numeric not_numeric       not_numeric
+## 4 not_numeric not_numeric       not_numeric
+## 5           3           3 0.835488470425364
+## 6           0           0                 0</code></pre>
 <p><br></p>
 <hr />
 </div>
@@ -516,20 +534,20 @@ Click to expand output
 <h3>Boxplot</h3>
 <p>Generate a boxplot to view data distribution.</p>
 <p>Boxplot of KCAL by users.</p>
-<pre class="r"><code>  users_kcal &lt;- ggplot(items_f_id_s_m, aes(x=UserName, y=KCAL)) +
-    geom_boxplot() + no_grid + space_axes + rotate_X_labels</code></pre>
-<pre class="r"><code>  users_kcal</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>users_kcal &lt;- ggplot(items_f_id_s_m, aes(x=UserName, y=KCAL)) +
+  geom_boxplot() + no_grid + space_axes + rotate_X_labels</code></pre>
+<pre class="r"><code>users_kcal</code></pre>
+<p><img src="ASA24_3_files/figure-html/unnamed-chunk-13-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
-<pre class="r"><code>  ggsave(&quot;VVKAJ_Items_f_id_s_m_users_kcal.pdf&quot;, users_kcal, device=&quot;pdf&quot;)</code></pre>
+<pre class="r"><code>ggsave(&quot;VVKAJ_Items_f_id_s_m_users_kcal.pdf&quot;, users_kcal, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Similarly, generate a boxplot of KCAL by gender.</p>
-<pre class="r"><code>  gender_kcal &lt;- ggplot(items_f_id_s_m, aes(x=Gender, y=KCAL)) +
-    geom_boxplot() + no_grid + space_axes</code></pre>
-<pre class="r"><code>  gender_kcal</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r"><code>gender_kcal &lt;- ggplot(items_f_id_s_m, aes(x=Gender, y=KCAL)) +
+  geom_boxplot() + no_grid + space_axes</code></pre>
+<pre class="r"><code>gender_kcal</code></pre>
+<p><img src="ASA24_3_files/figure-html/unnamed-chunk-16-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
-<pre class="r"><code>  ggsave(&quot;VVKAJ_Items_f_id_s_m_gender_kcal.pdf&quot;, gender_kcal, device=&quot;pdf&quot;)</code></pre>
+<pre class="r"><code>ggsave(&quot;VVKAJ_Items_f_id_s_m_gender_kcal.pdf&quot;, gender_kcal, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p><br></p>
 <hr />
@@ -537,15 +555,15 @@ Click to expand output
 <div id="scatterplot" class="section level3">
 <h3>Scatterplot</h3>
 <p>Scaterplot of two numeric variables: <code>TFAT</code> and <code>KCAL</code>.</p>
-<pre class="r"><code>  TFAT_KCAL &lt;- ggplot(items_f_id_s_m, aes(x=TFAT, y=KCAL)) +
-    geom_point() + no_grid + space_axes </code></pre>
-<pre class="r"><code>  TFAT_KCAL</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<pre class="r"><code>TFAT_KCAL &lt;- ggplot(items_f_id_s_m, aes(x=TFAT, y=KCAL)) +
+  geom_point() + no_grid + space_axes </code></pre>
+<pre class="r"><code>TFAT_KCAL</code></pre>
+<p><img src="ASA24_3_files/figure-html/unnamed-chunk-19-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
-<pre class="r"><code>  ggsave(&quot;VVKAJ_Items_f_id_s_m_TFAT_KCAL.pdf&quot;, TFAT_KCAL, device=&quot;pdf&quot;)</code></pre>
+<pre class="r"><code>ggsave(&quot;VVKAJ_Items_f_id_s_m_TFAT_KCAL.pdf&quot;, TFAT_KCAL, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Test if the two variables are correlated. The output should show p-value and R correlation coefficient.</p>
-<pre class="r"><code>  cor.test(x=items_f_id_s_m$TFAT, y=items_f_id_s_m$KCAL, method=&quot;pearson&quot;)</code></pre>
+<pre class="r"><code>cor.test(x=items_f_id_s_m$TFAT, y=items_f_id_s_m$KCAL, method=&quot;pearson&quot;)</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -563,9 +581,9 @@ Click to expand output
 </div>
 <div id="load-and-analyze-qc-ed-asa24-totals-data" class="section level2">
 <h2>Load and analyze (QC-ed) ASA24 totals data</h2>
-<pre class="r"><code>  tot_m_QCed &lt;- read.table(&quot;VVKAJ_Tot_m_QCed.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<pre class="r"><code>tot_m_QCed &lt;- read.table(&quot;VVKAJ_Tot_m_QCed.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
 <p>Note that each row is a total dietary intake of each user on each day.</p>
-<pre class="r"><code>  head(tot_m_QCed)</code></pre>
+<pre class="r"><code>head(tot_m_QCed)</code></pre>
 <details>
 <summary>
 Click to expand output
@@ -683,15 +701,30 @@ Click to expand output
 <div id="summary-statistics-of-one-variable-1" class="section level4">
 <h4>Summary statistics of one variable</h4>
 <p>View min, quantiles, mean, etc. for a variable in your dataset.</p>
-<pre class="r"><code>  summary(tot_m_QCed$KCAL)</code></pre>
+<pre class="r"><code>summary(tot_m_QCed$KCAL)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   913.6  1440.2  1735.3  1961.0  2314.9  4153.7</code></pre>
 </div>
 <div id="summary-statistics-of-all-the-variables-1" class="section level4">
 <h4>Summary statistics of all the variables</h4>
 <p>Calculate the min, quantiles, mean, etc. for a variable in your dataset in the same way we did with the items.</p>
-<pre class="r"><code>  SummaryStats(inputdf = tot_m_QCed, 
-               outfn = &quot;VVKAJ_Tot_m_QCed_summ.txt&quot;)</code></pre>
+<pre class="r"><code>SummaryStats(inputdf = tot_m_QCed, 
+             outfn = &quot;VVKAJ_Tot_m_QCed_summ.txt&quot;)</code></pre>
+<p>The first six rows of VVKAJ_Tot_m_QCed_summ.txt looks like this.</p>
+<pre><code>##   Variables         Min     FirstQu      Median             Mean     ThirdQu
+## 1  UserName not_numeric not_numeric not_numeric      not_numeric not_numeric
+## 2  User_Day not_numeric not_numeric not_numeric      not_numeric not_numeric
+## 3  RecallNo           1           1           2                2           3
+## 4   FoodAmt      1124.9   1668.0375        1956 1982.24168948156   2213.1098
+## 5      KCAL    913.5955   1440.1995    1735.274  1960.9910295126    2314.904
+## 6      PROT  35.1346075   55.801365    88.66602 95.2335961047555   125.89174
+##           Max               SD
+## 1 not_numeric      not_numeric
+## 2 not_numeric      not_numeric
+## 3           3 0.82572282384477
+## 4      3644.4 448.829014122288
+## 5     4153.67 765.073730893835
+## 6  185.576385 45.0318265896706</code></pre>
 <p><br></p>
 <hr />
 </div>
@@ -700,29 +733,29 @@ Click to expand output
 <h3>Boxplot</h3>
 <p>Generate a boxplot to view data distribution.</p>
 <p>Boxplot of KCAL by users. This is a variation of the days, and note that some users may have less number of days due to the QC process or missing data.</p>
-<pre class="r"><code>  users_kcal_t &lt;- ggplot(tot_m_QCed, aes(x=UserName, y=KCAL)) +
-    geom_boxplot() + no_grid + space_axes + rotate_X_labels</code></pre>
-<pre class="r"><code>  users_kcal_t</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<pre class="r"><code>users_kcal_t &lt;- ggplot(tot_m_QCed, aes(x=UserName, y=KCAL)) +
+  geom_boxplot() + no_grid + space_axes + rotate_X_labels</code></pre>
+<pre class="r"><code>users_kcal_t</code></pre>
+<p><img src="ASA24_3_files/figure-html/unnamed-chunk-28-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
-<pre class="r"><code>  ggsave(&quot;VVKAJ_Tot_m_QCed_users_KCAL.pdf&quot;, users_kcal_t, device=&quot;pdf&quot;)</code></pre>
+<pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_users_KCAL.pdf&quot;, users_kcal_t, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Boxplot of <code>KCAL</code> by <code>Gender</code>.</p>
-<pre class="r"><code>  gender_KCAL_t &lt;- ggplot(tot_m_QCed, aes(x=Gender, y=KCAL)) +
-    geom_boxplot() + no_grid + space_axes </code></pre>
-<pre class="r"><code>  gender_KCAL_t</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<pre class="r"><code>gender_KCAL_t &lt;- ggplot(tot_m_QCed, aes(x=Gender, y=KCAL)) +
+  geom_boxplot() + no_grid + space_axes </code></pre>
+<pre class="r"><code>gender_KCAL_t</code></pre>
+<p><img src="ASA24_3_files/figure-html/unnamed-chunk-31-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
-<pre class="r"><code>  ggsave(&quot;VVKAJ_Tot_m_QCed_gender_KCAL.pdf&quot;, gender_KCAL_t, device=&quot;pdf&quot;)</code></pre>
+<pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_gender_KCAL.pdf&quot;, gender_KCAL_t, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
-<p>Boxplot of <code>KCAL</code> by <code>Gender</code>, with each datapoint. Note that geom_boxplot must have outlier.shape = NA when plotted with geom_jitter. Otherwise, outlier points will be duplicated and will be misleading.</p>
-<pre class="r"><code>  gender_KCAL_t_dots &lt;- ggplot(tot_m_QCed, aes(x=Gender, y=KCAL)) +
-    geom_boxplot(outlier.shape = NA) + no_grid + space_axes +
-    geom_jitter(width=0.3)</code></pre>
-<pre class="r"><code>  gender_KCAL_t_dots</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>Boxplot of <code>KCAL</code> by <code>Gender</code>, with each datapoint. Note that geom_boxplot must have <code>outlier.shape = NA</code> when plotted with <code>geom_jitter</code>. Otherwise, outlier points will be duplicated and will be misleading.</p>
+<pre class="r"><code>gender_KCAL_t_dots &lt;- ggplot(tot_m_QCed, aes(x=Gender, y=KCAL)) +
+  geom_boxplot(outlier.shape = NA) + no_grid + space_axes +
+  geom_jitter(width=0.3)</code></pre>
+<pre class="r"><code>gender_KCAL_t_dots</code></pre>
+<p><img src="ASA24_3_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
-<pre class="r"><code>  ggsave(&quot;VVKAJ_Tot_m_QCed_gender_KCAL_dots.pdf&quot;, gender_KCAL_t_dots, device=&quot;pdf&quot;)</code></pre>
+<pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_gender_KCAL_dots.pdf&quot;, gender_KCAL_t_dots, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p><br></p>
 <hr />
@@ -730,16 +763,16 @@ Click to expand output
 <div id="scatterplot-1" class="section level3">
 <h3>Scatterplot</h3>
 <p>Scaterplot of two variables.</p>
-<pre class="r"><code>  TFAT_KCAL_t &lt;- ggplot(tot_m_QCed, aes(x=TFAT, y=KCAL)) +
-    geom_point() + no_grid + space_axes</code></pre>
-<pre class="r"><code>  TFAT_KCAL_t</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<pre class="r"><code>TFAT_KCAL_t &lt;- ggplot(tot_m_QCed, aes(x=TFAT, y=KCAL)) +
+  geom_point() + no_grid + space_axes</code></pre>
+<pre class="r"><code>TFAT_KCAL_t</code></pre>
+<p><img src="ASA24_3_files/figure-html/unnamed-chunk-37-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
-<pre class="r"><code>  ggsave(&quot;VVKAJ_Tot_m_QCed_TFAT_KCAL.pdf&quot;, TFAT_KCAL_t, device=&quot;pdf&quot;)</code></pre>
+<pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_TFAT_KCAL.pdf&quot;, TFAT_KCAL_t, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Test if the two variables are correlated.</p>
 <p>The output should show p-value and R correlation coefficient.</p>
-<pre class="r"><code>  cor.test(x=tot_m_QCed$TFAT, y=tot_m_QCed$KCAL, method=&quot;pearson&quot;)</code></pre>
+<pre class="r"><code>cor.test(x=tot_m_QCed$TFAT, y=tot_m_QCed$KCAL, method=&quot;pearson&quot;)</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -757,33 +790,33 @@ Click to expand output
 <div id="lineplot" class="section level3">
 <h3>Lineplot</h3>
 <p>Prepare your totals dataset for line plot - insert NA to missing combinations of <code>UserName</code> and <code>RecallNo</code> (day), and separate rows into NAs and no NAs.</p>
-<pre class="r"><code>  PrepLinePlot(inputdf= tot_m_QCed, day=&quot;RecallNo&quot;, username=&quot;UserName&quot;, 
-               all.fn=              &quot;VVKAJ_Tot_m_QCed_wNA.txt&quot;,
-               full.days.only.fn=   &quot;VVKAJ_Tot_m_QCed_fullonly.txt&quot;,
-               partial.days.only.fn=&quot;VVKAJ_Tot_m_QCed_partialonly.txt&quot;)</code></pre>
+<pre class="r"><code>PrepLinePlot(inputdf= tot_m_QCed, day= &quot;RecallNo&quot;, username= &quot;UserName&quot;, 
+             all.fn=               &quot;VVKAJ_Tot_m_QCed_wNA.txt&quot;,
+             full.days.only.fn=    &quot;VVKAJ_Tot_m_QCed_fullonly.txt&quot;,
+             partial.days.only.fn= &quot;VVKAJ_Tot_m_QCed_partialonly.txt&quot;)</code></pre>
 <p>Load the files.</p>
-<pre class="r"><code>  tot_m_QCed_w_NA &lt;-        read.table(&quot;VVKAJ_Tot_m_QCed_wNA.txt&quot;, sep=&quot;\t&quot;, header=T)
-  tot_m_QCed_fullonly &lt;-    read.table(&quot;VVKAJ_Tot_m_QCed_fullonly.txt&quot;, sep=&quot;\t&quot;, header=T)
-  tot_m_QCed_partialonly &lt;- read.table(&quot;VVKAJ_Tot_m_QCed_partialonly.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<pre class="r"><code>tot_m_QCed_w_NA &lt;-        read.table(&quot;VVKAJ_Tot_m_QCed_wNA.txt&quot;, sep=&quot;\t&quot;, header=T)
+tot_m_QCed_fullonly &lt;-    read.table(&quot;VVKAJ_Tot_m_QCed_fullonly.txt&quot;, sep=&quot;\t&quot;, header=T)
+tot_m_QCed_partialonly &lt;- read.table(&quot;VVKAJ_Tot_m_QCed_partialonly.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
 <p>Make <code>RecallNo</code> (day) as a factor so that it can be used as a variable on the X (or Y) axes.</p>
-<pre class="r"><code>  tot_m_QCed$RecallNo &lt;-             as.factor(tot_m_QCed$RecallNo)
-  tot_m_QCed_w_NA$RecallNo &lt;-        as.factor(tot_m_QCed_w_NA$RecallNo)
-  tot_m_QCed_fullonly$RecallNo &lt;-    as.factor(tot_m_QCed_fullonly$RecallNo)
-  tot_m_QCed_partialonly$RecallNo &lt;- as.factor(tot_m_QCed_partialonly$RecallNo)</code></pre>
+<pre class="r"><code>tot_m_QCed$RecallNo &lt;-             as.factor(tot_m_QCed$RecallNo)
+tot_m_QCed_w_NA$RecallNo &lt;-        as.factor(tot_m_QCed_w_NA$RecallNo)
+tot_m_QCed_fullonly$RecallNo &lt;-    as.factor(tot_m_QCed_fullonly$RecallNo)
+tot_m_QCed_partialonly$RecallNo &lt;- as.factor(tot_m_QCed_partialonly$RecallNo)</code></pre>
 <p>Plot points and lines separately. Ensure to specify your “x” and “y” twice. The <code>geom_line</code> function only connects the data of individuals with all days of data.</p>
-<pre class="r"><code>  lineplot_1 &lt;- ggplot() + 
-    geom_point(tot_m_QCed,          mapping = aes(x=RecallNo, y=KCAL, group=UserName, color=UserName)) +
-    geom_line( tot_m_QCed_fullonly, mapping = aes(x=RecallNo, y=KCAL, group=UserName, color=UserName), 
-              linetype=&quot;dashed&quot;) + no_grid +
-    scale_color_manual(values = distinct100colors)</code></pre>
-<pre class="r"><code>  lineplot_1</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<pre class="r"><code>lineplot_1 &lt;- ggplot() + 
+  geom_point(tot_m_QCed,          mapping = aes(x=RecallNo, y=KCAL, group=UserName, color=UserName)) +
+  geom_line( tot_m_QCed_fullonly, mapping = aes(x=RecallNo, y=KCAL, group=UserName, color=UserName), 
+            linetype=&quot;dashed&quot;) + no_grid +
+  scale_color_manual(values = distinct100colors)</code></pre>
+<pre class="r"><code>lineplot_1</code></pre>
+<p><img src="ASA24_3_files/figure-html/unnamed-chunk-44-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
-<pre class="r"><code>  ggsave(&quot;VVKAJ_Tot_m_QCed_KCAL_lineplot.pdf&quot;, lineplot_1, device=&quot;pdf&quot;)</code></pre>
+<pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_KCAL_lineplot.pdf&quot;, lineplot_1, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <hr />
 <p>Come back to the main directory before you start running another script.</p>
-<pre class="r"><code>  setwd(main_wd)</code></pre>
+<pre class="r"><code>setwd(main_wd)</code></pre>
 </div>
 </div>
 

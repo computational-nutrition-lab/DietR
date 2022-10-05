@@ -87,7 +87,6 @@
   ggsave("Food_D12_FC_cc_f_d_TFAT_KCAL.pdf", 
          TFAT_KCAL, device="pdf", width=5.3, height=4.5)
   
-  
 # Test if the two variables are correlated.
 # The output should show p-value and R correlation coefficient.
   cor.test(x=food12f_d$TFAT, y=food12f_d$KCAL, method="pearson")
