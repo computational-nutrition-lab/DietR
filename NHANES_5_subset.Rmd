@@ -1,29 +1,40 @@
-# ===============================================================================================================
-# Look at the fasting glucose, and group individuals if possible. 
-# Version 2
-# Created on 08/24/2022 by Rie Sadohara
-# ===============================================================================================================
+---
+title: "Subset data"
+output: html_document
+---
 
-# ===============================================================================================================
-# Load NHANES15-16totals with demographic data
-# ===============================================================================================================
-# Load necessary packages.
-  library(SASxport)
+Name the path to DietR directory where input files are pulled.
+```{r}
+  main_wd <- "~/GitHub/DietR"
+```
 
-# Set your working directory to the main directory.
-  Session --> Set working directory --> Choose directory.
-  setwd("~/GitHub/dietary_patterns")
-  
-# Name your main directory for future use. 
-  main_wd <- file.path(getwd())  
-
-# Load necessary functions.
+Load the necessary functions.
+```{r}
   source("lib/specify_data_dir.R")
   source("lib/load_clean_NHANES.R")
   source("lib/prep_data_for_clustering.R")
   source("lib/ggplot2themes.R") 
+```
 
-# ---------------------------------------------------------------------------------------------------------------
+Install the SASxport package if it is not installed yet.
+```{r, eval=FALSE}
+  if (!require("SASxport", quietly = TRUE)) install.packages("SASxport")
+```
+
+Load the necessary packages.
+```{r}
+library(SASxport)
+```
+
+You can come back to the main directory by:
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+
+<br>
+
+### Load NHANES15-16totals with demographic data
+
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES")  
   
@@ -308,3 +319,4 @@
   
 
   
+
