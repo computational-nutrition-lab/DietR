@@ -1,6 +1,185 @@
 ---
-title: "NHANES script"
+title: "Percent kcal of CARB, PROT, TFAT"
 output: html_document
 ---
 
+Name the path to DietR directory where input files are pulled.
+```{r}
+main_wd <- "~/GitHub/DietR"
+```
 
+Load the necessary functions.
+```{r}
+source("lib/specify_data_dir.R")
+source("lib/ggplot2themes.R")
+source("lib/percent_kcal.R")
+```
+
+Call color palette.
+```{r}
+distinct100colors <- readRDS("lib/distinct100colors.rda")
+```
+
+You can come back to the main directory by:
+```{r}
+setwd(main_wd)
+```
+
+<br>
+
+### Load totals data with demographics
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/NHANES')
+```
+
+Specify the directory where the data is.
+```{r, eval = FALSE}
+  SpecifyDataDirectory(directory.name= "eg_data/NHANES/")
+```
+<!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
+<!--  the code so that this tutorial will have the same code as the R script.  -->
+
+Load the totals with demographic data.
+```{r}
+totals <- read.table("Total_D12_FC_QC_mean_QC_d.txt",  sep = "\t", header = T)
+```
+
+Totals has the mean dietary intake of two days for each participant and also their metadata. We are going to use the following columns in totals:
+
+* RIAGENDR = gender
+* RIDAGEYR = age
+* CARB, PROT, TFAT, KCAL columns.
+
+Add gender and age_groups to totals. The output is named "totals_out".
+```{r}
+AddGenderAgeGroups(input=totals, age.col="RIDAGEYR", gender.col="RIAGENDR")
+```
+
+Ensure grouping has been done correctly. 
+```{r}
+head(totals_out[, c("RIAGENDR", "Gender", "RIDAGEYR", "AgeGroup", "Gender_Age")])
+```
+
+Rename the output as totals to use in the following code. 
+```{r}
+totals <- totals_out
+```
+
+<br>
+  
+---
+
+### Calculate and visualize %kcal of CARB, PROT, and TFAT
+
+For NHANES, we will calculate the percentage of calories from each of the three macronutrients in the sum of calories from the three macronutrients. Thus, the percentage of calories from CARB, PROT, and TFAT will add up to 100.
+
+#### Calculate %kcal of CARB, PROT, and TFAT
+
+Calculate the %kcal of CARB, PROT, and TFAT for each user and take means by Gender_Age.
+```{r}
+CPTpctKcalPerUser_NHANES(inputfn=totals, group='Gender_Age', across='SEQN', 
+                         outfn="Total_D12_FC_QC_mean_QC_d_CPT_kcal.txt")
+```
+
+Load the output.
+```{r}
+CPT_kcal <- read.table("Total_D12_FC_QC_mean_QC_d_CPT_kcal.txt", sep="\t", header=T)
+```
+
+CPT_kcal has Group, macronutrient, n, mean, and sd of each group.
+```{r}
+head(CPT_kcal)
+```
+
+<br>
+
+#### Plot a barchart without SD.
+
+Change the font size if necessary.\
+This assumes that CPT_kcal has "Group" column.
+```{r}
+stacked_wo_SD <- StackedwoSD_NHANES(data= CPT_kcal) + theme(axis.text.x=element_text(size=11))  
+```
+
+```{r out.width="60%"}
+stacked_wo_SD
+```
+
+Save as a .pdf.
+```{r}
+ggsave("Total_D12_FC_QC_mean_QC_d_CPT_kcal_wo_SD.pdf", stacked_wo_SD,
+       device="pdf", width=6.2, height=4.2, units="in", dpi=300)
+```
+
+
+<br>
+
+#### Plot the "dodge"-type of barchart (3 bars per group, not stacked)
+Change the font size if necessary.
+```{r}
+dodgedtypebarchart <- DodgedBarchart_NHANES(data= CPT_kcal) + theme(axis.text.x=element_text(size=11))
+```
+
+```{r out.width="60%"}
+dodgedtypebarchart
+```
+
+Save as a .pdf.
+```{r}
+ggsave("Total_D12_FC_QC_mean_QC_d_CPT_kcal_dodgedtypebarchart.pdf", dodgedtypebarchart,
+       device="pdf", width=9.0, height=4, units="in", dpi=300)
+```
+
+<br>
+
+#### Using CPT_kcal, create a stacked barchart
+  
+Create a vector that contains all the groups. 
+```{r}
+groups <- unique(CPT_kcal$Group)
+```
+
+Calculate sd_base and sd_forstacked for stacked barchart. Note that this function assumes all groups have CARB, PROT, and TFAT values.
+```{r}
+CalcStackedSD_NHANES(input.df= CPT_kcal, out.fn= "Total_D12_FC_QC_mean_QC_d_CPT_kcal_forstacked.txt")
+```
+
+Load the saved file that has SD for stacked barchart.
+```{r}
+CPT_kcal_forstacked_read <- read.table("Total_D12_FC_QC_mean_QC_d_CPT_kcal_forstacked.txt", sep="\t", header=T)
+```
+
+Stacked barchart with SD as error bars.
+```{r}
+stacked_with_SD <- StackedWithSD_NHANES(data= CPT_kcal_forstacked_read) + theme(axis.text.x=element_text(size=11))
+```
+
+```{r out.width="60%"}
+stacked_with_SD
+```
+  
+Save as a .pdf.
+```{r}
+ggsave("Total_D12_FC_QC_mean_QC_d_CPT_kcal_with_SD.pdf", stacked_with_SD,
+       device="pdf", width=6.2, height=4.3, units="in", dpi=300)
+```
+
+Change the Y axis scale if necessary. Note that if the error bars of Carbohydrates disappear after changing the limits of Y axis, it may be because the error bars are higher than the max Y. Ensure you have enough max Y value to accommodate the error bars.
+
+You can also change the breakpoints of the Y axis.
+```{r out.width="60%"}
+stacked_with_SD + scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100))
+```
+
+<br>
+
+---
+
+Come back to the main directory.
+```{r, eval=FALSE}
+setwd(main_wd)
+```
+
+  

@@ -5,3 +5,16 @@ output: html_document
 
 # arrows!
 Flag if VC (Vitamin C) is <5 or >400 &rarr; then, ...
+
+# Chunk names must be unique - should be no duplications.
+```{r Name of this chunk, echo=FALSE}
+# echo=FALSE
+aaaa <- 5 + 2
+aaaa
+```
+
+```{r Chunk2, eval=FALSE}
+# eval=FALSE
+evalFALSE <- 1 + 2
+evalFALSE
+```

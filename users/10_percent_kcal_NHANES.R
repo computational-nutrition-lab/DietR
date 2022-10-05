@@ -6,12 +6,12 @@
 
 # Set working directory to "dietary_patterns".
   Session --> Set working direHctory --> Choose directory.  
-  setwd("~/GitHub/dietary_patterns")
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
-# Import source code to run the analyses to follow.
+# Load the necessary functions.
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R")
   source("lib/percent_kcal.R")
@@ -23,7 +23,7 @@
   setwd(main_wd)
  
 # --------------------------------------------------------------------------------------------------------------
-# Load example totals data.
+# Load totals data with demographics.
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/")
 
@@ -37,13 +37,13 @@
 # CARB, PROT, TFAT, KCAL columns.
 
 # --------------------------------------------------------------------------------------------------------------
-# Add gender and age_groups to totals. The out put is named "totals_out".
+# Add gender and age_groups to totals. The output is named "totals_out".
   AddGenderAgeGroups(input=totals, age.col="RIDAGEYR", gender.col="RIAGENDR")
   
 # Ensure grouping has been done correctly. 
   head(totals_out[, c("RIAGENDR", "Gender", "RIDAGEYR", "AgeGroup", "Gender_Age")])
   
-# Re-name the output as totals to use in the following code. 
+# Rename the output as totals to use in the following code. 
   totals <- totals_out
   
 # --------------------------------------------------------------------------------------------------------------

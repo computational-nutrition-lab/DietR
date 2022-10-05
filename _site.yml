@@ -41,6 +41,8 @@ navbar:
       href: NHANES_2_load_and_clean_2.html
     - text: "Data overview"
       href: NHANES_3_data_overview.html
+    - text: "Percent kcal of CARB, PROT, TFAT"
+      href: NHANES_4_percent_kcal.html
   - text: Links
     href: Links.html      
 output_dir: "docs"
