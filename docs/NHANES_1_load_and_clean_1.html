@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Load and clean NHANES data</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DietR Package</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    ASA24
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ASA24_1.html">Load and clean ASA24 data</a>
+    </li>
+    <li>
+      <a href="ASA24_2.html">Calculate totals by occasion</a>
+    </li>
+    <li>
+      <a href="ASA24_3.html">Data overview</a>
+    </li>
+    <li>
+      <a href="ASA24_4.html">Percent kcal of CARB, PROT, TFAT</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="ASA24_5.html">Prepare for clustering</a>
+    </li>
+    <li>
+      <a href="ASA24_6_PCA.html">PCA</a>
+    </li>
+    <li>
+      <a href="ASA24_7_PCA_results.html">PCA results</a>
+    </li>
+    <li>
+      <a href="ASA24_8_k-means.html">K-means</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="ASA24_9_create_food_tree.html">Create food tree</a>
+    </li>
+    <li>
+      <a href="ASA24_10_viz_food_tree.html">Visualize food tree</a>
+    </li>
+    <li>
+      <a href="ASA24_11_ordination.html">Ordination</a>
+    </li>
+    <li>
+      <a href="ASA24_12_viz_ordination.html">Visualize ordination</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    NHANES
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="NHANES_1_load_and_clean.html">Load and clean NHANES data - 1</a>
+    </li>
+    <li>
+      <a href="NHANES_2_load_and_clean_2.html">Load and clean NHANES data - 2</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Links.html">Links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Load and clean NHANES data</h1>
+
+</div>
+
+
+<p>NHANES is a national survey conducted with some thousands of participants across the US over two days. NHANES data is published every other year and consists of various kinds of data including dietary intake, body measurements, laboratory-taken data. Here, we will explore the dietary intake (food items) of participants and look at the relationship between dietary patterns and diabetic status in <a href="https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=2015">NHANES 2015-2016</a>.</p>
+<p>Refer to <a href="https://wwwn.cdc.gov/nchs/nhanes/Default.aspx">the NHANES data and documentation</a> for more information about each release (version) of NHANES and their variables measured.</p>
+<p>Data are in .XPT format, and you will need a specific package, <a href="https://github.com/r-gregmisc/SASxport">SASxport</a>, to import it to R. The example data we will use here were downloaded from the NHANES 2015-2016 page and are in the “Raw_data” folder in the “NHANES” folder.</p>
+<p>Open “02_load_clean_NHANES_food.R” script in the “users” folder and load the packages needed as per the directions.</p>
+<p><br></p>
+<p>Name the path to DietR directory where input files are pulled.</p>
+<pre class="r"><code>  main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
+<p>Load the necessary functions.</p>
+<pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
+  source(&quot;lib/load_clean_NHANES.R&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;foreign&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:SASxport&#39;:
+## 
+##     lookup.xport, read.xport</code></pre>
+<pre class="r"><code>  source(&quot;lib/prep_data_for_clustering.R&quot;)
+  source(&quot;lib/Food_tree_scripts/format.foods.r&quot;)</code></pre>
+<p>Install the SASxport package if it is not installed yet.</p>
+<pre class="r"><code>  if (!require(&quot;SASxport&quot;, quietly = TRUE)) install.packages(&quot;SASxport&quot;)</code></pre>
+<p>Load the necessary packages.</p>
+<pre class="r"><code>library(SASxport)</code></pre>
+<p>You can come back to the main directory by:</p>
+<pre class="r"><code>  setwd(main_wd)</code></pre>
+<hr />
+<div id="prepare-food-codes-fped-and-food-items-files" class="section level3">
+<h3>Prepare food codes, FPED, and food items files</h3>
+<div id="load-and-prepare-food-codes" class="section level4">
+<h4>Load and prepare food codes</h4>
+<p>Download food code data from NHANES website and save it in “Raw_data” folder.</p>
+<pre class="r"><code>download.file(&quot;https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DRXFCD_I.XPT&quot;, 
+              destfile= &quot;eg_data/NHANES/Raw_data/FoodCodes_DRXFCD_I.XPT&quot;, mode=&quot;wb&quot;)</code></pre>
+<p>Prepare the food code table - replace special characters with “_” or “and”.</p>
+<p>Format the food table and save it as a .txt file.</p>
+<pre class="r"><code>PrepareFoodCodeTable(raw.food.code.table = &quot;eg_data/NHANES/Raw_data/FoodCodes_DRXFCD_I.XPT&quot;, 
+                     out.fn = &quot;eg_data/NHANES/FoodCodes_DRXFCD_I_f.txt&quot;)  </code></pre>
+<p>Load the formatted foodcode table.</p>
+<pre class="r"><code>foodcodetable_f &lt;- read.table(&quot;eg_data/NHANES/FoodCodes_DRXFCD_I_f.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Show the first 10 rows of the output and ensure special characters are gone; e.g., “MILK, REDUCED FAT (2%)” is now “MILK, REDUCED FAT (2_)”.</p>
+<pre class="r"><code>foodcodetable_f[1:10, ]</code></pre>
+<pre><code>##     DRXFDCD                                  DRXFCSD
+## 1  11000000                              MILK, HUMAN
+## 2  11100000                                MILK, NFS
+## 3  11111000                              MILK, WHOLE
+## 4  11111100                  MILK, LOW SODIUM, WHOLE
+## 5  11111150           MILK, CALCIUM FORTIFIED, WHOLE
+## 6  11111160    MILK, CALCIUM FORTIFIED, LOW FAT (1_)
+## 7  11111170 MILK, CALCIUM FORTIFIED, FAT FREE (SKIM)
+## 8  11112110                   MILK, REDUCED FAT (2_)
+## 9  11112120          MILK, ACIDOPHILUS, LOW FAT (1_)
+## 10 11112130      MILK, ACIDOPHILUS, REDUCED FAT (2_)
+##                                     DRXFCLD
+## 1                               Milk, human
+## 2                                 Milk, NFS
+## 3                               Milk, whole
+## 4                   Milk, low sodium, whole
+## 5            Milk, calcium fortified, whole
+## 6     Milk, calcium fortified, low fat (1_)
+## 7  Milk, calcium fortified, fat free (skim)
+## 8                    Milk, reduced fat (2_)
+## 9           Milk, acidophilus, low fat (1_)
+## 10      Milk, acidophilus, reduced fat (2_)</code></pre>
+<hr />
+</div>
+<div id="load-and-prepare-fped" class="section level4">
+<h4>Load and prepare FPED</h4>
+<p>FPED has the composition of nutrients and food categories of each food item coded by food codes. FPED can be downloaded from <a href="https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/food-surveys-research-group/docs/fped-databases/">USDA-ARS FPED databases</a>.</p>
+<p>You need to use the correct version of FPED. With NHANES, use FPED with the same release year as the year of NHANES you are analyzing. For this tutorial, FPED was downloaded from NHANES the FPED table is formatted by renaming the variables with R-loadable ones (e.g., “F_CITMLB (cup eq.)” –&gt; “F_CITMLB” and saved as “FPED_1516_forR.txt”.</p>
+<p>Load FPED15-16, needed for the AddFoodCat function.</p>
+<pre class="r"><code>FPED &lt;- read.table(&quot;eg_data/NHANES/FPED/FPED_1516_forR.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Check the first two rows of FPED.</p>
+<pre class="r"><code>head(FPED, 2)</code></pre>
+<pre><code>##   FOODCODE F_CITMLB F_OTHER F_JUICE F_TOTAL V_DRKGR V_REDOR_TOMATO
+## 1 11000000        0       0       0       0       0              0
+## 2 11100000        0       0       0       0       0              0
+##   V_REDOR_OTHER V_REDOR_TOTAL V_STARCHY_POTATO V_STARCHY_OTHER V_STARCHY_TOTAL
+## 1             0             0                0               0               0
+## 2             0             0                0               0               0
+##   V_OTHER V_TOTAL V_LEGUMES G_WHOLE G_REFINED G_TOTAL PF_MEAT PF_CUREDMEAT
+## 1       0       0         0       0         0       0       0            0
+## 2       0       0         0       0         0       0       0            0
+##   PF_ORGAN PF_POULT PF_SEAFD_HI PF_SEAFD_LOW PF_MPS_TOTAL PF_EGGS PF_SOY
+## 1        0        0           0            0            0       0      0
+## 2        0        0           0            0            0       0      0
+##   PF_NUTSDS PF_LEGUMES PF_TOTAL D_MILK D_YOGURT D_CHEESE D_TOTAL OILS
+## 1         0          0        0   0.00        0        0    0.00    0
+## 2         0          0        0   0.41        0        0    0.41    0
+##   SOLID_FATS ADD_SUGARS A_DRINKS
+## 1       0.00          0        0
+## 2       1.43          0        0</code></pre>
+<p><strong>Important!</strong> Change the food code column name as Food_code.</p>
+<pre class="r"><code>colnames(FPED)[1] &lt;- &quot;Food_code&quot;</code></pre>
+<hr />
+</div>
+</div>
+<div id="load-food-items-data-and-add-food-descriptions" class="section level3">
+<h3>Load “food items” data and add food descriptions</h3>
+<div id="download-food-items-data" class="section level4">
+<h4>Download food items data</h4>
+<p>Food data can be downloaded from the NHANES website.<br />
+Name the file and destination. <code>mod="wb"</code> is needed for the Windows OS; other OS users may need to delete it.</p>
+<p>Download day 1 data.</p>
+<pre class="r"><code>download.file(&quot;https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.XPT&quot;,
+              destfile= &quot;eg_data/NHANES/DR1IFF_I.XPT&quot;, mode=&quot;wb&quot;)</code></pre>
+<p>Download day 2 data.</p>
+<pre class="r"><code>download.file(&quot;https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR2IFF_I.XPT&quot;,
+              destfile= &quot;eg_data/NHANES/DR2IFF_I.XPT&quot;, mode=&quot;wb&quot;)</code></pre>
+<p><strong>[NOTE]</strong> Different alphabets are used on the variables’ names in different release of NHANES data. Therefore, you will need to change the alphabet (and potentially the other parts of the variable names) in order to run this script with other releases of NHANES. For example, DR1IFDCD is a column name for the food code used in the NHANES 2015-2016, and the alphabet for this release is “I”.</p>
+</div>
+<div id="load-and-prepare-day-1-food-items-data" class="section level4">
+<h4>Load and prepare Day 1 food items data</h4>
+<p>Import items data Day 1, add food item descriptions, and save it as a txt file. *** OUTPUT WILL LIKELY BE A HUGE FILE. ***</p>
+<pre class="r"><code>ImportNHANESFoodItems(data.name=&quot;eg_data/NHANES/DR1IFF_I.XPT&quot;,
+                      food.code.column = &quot;DR1IFDCD&quot;,
+                      food.code.table = foodcodetable_f,
+                      out.fn = &quot;eg_data/NHANES/DR1IFF_I_d.txt&quot;) # &#39;d&#39; stands for food descriptions</code></pre>
+<p>Load the saved food items file.</p>
+<pre class="r"><code>Food_D1 &lt;- read.table(&quot;eg_data/NHANES/DR1IFF_I_d.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Count the number of participants - should be 8,505 people.</p>
+<pre class="r"><code>length(unique(Food_D1$SEQN))</code></pre>
+<pre><code>## [1] 8505</code></pre>
+<p>Add the food category info and serving for each item. *** THIS WILL TAKE A FEW MOMENTS. ***<br />
+It is OK to see a message saying “NAs introduced by coercion”. NAs will be removed later in the filtering process.</p>
+<pre class="r"><code>AddFoodCat(input.food= Food_D1,
+           fped= FPED,
+           grams= &quot;DR1IGRMS&quot;,
+           out.fn= &quot;eg_data/NHANES/Food_D1_FC.txt&quot;)</code></pre>
+<pre><code>## Warning in data.frame(Food_code = gsub(&quot;_.*&quot;, &quot;&quot;, rownames(out)), GRMS =
+## as.numeric(gsub(&quot;.*_&quot;, : NAs introduced by coercion</code></pre>
+<hr />
+</div>
+<div id="load-and-prepare-day-2-food-items-data" class="section level4">
+<h4>Load and prepare Day 2 food items data</h4>
+<p>Import items data Day 2, add food item descriptions, and save it as a txt file.</p>
+<pre class="r"><code>ImportNHANESFoodItems(data.name=&quot;eg_data/NHANES/DR2IFF_I.XPT&quot;,
+                      food.code.column = &quot;DR2IFDCD&quot;,
+                      food.code.table = foodcodetable_f,
+                      out.fn = &quot;eg_data/NHANES/DR2IFF_I_d.txt&quot;)</code></pre>
+<p>Add food item description and save it as a txt file.</p>
+<pre class="r"><code>Food_D2 &lt;- read.table(&quot;eg_data/NHANES/DR2IFF_I_d.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Count the number of participants - should be 7027 people.</p>
+<pre class="r"><code>length(unique(Food_D2$SEQN))</code></pre>
+<pre><code>## [1] 7027</code></pre>
+<p>Do the same for Day 2. Add the food items info and serving for each item. *** THIS WILL TAKE A FEW MOMENTS. ***<br />
+It is OK to see a message saying “NAs introduced by coercion.” NAs will be removed later in the filtering process.</p>
+<pre class="r"><code>AddFoodCat(input.food= Food_D2,
+           fped= FPED,
+           grams= &quot;DR2IGRMS&quot;,
+           out.fn= &quot;eg_data/NHANES/Food_D2_FC.txt&quot;)</code></pre>
+<pre><code>## Warning in data.frame(Food_code = gsub(&quot;_.*&quot;, &quot;&quot;, rownames(out)), GRMS =
+## as.numeric(gsub(&quot;.*_&quot;, : NAs introduced by coercion</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="load-the-food_dx_fc-which-has-the-food-category-data" class="section level3">
+<h3>Load the Food_Dx_FC which has the food category data</h3>
+<div id="change-column-names-to-more-intuitive-ones" class="section level4">
+<h4>Change column names to more intuitive ones</h4>
+<p>Load Food Day 1 with Food Category *** THIS WILL BE A HUGE TABLE. ***</p>
+<pre class="r"><code>Food_D1_FC &lt;- read.table(&quot;eg_data/NHANES/Food_D1_FC.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Load Food Day 2 with Food Category *** THIS WILL BE A HUGE TABLE. ***</p>
+<pre class="r"><code>Food_D2_FC &lt;- read.table(&quot;eg_data/NHANES/Food_D2_FC.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Change the colnames for downstream analyses.</p>
+<pre class="r"><code>names(Food_D1_FC)[names(Food_D1_FC) == &quot;DR1IFDCD&quot;] &lt;- &quot;FoodCode&quot;
+names(Food_D1_FC)[names(Food_D1_FC) == &quot;DR1IGRMS&quot;] &lt;- &quot;FoodAmt&quot;
+names(Food_D1_FC)[names(Food_D1_FC) == &quot;DRXFCLD&quot;] &lt;- &quot;Main.food.description&quot;
+
+names(Food_D2_FC)[names(Food_D2_FC) == &quot;DR2IFDCD&quot;] &lt;- &quot;FoodCode&quot;
+names(Food_D2_FC)[names(Food_D2_FC) == &quot;DR2IGRMS&quot;] &lt;- &quot;FoodAmt&quot;
+names(Food_D2_FC)[names(Food_D2_FC) == &quot;DRXFCLD&quot;] &lt;- &quot;Main.food.description&quot;</code></pre>
+<p>Ensure the column names are changed.</p>
+<pre class="r"><code>colnames(Food_D1_FC)</code></pre>
+<pre><code>##   [1] &quot;Food_code&quot;             &quot;SEQN&quot;                  &quot;WTDRD1&quot;               
+##   [4] &quot;WTDR2D&quot;                &quot;DR1ILINE&quot;              &quot;DR1DRSTZ&quot;             
+##   [7] &quot;DR1EXMER&quot;              &quot;DRABF&quot;                 &quot;DRDINT&quot;               
+##  [10] &quot;DR1DBIH&quot;               &quot;DR1DAY&quot;                &quot;DR1LANG&quot;              
+##  [13] &quot;DR1CCMNM&quot;              &quot;DR1CCMTX&quot;              &quot;DR1_020&quot;              
+##  [16] &quot;DR1_030Z&quot;              &quot;DR1FS&quot;                 &quot;DR1_040Z&quot;             
+##  [19] &quot;FoodCode&quot;              &quot;FoodAmt&quot;               &quot;DR1IKCAL&quot;             
+##  [22] &quot;DR1IPROT&quot;              &quot;DR1ICARB&quot;              &quot;DR1ISUGR&quot;             
+##  [25] &quot;DR1IFIBE&quot;              &quot;DR1ITFAT&quot;              &quot;DR1ISFAT&quot;             
+##  [28] &quot;DR1IMFAT&quot;              &quot;DR1IPFAT&quot;              &quot;DR1ICHOL&quot;             
+##  [31] &quot;DR1IATOC&quot;              &quot;DR1IATOA&quot;              &quot;DR1IRET&quot;              
+##  [34] &quot;DR1IVARA&quot;              &quot;DR1IACAR&quot;              &quot;DR1IBCAR&quot;             
+##  [37] &quot;DR1ICRYP&quot;              &quot;DR1ILYCO&quot;              &quot;DR1ILZ&quot;               
+##  [40] &quot;DR1IVB1&quot;               &quot;DR1IVB2&quot;               &quot;DR1INIAC&quot;             
+##  [43] &quot;DR1IVB6&quot;               &quot;DR1IFOLA&quot;              &quot;DR1IFA&quot;               
+##  [46] &quot;DR1IFF&quot;                &quot;DR1IFDFE&quot;              &quot;DR1ICHL&quot;              
+##  [49] &quot;DR1IVB12&quot;              &quot;DR1IB12A&quot;              &quot;DR1IVC&quot;               
+##  [52] &quot;DR1IVD&quot;                &quot;DR1IVK&quot;                &quot;DR1ICALC&quot;             
+##  [55] &quot;DR1IPHOS&quot;              &quot;DR1IMAGN&quot;              &quot;DR1IIRON&quot;             
+##  [58] &quot;DR1IZINC&quot;              &quot;DR1ICOPP&quot;              &quot;DR1ISODI&quot;             
+##  [61] &quot;DR1IPOTA&quot;              &quot;DR1ISELE&quot;              &quot;DR1ICAFF&quot;             
+##  [64] &quot;DR1ITHEO&quot;              &quot;DR1IALCO&quot;              &quot;DR1IMOIS&quot;             
+##  [67] &quot;DR1IS040&quot;              &quot;DR1IS060&quot;              &quot;DR1IS080&quot;             
+##  [70] &quot;DR1IS100&quot;              &quot;DR1IS120&quot;              &quot;DR1IS140&quot;             
+##  [73] &quot;DR1IS160&quot;              &quot;DR1IS180&quot;              &quot;DR1IM161&quot;             
+##  [76] &quot;DR1IM181&quot;              &quot;DR1IM201&quot;              &quot;DR1IM221&quot;             
+##  [79] &quot;DR1IP182&quot;              &quot;DR1IP183&quot;              &quot;DR1IP184&quot;             
+##  [82] &quot;DR1IP204&quot;              &quot;DR1IP205&quot;              &quot;DR1IP225&quot;             
+##  [85] &quot;DR1IP226&quot;              &quot;originalrownames&quot;      &quot;id&quot;                   
+##  [88] &quot;DRXFCSD&quot;               &quot;Main.food.description&quot; &quot;Food_codeint&quot;         
+##  [91] &quot;F_CITMLB&quot;              &quot;F_OTHER&quot;               &quot;F_JUICE&quot;              
+##  [94] &quot;F_TOTAL&quot;               &quot;V_DRKGR&quot;               &quot;V_REDOR_TOMATO&quot;       
+##  [97] &quot;V_REDOR_OTHER&quot;         &quot;V_REDOR_TOTAL&quot;         &quot;V_STARCHY_POTATO&quot;     
+## [100] &quot;V_STARCHY_OTHER&quot;       &quot;V_STARCHY_TOTAL&quot;       &quot;V_OTHER&quot;              
+## [103] &quot;V_TOTAL&quot;               &quot;V_LEGUMES&quot;             &quot;G_WHOLE&quot;              
+## [106] &quot;G_REFINED&quot;             &quot;G_TOTAL&quot;               &quot;PF_MEAT&quot;              
+## [109] &quot;PF_CUREDMEAT&quot;          &quot;PF_ORGAN&quot;              &quot;PF_POULT&quot;             
+## [112] &quot;PF_SEAFD_HI&quot;           &quot;PF_SEAFD_LOW&quot;          &quot;PF_MPS_TOTAL&quot;         
+## [115] &quot;PF_EGGS&quot;               &quot;PF_SOY&quot;                &quot;PF_NUTSDS&quot;            
+## [118] &quot;PF_LEGUMES&quot;            &quot;PF_TOTAL&quot;              &quot;D_MILK&quot;               
+## [121] &quot;D_YOGURT&quot;              &quot;D_CHEESE&quot;              &quot;D_TOTAL&quot;              
+## [124] &quot;OILS&quot;                  &quot;SOLID_FATS&quot;            &quot;ADD_SUGARS&quot;           
+## [127] &quot;A_DRINKS&quot;</code></pre>
+<p>Save after changing the column names. “cc” stands for column names changed.</p>
+<pre class="r"><code>  write.table(Food_D1_FC, &quot;eg_data/NHANES/Food_D1_FC_cc.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)
+  write.table(Food_D2_FC, &quot;eg_data/NHANES/Food_D2_FC_cc.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
+</div>
+<div id="replace-special-characters-with-_-using-the-formatfoods-function" class="section level4">
+<h4>Replace special characters with “_” using the FormatFoods function</h4>
+<p>The FotmatFoods function adds Main.Food.Description where special characters are removed/replaced, the previous Main.Food.Description as Old.Main.Food.Description, ModCode, and FoodID. $FoodID is a character vector, but has .0 at the end.</p>
+<p>MAKE SURE YOU HAVE <code>dedupe=F</code>. If true (default!), duplicated foods will be removed!</p>
+<pre class="r"><code>FormatFoods(input_fn=&quot;eg_data/NHANES/Food_D1_FC_cc.txt&quot;, output_fn= &quot;eg_data/NHANES/Food_D1_FC_cc_f.txt&quot;, dedupe=F)
+
+FormatFoods(input_fn=&quot;eg_data/NHANES/Food_D2_FC_cc.txt&quot;, output_fn= &quot;eg_data/NHANES/Food_D2_FC_cc_f.txt&quot;, dedupe=F)</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
