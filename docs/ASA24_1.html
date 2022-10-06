@@ -359,13 +359,8 @@ $(document).ready(function () {
 <pre class="r"><code>  SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
 <!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
 <!--  the code so that this tutorial will have the same code as the R script.  -->
-<!-- Define the path to items data in main_wd. -->
-<!-- ```{r} -->
-<!-- items_path <- paste("/eg_data/VVKAJ/VVKAJ_Items.csv", sep="") -->
-<!-- print(items_path) -->
-<!-- ``` -->
 <p>Load items data which is in a csv format.</p>
-<pre class="r"><code>  items_raw &lt;- read.csv(&quot;VVKAJ_Items.csv&quot;, sep = &quot;,&quot;, header=T)</code></pre>
+<pre class="r"><code>  items_raw &lt;- read.csv(&quot;Raw_data/VVKAJ_Items.csv&quot;, sep = &quot;,&quot;, header=T)</code></pre>
 <p>Show the first two lines of the items data.</p>
 <pre class="r"><code>  head(items_raw, 2)</code></pre>
 <pre><code>##                            RecallRecId UserName

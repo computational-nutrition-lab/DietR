@@ -42,15 +42,9 @@ Specify the directory where the data is.
 <!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
 <!--  the code so that this tutorial will have the same code as the R script.  -->
 
-<!-- Define the path to items data in main_wd. -->
-<!-- ```{r} -->
-<!-- items_path <- paste("/eg_data/VVKAJ/VVKAJ_Items.csv", sep="") -->
-<!-- print(items_path) -->
-<!-- ``` -->
-
 Load items data which is in a csv format.
 ```{r}
-  items_raw <- read.csv("VVKAJ_Items.csv", sep = ",", header=T)
+  items_raw <- read.csv("Raw_data/VVKAJ_Items.csv", sep = ",", header=T)
 ```
 
 Show the first two lines of the items data.
