@@ -32,7 +32,7 @@ This tutorial shows how to analyze ASA24 and NHANES data.
 </div>
 <div class="col-sm-6">
 
-### [Computational Nutrition Lab](https://github.com/computational-nutrition-lab)
+### [Computational Nutrition Lab](https://abbyj6.wixsite.com/website)
 
 <a href = "https://crumplab.github.io">
 ![](images/DietR_Logo.png)
