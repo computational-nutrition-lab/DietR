@@ -1,0 +1,2 @@
+These users scripts are OLD, not up to date.
+Need to replace them with newer users scripts in the gh-pages branch in DietR GitHub Repo.
