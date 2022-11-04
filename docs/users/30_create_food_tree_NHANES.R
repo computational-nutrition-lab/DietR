@@ -4,6 +4,10 @@
 # Created on 08/29/2022 by Rie Sadohara
 # ===============================================================================================================
 
+### Updated these 2 lines below to reflect the item location changes.###
+# FilterDbByDietRecords(food_database_fn = "../../Food_tree_eg/NHANESDatabase.txt" 
+# MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt"
+
 # CAN BE COPIED TO TUTORIAL =======COPIED TO TUTORIAL ON 09/10/2022=========
 
 # Set your working directory as the main directory (dietary_patterns)
@@ -62,7 +66,7 @@
 # ===============================================================================================================
 # Keep only the foods reported in your study. This is already done, but need to run this 
 # so that the data will be formatted in a compatible way to create food tree.
-  FilterDbByDietRecords(food_database_fn = "../../NHANES1516/processed/NHANESDatabase.txt", 
+  FilterDbByDietRecords(food_database_fn = "../../Food_tree_eg/NHANESDatabase.txt", 
                         food_records_fn  = "Food_D12_FC_cc_f_males50s.txt",   # output of FormatFoods.  
                         output_fn =        "Food_D12_FC_cc_f_males50s_red.txt")
 
@@ -82,7 +86,7 @@
 # Create food tree with the reduced dataset (only reported foods) classified at 
 # a desired level of classification (Lv. 1-6).
 # "NodeLabelsMCT.txt" has a list of food levels and names, which comes with this package.
-  MakeFoodTree(nodes_fn="../../../lib/NodeLabelsMCT.txt", 
+  MakeFoodTree(nodes_fn= "../../Food_tree_eg/NodeLabelsMCT.txt", 
                addl_foods_fn = NULL,
                num.levels = 4,
                food_database_fn =   "Food_D12_FC_cc_f_males50s_red.txt",  

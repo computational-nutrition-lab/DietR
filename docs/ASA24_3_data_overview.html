@@ -257,20 +257,20 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="ASA24_1.html">Load and clean ASA24 data</a>
+      <a href="ASA24_1_load_and_clean.html">Load and clean ASA24 data</a>
     </li>
     <li>
-      <a href="ASA24_2.html">Calculate totals by occasion</a>
+      <a href="ASA24_2_calc_totals_by_occasion.html">Calculate totals by occasion</a>
     </li>
     <li>
-      <a href="ASA24_3.html">Data overview</a>
+      <a href="ASA24_3_data_overview.html">Data overview</a>
     </li>
     <li>
-      <a href="ASA24_4.html">Percent kcal of CARB, PROT, TFAT</a>
+      <a href="ASA24_4_percent_kcal.html">Percent kcal of CARB, PROT, TFAT</a>
     </li>
     <li class="divider"></li>
     <li>
-      <a href="ASA24_5.html">Prepare for clustering</a>
+      <a href="ASA24_5_prep_clustering.html">Prepare for clustering</a>
     </li>
     <li>
       <a href="ASA24_6_PCA.html">PCA</a>
@@ -540,7 +540,7 @@ Click to expand output
 <pre class="r"><code>users_kcal &lt;- ggplot(items_f_id_s_m, aes(x=UserName, y=KCAL)) +
   geom_boxplot() + no_grid + space_axes + rotate_X_labels</code></pre>
 <pre class="r"><code>users_kcal</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-13-1.png" width="50%" /></p>
+<p><img src="ASA24_3_data_overview_files/figure-html/unnamed-chunk-13-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
 <pre class="r"><code>ggsave(&quot;VVKAJ_Items_f_id_s_m_users_kcal.pdf&quot;, users_kcal, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
@@ -548,7 +548,7 @@ Click to expand output
 <pre class="r"><code>gender_kcal &lt;- ggplot(items_f_id_s_m, aes(x=Gender, y=KCAL)) +
   geom_boxplot() + no_grid + space_axes</code></pre>
 <pre class="r"><code>gender_kcal</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-16-1.png" width="50%" /></p>
+<p><img src="ASA24_3_data_overview_files/figure-html/unnamed-chunk-16-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
 <pre class="r"><code>ggsave(&quot;VVKAJ_Items_f_id_s_m_gender_kcal.pdf&quot;, gender_kcal, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
@@ -561,7 +561,7 @@ Click to expand output
 <pre class="r"><code>TFAT_KCAL &lt;- ggplot(items_f_id_s_m, aes(x=TFAT, y=KCAL)) +
   geom_point() + no_grid + space_axes </code></pre>
 <pre class="r"><code>TFAT_KCAL</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-19-1.png" width="50%" /></p>
+<p><img src="ASA24_3_data_overview_files/figure-html/unnamed-chunk-19-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
 <pre class="r"><code>ggsave(&quot;VVKAJ_Items_f_id_s_m_TFAT_KCAL.pdf&quot;, TFAT_KCAL, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
@@ -739,7 +739,7 @@ Click to expand output
 <pre class="r"><code>users_kcal_t &lt;- ggplot(tot_m_QCed, aes(x=UserName, y=KCAL)) +
   geom_boxplot() + no_grid + space_axes + rotate_X_labels</code></pre>
 <pre class="r"><code>users_kcal_t</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-28-1.png" width="50%" /></p>
+<p><img src="ASA24_3_data_overview_files/figure-html/unnamed-chunk-28-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
 <pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_users_KCAL.pdf&quot;, users_kcal_t, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
@@ -747,7 +747,7 @@ Click to expand output
 <pre class="r"><code>gender_KCAL_t &lt;- ggplot(tot_m_QCed, aes(x=Gender, y=KCAL)) +
   geom_boxplot() + no_grid + space_axes </code></pre>
 <pre class="r"><code>gender_KCAL_t</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-31-1.png" width="50%" /></p>
+<p><img src="ASA24_3_data_overview_files/figure-html/unnamed-chunk-31-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
 <pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_gender_KCAL.pdf&quot;, gender_KCAL_t, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
@@ -756,7 +756,7 @@ Click to expand output
   geom_boxplot(outlier.shape = NA) + no_grid + space_axes +
   geom_jitter(width=0.3)</code></pre>
 <pre class="r"><code>gender_KCAL_t_dots</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
+<p><img src="ASA24_3_data_overview_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
 <pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_gender_KCAL_dots.pdf&quot;, gender_KCAL_t_dots, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
@@ -769,7 +769,7 @@ Click to expand output
 <pre class="r"><code>TFAT_KCAL_t &lt;- ggplot(tot_m_QCed, aes(x=TFAT, y=KCAL)) +
   geom_point() + no_grid + space_axes</code></pre>
 <pre class="r"><code>TFAT_KCAL_t</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-37-1.png" width="50%" /></p>
+<p><img src="ASA24_3_data_overview_files/figure-html/unnamed-chunk-37-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
 <pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_TFAT_KCAL.pdf&quot;, TFAT_KCAL_t, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
@@ -813,7 +813,7 @@ tot_m_QCed_partialonly$RecallNo &lt;- as.factor(tot_m_QCed_partialonly$RecallNo)
             linetype=&quot;dashed&quot;) + no_grid +
   scale_color_manual(values = distinct100colors)</code></pre>
 <pre class="r"><code>lineplot_1</code></pre>
-<p><img src="ASA24_3_files/figure-html/unnamed-chunk-44-1.png" width="50%" /></p>
+<p><img src="ASA24_3_data_overview_files/figure-html/unnamed-chunk-44-1.png" width="50%" /></p>
 <p>Save it as a .pdf file.</p>
 <pre class="r"><code>ggsave(&quot;VVKAJ_Tot_m_QCed_KCAL_lineplot.pdf&quot;, lineplot_1, device=&quot;pdf&quot;)</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>

@@ -1,6 +1,9 @@
 # ===============================================================================================================
 # Create a phyloseq object out of dietary and tree data and run ordination.
 # Add metadata (GLU_index) before making a phyloseq object.
+# factor .... typo "labels" --> replaced with "levels"!!  (occurs 2 times)
+# colors "turquoise2", "goldenrod3", "mediumvioletred" --> replaced with "steelblue3", "gold3", "hotpink" (2 times)
+# to be consistent with PCA.
 # Version 2
 # Created on 09/09/2022 by Rie Sadohara
 # ===============================================================================================================
@@ -148,13 +151,13 @@
                              sep="\t", header=T)
   
 # Convert the GLU_index as a factor to plot it in order.
-  loaded_glu_w$GLU_index <- factor(loaded_glu_w$GLU_index, labels= c("Normal", "Prediabetic", "Diabetic"))
+  loaded_glu_w$GLU_index <- factor(loaded_glu_w$GLU_index, levels= c("Normal", "Prediabetic", "Diabetic"))
 
 # ---------------------------------------------------------------------------------------------------------------
 # Plot Axis 1 and Axis 2 to show the separation of samples colored by Groups as in the metadata.
   p1_w <- ggplot(loaded_glu_w, aes(x=Axis.1, y=Axis.2, color=GLU_index)) +
     geom_point(aes(color= GLU_index), size=3) + 
-    scale_color_manual( values= c("turquoise2", "goldenrod3", "mediumvioletred")) +
+    scale_color_manual( values= c("steelblue3", "gold3", "hotpink")) +
     xlab( paste("Axis.1 (", paste(round(eigen_percent_w[1]*100, 1)), "%)", sep="") ) +
     ylab( paste("Axis.2 (", paste(round(eigen_percent_w[2]*100, 1)), "%)", sep="") ) +
     no_grid + space_axes + theme(aspect.ratio = 1)
@@ -236,7 +239,7 @@
                              sep="\t", header=T)  
   
 # Convert the GLU_index as a factor to plot it in order.
-  loaded_glu_u$GLU_index <- factor(loaded_glu_u$GLU_index, labels= c("Normal", "Prediabetic", "Diabetic"))
+  loaded_glu_u$GLU_index <- factor(loaded_glu_u$GLU_index, levels= c("Normal", "Prediabetic", "Diabetic"))
 
 # Take a look at meta_usersdf_loaded. 
   head(loaded_glu_u, 2)
@@ -245,7 +248,7 @@
 # Plot Axis 1 and Axis 2 to show the separation of samples colored by Groups as in the metadata.
   p1_u <- ggplot(loaded_glu_u, aes(x=Axis.1, y=Axis.2, color=GLU_index)) +
       geom_point(aes(color= GLU_index), size=3) + 
-      scale_color_manual( values= c("turquoise2", "goldenrod3", "mediumvioletred") ) +
+      scale_color_manual( values= c("steelblue3", "gold3", "hotpink") ) +
       xlab( paste("Axis.1 (", paste(round(eigen_percent_u[1]*100, 1)), "%)", sep="") ) +
       ylab( paste("Axis.2 (", paste(round(eigen_percent_u[2]*100, 1)), "%)", sep="") ) +
       no_grid + space_axes + theme(aspect.ratio = 1)
