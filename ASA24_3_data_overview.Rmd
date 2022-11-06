@@ -3,6 +3,9 @@ title: "Data overview"
 output: html_document
 ---
 
+We can view summary statistics of either the individual food data or the totals data. First, let us take a look at items data. This section is not intended to be a complete guide to analysis, but rather to give you some ideas for how to explore this data. 
+
+
 Name the path to DietR directory where input files are pulled.
 ```{r}
 main_wd <- "~/GitHub/DietR"
@@ -136,6 +139,10 @@ ggsave("VVKAJ_Items_f_id_s_m_gender_kcal.pdf", gender_kcal, device="pdf")
 
 ### Scatterplot
   
+Scatterplots can be generated to look at the relationship between two numeric variables. Here we look at total fat and kilocalories. We would expect these values to be related because fat contributes a high number of calories in foods.
+
+<br>
+
 Scaterplot of two numeric variables: `TFAT` and `KCAL`. 
 ```{r}
 TFAT_KCAL <- ggplot(items_f_id_s_m, aes(x=TFAT, y=KCAL)) +

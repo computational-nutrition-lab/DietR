@@ -338,7 +338,7 @@ $(document).ready(function () {
 
 
 <p>Here, we will prepare ASA24 totals data for PCA and clustering analyses. We will need to calculate average dietary data per person across all days (if desired), remove variables that have zero variance, and collapse variables by correlation (i.e. remove redundancy of variables that are highly correlated).</p>
-<p>Table. Part of descriptors of filenames for data type and processing pattern</p>
+<p>Table. Part of descriptors of filenames for data type and processing pattern are defined as follows for each of the combination of two types of dietary data (nutrients or food categories) and two types of measurements (each day or average across days).</p>
 <table>
 <colgroup>
 <col width="38%" />
@@ -462,84 +462,63 @@ $(document).ready(function () {
 <div id="nutrients-take-average-of-each-user-across-all-days" class="section level3">
 <h3>NUTRIENTS: Take average of each user across all days</h3>
 <p>Specify the data to be used, category to group by, and the range of columns (variables) to calculate the means of each variable.</p>
-<p>For nutrients, specify <code>start.col = "PROT"</code>, and <code>end.col = "B12_ADD"</code>; 64 variables in total.</p>
-<pre class="r"><code>AverageBy(data= totals, by= &quot;UserName&quot;, start.col= &quot;PROT&quot;, end.col= &quot;B12_ADD&quot;)</code></pre>
-<p>Save the averaged results.</p>
-<pre class="r"><code>  write.table(x=meansbycategorydf, &quot;VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
-<p>The column names should be the same as <code>start.col</code>–<code>end.col</code>.</p>
-<pre class="r"><code>  colnames(meansbycategorydf)</code></pre>
-<pre><code>##  [1] &quot;UserName&quot; &quot;PROT&quot;     &quot;TFAT&quot;     &quot;CARB&quot;     &quot;MOIS&quot;     &quot;ALC&quot;     
-##  [7] &quot;CAFF&quot;     &quot;THEO&quot;     &quot;SUGR&quot;     &quot;FIBE&quot;     &quot;CALC&quot;     &quot;IRON&quot;    
-## [13] &quot;MAGN&quot;     &quot;PHOS&quot;     &quot;POTA&quot;     &quot;SODI&quot;     &quot;ZINC&quot;     &quot;COPP&quot;    
-## [19] &quot;SELE&quot;     &quot;VC&quot;       &quot;VB1&quot;      &quot;VB2&quot;      &quot;NIAC&quot;     &quot;VB6&quot;     
-## [25] &quot;FOLA&quot;     &quot;FA&quot;       &quot;FF&quot;       &quot;FDFE&quot;     &quot;VB12&quot;     &quot;VARA&quot;    
-## [31] &quot;RET&quot;      &quot;BCAR&quot;     &quot;ACAR&quot;     &quot;CRYP&quot;     &quot;LYCO&quot;     &quot;LZ&quot;      
-## [37] &quot;ATOC&quot;     &quot;VK&quot;       &quot;CHOLE&quot;    &quot;SFAT&quot;     &quot;S040&quot;     &quot;S060&quot;    
-## [43] &quot;S080&quot;     &quot;S100&quot;     &quot;S120&quot;     &quot;S140&quot;     &quot;S160&quot;     &quot;S180&quot;    
-## [49] &quot;MFAT&quot;     &quot;M161&quot;     &quot;M181&quot;     &quot;M201&quot;     &quot;M221&quot;     &quot;PFAT&quot;    
-## [55] &quot;P182&quot;     &quot;P183&quot;     &quot;P184&quot;     &quot;P204&quot;     &quot;P205&quot;     &quot;P225&quot;    
-## [61] &quot;P226&quot;     &quot;VITD&quot;     &quot;CHOLN&quot;    &quot;VITE_ADD&quot; &quot;B12_ADD&quot;</code></pre>
-<p>The <code>UserName</code> column has the users to calculate means for.</p>
-<pre class="r"><code>  meansbycategorydf$UserName</code></pre>
-<pre><code>##  [1] &quot;VVKAJ101&quot; &quot;VVKAJ102&quot; &quot;VVKAJ103&quot; &quot;VVKAJ104&quot; &quot;VVKAJ105&quot; &quot;VVKAJ106&quot;
-##  [7] &quot;VVKAJ107&quot; &quot;VVKAJ108&quot; &quot;VVKAJ109&quot; &quot;VVKAJ110&quot; &quot;VVKAJ111&quot; &quot;VVKAJ112&quot;
-## [13] &quot;VVKAJ113&quot; &quot;VVKAJ114&quot; &quot;VVKAJ115&quot;</code></pre>
-<p>Pick up only the columns with non-zero variance, in order to run PCA and cluster analysis etc. The removed columns will be shown if any.</p>
-<p>[,-1] is to exclude the UserName column that is not numeric and not used for variance calculation.</p>
-<pre class="r"><code>  KeepNonZeroVarColumns(data = meansbycategorydf[, -1])</code></pre>
-<pre><code>## No columns were removed.</code></pre>
-<p><code>subsetted_non0var</code> is the dataframe to be used in the subsequent collapse by correlation procedure.</p>
-<p>Collapse variables by correlation: take only one variables if they are highly correlated.</p>
-<pre class="r"><code>  cbc_res &lt;- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75, 
-                                   select.rep.fcn = &#39;mean&#39;, verbose = T)</code></pre>
-<pre><code>## Clustering 64 features...getting means...choosing reps...collapsed from 64 to 29.</code></pre>
-<p>Filter out highly correlated variables from the original dataset.</p>
-<pre class="r"><code>  selected_variables &lt;- subsetted_non0var[, cbc_res$reps]</code></pre>
-<p><strong>[NOTE]</strong> <code>selected_variables</code> is the dataframe to be used for PCA, cluster analyses etc.</p>
-<p>Check the name of the original and filtered variables.</p>
-<p>The dimension and the first row of the <strong>filtered dataset</strong></p>
-<pre class="r"><code>  dim( selected_variables)</code></pre>
-<pre><code>## [1] 15 29</code></pre>
-<pre class="r"><code>  head(selected_variables, 1)</code></pre>
-<pre><code>##             CHOLN     TFAT     CARB     MOIS   CAFF       VC     CALC     FA
-## VVKAJ101 303.8437 63.49523 224.0331 1639.596 44.608 164.9042 978.9267 288.93
-##              MAGN     PHOS     POTA     SODI     ZINC     COPP     SELE     VB1
-## VVKAJ101 394.5255 1277.147 3093.422 1808.819 8.733498 1.609095 85.38457 1.39412
-##              NIAC      VB6    FDFE     VARA      RET     BCAR     CRYP     LYCO
-## VVKAJ101 15.15766 3.112438 872.959 1262.084 420.1533 8981.995 52.38179 397.5601
-##                LZ     ATOC     VITD        M221     PFAT
-## VVKAJ101 7384.958 10.41491 5.817733 0.006972417 19.31854</code></pre>
-<p>The dimension and the first row of the <strong>original dataset</strong></p>
-<pre class="r"><code>  dim( subsetted_non0var)</code></pre>
-<pre><code>## [1] 15 64</code></pre>
-<pre class="r"><code>  head(subsetted_non0var, 1)</code></pre>
-<pre><code>##             PROT     TFAT     CARB     MOIS ALC   CAFF THEO     SUGR     FIBE
-## VVKAJ101 54.5302 63.49523 224.0331 1639.596   0 44.608 1.12 101.2349 32.31606
-##              CALC     IRON     MAGN     PHOS     POTA     SODI     ZINC
-## VVKAJ101 978.9267 17.75897 394.5255 1277.147 3093.422 1808.819 8.733498
-##              COPP     SELE       VC     VB1      VB2     NIAC      VB6     FOLA
-## VVKAJ101 1.609095 85.38457 164.9042 1.39412 2.091131 15.15766 3.112438 670.2357
-##              FA       FF    FDFE    VB12     VARA      RET     BCAR   ACAR
-## VVKAJ101 288.93 381.3057 872.959 6.87899 1262.084 420.1533 8981.995 2214.2
-##              CRYP     LYCO       LZ     ATOC       VK   CHOLE    SFAT     S040
-## VVKAJ101 52.38179 397.5601 7384.958 10.41491 402.3449 152.844 16.1646 0.303224
-##              S060      S080      S100     S120     S140     S160     S180
-## VVKAJ101 0.201237 0.3045901 0.3883975 1.144463 1.509012 8.546908 3.026103
-##              MFAT     M161     M181      M201        M221     PFAT     P182
-## VVKAJ101 22.71121 0.529039 21.81561 0.1775876 0.006972417 19.31854 17.08917
-##             P183 P184     P204    P205 P225    P226     VITD    CHOLN VITE_ADD
-## VVKAJ101 2.14037    0 0.055275 0.00148    0 0.01147 5.817733 303.8437 2.782333
-##           B12_ADD
-## VVKAJ101 5.073233</code></pre>
-<p>Among the variables in the same group, the one with the highest variance is kept. As a result, 29 variables remained out of 64.</p>
-<p><br></p>
-<hr />
-<p>Save the selected_variables as a .txt file. This will be the input for clustering analyses.</p>
-<pre class="r"><code>  write.table(x=selected_variables, file=&quot;VVKAJ_Tot_m_QCed_Nut_ave_subset.txt&quot;, sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>
-<hr />
-<p>Save the correlation matrix for record in the results folder.</p>
-<p>“cc” is the correlation matrix produced when variables are collapsed by correlation by using the CollapseByCorrelation function.</p>
-<pre class="r"><code>  SaveCorrMatrix(x=cc, out.fn = &quot;VVKAJ_Tot_m_QCed_Nut_ave_corr_matrix.txt&quot;)</code></pre>
+<p>**Need to do something about this now that AverageBy is used in theASA24_1_load_and_clean.Rmd. <!-- For nutrients, specify `start.col = "PROT"`,  and `end.col = "B12_ADD"`; 64 variables in total. --> <!-- ```{r} --> <!-- AverageBy(data= totals, by= "UserName", start.col= "PROT", end.col= "B12_ADD") --> <!-- ``` --></p>
+<!-- Save the averaged results. -->
+<!-- ```{r} -->
+<!--   write.table(x=meansbycategorydf, "VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt", sep="\t", row.names=F, quote=F) -->
+<!-- ``` -->
+<!-- The column names should be the same as `start.col`--`end.col`. -->
+<!-- ```{r} -->
+<!--   colnames(meansbycategorydf) -->
+<!-- ``` -->
+<!-- The `UserName` column has the users to calculate means for. -->
+<!-- ```{r} -->
+<!--   meansbycategorydf$UserName -->
+<!-- ``` -->
+<!-- Pick up only the columns with non-zero variance, in order to run PCA and cluster analysis etc.  The removed columns will be shown if any. -->
+<!-- [,-1] is to exclude the UserName column that is not numeric and not used for variance calculation. -->
+<!-- ```{r} -->
+<!--   KeepNonZeroVarColumns(data = meansbycategorydf[, -1]) -->
+<!-- ``` -->
+<!-- `subsetted_non0var` is the dataframe to be used in the subsequent collapse by correlation procedure. -->
+<!-- Collapse variables by correlation: take only one variables if they are highly correlated. -->
+<!-- ```{r} -->
+<!--   cbc_res <- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75,  -->
+<!--                                    select.rep.fcn = 'mean', verbose = T) -->
+<!-- ``` -->
+<!-- Filter out highly correlated variables from the original dataset. -->
+<!-- ```{r} -->
+<!--   selected_variables <- subsetted_non0var[, cbc_res$reps] -->
+<!-- ``` -->
+<!-- **[NOTE]** `selected_variables` is the dataframe to be used for PCA, cluster analyses etc. -->
+<!-- Check the name of the original and filtered variables. -->
+<!-- The dimension and the first row of the **filtered dataset** -->
+<!-- ```{r} -->
+<!--   dim( selected_variables) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!--   head(selected_variables, 1) -->
+<!-- ``` -->
+<!-- The dimension and the first row of the **original dataset** -->
+<!-- ```{r} -->
+<!--   dim( subsetted_non0var) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!--   head(subsetted_non0var, 1) -->
+<!-- ``` -->
+<!-- Among the variables in the same group, the one with the highest variance is kept. As a result, 29 variables remained out of 64. -->
+<!-- <br> -->
+<!-- --- -->
+<!-- Save the selected_variables as a .txt file. This will be the input for clustering analyses. -->
+<!-- ```{r} -->
+<!--   write.table(x=selected_variables, file="VVKAJ_Tot_m_QCed_Nut_ave_subset.txt", sep="\t", row.names=F, quote=F) -->
+<!-- ``` -->
+<!-- --- -->
+<!-- Save the correlation matrix for record in the results folder. -->
+<!-- "cc" is the correlation matrix produced when variables are collapsed by correlation by using the CollapseByCorrelation function. -->
+<!-- ```{r} -->
+<!--   SaveCorrMatrix(x=cc, out.fn = "VVKAJ_Tot_m_QCed_Nut_ave_corr_matrix.txt") -->
+<!-- ``` -->
 <p><br></p>
 <p>Preparation for clustering can be done in a similar way with the food category data, resulting in <code>Cat_asis</code> and <code>Cat_ave</code> datasets. The R script has the codes to do so with the food category, which includes 37 variables, <code>F_TOTAL</code> through <code>A_DRINKS</code>. But here the codes are omitted for brevity in this tutorial.</p>
 <p><br></p>

@@ -5,7 +5,7 @@ output: html_document
 
 Here, we will prepare ASA24 totals data for PCA and clustering analyses. We will need to calculate average dietary data per person across all days (if desired), remove variables that have zero variance, and collapse variables by correlation (i.e. remove redundancy of variables that are highly correlated).
 
-Table. Part of descriptors of filenames for data type and processing pattern
+Table. Part of descriptors of filenames for data type and processing pattern are defined as follows for each of the combination of two types of dietary data (nutrients or food categories) and two types of measurements (each day or average across days).
 
 As is or Averaged                      | Nutrients (PROT - B12_ADD) | Food categories (F_TOTAL - A_DRINKS)
 -------------------------------------- | -------------------------- | ------------------------------------
@@ -131,88 +131,89 @@ cc is the correlation matrix produced when variables are collapsed by correlatio
 
 Specify the data to be used, category to group by, and the range of columns (variables) to calculate the means of each variable.
 
-For nutrients, specify `start.col = "PROT"`,  and `end.col = "B12_ADD"`; 64 variables in total.
-```{r}
-AverageBy(data= totals, by= "UserName", start.col= "PROT", end.col= "B12_ADD")
-```
+**Need to do something about this now that AverageBy is used in the ASA24_1_load_and_clean.Rmd.
+<!-- For nutrients, specify `start.col = "PROT"`,  and `end.col = "B12_ADD"`; 64 variables in total. -->
+<!-- ```{r} -->
+<!-- AverageBy(data= totals, by= "UserName", start.col= "PROT", end.col= "B12_ADD") -->
+<!-- ``` -->
 
-Save the averaged results.
-```{r}
-  write.table(x=meansbycategorydf, "VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt", sep="\t", row.names=F, quote=F)
-```
+<!-- Save the averaged results. -->
+<!-- ```{r} -->
+<!--   write.table(x=meansbycategorydf, "VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt", sep="\t", row.names=F, quote=F) -->
+<!-- ``` -->
 
-The column names should be the same as `start.col`--`end.col`.
-```{r}
-  colnames(meansbycategorydf)
-```
+<!-- The column names should be the same as `start.col`--`end.col`. -->
+<!-- ```{r} -->
+<!--   colnames(meansbycategorydf) -->
+<!-- ``` -->
 
-The `UserName` column has the users to calculate means for.
-```{r}
-  meansbycategorydf$UserName
-```
+<!-- The `UserName` column has the users to calculate means for. -->
+<!-- ```{r} -->
+<!--   meansbycategorydf$UserName -->
+<!-- ``` -->
 
-Pick up only the columns with non-zero variance, in order to run PCA and cluster analysis etc.  The removed columns will be shown if any.
+<!-- Pick up only the columns with non-zero variance, in order to run PCA and cluster analysis etc.  The removed columns will be shown if any. -->
 
-[,-1] is to exclude the UserName column that is not numeric and not used for variance calculation.
-```{r}
-  KeepNonZeroVarColumns(data = meansbycategorydf[, -1])
-```
+<!-- [,-1] is to exclude the UserName column that is not numeric and not used for variance calculation. -->
+<!-- ```{r} -->
+<!--   KeepNonZeroVarColumns(data = meansbycategorydf[, -1]) -->
+<!-- ``` -->
 
-`subsetted_non0var` is the dataframe to be used in the subsequent collapse by correlation procedure.
+<!-- `subsetted_non0var` is the dataframe to be used in the subsequent collapse by correlation procedure. -->
 
-Collapse variables by correlation: take only one variables if they are highly correlated.
-```{r}
-  cbc_res <- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75, 
-                                   select.rep.fcn = 'mean', verbose = T)
-```
+<!-- Collapse variables by correlation: take only one variables if they are highly correlated. -->
+<!-- ```{r} -->
+<!--   cbc_res <- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75,  -->
+<!--                                    select.rep.fcn = 'mean', verbose = T) -->
+<!-- ``` -->
 
-Filter out highly correlated variables from the original dataset.
-```{r}
-  selected_variables <- subsetted_non0var[, cbc_res$reps]
-```
+<!-- Filter out highly correlated variables from the original dataset. -->
+<!-- ```{r} -->
+<!--   selected_variables <- subsetted_non0var[, cbc_res$reps] -->
+<!-- ``` -->
 
-**[NOTE]** `selected_variables` is the dataframe to be used for PCA, cluster analyses etc.
+<!-- **[NOTE]** `selected_variables` is the dataframe to be used for PCA, cluster analyses etc. -->
 
-Check the name of the original and filtered variables.
+<!-- Check the name of the original and filtered variables. -->
 
 
-The dimension and the first row of the **filtered dataset**
-```{r}
-  dim( selected_variables)
-```
+<!-- The dimension and the first row of the **filtered dataset** -->
+<!-- ```{r} -->
+<!--   dim( selected_variables) -->
+<!-- ``` -->
 
-```{r}
-  head(selected_variables, 1)
-```
+<!-- ```{r} -->
+<!--   head(selected_variables, 1) -->
+<!-- ``` -->
 
-The dimension and the first row of the **original dataset**
-```{r}
-  dim( subsetted_non0var)
-```
+<!-- The dimension and the first row of the **original dataset** -->
+<!-- ```{r} -->
+<!--   dim( subsetted_non0var) -->
+<!-- ``` -->
 
-```{r}
-  head(subsetted_non0var, 1)
-```
+<!-- ```{r} -->
+<!--   head(subsetted_non0var, 1) -->
+<!-- ``` -->
 
-Among the variables in the same group, the one with the highest variance is kept. As a result, 29 variables remained out of 64.
+<!-- Among the variables in the same group, the one with the highest variance is kept. As a result, 29 variables remained out of 64. -->
 
-<br>
+<!-- <br> -->
 
----
+<!-- --- -->
 
-Save the selected_variables as a .txt file. This will be the input for clustering analyses.
-```{r}
-  write.table(x=selected_variables, file="VVKAJ_Tot_m_QCed_Nut_ave_subset.txt", sep="\t", row.names=F, quote=F)
-```
+<!-- Save the selected_variables as a .txt file. This will be the input for clustering analyses. -->
+<!-- ```{r} -->
+<!--   write.table(x=selected_variables, file="VVKAJ_Tot_m_QCed_Nut_ave_subset.txt", sep="\t", row.names=F, quote=F) -->
+<!-- ``` -->
 
----
+<!-- --- -->
 
-Save the correlation matrix for record in the results folder.
+<!-- Save the correlation matrix for record in the results folder. -->
 
-"cc" is the correlation matrix produced when variables are collapsed by correlation by using the CollapseByCorrelation function.
-```{r}
-  SaveCorrMatrix(x=cc, out.fn = "VVKAJ_Tot_m_QCed_Nut_ave_corr_matrix.txt")
-```
+<!-- "cc" is the correlation matrix produced when variables are collapsed by correlation by using the CollapseByCorrelation function. -->
+<!-- ```{r} -->
+<!--   SaveCorrMatrix(x=cc, out.fn = "VVKAJ_Tot_m_QCed_Nut_ave_corr_matrix.txt") -->
+<!-- ``` -->
 
 <br>
 

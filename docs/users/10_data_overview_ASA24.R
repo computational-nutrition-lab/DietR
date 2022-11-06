@@ -4,13 +4,21 @@
 # Created on 06/22/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# 11/04/2022 editing to calculate means across days of totals in the load_data section instead of here... 
+# mark edits with #~~~~~ EDITS TO ADD TO TUTORIAL~~~~~~~~~ and
+# ~~~~~ END OF EDITS TO ADD TO TUTORIAL~~~~~~~~~
+
+# We can view summary statistics of either the individual food data or the totals data. First, let us take 
+# a look at items data. This section is not intended to be a complete guide to analysis, but rather to give you
+# some ideas for how to explore this data. 
+
 # ===============================================================================================================
 # Set working directory 
 # ===============================================================================================================
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
-
+  setwd("~/GitHub/DietR")
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
@@ -76,6 +84,10 @@
   
 # ---------------------------------------------------------------------------------------------------------------
 # Scatterplot
+  
+# Scatterplots can be generated to look at the relationship between two numeric variables. Here we look at 
+# total fat and kilocalories. We would expect these values to be related because fat contributes a high 
+# number of calories in foods.
   
 # Scaterplot of two numeric variables: TFAT and KCAL. 
   TFAT_KCAL <- ggplot(items_f_id_s_m, aes(x=TFAT, y=KCAL)) +

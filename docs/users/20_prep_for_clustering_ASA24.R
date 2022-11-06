@@ -4,6 +4,13 @@
 # Created on 01/13/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# 11/04/2022 editing to calculate means across days of totals in the load_data section instead of here... 
+# mark edits with #~~~~~ EDITS TO ADD TO TUTORIAL  ~~~~~~~~~ 
+# ~~~~~ EDITS TO ADD TO TUTORIAL  -- ADDED, BUT YET TO BE ADDED TO THE WEBSITE ~~~~~~~~~ 
+# ~~~~~ END OF EDITS TO ADD TO TUTORIAL~~~~~~~~~
+# ~~~~~ END OF EDITS TO ADD TO TUTORIAL -- ADDED, BUT YET TO BE ADDED TO THE WEBSITE ~~~~~~~~~
+
+
 # Here, we will prepare ASA24 totals data for PCA and clustering analyses.  
 # We will need to calculate average dietary data per person across all days (if desired), 
 # remove variables that have zero variance, and collapse variables by correlation
@@ -12,7 +19,7 @@
 
 # Set your working directory as to the main directory.
   Session --> Set working directory --> Choose directory.
-
+  setwd("~/GitHub/DietR")
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
   
