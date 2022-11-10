@@ -202,7 +202,7 @@ AddGenderAgeGroups <- function(input=totals, age.col="RIDAGEYR", gender.col="RIA
 
 # ====================================================================================================================
 # Function to calculate the mean % of energy intake (kcal) and SD of CARB, PROT, and TFAT.
-# Use the sum of XXXX_pct as the denominator. For NHANES.
+# Use the sum of XXXX_pct as the denominator so that the sum of CARB, PROT, and TFAT will be 100. For NHANES.
 # ====================================================================================================================
   CPTpctKcalPerUser_NHANES <- function(inputfn, group='Group', 
                                 across='SEQN', outfn){
@@ -216,7 +216,7 @@ AddGenderAgeGroups <- function(input=totals, age.col="RIDAGEYR", gender.col="RIA
     # indexno_kcal <-     which(names(inputfn)== "KCAL")
     
     # Take only the relevant columns from inputfn.
-    totalssub2 <- inputfn[, c(indexno_group, 
+    totalssub2 <<- inputfn[, c(indexno_group, 
                               indexno_across, 
                               indexno_carb,
                               indexno_prot,
@@ -275,10 +275,17 @@ AddGenderAgeGroups <- function(input=totals, age.col="RIDAGEYR", gender.col="RIA
     colnames(T_length_mean_sd)[2:4] <- c("n", "mean", "sd")
     
     rbound <- rbind(C_length_mean_sd, P_length_mean_sd, T_length_mean_sd)
+    
     CPT_kcal_fn <- rbound[, c(1,5,2,3,4)] # bring macronutrient to 2nd
     
+    # Replace "CARB_kcal_pct" with "CARB" etc.
+    CPT_kcal_fn_2 <- CPT_kcal_fn # copy to avoid overwriting.
+    CPT_kcal_fn_2$macronutrient <- sub(CPT_kcal_fn_2$macronutrient, pattern="CARB_kcal_pct", replacement="CARB") 
+    CPT_kcal_fn_2$macronutrient <- sub(CPT_kcal_fn_2$macronutrient, pattern="PROT_kcal_pct", replacement="PROT") 
+    CPT_kcal_fn_2$macronutrient <- sub(CPT_kcal_fn_2$macronutrient, pattern="TFAT_kcal_pct", replacement="TFAT") 
+    
     # Save CPT_kcal_fn. (fn stands for "function")
-    write.table(x=CPT_kcal_fn, file=outfn, sep="\t", row.names=F, quote=F)
+    write.table(x=CPT_kcal_fn_2, file=outfn, sep="\t", row.names=F, quote=F)
     
   }
 

@@ -1,7 +1,7 @@
 # ===============================================================================================================
 # Take an overview of ASA24 items and totals data.
-# Version 2 without the line plot.
-# Created on 11/10/2022 by Rie Sadohara
+# Version 1
+# Created on 06/22/2022 by Rie Sadohara
 # ===============================================================================================================
 
 # 11/04/2022 editing to calculate means across days of totals in the load_data section instead of here... 
@@ -33,14 +33,6 @@
 # You can come back to the main directory by:
   setwd(main_wd)
 
-# Make a vector of colors for each factor of Diet so that plots will have consistent colors.
-  # Take the first five colors from distinct100colors. 
-  diet_colors <- distinct100colors[1:5]
-  # Name each color.
-  names(diet_colors) <- c("Vegetarian", "Vegan", "Keto", "American", "Japanese") 
-  # Specific colors are assigned to be used for each diet.
-  diet_colors
-    
 # ===============================================================================================================
 # Load and analyze (QC-ed) ASA24 items data
 # ===============================================================================================================
@@ -52,7 +44,7 @@
 # "_f_id_s_m" stands for: "food names formatted", "SampleID added", "selected individuals", 
 # and "metadata merged".  
   items_f_id_s_m <- read.table("VVKAJ_Items_f_id_s_m.txt", sep="\t", header=T)
-  tail(items_f_id_s_m)
+  head(items_f_id_s_m)
 
 # ---------------------------------------------------------------------------------------------------------------
 # Summary statistics
@@ -112,89 +104,113 @@
 
   
 # ===============================================================================================================
-# Load and analyze (QC-ed) ASA24 mean totals data
+# Load and analyze (QC-ed) ASA24 totals data
 # ===============================================================================================================
   
-# ~~~~~ EIDTS TO ADD TO TUTORIAL - ADDED TO TUTORIAL, BUT THE WEBISTE IS YET TO BE UPDATED ~~~~~~~~~
+# ~~~~~ EIDTS TO ADD TO TUTORIAL ~~~~~~~~~
   
 # Load your QC-ed mean totals data to be analyzed.
   # tot_m_QCed <- read.table("VVKAJ_Tot_m_QCed.txt", sep="\t", header=T)
-  tot_mean_m_QCed <- read.table("VVKAJ_Tot_mean_m_QCed.txt", sep="\t", header=T)
+  tot_m_QCed <- read.table("VVKAJ_Tot_mean_m_QCed.txt", sep="\t", header=T)
   
-# Note that each row is the mean of total dietary intake of each user. 
-  tot_mean_m_QCed[1:4, 1:4]
+# Note that each row is a total dietary intake of each user on each day. 
+  head(tot_m_QCed)
 
 # ---------------------------------------------------------------------------------------------------------------
 # Summary statistics
   
 # Summary statistics of one variable
-  summary(tot_mean_m_QCed$KCAL)
+  summary(tot_m_QCed$KCAL)
   
 # Calculate the min, quantiles, mean, etc. for a variable in your dataset
 # in the same way we did with the items.   
-  SummaryStats(inputdf = tot_mean_m_QCed, 
-               outfn = "VVKAJ_tot_mean_m_QCed_summ.txt")
+  SummaryStats(inputdf = tot_m_QCed, 
+               outfn = "VVKAJ_Tot_m_QCed_summ.txt")
 
 # ---------------------------------------------------------------------------------------------------------------
 # Boxplot
 # Generate a boxplot to view data distribution.
 
-# Create a vector named "Diet_by_median" containing the Diet in a desired order (by median in this case).
-  Diet_by_median <- with(tot_mean_m_QCed, 
-                    reorder(Diet, KCAL, median, na.rm=T))
+# Boxplot of KCAL by users. This is a variation of the days, and note that
+# some users may have less number of days due to the QC process or missing data. 
+  users_kcal_t <- ggplot(tot_m_QCed, aes(x=Diet, y=KCAL)) +
+    geom_boxplot() + no_grid + space_axes + rotate_X_labels
+  users_kcal_t
   
-# Diet_by_median is a factor, and it contains the diets of all the 15 participants and the median values of 
-# each Diet group. "Levels" show the order of them. 
-  Diet_by_median
-
-# Generate a boxplot of KCAL by diet of the participants.  
-  diet_KCAL_t <- ggplot(tot_mean_m_QCed, aes(x=Diet_by_median, y=KCAL, fill=Diet_by_median)) +
-    geom_boxplot() + labs(x="Diet") +
-    theme(legend.position = "none") + # hide legend  
-    scale_fill_manual(values=diet_colors) +
-    no_grid + space_axes + rotate_X_labels
-  diet_KCAL_t
-
 # Save it as a .pdf file.
-  ggsave("VVKAJ_tot_mean_m_QCed_diet_KCAL.pdf", diet_KCAL_t, device="pdf",
-         width=5, height=4.5)
+  ggsave("VVKAJ_Tot_m_QCed_users_KCAL.pdf", users_kcal_t, device="pdf")
   
-# Boxplot of KCAL by Diet, with each datapoint. Note that geom_boxplot must have outlier.shape = NA 
+# Boxplot of KCAL by gender.
+  gender_KCAL_t <- ggplot(tot_m_QCed, aes(x=Gender, y=KCAL)) +
+    geom_boxplot() + no_grid + space_axes 
+  gender_KCAL_t
+  
+# Save it as a .pdf file.
+  ggsave("VVKAJ_Tot_m_QCed_gender_KCAL.pdf", gender_KCAL_t, device="pdf")
+  
+
+# Boxplot of KCAL by gender, with each datapoint.  Note that geom_boxplot must have outlier.shape = NA 
 # when plotted with geom_jitter. Otherwise, outlier points will be duplicated and will be misleading. 
-  diet_KCAL_t_dots <- ggplot(tot_mean_m_QCed, aes(x=Diet_by_median, y=KCAL, fill=Diet_by_median)) +
-    geom_boxplot(outlier.shape = NA) + labs(x="Diet") +    
-    geom_jitter(width=0.3) +
-    theme(legend.position = "none") + # hide legend  
-    scale_fill_manual(values=diet_colors) +
-    no_grid + space_axes + rotate_X_labels
-  diet_KCAL_t_dots
-
+  gender_KCAL_t_dots <- ggplot(tot_m_QCed, aes(x=Diet, y=KCAL)) +
+    geom_boxplot(outlier.shape = NA) + no_grid + space_axes +
+    geom_jitter(width=0.3)
+  gender_KCAL_t_dots
+  
 # Save it as a .pdf file.
-  ggsave("VVKAJ_tot_mean_m_QCed_diet_KCAL_dots.pdf", diet_KCAL_t_dots, device="pdf",
-         width=5, height=4.5)
+  ggsave("VVKAJ_Tot_m_QCed_gender_KCAL_dots.pdf", gender_KCAL_t_dots, device="pdf")
+  
   
 # ---------------------------------------------------------------------------------------------------------------
 # Scatterplot
   
-# Generate a scaterplot of two variables, color-coded by Diet.
-# Show the diets in the order of median, based on the boxplot that was generated above.
-  TFAT_KCAL_t <- ggplot(tot_mean_m_QCed, aes(x=TFAT, y=KCAL, fill=Diet_by_median)) +
-    geom_point(shape=21, size=3, color="black") + no_grid + space_axes +
-    # order "diet_colors" in the same way as Diet_by_median_order.
-    scale_fill_manual(values= diet_colors[order(Diet_by_median_order)]) +
-    labs(fill="Diet") + theme(aspect.ratio = 1) 
+# Scaterplot of two variables. 
+  TFAT_KCAL_t <- ggplot(tot_m_QCed, aes(x=TFAT, y=KCAL)) +
+    geom_point() + no_grid + space_axes
   TFAT_KCAL_t
   
 # Save it as a .pdf file.
-  ggsave("VVKAJ_tot_mean_m_QCed_TFAT_KCAL.pdf", TFAT_KCAL_t, device="pdf",
-         width=5.5, height=4)
+  ggsave("VVKAJ_Tot_m_QCed_TFAT_KCAL.pdf", TFAT_KCAL_t, device="pdf")
 
 # Test if the two variables are correlated.
-# The output should show p-value and R correlation coefficient.
-  cor.test(x=tot_mean_m_QCed$TFAT, y=tot_mean_m_QCed$KCAL, method="pearson")
+# The output should show p-value and R correlation coefficient
+  cor.test(x=tot_m_QCed$TFAT, y=tot_m_QCed$KCAL, method="pearson")
 
-# ~~~~~ END OF EIDTS TO ADD TO TUTORIAL - ADDED TO TUTORIAL, BUT THE WEBISTE IS YET TO BE UPDATED ~~~~~~~~~
+# ---------------------------------------------------------------------------------------------------------------
+# Lineplot 
+  
+# Prepare your totals dataset for line plot - insert NA to missing combinations of UserName and RecallNo (day), 
+# and separate rows into NA's and no NAs. 
+  PrepLinePlot(inputdf= tot_m_QCed, day="RecallNo", username="UserName", 
+               all.fn=              "VVKAJ_Tot_m_QCed_wNA.txt",
+               full.days.only.fn=   "VVKAJ_Tot_m_QCed_fullonly.txt",
+               partial.days.only.fn="VVKAJ_Tot_m_QCed_partialonly.txt")
+  
+# Load the files.
+  tot_m_QCed_w_NA <-        read.table("VVKAJ_Tot_m_QCed_wNA.txt", sep="\t", header=T)
+  tot_m_QCed_fullonly <-    read.table("VVKAJ_Tot_m_QCed_fullonly.txt", sep="\t", header=T)
+  tot_m_QCed_partialonly <- read.table("VVKAJ_Tot_m_QCed_partialonly.txt", sep="\t", header=T)
+
+# Make RecallNo (day) as a factor so that it can be used as a variable on the X (or Y) axes.
+  tot_m_QCed$RecallNo <-             as.factor(tot_m_QCed$RecallNo)
+  tot_m_QCed_w_NA$RecallNo <-        as.factor(tot_m_QCed_w_NA$RecallNo)
+  tot_m_QCed_fullonly$RecallNo <-    as.factor(tot_m_QCed_fullonly$RecallNo)
+  tot_m_QCed_partialonly$RecallNo <- as.factor(tot_m_QCed_partialonly$RecallNo)
+
+# Plot points and lines separately.  Specify your "x" and "y" twice.
+# The geom_line function only connects the data of individuals with all days of data.
+  lineplot_1 <- ggplot() + 
+    geom_point(tot_m_QCed,          mapping = aes(x=RecallNo, y=KCAL, group=UserName, color=UserName)) +
+    geom_line( tot_m_QCed_fullonly, mapping = aes(x=RecallNo, y=KCAL, group=UserName, color=UserName), 
+              linetype="dashed") + no_grid +
+    scale_color_manual(values = distinct100colors) 
+  lineplot_1
+
+# Save it as a .pdf file.
+  ggsave("VVKAJ_Tot_m_QCed_KCAL_lineplot.pdf", lineplot_1, device="pdf")
+  
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory before you start running another script.
   setwd(main_wd)
+  
   

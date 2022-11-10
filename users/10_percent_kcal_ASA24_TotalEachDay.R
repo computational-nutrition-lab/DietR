@@ -1,8 +1,7 @@
 # ===============================================================================================================
 # Visualize the mean values of %kcal from carbohydrate, protein, and total fat.
-# Use the average of totals of two days.   
-# Version 2
-# Created on 11/10/2022 by Rie Sadohara
+# Version 1
+# Created on 12/16/2021 by Rie Sadohara
 # ===============================================================================================================
 
 # Set your working directory as to the main directory.
@@ -33,77 +32,17 @@
 # Load the totals data.
   # totals <- read.table("VVKAJ_Tot_m_QCed.txt",  sep = "\t", header = T)
   totals <- read.table("VVKAJ_Tot_mean_m_QCed.txt",  sep = "\t", header = T)
-  write.table(totals[order(totals$Diet), c("Diet", "KCAL", "CARB", "PROT", "TFAT")], "clipboard", sep="\t", row.names=F, quote=F)
-  write.table(totals[,c("Diet", "KCAL", "CARB", "PROT", "TFAT")], "clipboard", sep="\t", row.names=F, quote=F)
-  head(totals)
-  
+
 # --------------------------------------------------------------------------------------------------------------
 # We will calculate the percentage of calories from each of the three macronutrients in the sum of calories 
 # from the three macronutrients. Thus, the percentage of calories from CARB, PROT, and TFAT will add up to 100.
 
-# # Calculate the mean and SD of CARB, PROT, and TFAT.
-#   CPTgramsPerUser(inputfn= totals, user.name = "UserName", recall.no = "RecallNo",
-#                   outfn="VVKAJ_Tot_m_QCed_CPT_g.txt")
-# # Not used in the visualization below, but you may want to take a look at it.
+# Calculate the mean and SD of CARB, PROT, and TFAT.
+  CPTgramsPerUser(inputfn= totals, user.name = "UserName", recall.no = "RecallNo",
+                  outfn="VVKAJ_Tot_m_QCed_CPT_g.txt")
+# Not used in the visualization below, but you may want to take a look at it.
 
-# Calculate the %kcal of CARB, PROT, and TFAT for each user and take means by Gender_Age.   
-  CPTpctKcalPerUser_NHANES(inputfn=totals, group='Diet', across='UserName', 
-                           outfn="VVKAJ_Tot_mean_m_QCed_CPT_kcal.txt")
  
-  # Load the output.
-  CPT_kcal <- read.table("VVKAJ_Tot_mean_m_QCed_CPT_kcal.txt", sep="\t", header=T)
-  
-  # CPT_kcal has Group, macronutrient, n, mean, and sd of each group.
-  head(CPT_kcal)
-  
-# Reorder Diets, specify the order of macronutrients. make it into function. FROM HERE ==============
-
-  # Subset CPT_kcal by the desired macronutrient. 
-  subsetted_by_macronut <- subset(CPT_kcal, macronutrient=="CARB")
-  
-  # Order by the mean (small-large) of the subset.  
-  subsetted_by_macronut_s <- subsetted_by_macronut[order(subsetted_by_macronut$mean), ]
-  
-  # # Take only the "Group" as a vector, which is ordered by the desired macronutrient.
-  Diet_by_macronut <- subsetted_by_macronut_s[["Group"]]
-  
-  # Specify the order of Diet as in Diet_by_macronut.
-  CPT_kcal$Group_o <- factor(CPT_kcal$Group, levels= Diet_by_macronut)
-  
-  # Also specify the order of plotting CARB, PROT, TFAT.
-  CPT_kcal$macronutrient_o <- factor(CPT_kcal$macronutrient, levels= c("TFAT",  "PROT", "CARB"))
-  
-  # StackedwoSD_NHANES2 <- function(data, order.by){
-    ggplot(CPT_kcal, aes(x = Group_o, y = mean, fill = macronutrient_o)) + 
-      geom_bar(position = "stack", stat = "identity", colour = "black", width = 0.7) +
-      # change colors and labels of legend. Ensure the factor order is correct. 
-      scale_fill_manual(values = distinct100colors) + 
-                        # labels=c( "Carbohydrates", "Protein", "Total fat")) +
-      labs(x= element_blank(), y= "Percentages of total kcal intake", fill = "Macronutrients") +
-      # Specify the font size and angle of the x axis label.  
-      theme(axis.text.x = element_text(size=12, angle = 45, hjust = 1)) + no_grid
-  # }
-    
-# UNTIL HERE ==============
-  
-# Plot a barchart without SD.
-  # Change the font size if necessary.
-  # This assumes that CPT_kcal has "Group" column.
-    stacked_wo_SD <- StackedwoSD_NHANES(data= CPT_kcal) + theme(axis.text.x=element_text(size=11))  
-    stacked_wo_SD
-    
-  # Save as a .pdf.
-    ggsave("Total_D12_FC_QC_mean_QC_d_CPT_kcal_wo_SD.pdf", stacked_wo_SD,
-           device="pdf", width=6.2, height=4.2, units="in", dpi=300)
-    
-    
-  
-  
-  
-  
-  
-############  
-   
 # Calculate the mean % of energy intake (kcal) and SD of CARB, PROT, and TFAT.
   CPTpctKcalPerUser(inputfn=totals, user.name = "UserName", recall.no = "RecallNo", 
                    outfn="VVKAJ_Tot_m_QCed_CPT_kcal.txt")

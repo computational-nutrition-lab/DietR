@@ -26,6 +26,7 @@
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use.
   main_wd <- file.path(getwd())
@@ -34,7 +35,7 @@
   source("lib/specify_data_dir.R")  
   source("lib/load_clean_ASA24.R")
   source("lib/format.file.R")
-  source("../../lib/prep_data_for_clustering.R") 
+  source("lib/average.by.R") 
   
 # You can come back to the main directory by:
   setwd(main_wd)
@@ -232,7 +233,7 @@
   new_totals_mean_m <- merge(x=new_totals_mean, y=ind_metadata, by="UserName", all.x=T)
   
 # Check that the mean totals and the users' metadata are merged.
-  head(new_totals_mean_m,1)
+  tail(new_totals_mean_m, 1)
   
 # Save the merged dataframe as a .txt file.
   write.table(new_totals_mean_m, "VVKAJ_Tot_mean_m.txt", sep="\t", row.names=F, quote=F)
@@ -268,6 +269,15 @@
 # carefully to double-check if the removal is warranted. It is possible to have a valid record that could 
 # meet the threshold for removal. Only you will know if you can trust the record when working with real data.
 
+# If you find potential outlier(s) here, click "No", and view those 
+# total(s) with their other nutrient intake information by running the following;
+  KCAL_outliers <- subset(QCtotals, KCAL < 600 | KCAL > 5700)     
+  # Sort the rows by KCAL and show only the specified variables.
+  KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
+              c('UserName', 'KCAL', 'FoodAmt', 'PROT', 'TFAT', 'CARB')]  
+# If you think it is a true outlier, then run the QCOutliers command for KCAL again, and click "Yes" to 
+# remove the outlier. Here for this tutorial, we will remove this individual.
+    
 # Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 10, max = 240)
 
@@ -276,14 +286,7 @@
 
 # Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 400)
-    
-      # You may find numerous potential outliers here. Then, click "No", and view those 
-      # outliers with their other nutrient intake information by running the following;
-      VC_outliers <- subset(new_totals, VC < 5 | VC > 400)    
-      # sort in the order of VC and show only the specified variables.
-      VC_outliers[order(VC_outliers$BCAR, decreasing = T),
-                  c('UserName', 'KCAL', 'VC', 'V_TOTAL', 'V_DRKGR', 'F_TOTAL')]  # F is fruits.
-
+  
 # Save as "Totals_m_QCed.txt"
   write.table(QCtotals, "VVKAJ_Tot_mean_m_QCed.txt", sep="\t", quote=F, row.names=F)
 
