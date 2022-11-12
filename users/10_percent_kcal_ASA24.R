@@ -30,14 +30,10 @@
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
   
-# ~~~~~ EIDTS TO ADD TO TUTORIAL ~~~~~~~~~
+# ~~~~~ EIDTS TO ADD TO TUTORIAL ADDED, BUT THE WEBSITE IS YET TO BE EDITED. ~~~~~~~~~
 # Load the totals data.
   # totals <- read.table("VVKAJ_Tot_m_QCed.txt",  sep = "\t", header = T) # this is total/day/user
   totals <- read.table("VVKAJ_Tot_mean_m_QCed.txt",  sep = "\t", header = T)
-  # write.table(totals[order(totals$Diet), c("Diet", "KCAL", "CARB", "PROT", "TFAT")], "clipboard", sep="\t", row.names=F, quote=F)
-  # write.table(totals[,c("Diet", "KCAL", "CARB", "PROT", "TFAT")], "clipboard", sep="\t", row.names=F, quote=F)
-  head(totals)
-  # 
 
 # ===============================================================================================================
 # Calculate the percentage of calories from Carbohydrate, Protein, and Total Fat.  
@@ -65,18 +61,11 @@
 # Generate a stacked barchart without SD. 
 # ===============================================================================================================
   
-# Order by a certain macronutrient by the "order.by" argument. # You can also specify the stacking order of all the 
+# Order Diets by a certain macronutrient by the "order.by" argument. # You can also specify the stacking order of all the 
   # macronutrients by the "macronu.order" argument. Note that the last item will be on the bottom of the barchart.
   PlotStackedwoSD(data=CPT_kcal, 
-             order.by = "Total Fat", 
-             # macronut.order=c("Carbohydrate", "Total Fat", "Protein")
-             macronut.order=c("Carbohydrate", "Total Fat", "Protein")
-             )
-  
-  # Or you can plot Diets in the alphabetical order by setting order.by="NULL".
-  PlotStackedwoSD(data=CPT_kcal, 
-             order.by="NULL", 
-             macronut.order=c("Carbohydrate", "Total Fat", "Protein"))
+                  order.by = "Protein", 
+                  macronut.order=c("Carbohydrate", "Total Fat", "Protein"))
   
   # The chart is saved as "stacked_wo_SD".  
   stacked_wo_SD
@@ -85,20 +74,20 @@
   ggsave("VVKAJ_Tot_mean_m_QCed_CPT_kcal_wo_SD.pdf", stacked_wo_SD,
          device="pdf", width=6.2, height=4.2, units="in", dpi=300)
   
+  # Or you can plot Diets in the alphabetical order by setting order.by="NULL".
+  PlotStackedwoSD(data=CPT_kcal, 
+                  order.by = "NULL", 
+                  macronut.order=c("Carbohydrate", "Total Fat", "Protein"))  
+
 # ===============================================================================================================
 # Generate the "dodge"-type of barchart (3 bars per user, NOT STACKED).
 # ===============================================================================================================
   
-# Order by a certain macronutrient by the "order.by" argument. You can also specify the plotting order of all the 
+# Order Diets by a certain macronutrient by the "order.by" argument. You can also specify the plotting order of all the 
 # macronutrients by the "macronu.order" argument. Note that the first item will be the leftmost bar.
   PlotDodged(data= CPT_kcal, 
-              order.by = "Protein", 
-              macronut.order=c("Carbohydrate", "Total Fat", "Protein"))
-  
-  # Or you can plot Diets in the alphabetical order by setting order.by="NULL".
-  PlotDodged(data= CPT_kcal, 
-              order.by="NULL", 
-              macronut.order=c("Carbohydrate", "Total Fat", "Protein"))
+             order.by = "NULL", 
+             macronut.order=c("Carbohydrate", "Total Fat", "Protein"))
   
   dodged_w_SD
   
@@ -106,36 +95,30 @@
   ggsave("VVKAJ_Tot_mean_m_QCed_CPT_kcal_dodged_w_SD.pdf", dodged_w_SD,
          device="pdf", width=6, height=4.5, units="in", dpi=300)
 
+  # Similarly, you can plot Diets in the alphabetical order by setting order.by="NULL".
+  
 # ===============================================================================================================
 # Generate a stacked barchart with SD as error bars.
 # ===============================================================================================================
  
-# # Load the CPT_kcal again.
-#   CPT_kcal <- read.table("VVKAJ_Tot_mean_m_QCed_CPT_kcal.txt", sep="\t", header=T)
-  
 # Create a vector that contains all the group levels (diets, in this case). 
+# This "groups" vector will be used in the CalcStackedSD function within the PlotStackedWithSD function.
   groups <- unique(CPT_kcal$Group)
 
-# Order by a certain macronutrient by the "order.by" argument. You can also specify the stacking order of all the 
+# Order Diet by a certain macronutrient by the "order.by" argument. You can also specify the stacking order of all the 
 # macronutrients by the "macronu.order" argument. Note that the last item will be on the bottom of the barchart.
   PlotStackedWithSD(data= CPT_kcal, 
               order.by = "Protein", 
               macronut.order=c("Carbohydrate", "Total Fat", "Protein"))
-              # macronut.order=c("Carbohydrate", "Protein", "Total Fat"))
   
-  # Or you can plot Diets in the alphabetical order by setting order.by="NULL".
-  PlotStackedWithSD(data= CPT_kcal, 
-              order.by="NULL", 
-              # macronut.order=c("Carbohydrate", "Protein", "Total Fat") )
-              macronut.order=c("Total Fat","Carbohydrate", "Protein") )
-  
-# Print the stacked barchart with SD as error bars.
   stacked_with_SD
-  
+
 # Save as a .pdf.
-  ggsave("VVKAJ_Tot_m_QCed_CPT_kcal_CPT_kcal_with_SD.pdf", stacked_with_SD,
+  ggsave("VVKAJ_Tot_m_QCed_CPT_kcal_CPT_kcal_with_SD_alphabetical.pdf", stacked_with_SD,
          device="pdf", width=6.2, height=4.3, units="in", dpi=300)
-  
+
+# Similarly, you can plot Diets in the alphabetical order by setting order.by="NULL".
+
 # Change the Y axis scale if necessary. Note that if the error bars of Carbohydrates disappear 
 # after changing the limits of Y axis, it may be because the error bars are higher than the max Y.
 # Ensure you have enough max Y value to accommodate the error bars.
@@ -147,6 +130,6 @@
 # Come back to the main directory
   setwd(main_wd)
   
-# ~~~~~ END OF EIDTS TO ADD TO TUTORIAL -- ALL NEEDS TO BE CHANGED (^_^;) ~~~~~~~~~
+# ~~~~~ END OF EIDTS TO ADD TO TUTORIAL -- ADDED, BUT THE WEBSITE IS YET TO BE EDITED. ~~~~~~~~~
   
   
