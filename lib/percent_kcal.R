@@ -40,7 +40,8 @@ AddGenderAgeGroups <- function(input=totals, age.col="RIDAGEYR", gender.col="RIA
     else if(totals2[i, age.col.number] < 50){totals2$AgeGroup[i] <- "40s"}
     else if(totals2[i, age.col.number] < 60){totals2$AgeGroup[i] <- "50s"}
     else if(totals2[i, age.col.number] < 70){totals2$AgeGroup[i] <- "60s"}
-    else                                    {totals2$AgeGroup[i] <- "70s_80s"}
+    else if(totals2[i, age.col.number] < 80){totals2$AgeGroup[i] <- "70s"}
+    else                                    {totals2$AgeGroup[i] <- "80plus"}
   }
   
   # Combine Age_Group and Gender as a new factor. e.g. "M_40s".
@@ -616,7 +617,7 @@ AddGenderAgeGroups <- function(input=totals, age.col="RIDAGEYR", gender.col="RIA
   }
   
 # ====================================================================================================================
-# funciton1 PlotStackedwoSD ...Reorder Diets, specify the order of macronutrients. 
+# function1 PlotStackedwoSD ...Reorder Diets, specify the order of macronutrients. 
 # ====================================================================================================================
 
   PlotStackedwoSD <- function(data, order.by, macronut.order){
@@ -667,7 +668,7 @@ AddGenderAgeGroups <- function(input=totals, age.col="RIDAGEYR", gender.col="RIA
   }  
   
 # ====================================================================================================================
-# funciton2 PlotDodged ... Not stacked. can specify the order of group levels (optional) and the macronutrients. 
+# function2 PlotDodged ... Not stacked. can specify the order of group levels (optional) and the macronutrients. 
 # ====================================================================================================================
   PlotDodged <- function(data, order.by, macronut.order){
     
@@ -720,7 +721,7 @@ AddGenderAgeGroups <- function(input=totals, age.col="RIDAGEYR", gender.col="RIA
   
   
 # ====================================================================================================================
-# funciton3 PlotStackedWithSD
+# function3 PlotStackedWithSD
 # ====================================================================================================================
   PlotStackedWithSD <- function(data, order.by, macronut.order){
     

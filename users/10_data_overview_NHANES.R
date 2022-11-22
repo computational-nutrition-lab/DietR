@@ -10,7 +10,7 @@
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
-  setwd("~/GitHub/dietary_patterns/")
+  setwd("~/GitHub/dietarry_patterns/")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
