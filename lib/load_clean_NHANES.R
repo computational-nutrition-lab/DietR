@@ -216,7 +216,7 @@
     # Check if all the columnnames match.
     identicalYN <- identical(colnames(total1b), colnames(total2b))
     
-    print(identicalYN)
+    # print(identicalYN)
     
     if(identicalYN == "TRUE"){
       # Merge totals day 1 and day 2

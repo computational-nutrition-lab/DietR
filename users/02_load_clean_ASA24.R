@@ -34,6 +34,7 @@
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")  
   source("lib/load_clean_ASA24.R")
+  source("lib/QCOutliers.R")
   source("lib/format.file.R")
   source("lib/average.by.R") 
   

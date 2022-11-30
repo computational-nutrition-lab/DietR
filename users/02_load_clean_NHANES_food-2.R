@@ -16,7 +16,7 @@
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
-  setwd("~/GitHub/DietR")
+  setwd("~/GitHub/DietR/")
 
 # Name your main directory for future use.
   main_wd <- file.path(getwd())
@@ -29,7 +29,7 @@
 
 # Load necessary functions.
   source("lib/load_clean_NHANES.R")
-  source("lib/load_clean_ASA24.R")
+  source("lib/QCOutliers.R")
   
 # You can come back to the main directory by:
   setwd(main_wd)
@@ -43,7 +43,7 @@
 # Name the file and destination. mod="wb" is needed for Windows OS.
 # Other OS users may need to delete it.
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.XPT", 
-                destfile= "eg_data/NHANES/DR1IFF_I.XPT", mode="wb")
+                destfile= "eg_data/NHANES/Raw_data/DEMO_I.XPT", mode="wb")
   
 # Load the demographics file.
   demog <- read.xport("eg_data/NHANES/Raw_data/DEMO_I.XPT")
@@ -105,7 +105,7 @@
 
 
 # ================================================================================================================  
-# From here, branch out into two Scenarios, A or B. (B consists of B-1, B-2, B-3, and B-4.)
+# From here, scenarios A and B serve the following purposes. (B consists of B-1, B-2, B-3, and B-4.)
 # Scenario A: Further process food1b and food2b for building a food tree.  
 # Scenario B-1-4: Calculate totals from the QC-ed food items and QC totals.
 # ================================================================================================================  
@@ -164,7 +164,7 @@
   
 # Day 1
   # Import the list of variables to be selected in Day 1.  
-  day1variables <- read.table('eg_data/NHANES/NHANES_Food_VarNames_FC_Day1.txt', header=F)
+  day1variables <- read.table('eg_data/NHANES/Food_VarNames/NHANES_Food_VarNames_FC_Day1.txt', header=F)
 
   # Select the variables to pick up from the food data
   var_to_use1 <- names(food1bb) %in% day1variables$V1
@@ -181,7 +181,7 @@
  
 # ---------------------------------------------------------------------------------------------------------------
 # Do the same for Day 2  
-  day2variables <- read.table('eg_data/NHANES/NHANES_Food_VarNames_FC_Day2.txt', header=F)
+  day2variables <- read.table('eg_data/NHANES/Food_VarNames/NHANES_Food_VarNames_FC_Day2.txt', header=F)
   var_to_use2 <- names(food2bb) %in% day2variables$V1
   food2c <- food2bb[, var_to_use2]
   colnames(food2c) <- gsub(colnames(food2c), pattern = "^DR2I", replacement = "")
@@ -257,39 +257,59 @@
 # ===============================================================================================================
   
 # For individual food data, there is no code for cleaning.
-# Outliers won't severely affect main analysis conclusions (ASA24 data cleaning doc)
-# But, it's always a good idea to take a look at the distributions of variables of interest. 
-# Could calculate totals by occasion, similar to the ASA24 code.
-  
+# Outliers won't severely affect main analysis conclusions (ASA24 data cleaning doc).
+# However, it is always a good idea to take a look at the distributions of variables of interest. 
+
 # ---------------------------------------------------------------------------------------------------------------
 # For totals, the same QC can be applied as ASA24 totals QC procedure.
+# Totals data may contain outliers due to errors in dietary reporting. These errors may be due to omission or 
+# inaccurate over- or under-estimation of portion size, leading to improbable nutrient totals. ASA24 provides 
+# General Guidelines for Reviewing & Cleaning Data 
+# (https://epi.grants.cancer.gov/asa24/resources/cleaning.html#guidelines) for identifying and removing 
+# suspicious records. 
 
-# Run all these QC steps in this order.  When asked, choose to remove the outliers
+# Here, we will identify records that contain values that fall outside typically observed ranges of 
+# kilocalories (KCAL), protein (PROT), total fat (TFAT), and vitamin C (VC). The ASA24 guide provides ranges 
+# of beta carotene (BCAR), too, however, outlier checking for BCAR is omitted in this tutorial but can be 
+# considered if you identify it as a nutrient that has a high variance in your study dataset.
+
+# Please note that your input dataframe (QCtotals) will be overwritten after each outlier removal.  
+
+# Run all these QC steps in this order. When asked, choose to remove the outliers
 # that fall outside the specified range for each nutrient.
 
 # Define the input data.  This dataframe will be modified after each filter.
   QCtotals <- meantotal12b
   
-  # Flag if KCAL is <600 or >5700 --> ask remove or not --> if yes, remove those rows
+# Flag if KCAL is <600 or >5700 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, 
              target.colname = "KCAL", min = 600, max = 5700)
   
-  # Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
+# This function will print out rows that fall outside the specified min-max range, and a dialogue box 
+# will appear outside the R Studio, asking whether to remove them. You should make sure to review these records 
+# carefully to double-check if the removal is warranted. It is possible to have a valid record that could 
+# meet the threshold for removal. Only you will know if you can trust the record when working with real data.
+
+# If you find potential outlier(s) here, click "No", and view those 
+# total(s) with their other nutrient intake information by running the following;
+  KCAL_outliers <- subset(QCtotals, KCAL < 600 | KCAL > 5700)     
+# Sort the rows by KCAL and show only the specified variables.
+  KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
+                c('SEQN', 'KCAL', 'GRMS', 'PROT', 'TFAT', 'CARB')]  
+# If you think it is a true outlier, then run the QCOutliers command for KCAL again, and click "Yes" to 
+# remove the outlier. Here for this tutorial, we will remove this individual.
+  
+# Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, 
              target.colname = "PROT", min = 10, max = 240)
   
-  # Flag if TFAT is <15 or >230 --> ask remove or not --> if yes, remove those rows
+# Flag if TFAT is <15 or >230 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, 
              target.colname = "TFAT", min = 15, max = 230)
 
-  # Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
+# Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals,  
              target.colname = "VC", min = 5, max = 400)
-  
-      # or show the outliers if too many.
-      VCoutliers <- Outlier_rows[, c('SEQN', 'KCAL', 'VC')]
-      # Show the first n rows of the outliers in descending order. 
-      head(VCoutliers[order(VCoutliers$VC, decreasing = T), ], n=10)
 
 # Look at how many rows (observations) were kept after QC. 
   dim(QCtotals)

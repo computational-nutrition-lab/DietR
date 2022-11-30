@@ -16,7 +16,7 @@
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
-  setwd("~/GitHub/DietR")
+  setwd("~/GitHub/DietR/")
 
 # Name your main directory for future use.
   main_wd <- file.path(getwd())
@@ -87,11 +87,11 @@
 # Other OS users may need to delete it.
   # Download day 1 data.
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.XPT", 
-                destfile= "eg_data/NHANES/DR1IFF_I.XPT", mode="wb")
+                destfile= "eg_data/NHANES/Raw_data/DR1IFF_I.XPT", mode="wb")
   
   # Download day 2 data.
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR2IFF_I.XPT",
-                destfile= "eg_data/NHANES/DR2IFF_I.XPT", mode="wb")
+                destfile= "eg_data/NHANES/Raw_data/DR2IFF_I.XPT", mode="wb")
   
 # [NOTE] Different alphabets are used on the variables' names in different release of NHANES 
 # data.  Therefore, you will need to change the alphabet (and potentially the other parts of the 
@@ -104,7 +104,7 @@
   
 # Import items data Day 1, add food item descriptions, and save it as a txt file.
 # OUTPUT WILL LIKELY BE A HUGE FILE.
-  ImportNHANESFoodItems(data.name="eg_data/NHANES/DR1IFF_I.XPT", 
+  ImportNHANESFoodItems(data.name="eg_data/NHANES/Raw_data/DR1IFF_I.XPT", 
                         food.code.column = "DR1IFDCD", 
                         food.code.table = foodcodetable_f,
                         out.fn = "eg_data/NHANES/DR1IFF_I_d.txt") # 'd' stands for food descriptions
@@ -127,7 +127,7 @@
 # Load and prepare Day 2 food items data
   
 # Import items data Day 2, add food item descriptions, and save it as a txt file.
-  ImportNHANESFoodItems(data.name="eg_data/NHANES/DR2IFF_I.XPT",
+  ImportNHANESFoodItems(data.name="eg_data/NHANES/Raw_data/DR2IFF_I.XPT",
                         food.code.column = "DR2IFDCD",
                         food.code.table = foodcodetable_f,
                         out.fn = "eg_data/NHANES/DR2IFF_I_d.txt")
