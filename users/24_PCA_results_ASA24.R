@@ -8,8 +8,8 @@
 # facilitate understanding of clustering of individuals. 
 
 # Set working directory to "dietary_patterns".
-  Session --> Set working direHctory --> Choose directory.  
-
+  Session --> Set working direHctory --> Choose directory.   
+  setwd("~/GitHub/DietR")
   setwd(main_wd)
 
 # Load necessary functions.
