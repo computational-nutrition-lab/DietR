@@ -32,14 +32,13 @@
   totals <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt",  sep="\t", header=T)
   
 # --------------------------------------------------------------------------------------------------------------
-# we will calculate the percentage of calories from each of the three macronutrients in the sum of 
+# We will calculate the percentage of calories from each of the three macronutrients in the sum of 
 # calories from the three macronutrients.
 # Thus, the percentage of calories from CARB, PROT, and TFAT will add up to 100.   
 
-
 # Calculate the %kcal of CARB, PROT, and TFAT for each user and take means by Gender_Age.   
-  CPTpctKcalPerUser_NHANES(inputfn=totals, group='GLU_index', across='SEQN', 
-                           outfn="QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_by_GLU.txt")
+  CPTpctKcalPerUser(inputfn=totals, group='GLU_index', across='SEQN', 
+                    outfn="QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_by_GLU.txt")
 
 # Load the output.
   CPT_kcal <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_by_GLU.txt", sep="\t", header=T)
@@ -66,10 +65,8 @@
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_wo_SD.pdf", stacked_wo_SD,
          device="pdf", width=6.2, height=4.2, units="in", dpi=300)
 
-# Or you can plot GLU_index in the original order by setting order.by="NULL".
 # When order.by="NULL", the diabetic status will be in the alphabetical order by default.
 # If you want to specify the group order, add the group.order argument. 
-  
   PlotStackedwoSD(data=CPT_kcal, 
                   order.by = "NULL", 
                   macronut.order=c("Protein", "Total Fat", "Carbohydrate"),
@@ -93,8 +90,8 @@
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_dodged_w_SD.pdf", dodged_w_SD,
          device="pdf", width=9.0, height=4, units="in", dpi=300)
 
-# Similarly, you can plot Diets in the alphabetical order by setting order.by="NULL".
-# If you want to specify the group order, add the group.order argument.
+# When order.by="NULL", the diabetic status will be in the alphabetical order by default.
+# If you want to specify the group order, add the group.order argument. 
   PlotDodged(data= CPT_kcal, 
              order.by = "NULL", 
              macronut.order=c("Protein", "Total Fat", "Carbohydrate"),
@@ -120,7 +117,6 @@
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_with_SD.pdf", stacked_with_SD,
          device="pdf", width=6.2, height=4.3, units="in", dpi=300)
 
-  
 # When order.by="NULL", the diabetic status will be in the alphabetical order by default.
 # If you want to specify the group order, add the group.order argument. 
   PlotStackedWithSD(data= CPT_kcal, 

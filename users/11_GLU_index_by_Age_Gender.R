@@ -11,10 +11,15 @@
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())  
 
+# Load necessary packages.
+  library(ggplot2)
+  library(reshape2)
+  
 # Load necessary functions.
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R") 
-  source("lib/percent_kcal.R") # to use AddGenderAgeGroups function.  
+  source("lib/add_gender_and_age.R")   
+  source("lib/stacked_perc_two_var.R")   
 
 # Load the distinct 100 colors for use.   
   distinct100colors <- readRDS("~/GitHub/R_Toolbox/distinct100colors.rda")
@@ -43,7 +48,6 @@
 # Ensure that glu_2 now has Gender, AgeGroup, and Gender_Age columns.
   head(glu_2[, c("Gender", "AgeGroup", "Gender_Age")])
 
-
 # ===============================================================================================================
 # Build a stacked bar chart of diabetics by age and gender - FEMALE
 # ===============================================================================================================
@@ -53,36 +57,13 @@
   
 # Check the dimension of the selected data - 851 rows.
   nrow(glu_2_females)
-  
-# Create a table with the count of each AgeGroup and GLU_index combination.
-# The variable to be counted can be any one with no missing data; therefore, "SEQN" is selected here.
-  longtable_f <- aggregate(SEQN ~ AgeGroup + GLU_index,                                    
-                           data = glu_2_females,   # Change the input dataset here.
-                           FUN = length)
-  longtable_f 
 
-# Make a short table with GLU_index levels in each column in order to compute their proportions. 
-  shorttable_f <- reshape2::dcast(longtable_f, AgeGroup ~ GLU_index, sum)
-  shorttable_f
-  
-# Calculate the sum of all the levels of GLU_index.
-  shorttable_f$sum <- rowSums(shorttable_f[, 2:4])
-  
-# Calculate the proportion of each - to be used as percentages.
-  shorttable_f$Normal_pr      <- shorttable_f$Normal/shorttable_f$sum         
-  shorttable_f$Prediabetic_pr <- shorttable_f$Prediabetic/shorttable_f$sum
-  shorttable_f$Diabetic_pr    <- shorttable_f$Diabetic/shorttable_f$sum
-  
-# Calculate the sum of the proportions - should be all 1.
-  shorttable_f$sum_pr <- rowSums(shorttable_f[, 6:8])
-  shorttable_f
-  
-# Take the proportions and make it into a long table again for plotting.
-  longtable_pr_f <- reshape2::melt(shorttable_f[, c(1, 6:8)])
-  longtable_pr_f
+# Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart.
+  StackedPercTwoVar(input.df = glu_2_females, var.x = "AgeGroup", var.y="GLU_index", by="SEQN")
+  # The percentages of each level of var.y are saved in the dataframe 'longtable_pr'.
   
 # Generate a stacked barchart for females: GLU_index_pr_F. 
-  GLU_index_pr_F <- ggplot(longtable_pr_f, aes(x= AgeGroup, y= value, fill= variable)) +
+  GLU_index_pr_F <- ggplot(longtable_pr, aes(x= AgeGroup, y= value, fill= variable)) +
     geom_bar(position = "fill", stat = "identity",color='black',width=0.9) + 
     scale_y_continuous(labels = scales::percent) +
     scale_fill_manual(values = c("steelblue2", "lightgoldenrod1", "lightpink1") ) +
@@ -91,7 +72,7 @@
     rotate_X_labels + space_axes + no_grid +
     labs(x="Age", y="")
   GLU_index_pr_F
-
+  
 # Save the plot.
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_AgeGroup_GLU_index_female.pdf", 
          GLU_index_pr_F, device="pdf", width=7, height=4.5, unit="in", dpi=300)
@@ -107,35 +88,13 @@
 # Check the number of rows of the selected data - 774 rows.
   nrow(glu_2_males)
   
-# Create a table with the count of each AgeGroup and GLU_index combination.
-# The variable to be counted can be any one with no missing data; therefore, "SEQN" is selected here.
-  longtable_m <- aggregate(SEQN ~ AgeGroup + GLU_index,                                    
-                         data = glu_2_males,
-                         FUN = length)
-  longtable_m 
-  
-# Make a short table with GLU_index levels in each column in order to compute their proportions. 
-  shorttable_m <- reshape2::dcast(longtable_m, AgeGroup ~ GLU_index, sum)
-  shorttable_m
-  
-# Calculate the sum of all the levels of GLU_index.
-  shorttable_m$sum <- rowSums(shorttable_m[, 2:4])
-  
-# Calculate the proportion of each - to be used as percentages.
-  shorttable_m$Normal_pr      <- shorttable_m$Normal/shorttable_m$sum         
-  shorttable_m$Prediabetic_pr <- shorttable_m$Prediabetic/shorttable_m$sum
-  shorttable_m$Diabetic_pr    <- shorttable_m$Diabetic/shorttable_m$sum
-  
-# Calculate the sum of the proportions - should be all 1.
-  shorttable_m$sum_pr <- rowSums(shorttable_m[, 6:8])
-  shorttable_m
-  
-# Take the proportions and make it into a long table again for plotting.
-  longtable_pr_m <- reshape2::melt(shorttable_m[, c(1, 6:8)])
-  longtable_pr_m
+# Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked
+# barchart.
+  StackedPercTwoVar(input.df = glu_2_males, var.x = "AgeGroup", var.y="GLU_index", by="SEQN")
+  # The percentages of each level of var.y are saved in the dataframe 'longtable_pr'.
   
 # Plot it with percentage labels.
-  GLU_index_pr_M <- ggplot(longtable_pr_m, aes(x= AgeGroup, y= value, fill= variable)) +
+  GLU_index_pr_M <- ggplot(longtable_pr, aes(x= AgeGroup, y= value, fill= variable)) +
     geom_bar(position = "fill", stat = "identity",color='black',width=0.9) + 
     scale_y_continuous(labels = scales::percent) +
     scale_fill_manual(values = c("steelblue2", "lightgoldenrod1", "lightpink1") ) +
@@ -148,9 +107,7 @@
 # Save the plot.
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_AgeGroup_GLU_index_male.pdf", 
          GLU_index_pr_M, device="pdf", width=7, height=4.5, unit="in", dpi=300)
-  
-  
+
 # By looking at the distribution, males in 60s and over has the highest percentages of Diabetic individuals.
 # We will use this gender-age group to analyze their diets further. 
 
-  

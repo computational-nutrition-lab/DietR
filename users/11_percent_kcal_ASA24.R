@@ -42,13 +42,8 @@
 # We will calculate the percentage of calories from each of the three macronutrients in the sum of calories 
 # from the three macronutrients. Thus, the percentage of calories from CARB, PROT, and TFAT will add up to 100.
 
-# # Calculate the mean and SD of CARB, PROT, and TFAT.
- # CPTgramsPerUser(inputfn= totals, user.name = "UserName", recall.no = "RecallNo",
- #                 outfn="VVKAJ_Tot_m_QCed_CPT_g.txt")
-# # Not used in the visualization below, but you may want to take a look at it.
-
-# Calculate the %KCAL of CARB, PROT, and TFAT for each user and take means by Gender_Age.   
-  CPTpctKcalPerUser_NHANES(inputfn=totals, group='Diet', across='UserName', 
+# Calculate the %KCAL of CARB, PROT, and TFAT for each user and take means by Group (Diet).   
+  CPTpctKcalPerUser(inputfn=totals, group='Diet', across='UserName', 
                            outfn="VVKAJ_Tot_mean_m_QCed_CPT_kcal.txt")
 # Load the output.
   CPT_kcal <- read.table("VVKAJ_Tot_mean_m_QCed_CPT_kcal.txt", sep="\t", header=T)
@@ -74,11 +69,14 @@
   ggsave("VVKAJ_Tot_mean_m_QCed_CPT_kcal_wo_SD.pdf", stacked_wo_SD,
          device="pdf", width=6.2, height=4.2, units="in", dpi=300)
   
-  # Or you can plot Diets in the alphabetical order by setting order.by="NULL".
+# When order.by="NULL", the Diets (groups) will be in the alphabetical order by default.
+# If you want to specify the group order, add the group.order argument. 
   PlotStackedwoSD(data=CPT_kcal, 
                   order.by = "NULL", 
-                  macronut.order=c("Carbohydrate", "Total Fat", "Protein"))  
-
+                  macronut.order=c("Carbohydrate", "Total Fat", "Protein"),
+                  group.order = c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))  
+  stacked_wo_SD
+  
 # ===============================================================================================================
 # Generate the "dodge"-type of barchart (3 bars per user, NOT STACKED).
 # ===============================================================================================================
@@ -86,7 +84,7 @@
 # Order Diets by a certain macronutrient by the "order.by" argument. You can also specify the plotting order of all the 
 # macronutrients by the "macronu.order" argument. Note that the first item will be the leftmost bar.
   PlotDodged(data= CPT_kcal, 
-             order.by = "NULL", 
+             order.by = "Protein", 
              macronut.order=c("Carbohydrate", "Total Fat", "Protein"))
   
   dodged_w_SD
@@ -95,7 +93,14 @@
   ggsave("VVKAJ_Tot_mean_m_QCed_CPT_kcal_dodged_w_SD.pdf", dodged_w_SD,
          device="pdf", width=6, height=4.5, units="in", dpi=300)
 
-  # Similarly, you can plot Diets in the alphabetical order by setting order.by="NULL".
+# When order.by="NULL", the Diets (groups) will be in the alphabetical order by default.
+# If you want to specify the group order, add the group.order argument. 
+  PlotDodged(data= CPT_kcal, 
+             order.by = "NULL", 
+             macronut.order=c("Carbohydrate", "Total Fat", "Protein"),
+             group.order = c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
+  
+  dodged_w_SD
   
 # ===============================================================================================================
 # Generate a stacked barchart with SD as error bars.
@@ -114,11 +119,17 @@
   stacked_with_SD
 
 # Save as a .pdf.
-  ggsave("VVKAJ_Tot_m_QCed_CPT_kcal_CPT_kcal_with_SD_alphabetical.pdf", stacked_with_SD,
+  ggsave("VVKAJ_Tot_mean_m_QCed_CPT_kcal_with_SD.pdf", stacked_with_SD,
          device="pdf", width=6.2, height=4.3, units="in", dpi=300)
 
-# Similarly, you can plot Diets in the alphabetical order by setting order.by="NULL".
-
+# When order.by="NULL", the Diets (groups) will be in the alphabetical order by default.
+# If you want to specify the group order, add the group.order argument. 
+  PlotStackedWithSD(data= CPT_kcal, 
+                    order.by = "NULL", 
+                    macronut.order=c("Carbohydrate", "Total Fat", "Protein"),
+                    group.order = c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
+  stacked_with_SD
+  
 # Change the Y axis scale if necessary. Note that if the error bars of Carbohydrates disappear 
 # after changing the limits of Y axis, it may be because the error bars are higher than the max Y.
 # Ensure you have enough max Y value to accommodate the error bars.
