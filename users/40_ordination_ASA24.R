@@ -18,8 +18,8 @@
   
 # Then download and install the phyloseq package.
   BiocManager::install("phyloseq")
-# ---------------------------------------------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------------------------------------------
 # load the necessary packages.
   library(phyloseq)
   library(ggtree)
@@ -27,6 +27,7 @@
 # Load necessary functions and ggplot formatting themes
   source("lib/specify_data_dir.R")
   source("lib/ordination.R")
+  source("lib/plot.axis.1to4.by.factor.R")
 
 # You can come back to the main directory by:
   setwd(main_wd)
@@ -95,16 +96,16 @@
 # ===============================================================================================================
 
 # Change to the folder called "Unifrac" in your "VVKAJ" folder.
-  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Unifrac/")
+  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Ordination/")
   
 # Perform Principal Coordinate Analysis (PCoA) with weighted unifrac distance of your food data.
 # Ordination by UNweighted unifrac distances can be done by having the "weighted" argument as FALSE. 
 # This may take a few minutes depending on your data size.
 # e.g. a large phyloseq object (7.9 MB) takes ~ 1 min. 
-  ordinated <- phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", weighted=TRUE) 
+  ordinated_w <- phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", weighted=TRUE) 
 
 # Save the percent variance explained by the axes as a vector to use in plots.  
-  eigen_percent <- ordinated$values$Relative_eig
+  eigen_percent_w <- ordinated$values$Relative_eig
 
 # Save the percent variance explained as a txt file.
   Eigen(eigen.input = eigen_percent, output.fn="4Lv_ordinated_Weighted_eigen_percent.txt")

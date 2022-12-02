@@ -40,6 +40,7 @@
   source("lib/specify_data_dir.R")
   source("lib/ordination.R")
   source("lib/ggplot2themes.R")
+  source("lib/plot.axis.1to4.by.factor.R")
 
 # Load the distinct 100 colors for use.   
   distinct100colors <- readRDS("lib/distinct100colors.rda")
@@ -203,120 +204,44 @@
   
   table(loaded_glu_w$GLU_index)
 
-     head(loaded_glu_w, 4)
-      write.table(loaded_glu_w[, c("SEQN", "GLU_index", "Axis.1")], "clipboard", sep="\t")
-     head(loaded_glu_w[, c("SEQN", "GLU_index", "Axis.1")] )
-     
-     write.table( as.data.frame(ordinated_w['vectors'])[, 1], "clipboard", sep="\t", row.names = T)
-     write.table( allvecdf[, c(1, ncol(allvecdf))], "clipboard", sep="\t", row.names = T)
-     
-  
-     allvec <- ordinated_w['vectors']
-     allvecdf <- as.data.frame(allvec)
-     allvecdf$SEQN <- row.names(allvecdf)
-     head(allvecdf[, c("SEQN","vectors.Axis.1")])
-     # sort by SEQN so that I can compare it with loaded_glu_w. 
-     allvecdf_s <- allvecdf[order(allvecdf$SEQN), ]
-     head(allvecdf_s[, c("SEQN","vectors.Axis.1")])
-     
-     # Confirmed that correct individuals have their correct Axis values.
-     # So, the separation in the ordination plots has correct individuals and subset labels.
+     # Some safety check.
+     # head(loaded_glu_w, 4)
+     #  write.table(loaded_glu_w[, c("SEQN", "GLU_index", "Axis.1")], "clipboard", sep="\t")
+     # head(loaded_glu_w[, c("SEQN", "GLU_index", "Axis.1")] )
+     # 
+     # write.table( as.data.frame(ordinated_w['vectors'])[, 1], "clipboard", sep="\t", row.names = T)
+     # write.table( allvecdf[, c(1, ncol(allvecdf))], "clipboard", sep="\t", row.names = T)
+     # 
+     # 
+     # allvec <- ordinated_w['vectors']
+     # allvecdf <- as.data.frame(allvec)
+     # allvecdf$SEQN <- row.names(allvecdf)
+     # head(allvecdf[, c("SEQN","vectors.Axis.1")])
+     # # sort by SEQN so that I can compare it with loaded_glu_w. 
+     # allvecdf_s <- allvecdf[order(allvecdf$SEQN), ]
+     # head(allvecdf_s[, c("SEQN","vectors.Axis.1")])
+     # 
+     # # Confirmed that correct individuals have their correct Axis values.
+     # # So, the separation in the ordination plots has correct individuals and subset labels.
 
 # Convert the GLU_index as a factor to plot it in order.
   loaded_glu_w$GLU_index <- factor(loaded_glu_w$GLU_index, levels= c("Normal", "Prediabetic", "Diabetic"))
   table(loaded_glu_w$GLU_index)
   
 # ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 1 and Axis 2 to show the separation of samples colored by Groups as in the metadata.
-  p1_w <- ggplot(loaded_glu_w, aes(x=Axis.1, y=Axis.2, color= GLU_index)) +
-    geom_point(aes(color= GLU_index), size=3) + 
-    scale_color_manual( values= c("steelblue3", "gold3", "hotpink")) +
-    xlab( paste("Axis.1 (", paste(round(eigen_percent_w[1]*100, 1)), "%)", sep="") ) +
-    ylab( paste("Axis.2 (", paste(round(eigen_percent_w[2]*100, 1)), "%)", sep="") ) +
-    no_grid + space_axes + theme(aspect.ratio = 1)
-  p1_w
-  
-# Save p1 as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_Axis12_p1.png", 
-         p1_w, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-# You can add ellipses at a desired confidence level; but with this 
-# example data, there are too few samples per user to draw them. 
-  ellipses_w <- p1_w + stat_ellipse(level=0.95) 
-  ellipses_w
-  
-# Save ellipses as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_Axis12_ellipses.png", 
-         ellipses_w, device="png", width=7, height=5.5, unit="in", dpi=300)
+# Save Axes 1 & 2, 1 & 3, 2 & 3, 3 & 4, 2 & 4 biplots with and without ellipses with specified confidence interval.
+# The reults are saved with filenames with the specified "prefix_AxisXY.pdf" or "prefix_AxisXY_ellipses.pdf".
+# You need to supply the same number of colors in the order of the factor level to be used. 
+# dot.colors are for datapoints, and ellipses.colors are for ellipses outlines. 
+  PlotAxis1to4ByFactor(axis.meta.df    = loaded_glu_w, 
+                       factor.to.color = "GLU_index", 
+                       eigen.vector    = eigen_percent_w ,
+                       dot.colors      = c("steelblue3", "yellow", "hotpink"), 
+                       ellipses.colors = c("steelblue3", "gold3", "hotpink"),  
+                       ellipses.cflevel = 0.95,
+                       out.prefix = "Food_D12_FC_cc_f_males60to79_red_Lv3_ord_WEIGHTED"
+                       )
 
-# ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 2 and Axis 3 to show the separation of samples colored by Groups as in the metadata.
-  p1_w <- ggplot(loaded_glu_w, aes(x=Axis.2, y=Axis.3, color=GLU_index)) +
-    geom_point(aes(color= GLU_index), size=3) + 
-    scale_color_manual( values= c("steelblue3", "gold3", "hotpink")) +
-    xlab( paste("Axis.2 (", paste(round(eigen_percent_w[2]*100, 1)), "%)", sep="") ) +
-    ylab( paste("Axis.3 (", paste(round(eigen_percent_w[3]*100, 1)), "%)", sep="") ) +
-    no_grid + space_axes + theme(aspect.ratio = 1)
-  p1_w
-  
-  # Save p1 as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_Axis23_p1.png", 
-         p1_w, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-  # You can add ellipses at a desired confidence level; but with this 
-  # example data, there are too few samples per user to draw them. 
-  ellipses_w <- p1_w + stat_ellipse(level=0.95) 
-  ellipses_w
-  
-  # Save ellipses as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_Axis23_ellipses.png", 
-         ellipses_w, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 3 and Axis 4 to show the separation of samples colored by Groups as in the metadata.
-  p1_w <- ggplot(loaded_glu_w, aes(x=Axis.3, y=Axis.4, color=GLU_index)) +
-    geom_point(aes(color= GLU_index), size=3) + 
-    scale_color_manual( values= c("steelblue3", "gold3", "hotpink")) +
-    xlab( paste("Axis.3 (", paste(round(eigen_percent_w[3]*100, 1)), "%)", sep="") ) +
-    ylab( paste("Axis.4 (", paste(round(eigen_percent_w[4]*100, 1)), "%)", sep="") ) +
-    no_grid + space_axes + theme(aspect.ratio = 1)
-  p1_w
-  
-  # Save p1 as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_Axis34_p1.png", 
-         p1_w, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-  # You can add ellipses at a desired confidence level; but with this 
-  # example data, there are too few samples per user to draw them. 
-  ellipses_w <- p1_w + stat_ellipse(level=0.95) 
-  ellipses_w
-  
-  # Save ellipses as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_Axis34_ellipses.png", 
-         ellipses_w, device="png", width=7, height=5.5, unit="in", dpi=300)  
-
-# ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 2 and Axis 4 to show the separation of samples colored by Groups as in the metadata.
-  p1_w <- ggplot(loaded_glu_w, aes(x=Axis.2, y=Axis.4, color=GLU_index)) +
-    geom_point(aes(color= GLU_index), size=3) + 
-    scale_color_manual( values= c("steelblue3", "gold3", "hotpink")) +
-    xlab( paste("Axis.2 (", paste(round(eigen_percent_w[2]*100, 1)), "%)", sep="") ) +
-    ylab( paste("Axis.4 (", paste(round(eigen_percent_w[4]*100, 1)), "%)", sep="") ) +
-    no_grid + space_axes + theme(aspect.ratio = 1)
-  p1_w
-  
-  # Save p1 as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_Axis24_p1.png", 
-         p1_w, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-  # You can add ellipses at a desired confidence level; but with this 
-  # example data, there are too few samples per user to draw them. 
-  ellipses_w <- p1_w + stat_ellipse(level=0.95) 
-  ellipses_w
-  
-  # Save ellipses as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_Axis24_ellipses.png", 
-         ellipses_w, device="png", width=7, height=5.5, unit="in", dpi=300)  
   
 # ---------------------------------------------------------------------------------------------------------------
 # The GLU_index groups look different. Use beta-diversity and adonis tests to see
@@ -329,7 +254,7 @@
 # vegan::betadisper computes centeroids and distance of each datapoint from it. 
   dispr_w <- vegan::betadisper(d=dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index)
 
-# Can show the centroids and dispersion of each group. 
+# Show the centroids and dispersion of each group. 
   plot(dispr_w)
   
 # Or show the distance to centroid of each datapoint.
@@ -337,16 +262,15 @@
   
 # Use dispr to do a permutation test for homogeneity of multivariate dispersion
   vegan::permutest(dispr_w, perm=5000)
+  # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
   
 # Use adonis to test whether there is a difference between groups' composition. 
   # i.e., composition among groups (food they consumed) is similar or not.
   vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permutations = 5000)
-  # if the p-value is at borderline, increase the number of permutation.
-  vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permutations = 10000) 
-  
+
 # If overall adonis is significant, you can run pairwise adonis to see which group pairs are different.
   pairwise.adonis(dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000)  
-
+  
 
 # ===============================================================================================================
 # Use your phyloseq object and perform ordination - UNweighted
@@ -362,7 +286,7 @@
   
 # Save the percent variance explained as a txt file.
   Eigen(eigen.input = eigen_percent_u, 
-        output.fn="Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_eigen.txt")
+        output.fn="Food_D12_FC_cc_f_males60to79_red_Lv3_ord_UNweighted_eigen.txt")
   
 # ===============================================================================================================
 # Plot your ordination results - UNweighted. 
@@ -371,10 +295,10 @@
 # Merge the first n axes to the metadata and save it as a txt file. 
 # The merged dataframe, 'meta_usersdf', will be used for plotting.
   MergeAxesAndMetadata_NHANES(ord.object= ordinated_u, number.of.axes= 10, meta.data= demog_glu, 
-                              output.fn= "Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_meta_users.txt")
+                              output.fn= "Food_D12_FC_cc_f_males60to79_red_Lv3_ord_UNweighted_meta_users.txt")
   
 # Load the output again for plotting.
-  loaded_glu_u <- read.table("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_meta_users.txt",
+  loaded_glu_u <- read.table("Food_D12_FC_cc_f_males60to79_red_Lv3_ord_UNweighted_meta_users.txt",
                              sep="\t", header=T)  
   head(loaded_glu_u$SEQN)
   table(loaded_glu_u$GLU)
@@ -387,104 +311,25 @@
   head(loaded_glu_u, 2)
   
 # ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 1 and Axis 2 to show the separation of samples colored by Groups as in the metadata.
-  p1_u <- ggplot(loaded_glu_u, aes(x=Axis.1, y=Axis.2, color=GLU_index)) +
-      geom_point(aes(color = GLU_index), size=3) +
-      scale_color_manual( values= c("steelblue3", "gold3", "hotpink") ) +
-      xlab( paste("Axis.1 (", paste(round(eigen_percent_u[1]*100, 1)), "%)", sep="") ) +
-      ylab( paste("Axis.2 (", paste(round(eigen_percent_u[2]*100, 1)), "%)", sep="") ) +
-      no_grid + space_axes + theme(aspect.ratio = 1)
-  p1_u
-  
-# Save p1 as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_Axis12_p1.png", 
-         p1_u, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-# You can add ellipses at a desired confidence level; but with this 
-# example data, there are too few samples per user to draw them. 
-  ellipses_u <- p1_u + stat_ellipse(level=0.95) 
-  ellipses_u
-  
-# Save ellipses as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_Axis12_ellipses.png", 
-         ellipses_u, device="png", width=7, height=5.5, unit="in", dpi=300)
+# Save Axes 1 & 2, 1 & 3, 2 & 3, 3 & 4, 2 & 4 biplots with and without ellipses with specified confidence interval.
+# The reults are saved with filenames with the specified "prefix_AxisXY.pdf" or "prefix_AxisXY_ellipses.pdf".
+# You need to supply the same number of colors in the order of the factor level to be used. 
+# dot.colors are for datapoints, and ellipses.colors are for ellipses outlines. 
+# [NOTE} For UNweighted results, change the input, eigen vectors, and prefix names accordingly. 
+  PlotAxis1to4ByFactor(axis.meta.df    = loaded_glu_u, 
+                       factor.to.color = "GLU_index", 
+                       eigen.vector    = eigen_percent_u ,
+                       dot.colors      = c("steelblue3", "yellow", "hotpink"), 
+                       ellipses.colors = c("steelblue3", "gold3", "hotpink"),  
+                       ellipses.cflevel = 0.95,
+                       out.prefix = "Food_D12_FC_cc_f_males60to79_red_Lv3_ord_UNweighted"
+  )
 
-# ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 2 and Axis 3 to show the separation of samples colored by Groups as in the metadata.
-  p1_u <- ggplot(loaded_glu_u, aes(x=Axis.2, y=Axis.3, color=GLU_index)) +
-    geom_point(aes(color= GLU_index), size=3)  +
-    scale_color_manual( values= c("steelblue3", "gold3", "hotpink") ) +
-    xlab( paste("Axis.2 (", paste(round(eigen_percent_u[2]*100, 1)), "%)", sep="") ) +
-    ylab( paste("Axis.3 (", paste(round(eigen_percent_u[3]*100, 1)), "%)", sep="") ) +
-    no_grid + space_axes + theme(aspect.ratio = 1)
-  p1_u
-  
-  # Save p1 as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_Axis23_p1.png", 
-         p1_u, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-  # You can add ellipses at a desired confidence level; but with this 
-  # example data, there are too few samples per user to draw them. 
-  ellipses_u <- p1_u + stat_ellipse(level=0.95) 
-  ellipses_u
-  
-  # Save ellipses as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_Axis23_ellipses.png", 
-         ellipses_u, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 3 and Axis 4 to show the separation of samples colored by Groups as in the metadata.
-  p1_u <- ggplot(loaded_glu_u, aes(x=Axis.3, y=Axis.4, color=GLU_index)) +
-    geom_point(aes(color= GLU_index), size=3) + 
-    scale_color_manual( values= c("steelblue3", "gold3", "hotpink") ) +
-    xlab( paste("Axis.3 (", paste(round(eigen_percent_u[3]*100, 1)), "%)", sep="") ) +
-    ylab( paste("Axis.4 (", paste(round(eigen_percent_u[4]*100, 1)), "%)", sep="") ) +
-    no_grid + space_axes + theme(aspect.ratio = 1)
-  p1_u
-  
-  # Save p1 as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_Axis34_p1.png", 
-         p1_u, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-  # You can add ellipses at a desired confidence level; but with this 
-  # example data, there are too few samples per user to draw them. 
-  ellipses_u <- p1_u + stat_ellipse(level=0.95) 
-  ellipses_u
-  
-  # Save ellipses as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_Axis34_ellipses.png", 
-         ellipses_u, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 2 and Axis 4 to show the separation of samples colored by Groups as in the metadata.
-  p1_u <- ggplot(loaded_glu_u, aes(x=Axis.2, y=Axis.4, color=GLU_index)) +
-    geom_point(aes(color= GLU_index), size=3) + 
-    scale_color_manual( values= c("steelblue3", "gold3", "hotpink") ) +
-    xlab( paste("Axis.2 (", paste(round(eigen_percent_u[2]*100, 1)), "%)", sep="") ) +
-    ylab( paste("Axis.4 (", paste(round(eigen_percent_u[4]*100, 1)), "%)", sep="") ) +
-    no_grid + space_axes + theme(aspect.ratio = 1)
-  p1_u
-  
-  # Save p1 as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_Axis24_p1.png", 
-         p1_u, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-  # You can add ellipses at a desired confidence level; but with this 
-  # example data, there are too few samples per user to draw them. 
-  ellipses_u <- p1_u + stat_ellipse(level=0.95) 
-  ellipses_u
-  
-  # Save ellipses as a png. 
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_Axis24_ellipses.png", 
-         ellipses_u, device="png", width=7, height=5.5, unit="in", dpi=300)
-  
-  
 # ---------------------------------------------------------------------------------------------------------------
 # Use beta-diversity and adonis tests to see if they are they actually distinct from one another.
 
 # Generate an UNweighted unifrac distance matrix.
   dist_matrix_u <- phyloseq::distance(phyfoods, method="unifrac")  # UNweighted
-  head(as.matrix(dist_matrix_u))
   
 # Dispersion test and plot
   # vegan::betadisper computes centeroids and distance of each datapoint from it. 
@@ -498,6 +343,7 @@
   
 # Use dispr to do a permutation test for homogeneity of multivariate dispersion.
   vegan::permutest(dispr_u)
+  # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
   
 # Use adonis to test whether there is a difference between groups' composition. 
   # i.e., composition among groups (food they consumed) is similar or not.
@@ -525,21 +371,13 @@
 
 # Generate and save an WEIGHTED unifrac distance matrix of "Samples". 
   WeightedUnifracDis(input.phyloseq.obj = phyfoods, 
-                     output.fn = "Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_WEIGHTED_uni_dis.txt")        
+                     output.fn = "Food_D12_FC_cc_f_males60to79_red_Lv3_ord_WEIGHTED_uni_dis.txt")        
 
 # ---------------------------------------------------------------------------------------------------------------
 # Generate and save an UNweighted unifrac distance matrix of "Samples". 
   UnweightedUnifracDis(input.phyloseq.obj = phyfoods, 
-                       output.fn = "Food_D12_FC_cc_f_males60to79_2_red_Lv3_ord_UNweighted_uni_dis.txt")        
+                       output.fn = "Food_D12_FC_cc_f_males60to79_red_Lv3_ord_UNweighted_uni_dis.txt")        
 
-        
-# ===============================================================================================================
-# 
-# ===============================================================================================================
-        
-
-# ---------------------------------------------------------------------------------------------------------------
-          
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.
   setwd(main_wd)  
