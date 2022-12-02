@@ -6,7 +6,7 @@
 
 # Set your working directory as to the main directory.
   Session --> Set working direHctory --> Choose directory.
-  setwd("~/GitHub/dietary_patterns")
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
@@ -16,8 +16,8 @@
   source("lib/ggplot2themes.R")
   source("lib/PCA.R")
 
-# Set the default font size for plots.
-  ggplot2::theme_set(theme_bw(base_size = 14))
+# Call color palette.
+  distinct100colors <- readRDS("lib/distinct100colors.rda")
 
 # You can come back to the main directory by:
   setwd(main_wd) 
@@ -57,7 +57,33 @@
 
 # [Note] Even though the input file has both nutrients (Nut) and food categories (Cat) data,  
 # PCA was done with only either Nut or Cat, not both.
+
+# ---------------------------------------------------------------------------------------------------------------
+# Load the totals data. (The original data before filtering variables)
+  totals <- read.table("VVKAJ_Tot_m_QCed.txt", 
+                       sep="\t", header=T)
   
+  # Change GLU_index to a factor so that factors will be displayed in order.
+  totals$Diet <- factor(totals$Diet,
+                        levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
+  
+  # Use the autoplot function. Specify which PC in the x and y arguments.
+  # The 'data' argument needs the original input for PCA, not after selecting specific variables.
+  Nut_asis <- autoplot(scaled_pca, x=1, y=2,    
+                       loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
+                       data = totals,  size= 3 ) +     
+    geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
+    theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
+    theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    scale_fill_manual( values= distinct100colors) 
+  Nut_asis
+  
+  ggsave("PCA_NUt_asis/VVKAJ_Nut_asis_PC12_diet.pdf", 
+         Nut_asis, device="pdf", width=7, height=6.5)  
+  
+# You can do this operation for the other three datasets: Nut_ave, Cat_asis, Cat_ave, by
+# changing the input names as necessary.
+    
 # ===============================================================================================================
 # Nutrient data averaged and processed for clustering analyses.
 # ===============================================================================================================
@@ -157,7 +183,7 @@
   SaveInputAndPCs(input="VVKAJ_Tot_m_QCed_Cat_ave_allvar.txt", pca.results= scaled_pca, 
                   out.dir= res_dir_cat_ave, out.prefix= res_prefix_cat_ave)  
 
-# ===============================================================================================================
+# ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory
   setwd(main_wd) 
 

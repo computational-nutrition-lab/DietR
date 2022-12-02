@@ -8,7 +8,7 @@
 
 # Set your working directory as the main directory (dietary_patterns)
   Session --> Set working directory --> Choose directory.
-  setwd("~/GitHub/dietarry_patterns")
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
@@ -28,7 +28,7 @@
   SpecifyDataDirectory("eg_data/NHANES/Laboratory_data/Foodtree")
 
 # Load your tree object.
-  tree <- read.tree("Food_D12_FC_cc_f_males60to79_2_red_Lv3.nwk")
+  tree <- read.tree("Food_D12_FC_cc_f_males60to79_red_Lv3.nwk")
 
 # It is OK to see an error that says:
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
@@ -46,10 +46,9 @@
   annotated_tree
 
 # Save.
-  ggsave("Food_D12_FC_cc_f_males60to79_2_red_Lv3_viz.pdf", annotated_tree,
+  ggsave("Food_D12_FC_cc_f_males60to79_red_Lv3_viz.pdf", annotated_tree,
          device="pdf", width=5.2, height=5)
 
-  
 # --------------------------------------------------------------------------------------------------------------
 # Come back to the main directory
   setwd(main_wd)

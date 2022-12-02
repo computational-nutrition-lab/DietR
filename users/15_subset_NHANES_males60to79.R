@@ -19,7 +19,7 @@
   source("lib/ggplot2themes.R") 
   
 # Load the distinct 100 colors for use.   
-  distinct100colors <- readRDS("~/GitHub/R_Toolbox/distinct100colors.rda")
+  distinct100colors <- readRDS("lib/distinct100colors.rda")
 
 # ---------------------------------------------------------------------------------------------------------------
 # Specify the directory where the data is.

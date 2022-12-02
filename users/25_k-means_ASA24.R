@@ -6,6 +6,7 @@
 
 # Set your working directory as to the main directory.
   Session --> Set working direHctory --> Choose directory.
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
@@ -61,7 +62,6 @@
 # With specific K values in mind, perform k-means analysis with one specified K. This will save 
 # Dim1 x Dim2 plot as a .pdf file in your out.dir. Change the filename as necessary. 
   OneK(myK= 3, out.dir= res_dir_nut_asis, out.fn = "VKAJ_Nut_asis_K3")
-  
   oneKplot
   
 # Or try multiple Ks and print the biplots in one panel. Likewise, This will save a Dim1 x Dim2 plot for 
@@ -73,7 +73,7 @@
 # ===============================================================================================================
 # Nutrient data averaged across days, processed for clustering analyses.
 # ===============================================================================================================
-  
+                                         
 # Load Nut_ave data.
   Tot_m_QCed_Nut_ave <- read.table(file="VVKAJ_Tot_m_QCed_Nut_ave_subset.txt", sep="\t", header=T)
   
@@ -94,9 +94,10 @@
   
 # With specific K values in mind, perform k-means analysis with one specified K.
   OneK(myK= 5, out.dir= res_dir_nut_ave, out.fn = "VVKAJ_Nut_ave_K5")  
+  oneKplot
   
 # Try multiple Ks and print the biplots in one panel.
-  MultipleK(myKs = c(3,4,5,7), out.dir = res_dir_nut_ave, out.fn = "VVKAJ_Nut_ave_K3457")
+  MultipleK(myKs = c(2,3,4,5), out.dir = res_dir_nut_ave, out.fn = "VVKAJ_Nut_ave_K2-5")
   
 
 # ===============================================================================================================
@@ -123,6 +124,7 @@
   
 # With specific K values in mind, perform k-means analysis with one specified K.
   OneK(myK= 3, out.dir= res_dir_cat_asis, out.fn = "VVKAJ_Cat_asis_K3")
+  oneKplot
   
 # Try multiple Ks and print the biplots in one panel.
   MultipleK(myKs = c(3,4,5,6), out.dir = res_dir_cat_asis, out.fn = "VVKAJ_Cat_asis_K3-6")
@@ -152,6 +154,7 @@
   
 # With specific K values in mind, perform k-means analysis with one specified K.
   OneK(myK= 4, out.dir= res_dir_cat_ave, out.fn = "VVKAJ_Cat_ave_K4")  
+  oneKplot
   
 # Try multiple Ks and print the biplots in one panel.
   MultipleK(myKs = c(2,3,4), out.dir = res_dir_cat_ave, out.fn = "VVKAJ_Cat_ave_K2-4")

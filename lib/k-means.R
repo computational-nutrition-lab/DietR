@@ -205,7 +205,10 @@
                              show.clust.cent = F,
                              ggtheme = theme_bw(base_size = 10),
                              repel = F, labelsize = 10,
-                             main = plot_title_one) + theme(aspect.ratio = 1)
+                             main = plot_title_one) + 
+      theme(aspect.ratio = 1) +
+      theme(panel.grid.major = element_blank()) +
+      theme(panel.grid.minor = element_blank()) 
     
     # Save the plot as a PDF file.
     ggsave(paste(out.dir, paste(out.fn, ".pdf", sep=""), sep= .Platform$file.sep), 
@@ -230,13 +233,16 @@
         plot_title <- paste("K=", myKs[i], sep = "")
         
         # Plot
-        plots[[i]] = factoextra::fviz_cluster(km_results_mult[[i]],
+        plots[[i]] <- factoextra::fviz_cluster(km_results_mult[[i]],
                                               data = kmeans_input,
                                               ellipse = T, ellipse.alpha = 0.1,
                                               show.clust.cent = F,
                                               ggtheme = theme_bw(base_size = 10),
                                               repel = F, labelsize = 10,
-                                              main = plot_title ) + theme(aspect.ratio = 1)
+                                              main = plot_title ) +
+          theme(aspect.ratio = 1) +
+          theme(panel.grid.major = element_blank()) +
+          theme(panel.grid.minor = element_blank()) 
       }
     
     # Install the gridExtra package if needed.

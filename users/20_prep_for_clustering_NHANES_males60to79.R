@@ -27,7 +27,7 @@
 # Specify where the data is.
   SpecifyDataDirectory("eg_data/NHANES/Laboratory_data/")
 
-# Load the subsetted totals data. 
+# Load the subsetted totals data.   
   totals_males60to79 <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt", 
                              sep="\t", header=T)
 
