@@ -2,7 +2,7 @@
 # Plot an ordination results - Axis.x vs Axis.y colored by a factor level.  
 # Needs a dataset that contains the factor and Axis1 through at least Axis.4.
 # Version 1
-# Created on 12/02/2022 by xxxxxxxx
+# Created on 12/02/2022 by Rie Sadohara
 # ===============================================================================================================
 
 # ===============================================================================================================
@@ -156,7 +156,7 @@ PlotAxis1to4ByFactor <- function(axis.meta.df,
 # ---------------------------------------------------------------------------------------------------------------
 
 # # ---------------------------------------------------------------------------------------------------------------
-# # Before making into a function - by hand. - If want to plot Axis 5 and onwards.
+# # Before making into a function - by hand. - If want to plot Axis 5 and onward.
 
 # # Plot Axis 1 and Axis 2 to show the separation of samples colored by Groups as in the metadata.
 # p1_w <- ggplot(loaded_glu_w, aes(x=Axis.1, y=Axis.2, color= GLU_index)) +

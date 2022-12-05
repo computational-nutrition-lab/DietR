@@ -202,8 +202,16 @@
   loaded_glu_w <- read.table("Food_D12_FC_cc_f_males60to79_red_Lv3_ord_WEIGHTED_meta_users.txt",
                              sep="\t", header=T)
   
+# Convert the GLU_index as a factor to plot it in order.
+  loaded_glu_w$GLU_index <- factor(loaded_glu_w$GLU_index, levels= c("Normal", "Prediabetic", "Diabetic"))
   table(loaded_glu_w$GLU_index)
+  
+# Load the eigenvalues as a vector.
+  eigen_loaded <- read.table("Food_D12_FC_cc_f_males60to79_red_Lv3_ord_WEIGHTED_eigen.txt", header=T)
 
+# Make a vector that contains the variance explained.
+  eigen_loaded_vec <- eigen_loaded[, 2]
+  
      # Some safety check.
      # head(loaded_glu_w, 4)
      #  write.table(loaded_glu_w[, c("SEQN", "GLU_index", "Axis.1")], "clipboard", sep="\t")
@@ -224,9 +232,6 @@
      # # Confirmed that correct individuals have their correct Axis values.
      # # So, the separation in the ordination plots has correct individuals and subset labels.
 
-# Convert the GLU_index as a factor to plot it in order.
-  loaded_glu_w$GLU_index <- factor(loaded_glu_w$GLU_index, levels= c("Normal", "Prediabetic", "Diabetic"))
-  table(loaded_glu_w$GLU_index)
   
 # ---------------------------------------------------------------------------------------------------------------
 # Save Axes 1 & 2, 1 & 3, 2 & 3, 3 & 4, 2 & 4 biplots with and without ellipses with specified confidence interval.
@@ -242,7 +247,8 @@
                        out.prefix = "Food_D12_FC_cc_f_males60to79_red_Lv3_ord_WEIGHTED"
                        )
 
-  
+
+    
 # ---------------------------------------------------------------------------------------------------------------
 # The GLU_index groups look different. Use beta-diversity and adonis tests to see
 # if they are actually distinct from one another.
@@ -256,10 +262,7 @@
 
 # Show the centroids and dispersion of each group. 
   plot(dispr_w)
-  
-# Or show the distance to centroid of each datapoint.
-  boxplot(dispr_w, xlab = "")
-  
+ 
 # Use dispr to do a permutation test for homogeneity of multivariate dispersion
   vegan::permutest(dispr_w, perm=5000)
   # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
@@ -335,11 +338,8 @@
   # vegan::betadisper computes centeroids and distance of each datapoint from it. 
   dispr_u <- vegan::betadisper(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_index)
   
-  # Can show the centroids and dispersion of each group. 
+# Can show the centroids and dispersion of each group. 
   plot(dispr_u)
-  
-  # Or show the distance to centroid of each datapoint
-  boxplot(dispr_u, xlab = "")
   
 # Use dispr to do a permutation test for homogeneity of multivariate dispersion.
   vegan::permutest(dispr_u)
