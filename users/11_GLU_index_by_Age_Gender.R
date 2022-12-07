@@ -111,3 +111,7 @@
 # By looking at the distribution, males in 60s and over has the highest percentages of Diabetic individuals.
 # We will use this gender-age group to analyze their diets further. 
 
+# ---------------------------------------------------------------------------------------------------------------
+# Come back to the main directory before you start running another script.  
+  setwd(main_wd)
+  

@@ -63,7 +63,6 @@
 
 # Check the summary data - this will show the number of missing data if any.
   summary(glu_2$BMXWT)
-  colSums(is.na(glu_2[, c("SEQN", "BMXWT")]))
   # 12 are missing body weight and has NA's.
 
 # Show histogram of body weight.
@@ -97,3 +96,9 @@
 # Save the chart as .pdf.
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1625_KCAL_by_GLU_index_line.pdf",
          KCALfreq, device="pdf", width=5.3, height=4.5)
+
+# ---------------------------------------------------------------------------------------------------------------
+# Come back to the main directory before you start running another script.  
+  setwd(main_wd)
+  
+  

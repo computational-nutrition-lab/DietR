@@ -1,13 +1,12 @@
 # ==============================================================================================================
 # Visualize the mean values of %kcal from carbohydrate, protein, and total fat, sorted them by value
 # of males 60-79 years old.
-# Added to NHANES tutorial 11/21/2022 - need to edit again.
 # Version 2
 # Created on 09/07/2022 by Rie Sadohara
 # ==============================================================================================================
 
 # Set working directory to "dietary_patterns".
-  Session --> Set working direHctory --> Choose directory.  
+  Session --> Set working directory --> Choose directory.  
   setwd("~/GitHub/DietR/")
 
 # Name your main directory for future use. 
@@ -44,7 +43,7 @@
   CPT_kcal <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_by_GLU.txt", sep="\t", header=T)
 
 # CPT_kcal has Group, macronutrient, n, mean, and sd of each group.
-  head(CPT_kcal)
+  CPT_kcal
   
 # # Make GLU_index as a factor for plotting.
 #   CPT_kcal$Group <- factor(CPT_kcal$Group, levels = c("Normal", "Prediabetic", "Diabetic"))
@@ -62,8 +61,8 @@
   stacked_wo_SD
   
 # Save as a .pdf.
-  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_wo_SD.pdf", stacked_wo_SD,
-         device="pdf", width=6.2, height=4.2, units="in", dpi=300)
+  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_wo_SD_NotOrdered.pdf", stacked_wo_SD,
+         device="pdf", width=6.2, height=4.3, units="in", dpi=300)
 
 # When order.by="NULL", the diabetic status will be in the alphabetical order by default.
 # If you want to specify the group order, add the group.order argument. 
@@ -88,7 +87,7 @@
  
 # Save it as a .pdf.
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_dodged_w_SD.pdf", dodged_w_SD,
-         device="pdf", width=9.0, height=4, units="in", dpi=300)
+         device="pdf", width=6.2, height=4, units="in", dpi=300)
 
 # When order.by="NULL", the diabetic status will be in the alphabetical order by default.
 # If you want to specify the group order, add the group.order argument. 
@@ -114,7 +113,7 @@
   stacked_with_SD
   
 # Save as a .pdf.
-  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_with_SD.pdf", stacked_with_SD,
+  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_with_SD_NotOrdered.pdf", stacked_with_SD,
          device="pdf", width=6.2, height=4.3, units="in", dpi=300)
 
 # When order.by="NULL", the diabetic status will be in the alphabetical order by default.
@@ -131,7 +130,7 @@
   
   # You can also change the breakpoints of the Y axis.
   stacked_with_SD + scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100))
-
+  
 # --------------------------------------------------------------------------------------------------------------
   # Come back to the main directory
   setwd(main_wd)

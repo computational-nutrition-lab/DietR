@@ -38,6 +38,7 @@
   # 684         730         211 
 
 # Age - no missing data, and spread pretty evenly. 
+  summary(glu_2$RIDAGEYR)     
   hist(glu_2$RIDAGEYR)
   
 # Gender - no missing data. 1: male, 2: female.
@@ -69,7 +70,9 @@
 # ===============================================================================================================
 
 # BMI
-# Look at the BMI frequency of each group.   
+# Look at the BMI frequency of each group.
+# It is OK to see an error saying it removed rows containing non-finite values or missing values,
+# as long as the charts are produced.
   males60to79_BMIfreq <- 
     ggplot(data=glu_2_males60to79, aes(x=BMXBMI, group=GLU_index, fill=GLU_index)) +
     geom_density(adjust=1.5, alpha=0.4) + space_axes + no_grid +
@@ -94,7 +97,8 @@
          males60to79_BMIbox, device="pdf", width=5.3, height=4.5)
   
 # ----------------------------------------------------------------------------------------------------------------  
-# Test difference between groups by ANOVA.
+# The three GLU_index groups appear to have different BMI means. 
+# Test the difference between groups by ANOVA.
   
 # Remove samples (rows) that have missing data in the target variable.
   df <- glu_2_males60to79[complete.cases(glu_2_males60to79$BMXBMI), ]
@@ -106,34 +110,35 @@
 # The ANOVA results indicate that the groups are different (p<0.05).
   
 # But first, test the assumptions for ANOVA.
-  ## create a new dataset of residuals of the model.
+  ## Create a new dataset of residuals of the model.
   res1 <- residuals(myanova)
   
-  ## check the normality assumption
+  ## Check the normality assumption.
   hist(res1)
   qqnorm(res1, plot.it=TRUE)
   qqline(res1)
   
-  ## check equal residuals 
-  # side-by-side boxplots of the residuals
+  ## check equal variance of residuals with a side-by-side boxplots of the residuals.
   boxplot(res1 ~ df$GLU_index)
   
-  ## Levene's test
+  ##  Create a new variable of squared residuals.
   res1sq <- res1*res1
-  ## Run ANOVA for squared residuals as the response
+  ## Run ANOVA for the squared residuals as the response (Levene's test).
   anova(lm(res1sq ~ df$GLU_index))
-  ## if Pr>0.05, residuals are normally distributed. 
+  ## If Pr>0.05, the residuals of the groups have equal variance.
   
-  ## When assumption is satisfied, then you can run ANOVA.
+  ## When the assumptions are satisfied, then you can run ANOVA.
   summary(aov(BMXBMI ~ GLU_index, data=df))
   
-# If ANOVA is significant, you can do a pairwise t-test (same as LSD)
-# "holm" (default) is a less-conservative p-value adjustment method for multiple comparisons. 
+# If ANOVA is significant, you can do a pairwise t-test.
+# "holm" (default) is less conservative than Bonferroni p-value adjustment method for multiple comparisons.
+# Other methods that can be used: "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none".
   pairwise.t.test(df$BMXBMI, df$GLU_index, p.adjust.method = "holm") 
   
-# Based on the p-values, Normal and Prediabetic are different from Diabetic (p<0.05)
-# in terms of BMI, but Normal and Prediabetic are not different from each other.
-
+# Based on the p-values, Normal and Prediabetic have the same means of BMI (p=0.12832 > 0.05). 
+# Normal and Diabetic have different means of BMI (p=0.00056 < 0.05), and 
+# so do Prediabetic and Diabetic (p=0.00499 < 0.05).   
+  
 # ----------------------------------------------------------------------------------------------------------------  
 # KCAL
 # Look at the KCAL frequency of each group.   
@@ -162,15 +167,15 @@
          males60to79_KCALbox, device="pdf", width=5.3, height=4.5)
   
 # ----------------------------------------------------------------------------------------------------------------  
-# Test difference between groups by ANOVA.
+# Test the difference of KCAL between groups by ANOVA.
 # Remove samples (rows) that have missing data in the target variable.
   df <- glu_2_males60to79[complete.cases(glu_2_males60to79$KCAL), ]
   
 # Run ANOVA
-  myanova <- aov(KCAL ~ GLU_index, data=df)
-  summary(myanova)
+  summary(aov(KCAL ~ GLU_index, data=df))
 
-# Based on the p-values for ANOVA, the GLU_index groups are not different in terms of KCAL intake.  
+# Based on the p-values for ANOVA, the GLU_index groups are not different in terms of KCAL intake.    
+  
   
 # --------------------------------------------------------------------------------------------------------------
 # Come back to the main directory

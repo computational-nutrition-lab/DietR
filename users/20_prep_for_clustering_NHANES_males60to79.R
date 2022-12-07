@@ -21,7 +21,7 @@
   setwd(main_wd)
 
 # ===============================================================================================================
-# Prep for PCA with nutrients
+# Load the data and omit some variables if desired.
 # ===============================================================================================================
   
 # Specify where the data is.
@@ -31,7 +31,7 @@
   totals_males60to79 <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt", 
                              sep="\t", header=T)
 
-# There should be 237 individuals (rows).
+# There should be 237 individuals (rows) .
   dim(totals_males60to79)
 
 # Are BMI and body weight correlated? - Yes.
@@ -46,17 +46,17 @@
   totals_males60to79_2 <- totals_males60to79[ , !(names(totals_males60to79) %in% drops)]
 
 # ===============================================================================================================
-# Scenario A: PCA with nutrients and body weight
+# NUT: PCA with nutrients and body weight
 # ===============================================================================================================
-# Add BMI (or weight) to the PCA input.
-# Nutrients
-# Take  start.col="PROT" through end.col="P226" plus, "BMXBMI" and "BMXWT".
-  BMI_col   <- match("BMXBMI" , names(totals_males60to79_2)) 
-  WT_col    <- match("BMXWT"  , names(totals_males60to79_2)) 
+# Prepare PCA input dataset with nutrients data and BMI and body weight of the participants.
+
+# Obtain the column numbers for start.col="PROT" through end.col="P226" plus "BMXBMI" and "BMXWT".
   start_col <- match("PROT"   , names(totals_males60to79_2))  
   end_col   <- match("P226"   , names(totals_males60to79_2)) 
+  BMI_col   <- match("BMXBMI" , names(totals_males60to79_2)) 
+  WT_col    <- match("BMXWT"  , names(totals_males60to79_2)) 
   
-# Pick up BMI, weight, and nutrient variables.
+# Pick up the BMI, body weight, and the nutrient variables.
   subsetted <- totals_males60to79_2[ , c(BMI_col, WT_col, start_col:end_col)]
   
 # Pick up only the columns with non-zero variance, in order to run PCA, cluster analysis etc.
@@ -66,6 +66,8 @@
   
 # Check the columns (variables) remained.
   colnames(subsetted_non0var)  
+  
+# Check the number of rows and columns - 237 x 63. 63 variables remained. 
   dim(subsetted_non0var)
   
 # ---------------------------------------------------------------------------------------------------------------
@@ -79,12 +81,12 @@
   
 # ***"selected_variables" is the dataframe to be used for PCA, cluster analyses etc.***
 
-# Check to see the name of the original and filtered variables. 
-# Among the variables in the same group, the one with the highest variance is kept 
-#  (according to the explanation above.)
-# filtered
-  head(selected_variables, 1) 
-  dim( selected_variables)     
+# Among the variables in the same group, the one with the highest variance is kept.
+# Check the retained variables. 
+  colnames(selected_variables) 
+  
+# Check the number of rows and columns in the "selected_variables" dataset - 237 x 37. 37 variables remained. 
+  dim(selected_variables)     
 
 # ---------------------------------------------------------------------------------------------------------------
 # Save the variables after removing correlated variables
@@ -99,17 +101,15 @@
                  out.fn= "males60to79_QCtotal_d_ga_body_meta_glu_comp_2_Nut_corr_mat.txt")
   
 # ===============================================================================================================
-# Scenario B: PCA with food category and body weight
+# CAT: PCA with food category and body weight
 # ===============================================================================================================
-# Add BMI or (weight) to the PCA input.
-# Food categories.
-# The columns specified as start.col, end.col, and all columns in between will be selected.
-# Take  start.col="F_CITMLB" through end.col="A_DRINKS" plus, "BMXBMI" and "BMXWT".
-# The output is a df called "subsetted".
-  BMI_col   <- match("BMXBMI"  , names(totals_males60to79_2)) 
-  WT_col    <- match("BMXWT"   , names(totals_males60to79_2)) 
+# Prepare PCA input dataset with food category data and BMI and body weight of the participants.
+  
+# Obtain the column numbers for start.col="F_CITMLB" through end.col="A_DRINKS" plus "BMXBMI" and "BMXWT".
   start_col <- match("F_CITMLB", names(totals_males60to79_2))  
   end_col   <- match("A_DRINKS", names(totals_males60to79_2))   
+  BMI_col   <- match("BMXBMI"  , names(totals_males60to79_2)) 
+  WT_col    <- match("BMXWT"   , names(totals_males60to79_2)) 
   
 # Pick up BMI, weight, and food category variables.
   subsetted <- totals_males60to79_2[ , c(BMI_col, WT_col, start_col:end_col)]
@@ -121,7 +121,7 @@
   
 # Check the columns (variables) remained.
   colnames(subsetted_non0var)  
-  dim(subsetted_non0var)
+  dim(subsetted_non0var) # - 37 variables remained. 
   
 # ---------------------------------------------------------------------------------------------------------------
 # Collapse variables by correlation: take only one variable if they are highly correlated.
@@ -135,11 +135,12 @@
 # ***"selected_variables" is the dataframe to be used for PCA, cluster analyses etc.***
 
 # Check to see the name of the original and filtered variables. 
-# Among the variables in the same group, the one with the highest variance is kept 
-#  (according to the explanation above.)
-# filtered
-  head(selected_variables, 1) 
-  dim( selected_variables)     
+# Among the variables in the same group, the one with the highest variance is kept.
+# Check the retained variables. 
+  colnames(selected_variables) 
+  
+# Check the number of rows and columns in the "selected_variables" dataset - 237 x 30. 30 variables remained. 
+  dim(selected_variables)     
 
 # ---------------------------------------------------------------------------------------------------------------
 # Save the variables after removing correlated variables

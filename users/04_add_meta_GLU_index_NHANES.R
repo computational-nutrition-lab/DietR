@@ -67,9 +67,10 @@
 # Load the body measure data.
   bodymea <- read.xport("Raw_data/BMX_I.XPT")
 
-# Explanation of variables can be found here: https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/BMX_I.html
+# Explanation of variables can be found here: https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/BMX_I.htm
 # Relevant variables here include:
-  # BMDSTATS - Body Measures Component Status Code: 1	== Complete data for age group.
+  # BMDSTATS - Body Measures Component Status Code: 
+  #            1 == Complete data for age group.
   #            2 ==	Partial: Only height and weight obtained
   # BMXHT - Standing Height (cm)
   # BMIHT - Standing Height Comment
@@ -89,8 +90,8 @@
 
 # Total Day 1 has "dietary data for day 1" and "metadata", but we only need the metadata; thus, take out
 # only the metadata columns (variable) and exclude the day 1 data.
-# Column names' descriptions can be found here: https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1TOT_I.htm#DRQSPREP
-
+# Column names' descriptions can be found here: https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1TOT_I.htm
+  
 # First, specify the first and the last column names to select.
 # Look for the column number that matches the first and last variable specified.
   sta_col_num_a <- match("DBQ095Z"  , names(metadata_raw))  # Salt-related questions
@@ -200,5 +201,7 @@
               sep= "\t", row.names=F, quote= F)
 
 # ---------------------------------------------------------------------------------------------------------------
-
+# Come back to the main directory before you start running another script.  
+  setwd(main_wd)
+  
   
