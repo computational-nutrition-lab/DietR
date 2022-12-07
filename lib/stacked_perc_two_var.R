@@ -62,7 +62,6 @@ StackedPercTwoVar <- function(input.df, var.x, var.y, by){
   longtable_pr <<- reshape2::melt(shorttable_pr[, 1:ncol(shorttable_pr)-1 ]) # Take all but the last column (which is all 1)
   
   print(paste("The percentages of each level of var.y are saved in the dataframe 'longtable_pr'."))
-  print(longtable_pr)
   
 }
 

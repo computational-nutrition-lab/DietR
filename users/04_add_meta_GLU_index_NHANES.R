@@ -16,14 +16,9 @@
   
 # Load necessary functions.
   source("lib/specify_data_dir.R")
-  source("lib/load_clean_NHANES.R")
-  # source("lib/prep_data_for_clustering.R")
   source("lib/ggplot2themes.R") 
-  source("lib/percent_kcal.R") # to use AddGenderAgeGroups function.  
+  source("lib/add_gender_and_age.R") # to use AddGenderAgeGroups function.  
   
-# Load the distinct 100 colors for use.   
-  distinct100colors <- readRDS("~/GitHub/R_Toolbox/distinct100colors.rda")
-
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES")  
 
@@ -141,14 +136,14 @@
 
 # ---------------------------------------------------------------------------------------------------------------
 # Add GLU_index according to their glucose level: Normal, Prediabetic, and Diabetic.
-  # Norm: 99 mg/dL or lower
-  # Pred: 100 to 125 mg/dL
-  # Diab: 126 mg/dL or higher
+  # Normal     : 99 mg/dL or lower
+  # Prediabetic: 100 to 125 mg/dL
+  # Diabetic   : 126 mg/dL or higher
 
 # Create an empty column to insert glucose level index.
   QCtotal_d_ga_body_meta_glu$GLU_index <- NA
   
-# If LBXGLU is missing, put "NA", if it has a value, add GLU_index.
+# If LBXGLU is missing, put "NA"; if it has a value, add GLU_index.
   for(i in 1: nrow(QCtotal_d_ga_body_meta_glu)){
     if(is.na(QCtotal_d_ga_body_meta_glu$LBXGLU[i]) == TRUE ){
        QCtotal_d_ga_body_meta_glu$LBXGLU[i] <- NA  
@@ -200,7 +195,7 @@
   # Diabetic      Normal Prediabetic 
   # 211         684         730 
   
-# Save the dataset as a .txt file.
+# Save the dataset as a .txt file in the folder called "Laboratory_data".
   write.table(QCtotal_d_ga_body_meta_glu_comp_2, file="Laboratory_data/QCtotal_d_ga_body_meta_glu_comp_2.txt",
               sep= "\t", row.names=F, quote= F)
 

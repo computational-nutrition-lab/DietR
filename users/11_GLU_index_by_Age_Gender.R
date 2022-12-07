@@ -59,7 +59,7 @@
   nrow(glu_2_females)
 
 # Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart.
-  StackedPercTwoVar(input.df = glu_2_females, var.x = "AgeGroup", var.y="GLU_index", by="SEQN")
+  StackedPercTwoVar(input.df = glu_2_females, var.x="AgeGroup", var.y="GLU_index", by="SEQN")
   # The percentages of each level of var.y are saved in the dataframe 'longtable_pr'.
   
 # Generate a stacked barchart for females: GLU_index_pr_F. 

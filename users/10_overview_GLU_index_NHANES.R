@@ -4,9 +4,6 @@
 # Created on 11/30/2022 by Rie Sadohara
 # ===============================================================================================================
 
-# Load necessary packages.
-  library(SASxport)
-
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR/")
@@ -18,9 +15,6 @@
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R") 
   
-# Load the distinct 100 colors for use.   
-  distinct100colors <- readRDS("lib/distinct100colors.rda")
-
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/Laboratory_data")  
 
@@ -60,11 +54,12 @@
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1611_BMI_by_GLU_index.pdf",
          BMIfreq, device="pdf", width=5.3, height=4.5)
 
-#### The diabetic population had higher BMI than the prediabetic, and the lowest BMI was
+#### The diabetic population seems to have higher BMI than the prediabetic, and the lowest BMI was
   # the normal population.
 
 # ---------------------------------------------------------------------------------------------------------------
-# The columnname for bodyweight is BMXWT
+# Look at the bodyweight frequency of each group.
+# The columnname for bodyweight is BMXWT.
 
 # Check the summary data - this will show the number of missing data if any.
   summary(glu_2$BMXWT)
