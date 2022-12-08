@@ -31,8 +31,11 @@
 # ---------------------------------------------------------------------------------------------------------------
 # Keep only the columns with non-zero variance in order to perform PCA.
   KeepNonZeroVarColumns <- function(data){
+    
     subsetted_non0var <<- data[, which(apply(data, 2, var) != 0)] 
+    
     # Print which column(s) were removed.
+    
     if(ncol(data) == ncol(subsetted_non0var)){
       cat("No columns were removed.", "\n")
     }
@@ -101,7 +104,12 @@
 # Function to save the correlation matrix as a txt file.
 # The correlation matrix (cc) is produced by ClusterByCorrelation().
   SaveCorrMatrix <- function(x=cc, out.fn){
-    write.table(as.data.frame(as.matrix(x)), out.fn, sep = "\t", row.names = F)
+    
+    write.table(as.data.frame(as.matrix(x)), out.fn, sep = "\t", 
+                row.names=T, col.names=NA, quote=F)
+    # col.names=NA inserts a blank colname to the rownames coloumn so that the order of colnames
+    # will not be off by one. 
+    
   } 
 # ---------------------------------------------------------------------------------------------------------------  
   
