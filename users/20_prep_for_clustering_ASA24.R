@@ -91,19 +91,72 @@
 # ===============================================================================================================
 # NUTRIENTS: Take average of each user across all days 
 # ===============================================================================================================
-# Specify the data to be used, category to group by, and the range of columns (variables) 
-# to calculate the means of each variable.
-  # For nutrients, specify start.col = "PROT",  and end.col = "B12_ADD"; 64 variables in total.
-  AverageBy(data= totals, by= "UserName", start.col= "PROT", end.col= "B12_ADD")
+
+############## ADDED NEWLY 
+  # AverageBy is aldready done in the load_clean ASA24.R.So....
+
+# Load the QC-ed totals that has one data/participant with metadata.
+   VVKAJ_Tot_mean_m_QCed <- read.table("VVKAJ_Tot_mean_m_QCed.txt", sep="\t", header=T)  
   
-  # Save the averaged results.
-  write.table(x=meansbycategorydf, "VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt", sep="\t", row.names=F, quote=F)
+  colnames(VVKAJ_Tot_mean_m_QCed)
+# There may be some variables that you would like to omit before performing PCA.
+# Define which columns to drop.
+  drops <- c("FoodAmt", "KCAL", "MOIS")
   
-  # The column names should be the same as start.col-end.col. 
-  colnames(meansbycategorydf)
+# Take only the columns whose names are NOT in the drops vector. 
+  VVKAJ_Tot_mean_m_QCed_2 <- VVKAJ_Tot_mean_m_QCed[ , !(names(VVKAJ_Tot_mean_m_QCed) %in% drops)]
   
-  # The 'UserName' column has the users to calculate means for.
-  meansbycategorydf$UserName
+  # Obtain the column numbers for start.col="PROT" through end.col="P226" plus "BMXBMI" and "SEQN".
+  UserName_col <- match("UserName"  , names(VVKAJ_Tot_mean_m_QCed_2)) 
+  BMI_col   <-    match("BMI" ,       names(VVKAJ_Tot_mean_m_QCed_2)) 
+  start_col <-    match("PROT"   ,    names(VVKAJ_Tot_mean_m_QCed_2))  
+  end_col   <-    match("P226"   ,    names(VVKAJ_Tot_mean_m_QCed_2)) 
+  
+  # Pick up the BMI, body weight, and the nutrient variables.
+  subsetted <- VVKAJ_Tot_mean_m_QCed_2[ , c(UserName_col, BMI_col, start_col:end_col)]
+  
+  # An input dataset for PCA must have no missing data.
+  # Show the number of missing data in each column of "subsetted" in the descending order.
+  colSums(is.na(subsetted))[order(colSums(is.na(subsetted)), decreasing = T)]
+  # There is no missing data in this dataset, but the following steps to deal with missing data won't hurt.
+  
+  # Take only the rows with no missing data. 
+  subsetted_c <- subsetted[complete.cases(subsetted), ]
+  
+  # Take the rows of the original totals that are also present in "subsetted_c".
+  VVKAJ_Tot_mean_m_QCed_c <- VVKAJ_Tot_mean_m_QCed[VVKAJ_Tot_mean_m_QCed$UserName %in% subsetted_c$UserName, ]
+  
+  # Check that those two have exactly the same individuals (with complete data).
+  identical(VVKAJ_Tot_mean_m_QCed_c$UserName,  subsetted_c$UserName) 
+  
+  # Save the new selected totals to be used as the original input later in the PCA script.
+  write.table(VVKAJ_Tot_mean_m_QCed_c, "VVKAJ_Tot_mean_m_QCed_c_Nut.txt", 
+              sep="\t", row.names=F, quote=F)
+  
+  # Remove the UserName column because it is the participants' ID and not appropriate to include in a PCA input.
+  subsetted_c_wo_UserName = subsetted_c[, !names(subsetted_c) %in% "UserName"]
+  
+  # This dataset, subsetted_c_wo_UserName with no missing data and no UesrName column, is the input for the 
+  # following preparation for PCA.
+  
+    
+##############
+  
+  
+  
+# # Specify the data to be used, category to group by, and the range of columns (variables) 
+# # to calculate the means of each variable.
+#   # For nutrients, specify start.col = "PROT",  and end.col = "B12_ADD"; 64 variables in total.
+#   AverageBy(data= totals, by= "UserName", start.col= "PROT", end.col= "B12_ADD")
+#   
+#   # Save the averaged results.
+#   write.table(x=meansbycategorydf, "VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt", sep="\t", row.names=F, quote=F)
+#   
+#   # The column names should be the same as start.col-end.col. 
+#   colnames(meansbycategorydf)
+#   
+#   # The 'UserName' column has the users to calculate means for.
+#   meansbycategorydf$UserName
   
   # Pick up only the columns with non-zero variance, in order to run PCA and cluster analysis etc.
   # The removed columns will be shown if any.

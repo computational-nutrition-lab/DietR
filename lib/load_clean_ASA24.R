@@ -82,29 +82,40 @@ AddSampleIDtoItems <- function(input.fn, user.name="UserName", recall.no="Recall
     
     # Define variables to calculate Totals for.
     myvar <- names(Items3[, -c(1,2)])
-    myvar
     
     # Create an empty list to store results.
     results <- list()
   
     # Calculate totals of each variable for each combination of User x Date x Occasion. 
     for(i in 1:length(myvar)){
+     
+      # Subset the three columns - UserName, RecallNo, and the ith variable to calculate totals. 
+      subsetted <- Items3[, c('UserName','RecallNo', myvar[i])]
+      
+      # Compute the sum of ith variable for each combination of "UserName" and "RecallNo". 
+      restable <- aggregate(subsetted[, 3] ~ subsetted[, 1] + subsetted[, 2], 
+                            data=subsetted, FUN = sum, na.rm=T)
+      
+      # Rename the columns.
+      colnames(restable) <- c('UserName', 'RecallNo', paste(myvar[i]))     
+      
+      # Create a new variable "User_Day" that has the combinations of UserName_RecallNo.
+      restable$User_Day <- paste(restable$UserName, restable$RecallNo, sep = "_")
+      
       if(i==1){
-        subsetted <- Items3[, c('UserName','RecallNo', myvar[i])]
-        restable <- aggregate(subsetted[, 3] ~ subsetted[, 1] + subsetted[, 2], 
-                              data=subsetted, FUN = sum)
-        colnames(restable) <- c('UserName', 'RecallNo', paste(myvar[i]))
-        restable$User_Day <- paste(restable$UserName, restable$RecallNo, sep = "_")
+        
+        # Define the first result as the first item of "results".
         results[[i]] <- restable
+        
+        # Save it also as "New_totals".
         New_Totals <- restable
-      }else if(i>1){
-        subsetted <- Items3[, c('UserName','RecallNo', myvar[i])]
-        restable <- aggregate(subsetted[, 3] ~ subsetted[, 1] + subsetted[, 2], 
-                              data=subsetted, FUN = sum)
-        colnames(restable) <- c('UserName', 'RecallNo', paste(myvar[i]))
-        restable$User_Day <- paste(restable$UserName, restable$RecallNo, sep = "_")
-        restable_sub <- restable[, c(4, 3)]  # take only User_Day and means.
-        results[[i]] <- restable_sub 
+        
+      }else if(i > 1){
+        
+        # Take only User_Day and means and save it as the ith item in the results.
+        results[[i]]  <- restable[, c(4, 3)]
+        
+        # Add it to New_Totals.
         New_Totals <- merge(New_Totals, results[[i]], by="User_Day", all=T) 
         # all=T takes care of missing data ... inserts NA for combinations not found
       }

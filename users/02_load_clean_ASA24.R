@@ -34,9 +34,9 @@
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")  
   source("lib/load_clean_ASA24.R")
-  source("lib/QCOutliers.R")
   source("lib/format.file.R")
   source("lib/average.by.R") 
+  source("lib/QCOutliers.R")
   
 # You can come back to the main directory by:
   setwd(main_wd)
@@ -66,7 +66,7 @@
               columns  = "Food_Description", 
               outfn    = "VVKAJ_Items_f.txt")  
 
-# [Note] It is best practice to avoid overwriting your raw data. Always save formated/manipulated versions 
+# [Note] It is best practice to avoid overwriting your raw data. Always save formatted/manipulated versions 
 # as a new file as described above. 
   
 # Load the Items_f.txt file to take a look at it.
@@ -100,7 +100,7 @@
   dim(items_f_id)
 
 # ===============================================================================================================
-# <Optional> Use individuals_to_remove.txt to filter out users marked as Remove = yes.  
+# Use individuals_to_remove.txt to filter out users marked as Remove = yes.  
 # ===============================================================================================================
 # Load your metadata that has information about which UserName(s) to remove. 
   ind_to_rm <- read.table("individuals_to_remove.txt", sep="\t", header=T)
@@ -112,7 +112,8 @@
   # 2   VVKAJ102    
   # ... ...        
   # ... ...        
-  # 16  VVKAJ116   yes 
+  # 16  VVKAJ116   yes
+  # 17  VVKAJ117
 
 # Show which has "yes" in the "Remove" column. 
   subset(ind_to_rm, Remove == "yes")
@@ -138,7 +139,7 @@
 # help count the number of elements. 
   
 # ===============================================================================================================
-# <Optional> Merge individuals' metadata to items.   
+#  Merge individuals' metadata to items.   
 # ===============================================================================================================
   
 # ind_metadata has the participants' gender, age, height, weight, BMI, and Waist.Circumference, etc.
@@ -148,9 +149,11 @@
   ind_metadata <- read.table("ind_metadata.txt", sep="\t", header=T)
   
 # Look at what the metadata has.
+#This includes information on the removed individual, VVKAJ116, but it will not be used 
+# if VVKAJ116 is not in the items data.
   head(ind_metadata)
 
-# Add this metadata of each participant in totals or items.
+# Add this metadata of each participant to totals or items.
 # 'NA' will be inserted to UserNames which are not in ind_metadata.
   items_f_id_s_m <- merge(x=items_f_id_s, y=ind_metadata, by="UserName", all.x=T)
   
@@ -165,7 +168,7 @@
   ind_metadata_s <- ind_metadata[ind_metadata$UserName %in% items_f_id_s$UserName, ] 
 
 # Use the tail function to show the last six rows of ind_metadata_s. You can see the last individual
-# in this metadata is now VVKAJ115, and that VVKAJ116, which was not in items_f_id_s, has been omitted. 
+# in this metadata is now VVKAJ117, and that VVKAJ116, which was not in items_f_id_s, has been omitted. 
   tail(ind_metadata_s)
   
 # ===============================================================================================================
@@ -183,14 +186,14 @@
   new_totals <- read.table("VVKAJ_Tot.txt", header=T, sep="\t")
 
 # The number of rows should be {No. of users x No. days}.
-# For the example data, 15 users x 3 days = 45 rows (observations).
+# For the example data, 16 users x 3 days = 48 rows (observations).
   nrow(new_totals) 
 
 # View the new_totals.
   head(new_totals)
 
 # ===============================================================================================================
-# <Optional> Add the participants' metadata back to totals.
+#  Add the participants' metadata back to totals.
 # ===============================================================================================================
 
 # Load ind_metadata.txt if you have not done so.
@@ -218,12 +221,12 @@
 # Load the output for further processing.  
   new_totals_mean <- read.table("VVKAJ_Tot_mean.txt", header=T, sep="\t")
 
-# The number of rows should be equal to No. of users.
-# This example data has 15 users, so there should be 15 rows of mean totals.
+# The number of rows should be equal to the number of users.
+# This example data has 16 users, so there should be 16 rows of mean totals.
   nrow(new_totals_mean)     
 
 # ===============================================================================================================
-# <Optional> Add the participants' metadata back to totals.
+#  Add the participants' metadata back to totals.
 # ===============================================================================================================
   
 # Load ind_metadata.txt if you have not done so.
