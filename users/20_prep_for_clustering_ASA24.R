@@ -37,15 +37,49 @@
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
 
-# ASA24 data ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Load the totals data:
-  totals <- read.table("VVKAJ_Tot_m_QCed.txt", sep= "\t", header= T)
-
-  
 # ===============================================================================================================
 # NUTRIENTS: Use data as is. 
 # ===============================================================================================================
 
+# ASA24 data ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Load the totals data:
+  totals <- read.table("VVKAJ_Tot_m_QCed.txt", sep= "\t", header= T)
+    
+# There may be some variables that you would like to omit before performing PCA.
+# Define which columns to drop.
+  drops <- c("FoodAmt", "KCAL", "MOIS")
+  
+# Take only the columns whose names are NOT in the drops vector. 
+  totals_2 <- totals[ , !(names(totals) %in% drops)]
+
+# Obtain the column numbers for BMI, UserName, start.col="PROT" through end.col="P226".
+  userID_col <- match("UserName", names(totals_2))
+  BMI_col   <-  match("BMI"     , names(totals_2))
+  start_col <-  match("PROT"    , names(totals_2))
+  end_col   <-  match("P226"    , names(totals_2))
+  
+# Pick up the BMI, body weight, and the nutrient variables.
+  user_BMI_nut <- totals_2[ , c(userID_col, BMI_col, start_col:end_col)]
+  
+  colnames(user_BMI_nut)
+  ####
+  # Process this input, user_BMI_nut, for clustering analysis as follows. 
+  # 1: take complete cases, 
+  # 2: save that as a .txt, 
+  # 3: keep non-zero columns, 
+  # 4: remove the userID,
+  # 5: identify correlated variables and remove them,
+  # 6: save with uncorrelated variables as a .txt,
+  # 7: save correlation matrix as a .txt.  
+  
+  PrepForClustering(input_df = user_BMI_nut,
+                    userID = "SEQN",
+                    original_totals_df= totals, 
+                    complete_cases_fn=   "VVKAJ_Tot_m_QCed_Nut_asis_c.txt",
+                    clustering_input_fn= "VVKAJ_Tot_m_QCed_Nut_asis_fn.txt",
+                    corr_matrix_fn=      "VVKAJ_Tot_m_QCed_Nut_asis_corr_matrix_fn.txt")
+
+#####  
 # Subset nutrients data.
   # The columns specified as start.col, end.col, and all columns in between will be selected.
   # For nutrients, specify start.col = "PROT",  and end.col = "B12_ADD"; 64 variables in total.
@@ -79,13 +113,13 @@
   
 # ---------------------------------------------------------------------------------------------------------------
 # Save the selected_variables as a .txt file. This will be the input for clustering analyses. 
-  write.table(x=selected_variables, file="VVKAJ_Tot_m_QCed_Nut_asis.txt", sep="\t", row.names=F, quote=F)
+  # write.table(x=selected_variables, file="VVKAJ_Tot_m_QCed_Nut_asis.txt", sep="\t", row.names=F, quote=F)
   
 # ---------------------------------------------------------------------------------------------------------------
 # Save the correlation matrix for record in the results folder.
   # cc is the correlation matrix produced when variables are collapsed by correlation by using 
   # the CollapseByCorrelation function.
-  SaveCorrMatrix(x=cc, out.fn = "VVKAJ_Tot_m_QCed_Nut_asis_corr_matrix.txt")
+  # SaveCorrMatrix(x=cc, out.fn = "VVKAJ_Tot_m_QCed_Nut_asis_corr_matrix.txt")
   
   
 # ===============================================================================================================
@@ -106,18 +140,36 @@
 # Take only the columns whose names are NOT in the drops vector. 
   VVKAJ_Tot_mean_m_QCed_2 <- VVKAJ_Tot_mean_m_QCed[ , !(names(VVKAJ_Tot_mean_m_QCed) %in% drops)]
   
-  # Obtain the column numbers for BMI, UserName, start.col="PROT" through end.col="P226".
-  UserName_col <- match("UserName"  , names(VVKAJ_Tot_mean_m_QCed_2)) 
-  BMI_col   <-    match("BMI" ,       names(VVKAJ_Tot_mean_m_QCed_2)) 
-  start_col <-    match("PROT"   ,    names(VVKAJ_Tot_mean_m_QCed_2))  
-  end_col   <-    match("P226"   ,    names(VVKAJ_Tot_mean_m_QCed_2)) 
+# Obtain the column numbers for BMI, UserName, start.col="PROT" through end.col="P226".
+  UserName_col <- match("UserName" , names(VVKAJ_Tot_mean_m_QCed_2)) 
+  BMI_col   <-    match("BMI"      , names(VVKAJ_Tot_mean_m_QCed_2)) 
+  start_col <-    match("PROT"     , names(VVKAJ_Tot_mean_m_QCed_2))  
+  end_col   <-    match("P226"     , names(VVKAJ_Tot_mean_m_QCed_2)) 
   
-  # Pick up the BMI, body weight, and the nutrient variables.
-  subsetted <- VVKAJ_Tot_mean_m_QCed_2[ , c(UserName_col, BMI_col, start_col:end_col)]
+# Pick up the BMI, body weight, and the nutrient variables.
+  user_BMI_nut <- VVKAJ_Tot_mean_m_QCed_2[ , c(UserName_col, BMI_col, start_col:end_col)]
+
+  ####
+  # Process this input, user_BMI_nut, for clustering analysis as follows. 
+  # 1: take complete cases, 
+  # 2: save that as a .txt, 
+  # 3: keep non-zero columns, 
+  # 4: remove the userID,
+  # 5: identify correlated variables and remove them,
+  # 6: save with uncorrelated variables as a .txt,
+  # 7: save correlation matrix as a .txt.  
   
+  PrepForClustering(input_df = user_BMI_nut,
+                    userID = "SEQN",
+                    original_totals_df= totals_males60to79, 
+                    complete_cases_fn=   "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_fn.txt",
+                    clustering_input_fn= "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_rv_fn.txt",
+                    corr_matrix_fn=      "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_corr_mat_fn.txt")
+  ####
+
   # An input dataset for PCA must have no missing data, so we need to check the number of 
   # missing data in each column of "subsetted" in the descending order.
-  colSums(is.na(subsetted))[order(colSums(is.na(subsetted)), decreasing = T)]
+  colSums(is.na(subsetted))[order(colSums(is.na(subsetted)), decreasing=T)]
   # There is no missing data in this example dataset, but the following steps to deal with missing data won't hurt.
   
   # Take only the rows with no missing data. 
