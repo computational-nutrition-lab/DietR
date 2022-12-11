@@ -92,13 +92,13 @@
 # NUTRIENTS: Take average of each user across all days 
 # ===============================================================================================================
 
-############## ADDED NEWLY 
+##############  NEWLY ADDED
   # AverageBy is aldready done in the load_clean ASA24.R.So....
 
 # Load the QC-ed totals that has one data/participant with metadata.
-   VVKAJ_Tot_mean_m_QCed <- read.table("VVKAJ_Tot_mean_m_QCed.txt", sep="\t", header=T)  
-  
+  VVKAJ_Tot_mean_m_QCed <- read.table("VVKAJ_Tot_mean_m_QCed.txt", sep="\t", header=T)  
   colnames(VVKAJ_Tot_mean_m_QCed)
+  
 # There may be some variables that you would like to omit before performing PCA.
 # Define which columns to drop.
   drops <- c("FoodAmt", "KCAL", "MOIS")
@@ -106,7 +106,7 @@
 # Take only the columns whose names are NOT in the drops vector. 
   VVKAJ_Tot_mean_m_QCed_2 <- VVKAJ_Tot_mean_m_QCed[ , !(names(VVKAJ_Tot_mean_m_QCed) %in% drops)]
   
-  # Obtain the column numbers for start.col="PROT" through end.col="P226" plus "BMXBMI" and "SEQN".
+  # Obtain the column numbers for BMI, UserName, start.col="PROT" through end.col="P226".
   UserName_col <- match("UserName"  , names(VVKAJ_Tot_mean_m_QCed_2)) 
   BMI_col   <-    match("BMI" ,       names(VVKAJ_Tot_mean_m_QCed_2)) 
   start_col <-    match("PROT"   ,    names(VVKAJ_Tot_mean_m_QCed_2))  
@@ -115,10 +115,10 @@
   # Pick up the BMI, body weight, and the nutrient variables.
   subsetted <- VVKAJ_Tot_mean_m_QCed_2[ , c(UserName_col, BMI_col, start_col:end_col)]
   
-  # An input dataset for PCA must have no missing data.
-  # Show the number of missing data in each column of "subsetted" in the descending order.
+  # An input dataset for PCA must have no missing data, so we need to check the number of 
+  # missing data in each column of "subsetted" in the descending order.
   colSums(is.na(subsetted))[order(colSums(is.na(subsetted)), decreasing = T)]
-  # There is no missing data in this dataset, but the following steps to deal with missing data won't hurt.
+  # There is no missing data in this example dataset, but the following steps to deal with missing data won't hurt.
   
   # Take only the rows with no missing data. 
   subsetted_c <- subsetted[complete.cases(subsetted), ]
@@ -166,7 +166,8 @@
   # "subsetted_non0var" is the dataframe to be used in the subsequent collapse by correlation procedure.
   
 # ---------------------------------------------------------------------------------------------------------------
-# Collapse variables by correlation: take only one variables if they are highly correlated.
+# Collapse variables by correlation.
+  # Identify highly correlated variables.
   cbc_res <- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75, 
                                    select.rep.fcn = 'mean', verbose = T)
   
@@ -211,7 +212,9 @@
   # "subsetted_non0var" is the dataframe to be used in the subsequent collapse by correlation procedure.
   
 # ---------------------------------------------------------------------------------------------------------------
-# Collapse variables by correlation: take only one variables if they are highly correlated.
+# Collapse variables by correlation.
+  
+  # Identify highly correlated variables.
   cbc_res <- CollapseByCorrelation(x = subsetted_non0var, min.cor = 0.75, 
                                    select.rep.fcn = 'mean', verbose = T)
   

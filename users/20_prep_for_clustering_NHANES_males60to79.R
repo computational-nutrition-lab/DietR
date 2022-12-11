@@ -27,7 +27,7 @@
 # Specify where the data is.
   SpecifyDataDirectory("eg_data/NHANES/Laboratory_data/")
 
-# Load the subsetted totals data.   
+# Load the totals data that have males 60-79 years old.   
   totals_males60to79 <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt", 
                                    sep="\t", header=T)
 
@@ -60,74 +60,95 @@
   # WT_col    <- match("BMXWT"  , names(totals_males60to79_2)) 
   
 # Pick up the BMI, body weight, and the nutrient variables.
-  subsetted <- totals_males60to79_2[ , c(SEQN_col, BMI_col, start_col:end_col)]
-  
-# An input dataset for PCA must have no missing data.
-# Show the number of missing data in each column of "subsetted" in the descending order.
-  colSums(is.na(subsetted))[order(colSums(is.na(subsetted)), decreasing = T)]
-  # BMI has 3 missing data (NAs).
-  
-  # Take only the rows with no missing data. 
-  subsetted_c <- subsetted[complete.cases(subsetted), ]
-  
-  # Take the rows of the original totals that are also present in "subsetted_c".
-  totals_males60to79_c <- totals_males60to79[totals_males60to79$SEQN %in% subsetted_c$SEQN, ]
+  user_BMI_nut <- totals_males60to79_2[ , c(SEQN_col, BMI_col, start_col:end_col)]
 
-  # Check that those two have exactly the same individuals (with complete data).
-  identical(totals_males60to79_c$SEQN,  subsetted_c$SEQN) 
-  
-# Save the new selected totals to be used as the original input later in the PCA script.
-  write.table(totals_males60to79_c, "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut.txt", 
-              sep="\t", row.names=F, quote=F)
-  
-# Remove the SEQN column because it is the participants' ID and not appropriate to include in a PCA input.
-  subsetted_c_wo_SEQN = subsetted_c[, !names(subsetted_c) %in% "SEQN"]
-  
-# This dataset, subsetted_c_wo_SEQN with no missing data and no SEQN column, is the input for the 
-# following preparation for PCA.
-    
-# ---------------------------------------------------------------------------------------------------------------
-# Pick up only the columns with non-zero variance, in order to run PCA, cluster analysis etc.
-# The removed columns will be shown if any.
-  KeepNonZeroVarColumns(data = subsetted_c_wo_SEQN)
-# The output is a df called "subsetted_non0var".
-  
-# Check the columns (variables) remained.
-  colnames(subsetted_non0var)  
-  
-# Check the number of rows and columns - 234 x 64. 64 variables remained. 
-  dim(subsetted_non0var)
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Collapse variables by correlation: take only one variable if they are highly correlated.
-  cbc_res <- CollapseByCorrelation(x = subsetted_non0var,
-                                   min.cor = 0.75, 
-                                   select.rep.fcn = 'mean', verbose = T)
-  
-# Filter out highly correlated variables from the original dataset.  
-  selected_variables <- subsetted_non0var[, cbc_res$reps]
-  
-# ***"selected_variables" is the dataframe to be used for PCA, cluster analyses etc.***
+# Process this input, user_BMI_nut, for clustering analysis as follows. 
+  # 1: take complete cases, 
+  # 2: save that as a .txt, 
+  # 3: keep non-zero columns, 
+  # 4: remove the userID,
+  # 5: identify correlated variables and remove them,
+  # 6: save with uncorrelated variables as a .txt,
+  # 7: save correlation matrix as a .txt.  
 
-# Among the variables in the same group, the one with the highest variance is kept.
-# Check the retained variables. 
-  colnames(selected_variables) 
-  
-# Check the number of rows and columns in the "selected_variables" dataset - 237 x 37. 37 variables remained. 
-  dim(selected_variables)     
+  PrepForClustering(input_df = user_BMI_nut,
+                  userID = "SEQN",
+                  original_totals_df= totals_males60to79, 
+                  complete_cases_fn=   "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_fn.txt",
+                  clustering_input_fn= "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_rv_fn.txt",
+                  corr_matrix_fn=      "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_corr_mat_fn.txt")
 
-# ---------------------------------------------------------------------------------------------------------------
-# Save the variables after removing correlated variables
-  write.table(selected_variables,
-              "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_rv.txt", 
-              sep="\t", row.names=F, quote=F)
   
-# ---------------------------------------------------------------------------------------------------------------
-# Save the correlation matrix for record in the results folder.
-# cc is the correlation matrix produced when variables are collapsed by correlation. 
-  SaveCorrMatrix(x=cc,
-                 out.fn= "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_corr_mat.txt")
+############# BY HAND ##################    
+# # An input dataset for PCA must have no missing data.
+# # Show the number of missing data in each column of "subsetted" in the descending order.
+#   colSums(is.na(subsetted))[order(colSums(is.na(subsetted)), decreasing = T)]
+#   # BMI has 3 missing data (NAs).
+#   
+#   # Take only the rows with no missing data. 
+#   subsetted_c <- subsetted[complete.cases(subsetted), ]
+#   
+#   # Take the rows of the original totals that are also present in "subsetted_c".
+#   totals_males60to79_c <- totals_males60to79[totals_males60to79$SEQN %in% subsetted_c$SEQN, ]
+# 
+# # Check that those two have exactly the same individuals (with complete data).
+#   identical(totals_males60to79_c$SEQN,  subsetted_c$SEQN) 
+#   
+# # Save the new selected totals to be used as the original input later in the PCA script.
+#   write.table(totals_males60to79_c, "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut.txt", 
+#               sep="\t", row.names=F, quote=F)
+#   
+# # Remove the SEQN column because it is the participants' ID and not appropriate to include in a PCA input.
+#   subsetted_c_wo_SEQN = subsetted_c[, !names(subsetted_c) %in% "SEQN"]
+#   
+# # This dataset, subsetted_c_wo_SEQN with no missing data and no SEQN column, is the input for the 
+# # following preparation for PCA.
+#     
+# # ---------------------------------------------------------------------------------------------------------------
+# # Pick up only the columns with non-zero variance, in order to run PCA, cluster analysis etc.
+# # The removed columns will be shown if any.
+#   KeepNonZeroVarColumns(data = subsetted_c_wo_SEQN)
+# # The output is a df called "subsetted_non0var".
+#   
+# # Check the columns (variables) remained.
+#   colnames(subsetted_non0var)  
+#   
+# # Check the number of rows and columns - 234 x 64. 64 variables remained. 
+#   dim(subsetted_non0var)
+#   
+# # ---------------------------------------------------------------------------------------------------------------
+# # Collapse variables by correlation: take only one variable if they are highly correlated.
+#   cbc_res <- CollapseByCorrelation(x = subsetted_non0var,
+#                                    min.cor = 0.75, 
+#                                    select.rep.fcn = 'mean', verbose = T)
+#   
+# # Filter out highly correlated variables from the original dataset.  
+#   selected_variables <- subsetted_non0var[, cbc_res$reps]
+#   
+# # ***"selected_variables" is the dataframe to be used for PCA, cluster analyses etc.***
+# 
+# # ---------------------------------------------------------------------------------------------------------------
+# # Save the variables after removing correlated variables
+#   write.table(selected_variables,
+#               "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_rv.txt", 
+#               sep="\t", row.names=F, quote=F)
+#   
+# # ---------------------------------------------------------------------------------------------------------------
+# # Save the correlation matrix for record in the results folder.
+# # cc is the correlation matrix produced when variables are collapsed by correlation. 
+#   SaveCorrMatrix(x=cc,
+#                  out.fn= "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_corr_mat.txt")
+
+# # Among the variables in the same group, the one with the highest variance is kept.
+# # Check the retained variables.
+#   colnames(selected_variables) 
+#     
+# # Check the number of rows and columns in the "selected_variables" dataset - 237 x 37. 37 variables remained. 
+#   dim(selected_variables)     
   
+############# BY HAND END ##################    
+
+#  
   
 # ===============================================================================================================
 # CAT: PCA with food category and body weight
@@ -144,73 +165,82 @@
   end_col   <- match("A_DRINKS" , names(totals_males60to79_2)) 
   
 # Pick up the BMI, body weight, and the nutrient variables.
-  subsetted <- totals_males60to79_2[ , c(SEQN_col, BMI_col, start_col:end_col)]
-  
-# An input dataset for PCA must have no missing data.
-# Show the number of missing data in each column of "subsetted" in the descending order.
-  colSums(is.na(subsetted))[order(colSums(is.na(subsetted)), decreasing = T)]
-  # BMI has 3 missing data (NAs).
-  
-# Take only the rows with no missing data. 
-  subsetted_c <- subsetted[complete.cases(subsetted), ]
-  
-# Take the rows of the original totals that are also present in "subsetted_c".
-  totals_males60to79_c <- totals_males60to79[totals_males60to79$SEQN %in% subsetted_c$SEQN, ]
-  
-# Check that those two have exactly the same individuals (with complete data).
-  identical(totals_males60to79_c$SEQN,  subsetted_c$SEQN) 
-  
-# Save the new selected totals to be used as the original input later in the PCA script.
-  write.table(totals_males60to79_c, "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat.txt", 
-              sep="\t", row.names=F, quote=F)
-  
-# Remove the SEQN column because it is the participants' ID and not appropriate to include in a PCA input.
-  subsetted_c_wo_SEQN = subsetted_c[, !names(subsetted_c) %in% "SEQN"]
-  
-# This dataset, subsetted_c_wo_SEQN with no missing data and no SEQN column, is the input for the 
-# following preparation for PCA.
+  user_BMI_cat <- totals_males60to79_2[ , c(SEQN_col, BMI_col, start_col:end_col)]
 
-# ---------------------------------------------------------------------------------------------------------------
-# Pick up only the columns with non-zero variance, in order to run PCA, cluster analysis etc.
-# The removed columns will be shown if any.
-  KeepNonZeroVarColumns(data = subsetted_c_wo_SEQN)
-  # The output is a df called "subsetted_non0var".
+# Prep 
+  PrepForClustering(input_df = user_BMI_cat,
+                    userID = "SEQN",
+                    original_totals_df= totals_males60to79, 
+                    complete_cases_fn=   "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_fn.txt",
+                    clustering_input_fn= "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_rv_fn.txt",
+                    corr_matrix_fn=      "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_corr_mat_fn.txt")
   
-# Check the columns (variables) remained.
-  colnames(subsetted_non0var)  
-  
-# Check the number of rows and columns - 234 x 38. 38 variables remained. 
-  dim(subsetted_non0var)
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Collapse variables by correlation: take only one variable if they are highly correlated.
-  cbc_res <- CollapseByCorrelation(x = subsetted_non0var,
-                                   min.cor = 0.75, 
-                                   select.rep.fcn = 'mean', verbose = T)
-  
-# Filter out highly correlated variables from the original dataset.  
-  selected_variables <- subsetted_non0var[, cbc_res$reps]
-  
-# ***"selected_variables" is the dataframe to be used for PCA, cluster analyses etc.***
-  
-# Among the variables in the same group, the one with the highest variance is kept.
-# Check the retained variables. 
-  colnames(selected_variables) 
-  
-# Check the number of rows and columns in the "selected_variables" dataset - 234 x 31. 31 variables remained. 
-  dim(selected_variables)     
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Save the variables after removing correlated variables
-  write.table(selected_variables,
-              "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_rv.txt", 
-              sep="\t", row.names=F, quote=F)
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Save the correlation matrix for record in the results folder.
-# cc is the correlation matrix produced when variables are collapsed by correlation. 
-  SaveCorrMatrix(x=cc,
-                 out.fn= "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_corr_mat.txt")
+    
+# # An input dataset for PCA must have no missing data.
+# # Show the number of missing data in each column of "subsetted" in the descending order.
+#   colSums(is.na(subsetted))[order(colSums(is.na(subsetted)), decreasing = T)]
+#   # BMI has 3 missing data (NAs).
+#   
+# # Take only the rows with no missing data. 
+#   subsetted_c <- subsetted[complete.cases(subsetted), ]
+#   
+# # Take the rows of the original totals that are also present in "subsetted_c".
+#   totals_males60to79_c <- totals_males60to79[totals_males60to79$SEQN %in% subsetted_c$SEQN, ]
+#   
+# # Check that those two have exactly the same individuals (with complete data).
+#   identical(totals_males60to79_c$SEQN,  subsetted_c$SEQN) 
+#   
+# # Save the new selected totals to be used as the original input later in the PCA script.
+#   write.table(totals_males60to79_c, "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat.txt", 
+#               sep="\t", row.names=F, quote=F)
+#   
+# # Remove the SEQN column because it is the participants' ID and not appropriate to include in a PCA input.
+#   subsetted_c_wo_SEQN = subsetted_c[, !names(subsetted_c) %in% "SEQN"]
+#   
+# # This dataset, subsetted_c_wo_SEQN with no missing data and no SEQN column, is the input for the 
+# # following preparation for PCA.
+# 
+# # ---------------------------------------------------------------------------------------------------------------
+# # Pick up only the columns with non-zero variance, in order to run PCA, cluster analysis etc.
+# # The removed columns will be shown if any.
+#   KeepNonZeroVarColumns(data = subsetted_c_wo_SEQN)
+#   # The output is a df called "subsetted_non0var".
+#   
+# # Check the columns (variables) remained.
+#   colnames(subsetted_non0var)  
+#   
+# # Check the number of rows and columns - 234 x 38. 38 variables remained. 
+#   dim(subsetted_non0var)
+#   
+# # ---------------------------------------------------------------------------------------------------------------
+# # Collapse variables by correlation: take only one variable if they are highly correlated.
+#   cbc_res <- CollapseByCorrelation(x = subsetted_non0var,
+#                                    min.cor = 0.75, 
+#                                    select.rep.fcn = 'mean', verbose = T)
+#   
+# # Filter out highly correlated variables from the original dataset.  
+#   selected_variables <- subsetted_non0var[, cbc_res$reps]
+#   
+# # ***"selected_variables" is the dataframe to be used for PCA, cluster analyses etc.***
+#   
+# # Among the variables in the same group, the one with the highest variance is kept.
+# # Check the retained variables. 
+#   colnames(selected_variables) 
+#   
+# # Check the number of rows and columns in the "selected_variables" dataset - 234 x 31. 31 variables remained. 
+#   dim(selected_variables)     
+#   
+# # ---------------------------------------------------------------------------------------------------------------
+# # Save the variables after removing correlated variables
+#   write.table(selected_variables,
+#               "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_rv.txt", 
+#               sep="\t", row.names=F, quote=F)
+#   
+# # ---------------------------------------------------------------------------------------------------------------
+# # Save the correlation matrix for record in the results folder.
+# # cc is the correlation matrix produced when variables are collapsed by correlation. 
+#   SaveCorrMatrix(x=cc,
+#                  out.fn= "QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_corr_mat.txt")
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory

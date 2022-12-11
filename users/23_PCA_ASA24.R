@@ -38,11 +38,11 @@
 # Ensure your input file has the correct number of rows and columns.
   dim(pca_input)
 
-# Perform PCA with the subset data, scaled.
+# Scale the data and perform PCA.
   scaled_pca <- prcomp(x=pca_input, scale = TRUE)   
   
 # Specify the directory (folder) to save the results.
-  res_dir_nut_asis = "PCA_Nut_asis" 
+  res_dir_nut_asis = "PCA_Nut_asis"
 
 # Specify the prefix of filenames to be saved. 
   res_prefix_nut_asis = "VVKAJ_Nut_asis"
@@ -63,7 +63,7 @@
   totals <- read.table("VVKAJ_Tot_m_QCed.txt", 
                        sep="\t", header=T)
   
-  # Change GLU_index to a factor so that factors will be displayed in order.
+  # Change Diet to a factor so that factor levels will be displayed in order.
   totals$Diet <- factor(totals$Diet,
                         levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
   
@@ -74,7 +74,7 @@
                        data = totals,  size= 3 ) +     
     geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
     theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
-    theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    no_grid + space_axes +
     scale_fill_manual( values= distinct100colors) 
   Nut_asis
   
@@ -97,7 +97,7 @@
 # Ensure your input file has the correct number of rows and columns.
   dim(pca_input)
   
-# Perform PCA with the subset data, scaled.
+# Scale the data and perform PCA.
   scaled_pca <- prcomp(x=pca_input, scale = TRUE)   
   
 # Specify the directory (folder) to save the results.
@@ -123,14 +123,14 @@
   
 # Load Cat_asis data.
   Tot_m_QCed_Cat_asis <- read.table(file="VVKAJ_Tot_m_QCed_Cat_asis.txt", sep="\t", header=T)
-  
+  colnames(Tot_m_QCed_Cat_asis)
   # Name your input data.
   pca_input <- Tot_m_QCed_Cat_asis
   
   # Ensure your input file has the correct number of rows and columns.
   dim(pca_input)
   
-  # Perform PCA with the subset data, scaled.
+  # Scale the data and perform PCA.
   scaled_pca <- prcomp(x=pca_input, scale = TRUE)   
   
   # Specify the directory (folder) to save the results.
@@ -150,6 +150,36 @@
   # [Note] Even though the input file has both Nutrients (Nut) and food categories (Cat) data,  
   # PCA was done with only either Nut or Cat, not both.
   
+  ############
+  # ---------------------------------------------------------------------------------------------------------------
+  # Load the totals data. (The original data before filtering variables)
+  totals <- read.table("VVKAJ_Tot_m_QCed.txt", 
+                       sep="\t", header=T)
+  
+  # Change Diet to a factor so that factor levels will be displayed in order.
+  totals$Diet <- factor(totals$Diet,
+                        levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
+  
+  # Use the autoplot function. Specify which PC in the x and y arguments.
+  # The 'data' argument needs the original input for PCA, not after selecting specific variables.
+  Cat_asis <- autoplot(scaled_pca, x=1, y=2,    
+                       loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
+                       data = totals,  size= 3 ) +     
+    geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
+    theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
+    no_grid + space_axes +
+    scale_fill_manual( values= distinct100colors) 
+  Cat_asis
+  
+  ggsave("PCA_NUt_asis/VVKAJ_Cat_asis_PC12_diet.pdf", 
+         Nut_asis, device="pdf", width=7, height=6.5)  
+  
+  # You can do this operation for the other three datasets: Nut_ave, Cat_asis, Cat_ave, by
+  # changing the input names as necessary.
+  ############
+  
+  
+  
 # ===============================================================================================================
 # Food category data averaged and processed for clustering analyses.
 # ===============================================================================================================
@@ -163,7 +193,7 @@
   # Ensure your input file has the correct number of rows and columns.
   dim(pca_input)
   
-  # Perform PCA with the subset data, scaled.
+  # Scale the data and perform PCA.
   scaled_pca <- prcomp(x=pca_input, scale = TRUE)   
   
   # Specify the directory (folder) to save the results.
