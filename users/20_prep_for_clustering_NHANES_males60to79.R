@@ -63,8 +63,8 @@
   user_BMI_nut <- totals_males60to79_2[ , c(SEQN_col, BMI_col, start_col:end_col)]
 
 # Process this input, user_BMI_nut, for clustering analysis as follows. 
-  # 1: take complete cases, 
-  # 2: save that as a .txt, 
+  # 1: take complete cases in your variables of interest, 
+  # 2: save the original totals of the complete cases individuals as a .txt, 
   # 3: keep non-zero columns, 
   # 4: remove the userID,
   # 5: identify correlated variables and remove them,
@@ -167,7 +167,7 @@
 # Pick up the BMI, body weight, and the nutrient variables.
   user_BMI_cat <- totals_males60to79_2[ , c(SEQN_col, BMI_col, start_col:end_col)]
 
-# Prep 
+# Prep. 
   PrepForClustering(input_df = user_BMI_cat,
                     userID = "SEQN",
                     original_totals_df= totals_males60to79, 

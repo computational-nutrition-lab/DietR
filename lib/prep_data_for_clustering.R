@@ -125,8 +125,8 @@
 # ---------------------------------------------------------------------------------------------------------------  
 # Use the functions defined above and prepare input data (totals) for clustering.
 # The PrepForClustering function below does:
-  # 1: take complete cases, 
-  # 2: save that as a .txt, 
+  # 1: take complete cases in your variables of interest, 
+  # 2: save the original totals of the complete cases individuals as a .txt, 
   # 3: keep non-zero columns, 
   # 4: remove the userID,
   # 5: identify correlated variables and remove them,

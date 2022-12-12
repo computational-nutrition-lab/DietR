@@ -167,12 +167,13 @@
   TotalNHANES <- function(food12d= food12d, 
                           first.val= "GRMS", last.val= "A_DRINKS", 
                           outfn ){
+    
     # Calculate total for day 1. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     food12d_d1 <- subset(food12d, Day==1) 
     
     # Sum nutrients and food categories.
     start_col_num <- match(first.val, names(food12d_d1))  # The number of column that matches the first variable specified.
-    end_col_num <-   match(last.val, names(food12d_d1)) # The number of column that matches the last variable specified.
+    end_col_num <-   match(last.val, names(food12d_d1))   # The number of column that matches the last variable specified.
     
     # Sum food items by SEQN from start through end columns.
     total1 <- aggregate(food12d_d1[, start_col_num:end_col_num], 
@@ -238,14 +239,14 @@
 # ========================================================================================
 # [NOTE] Now the average of No of Items can be calculated, too.
   
-  AverageTotalNHANES <- function(food12d= food12d, 
+  AverageTotalNHANES <- function(total12d = total12d, 
                                  first.val= "GRMS", last.val= "NoOfItems", 
                                  outfn){
     
     start_col_num <- match(first.val, names(total12d))  # The number of column that matches the first variable specified.
     end_col_num <-   match(last.val,  names(total12d))  # The number of column that matches the last variable specified.
     
-    # Sum food items by SEQN from start through end columns.
+    # Take average by SEQN from start through end columns.
     meantotal12a <- aggregate(total12d[, start_col_num:end_col_num], 
                               by=list(total12d$SEQN), 
                               FUN=mean) 

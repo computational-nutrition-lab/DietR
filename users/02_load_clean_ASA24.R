@@ -162,7 +162,7 @@
   
 # Save the merged dataframe as a .txt file.
   write.table(items_f_id_s_m, "VVKAJ_Items_f_id_s_m.txt", sep="\t", row.names=F, quote=F)
-
+  
 # Furthermore, as a quick way to look at the metadata of only the selected individuals, you can subset the 
 # metadata to just the usernames present in the analysis dataset (items_f_id_s) using the "%in%" operator.
   ind_metadata_s <- ind_metadata[ind_metadata$UserName %in% items_f_id_s$UserName, ] 
@@ -172,7 +172,7 @@
   tail(ind_metadata_s)
   
 # ===============================================================================================================
-# Generate new totals file if any edits were made to the items file. 
+# Generate new totals file from the items file. 
 # ===============================================================================================================
 
 # Use one of the input files saved above as an input for calculating totals for.
@@ -226,7 +226,7 @@
   nrow(new_totals_mean)     
 
 # ===============================================================================================================
-#  Add the participants' metadata back to totals.
+#  Add the participants' metadata to the mean totals.
 # ===============================================================================================================
   
 # Load ind_metadata.txt if you have not done so.
@@ -237,7 +237,7 @@
   new_totals_mean_m <- merge(x=new_totals_mean, y=ind_metadata, by="UserName", all.x=T)
   
 # Check that the mean totals and the users' metadata are merged.
-  tail(new_totals_mean_m, 1)
+  head(new_totals_mean_m, 1)
   
 # Save the merged dataframe as a .txt file.
   write.table(new_totals_mean_m, "VVKAJ_Tot_mean_m.txt", sep="\t", row.names=F, quote=F)
@@ -291,9 +291,37 @@
 # Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 400)
   
-# Save as "Totals_m_QCed.txt"
+# Save as a .txt file.
   write.table(QCtotals, "VVKAJ_Tot_mean_m_QCed.txt", sep="\t", quote=F, row.names=F)
 
+  
+# ===============================================================================================================
+# Remove the QC-ed individual(s) from the totals to be consistent
+# ===============================================================================================================
+  
+# In the previous section, we have removed individual(s) that did not pass the QC from mean total data.
+# We will remove those individual(s) from the totals (before taking means of days), so that we will have
+# the same individuals in the mean_total and total. 
+  
+# Among the individuals in new_totals_m, pick up only those in QCtotals. 
+  new_totals_m_QCed <- new_totals_m[ new_totals_m$UserName %in% QCtotals$UserName, ]
+  
+# Save as a .txt file. This will be the total for each of the "QC-ed" individuals for each day, to be 
+# used for clustering analyses. 
+  write.table(new_totals_m_QCed, "VVKAJ_Tot_m_QCed.txt", sep="\t", quote=F, row.names=F)
+  
+# ===============================================================================================================
+# Similarly, remove the QC-ed individual(s) from the items to be consistent
+# ===============================================================================================================
+
+# Among the individuals in new_totals_m, pick up only those in QCtotals. 
+  items_f_id_s_m_QCed <- items_f_id_s_m[ items_f_id_s_m$UserName %in% QCtotals$UserName, ]
+  
+# Save as a .txt file. This will be the items for each of the "QC-ed" individuals for each day, to be 
+# used for ordination etc. 
+  write.table(items_f_id_s_m_QCed, "VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", quote=F, row.names=F)
+  
+    
 # ~~~~~ END OF EDITS TO ADD TO TUTORIAL -- ADDED, BUT YET TO BE ADDED TO THE WEBSITE ~~~~~~~~~
   
 # ---------------------------------------------------------------------------------------------------------------

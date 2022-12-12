@@ -44,7 +44,7 @@
   res_dir_Nut = "males60to79_Nut_PCA" 
 
 # Specify the prefix of filenames to be saved. 
-  res_prefix_Nut = "males60to79_Nut"
+  res_prefix_Nut = "males60to79_Nut_fn"
 
 # Save PCA output files in a specified folder (out.dir) and a prefix (out.prefix).
   OutputPCA(pca.data= pca_input, pca.result= scaled_pca, 
@@ -83,8 +83,8 @@
     scale_fill_manual( values= c("steelblue3", "yellow", "hotpink")) 
   food_Nut_PCA
 
-  ggsave("males60to79_Nut_PCA/males60to79_c_Nut_PCA_by_GLU_index_PC12.png", 
-         food_Nut_PCA, device="png", width=7, height=6.5)
+  ggsave("males60to79_Nut_PCA/males60to79_c_Nut_PCA_by_GLU_index_PC12.pdf", 
+         food_Nut_PCA, device="pdf", width=7, height=6.5)
 
  
 # ===============================================================================================================
