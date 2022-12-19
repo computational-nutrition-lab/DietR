@@ -40,31 +40,31 @@
 # ===============================================================================================================
 # QC the food data: filter by age, completeness, >1 food item reported/day, data exists on both days. 
 # ===============================================================================================================
-    
+
 # Download demographics data (DEMO_I.XPT) from NHANES website.
 # Name the file and destination. mod="wb" is needed for Windows OS.
 # Other OS users may need to delete it.
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.XPT", 
                 destfile= "Raw_data/DEMO_I.XPT", mode="wb")
-  
+
 # Load the demographics file.
   demog <- read.xport("Raw_data/DEMO_I.XPT")
 
 # Demographics data has the age, gender, etc. of each participant. Read documentation on demographics 
 # (https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for details.     
-  head(demog,1)
+  head(demog, 1)
 
 # Only take the data of adults (18 years of age or older).  
   adults <- demog[demog$RIDAGEYR >= 18, ]
   
-# Check the number of adults - should be 5,992. 
-  length(unique(adults$SEQN)) 
+# Check the number of adults - should be 5,992.
+  length(unique(adults$SEQN))
 
 # Load the formatted food data prepared in the previous section.   
   Food_D1_FC_cc_f <- read.table("Food_D1_FC_cc_f.txt", sep="\t", header=T)
   Food_D2_FC_cc_f <- read.table("Food_D2_FC_cc_f.txt", sep="\t", header=T)
   
-# Check the number of complete and incomplete data or each day. According to the documentation  
+# Check the number of complete and incomplete data for each day. According to the documentation  
 # (https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm), value 4 is incomplete, 
 # so 2,208 rows are marked incomplete for Day 1, and 1,902 rows for Day 2.
   table(Food_D1_FC_cc_f$DR1DRSTZ)  # Day 1
@@ -77,7 +77,10 @@
 # Create a vector of SEQN of those who reported data for both days and are adults.   
   food1names <- unique(food1$SEQN) # 8,326 adults
   food2names <- unique(food2$SEQN) # 6,875 adults
+  
   keepnames <- food1names[food1names %in% food2names]  # 6,863
+  # keepnames21 <- food2names[food2names %in% food1names]  # 6,863
+  
   keepnames_adults <- keepnames[keepnames %in% adults$SEQN] # 4,405
 
 # Similarly, keep those who reported more than 1 food item per day.
@@ -100,6 +103,28 @@
   food1bnames <- unique(food1b$SEQN)
   food2bnames <- unique(food2b$SEQN)
   keepnames12 <- food1bnames[food1bnames %in% food2bnames] 
+  keepnames21 <- food2bnames[food2bnames %in% food1bnames] 
+  
+###
+  # REVISE to pick up adults who has complete data and >1 item/day, then pick up those who have data for both days. 
+  # Only take the data of adults (18 years of age or older).  
+  adults <- demog[demog$RIDAGEYR >= 18, ]
+  
+  # Subset only those with complete data (STZ==1).
+  food1 <- subset(Food_D1_FC_cc_f, DR1DRSTZ == 1)
+  # Keep those who reported more than 1 food item per day.
+  freqtable1 <- as.data.frame(table(food1$SEQN))
+  freqtable1_m <- freqtable1[freqtable1$Freq > 1, ]
+  colnames(freqtable1_m)[1] <- "SEQN"
+  
+  
+  length(food1bnames) 
+  length(food2bnames) 
+  food2b
+  identical(keepnames12, keepnames21)
+  
+  
+###  
   
 # Check the number of participants remained. 
   length(keepnames12)
