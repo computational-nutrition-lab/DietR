@@ -70,61 +70,56 @@
   table(Food_D1_FC_cc_f$DR1DRSTZ)  # Day 1
   table(Food_D2_FC_cc_f$DR2DRSTZ)  # Day 2
 
-# Subset only those with complete data (STZ==1).
+# Day 1. --------------------------------------------------------------------
+  # Subset only those with complete data (STZ==1) in Food_D1_FC_cc_f.
   food1 <- subset(Food_D1_FC_cc_f, DR1DRSTZ == 1)
-  food2 <- subset(Food_D2_FC_cc_f, DR2DRSTZ == 1)
-
-# Create a vector of SEQN of those who reported data for both days and are adults.   
-  food1names <- unique(food1$SEQN) # 8,326 adults
-  food2names <- unique(food2$SEQN) # 6,875 adults
   
-  keepnames <- food1names[food1names %in% food2names]  # 6,863
-  # keepnames21 <- food2names[food2names %in% food1names]  # 6,863
+  # Generate a vector of SEQN in food1, which is a list of participants.
+  keepnames1 <- unique(food1$SEQN)  # 8326
   
-  keepnames_adults <- keepnames[keepnames %in% adults$SEQN] # 4,405
-
-# Similarly, keep those who reported more than 1 food item per day.
+  # Make a table with the number of food items they reported on day 1.
   freqtable1 <- as.data.frame(table(food1$SEQN))
+  # Keep rows with more than 1 food item reported.
   freqtable1_m <- freqtable1[freqtable1$Freq > 1, ]
+  # Change the column name for ID as "SEQN" for clarity.
   colnames(freqtable1_m)[1] <- "SEQN"
-  keepnames_adults_mult1 <- keepnames_adults[keepnames_adults %in% freqtable1_m$SEQN] # 4405
   
-# Take only the participants whose names are in keepnames_adults_mult1.
-  food1b <- food1[food1$SEQN %in% keepnames_adults_mult1, ] # 66,304 rows
-  
-# Do the same for food2.
-  freqtable2 <- as.data.frame(table(food2$SEQN))
-  freqtable2_m <- freqtable2[freqtable2$Freq > 1, ]
-  colnames(freqtable2_m)[1] <- "SEQN"
-  keepnames_adults_mult2 <- keepnames_adults[keepnames_adults %in% freqtable2_m$SEQN] # 4401
-  food2b <- food2[food2$SEQN %in% keepnames_adults_mult2, ] # 66,690 rows
+  # Keep the names of those who reported complete data and more than 1 food item per day.
+  keepnames1_mult <- keepnames1[keepnames1 %in% freqtable1_m$SEQN] # 8324 
 
+  # Select only adults from keepnames1_mult.  
+  keepnames1_mult_adults <- keepnames1_mult[keepnames1_mult %in% adults$SEQN] # 5266
+  
+  # Select only the participants whose names are in keepnames1_mult_adults.
+  food1b <- food1[food1$SEQN %in% keepnames1_mult_adults, ] # 78,442 rows
+  
+ # Do the same for Day 2. --------------------------------------------------------------------
+  # Subset only those with complete data (STZ==1).
+  food2 <- subset(Food_D2_FC_cc_f, DR2DRSTZ == 1)
+  
+  # Generate a vector of SEQN in food2, which is a list of participants.
+  keepnames2 <- unique(food2$SEQN)  # 6875
+  
+  # Make a table with the number of food items they reported on day 2.
+  freqtable2 <- as.data.frame(table(food2$SEQN))
+  # Keep rows with more than 1 food item reported.
+  freqtable2_m <- freqtable2[freqtable2$Freq > 1, ]
+  # Change the column name for ID as "SEQN" for clarity.
+  colnames(freqtable2_m)[1] <- "SEQN"
+  
+  # Keep the names of those who reported complete data and more than 1 food item per day.
+  keepnames2_mult <- keepnames2[keepnames2 %in% freqtable2_m$SEQN] # 6869
+  
+  # Select only adults from keepnames2_mult.  
+  keepnames2_mult_adults <- keepnames2_mult[keepnames2_mult %in% adults$SEQN] # 4401
+
+  # Select only the participants whose names are in keepnames2_mult_adults.
+  food2b <- food2[food2$SEQN %in% keepnames2_mult_adults, ] # 66,690 rows 
+  
 # Create a vector of SEQN of those that have both day 1 and day 2 data.
   food1bnames <- unique(food1b$SEQN)
   food2bnames <- unique(food2b$SEQN)
   keepnames12 <- food1bnames[food1bnames %in% food2bnames] 
-  keepnames21 <- food2bnames[food2bnames %in% food1bnames] 
-  
-###
-  # REVISE to pick up adults who has complete data and >1 item/day, then pick up those who have data for both days. 
-  # Only take the data of adults (18 years of age or older).  
-  adults <- demog[demog$RIDAGEYR >= 18, ]
-  
-  # Subset only those with complete data (STZ==1).
-  food1 <- subset(Food_D1_FC_cc_f, DR1DRSTZ == 1)
-  # Keep those who reported more than 1 food item per day.
-  freqtable1 <- as.data.frame(table(food1$SEQN))
-  freqtable1_m <- freqtable1[freqtable1$Freq > 1, ]
-  colnames(freqtable1_m)[1] <- "SEQN"
-  
-  
-  length(food1bnames) 
-  length(food2bnames) 
-  food2b
-  identical(keepnames12, keepnames21)
-  
-  
-###  
   
 # Check the number of participants remained. 
   length(keepnames12)
@@ -260,9 +255,11 @@
 # Load the QC-ed food items.
   food12d_demo <- read.table("Food_D12_FC_QC_demo.txt", sep="\t", header=T)
 
-# Calculate totals for day 1 and day 2, and combine the two datasets.
+# Calculate totals for day 1 and day 2, from the first.val argument through the last.val argument, 
+# and combine the two datasets.
   TotalNHANES(food12d= food12d_demo,
-              first.val= "GRMS", last.val= "A_DRINKS", 
+              first.val= "GRMS",    
+              last.val= "A_DRINKS", 
               outfn = "Total_D12_FC_QC_eachday.txt")  
 
 # Load the resultant total for each day.
@@ -289,7 +286,7 @@
 # Load the mean total.
   meantotal12d <- read.table("Total_D12_FC_QC_mean.txt", sep="\t", header=T)
 
-
+  
 # ===============================================================================================================
 # B-4: QC the mean total in the same way as ASA24. 
 # ===============================================================================================================
@@ -364,8 +361,7 @@
   
 # Now, you have prepared formatted and QC-ed food items, totals for each day, and mean totals across two days 
 # for each participant.
-  
- 
+
 # ===============================================================================================================
 # Remove the QC-ed individual(s) from the totals each day.
 # ===============================================================================================================
