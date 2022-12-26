@@ -231,7 +231,7 @@
 # Combine food1 and food2 as a longtable.
   food12c <- rbind(food1c, food2c)
   
-# Pick up only the individuals listed in keepnames12.
+# Limit to only the individuals listed in keepnames12.
   food12d <- food12c[food12c$SEQN %in% keepnames12, ]
 
 # Add the demographic data to food12f for data overview.   ### This will be QC-ed later at the end of this script.
@@ -266,7 +266,7 @@
   total12d <- read.table("Total_D12_FC_QC_eachday.txt", sep="\t", header=T)
 
 # total12d has the sum of each variable (columns) for each day and participant. 
-  head(total12d, 1)
+  head(total12d, 2)
   
 # Merge total12d and demographics by SEQN.
   total12d_demo <- merge(x= total12d, y=demog, by="SEQN", all.x=TRUE)
@@ -280,7 +280,8 @@
 
 # Calculate the mean of the two days of the totals data per participant. 
   AverageTotalNHANES(total12d = total12d, 
-                     first.val= "GRMS", last.val= "NoOfItems", 
+                     first.val= "GRMS", 
+                     last.val= "NoOfItems", 
                      outfn= "Total_D12_FC_QC_mean.txt")  
   
 # Load the mean total.
@@ -292,8 +293,10 @@
 # ===============================================================================================================
   
 # For individual food data, there is no code for cleaning.
-# Outliers won't severely affect main analysis conclusions (ASA24 data cleaning doc).
-# However, it is always a good idea to take a look at the distributions of variables of interest. 
+# Based on other data and analysis we do not expect outliers to severely affect main analysis conclusions
+# (ASA24 data cleaning doc, https://epi.grants.cancer.gov/asa24/resources/asa24-data-cleaning-2020.pdf).
+# However, it is always a good idea to take a look at the distributions of any of your variables of interest.
+# You can calculate totals by occasion, similar to what is described in the ASA24 tutorial.
 
 # ---------------------------------------------------------------------------------------------------------------
 # For totals, the same QC can be applied as ASA24 totals QC procedure.
@@ -368,7 +371,7 @@
   
 # In the previous section, we have removed individual(s) that did not pass the QC from mean total data.
 # We will remove those individual(s) from the totals (before taking means of days), so that we will have
-# the same individuals in mean_total and total. 
+# the same individuals in QC-ed mean_total and total. 
   
 # Among the individuals in total12d_demo, pick up only those in QCtotals_demo. 
   total12d_demo_QCed <- total12d_demo[total12d_demo$SEQN %in% QCtotals_demo$SEQN, ]

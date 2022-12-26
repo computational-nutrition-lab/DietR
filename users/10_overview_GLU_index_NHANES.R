@@ -24,7 +24,7 @@
 # ===============================================================================================================
   
 # Load the data of those to be used in the diabetic status analysis. 
-  glu_2 <- read.delim( file="QCtotal_d_ga_body_meta_glu_comp_2.txt", sep= "\t", header= T )
+  glu_2 <- read.table( file="QCtotal_d_ga_body_meta_glu_comp_2.txt", sep= "\t", header= T )
   
 # Make GLU_index as a factor for plotting.
   glu_2$GLU_index <- factor(glu_2$GLU_index, levels = c("Normal", "Prediabetic", "Diabetic"))

@@ -1,0 +1,6 @@
+4:53 PM 12/26/2022
+
+Manually added
+"FoodID" 
+at the end of both text files, 
+so that I can use FilterDBByDietRecords function, which assumes that its input has "FoodID" column.

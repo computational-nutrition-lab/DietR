@@ -28,7 +28,7 @@
 # ===============================================================================================================
   
 # Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4207 people.
-  QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_d.txt", sep="\t", header=T)
+  QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_demo.txt", sep="\t", header=T)
 
 # Check the number of participants in the QCtotals - should be 4,207 people.
   length(unique(QCtotal_d$SEQN))
@@ -67,7 +67,7 @@
 # Load the body measure data.
   bodymea <- read.xport("Raw_data/BMX_I.XPT")
 
-# Explanation of variables can be found here: https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/BMX_I.htm
+# Explanation of variables can be found from NHANES: https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/BMX_I.htm
 # Relevant variables here include:
   # BMDSTATS - Body Measures Component Status Code: 
   #            1 == Complete data for age group.
@@ -81,7 +81,7 @@
   QCtotal_d_ga_body <- merge(x=QCtotal_d_ga, y=bodymea, by="SEQN")
 
 # ---------------------------------------------------------------------------------------------------------------
-# Download the metadata of people, which is in Total Day 1 on NHANES website, and save it in "Raw_data" folder. 
+# Download the metadata for people, who are in Total Day 1 from the NHANES website, and save it in "Raw_data" folder. 
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1TOT_I.XPT", 
                 destfile= "Raw_data/DR1TOT_I.XPT", mode="wb")  
   
@@ -134,27 +134,28 @@
   
 # Add glu to QCtotal_d_ga_body_meta.
   QCtotal_d_ga_body_meta_glu <- merge(x=QCtotal_d_ga_body_meta, y=glu, by="SEQN")
-
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Add GLU_index according to their glucose level: Normal, Prediabetic, and Diabetic.
   # Normal     : 99 mg/dL or lower
   # Prediabetic: 100 to 125 mg/dL
   # Diabetic   : 126 mg/dL or higher
 
-# Create an empty column to insert glucose level index.
-  QCtotal_d_ga_body_meta_glu$GLU_index <- NA
-  
-# If LBXGLU is missing, put "NA"; if it has a value, add GLU_index.
-  for(i in 1: nrow(QCtotal_d_ga_body_meta_glu)){
-    if(is.na(QCtotal_d_ga_body_meta_glu$LBXGLU[i]) == TRUE ){
-       QCtotal_d_ga_body_meta_glu$LBXGLU[i] <- NA  
-    }else{
-      if(     QCtotal_d_ga_body_meta_glu$LBXGLU[i] < 100){ QCtotal_d_ga_body_meta_glu$GLU_index[i] <- "Normal" }
-      else if(QCtotal_d_ga_body_meta_glu$LBXGLU[i] < 126){ QCtotal_d_ga_body_meta_glu$GLU_index[i] <- "Prediabetic" }
-      else{                                                QCtotal_d_ga_body_meta_glu$GLU_index[i] <- "Diabetic" }
-    }  
-  }
-  
+# If LBXGLU is missing, put "NA"; if it has a value, add GLU_index category in "GLU_index" column.
+  QCtotal_d_ga_body_meta_glu$GLU_index <- ifelse(
+    # test sentence
+    is.na(QCtotal_d_ga_body_meta_glu$LBXGLU) == TRUE,
+    
+    # if LBXGLU is NA, put NA to GLU_index column. 
+    NA,
+    
+    # Otherwise, put "Normal", "Prediabetic" or "Diabetic" to GLU_index column. 
+    ifelse(QCtotal_d_ga_body_meta_glu$LBXGLU < 100,
+           "Normal", ifelse(QCtotal_d_ga_body_meta_glu$LBXGLU < 126,
+                            "Prediabetic",
+                            "Diabetic"))
+  )
+
 # Check the first 30 rows of glucose and GLU_index columns in QCtotal_d_glu_body_meta.
   QCtotal_d_ga_body_meta_glu[1:30, c("LBXGLU", "GLU_index")]
   
@@ -193,8 +194,8 @@
 # Check the sample size of each category.
   table(QCtotal_d_ga_body_meta_glu_comp_2$GLU_index, useNA="always")
   
-  # Diabetic      Normal Prediabetic 
-  # 211         684         730 
+  # Diabetic      Normal Prediabetic        <NA> 
+    # 211         684         730           0 
   
 # Save the dataset as a .txt file in the folder called "Laboratory_data".
   write.table(QCtotal_d_ga_body_meta_glu_comp_2, file="Laboratory_data/QCtotal_d_ga_body_meta_glu_comp_2.txt",

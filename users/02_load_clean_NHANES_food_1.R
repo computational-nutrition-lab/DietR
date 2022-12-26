@@ -4,6 +4,30 @@
 # Created on 05/18/2022 by Rie Sadohara and Suzie Hoops
 # ===============================================================================================================
 
+# In this tutorial, we aim to demonstrate the utility of the DietR package by applying it to the dietary data 
+# available from the National Health and Nutrition Examination Survey (NHANES). 
+
+# NHANES is a national survey conducted with some thousands of participants across the US over two days. NHANES 
+# data is published every other year and consists of various kinds of data including dietary intake, body 
+# measurements, laboratory-taken data. There are numerous questions that can be asked with these data to 
+# connect dietary intake with various biomarkers. Here, as an example, we will explore the dietary intake
+# (food items) of participants and look at the relationship between dietary patterns and diabetic status in 
+# NHANES 2015-2016.
+
+# Refer to the NHANES data and documentation (https://wwwn.cdc.gov/nchs/nhanes/Default.aspx) for more information 
+# about each release (version) of NHANES and the variables measured.
+
+# Data from NHANES are in .XPT format, and you will need a specific R package, SASxport, to import it into R. 
+# We will download the example data files from the NHANES 2015-2016 page 
+# (https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=2015) 
+# and save them in the "Raw_data" folder in the "NHANES" folder.
+
+# Open "02_load_clean_NHANES_food_1.R" script in the "users" folder and load the packages needed as per the directions.
+
+# In this tutorial, you will learn how to download datasets and associated other databases from NHANES, 
+# how to process that data with DietR, and the food tree to generate dietary patterns, and how to integrate these 
+# dietary patterns with other biomarker data from NHANES to explore specific hypotheses.
+
 # Folder structure 
 # 
 #               |----- eg_data -- NHANES -- Raw_data -- has Food Items and Totals files 
@@ -40,7 +64,7 @@
 # ===============================================================================================================
 
 # Load and prepare food codes  
-# Download food code data from NHANES website and save it in "Raw_data" folder. 
+# Download food code data from the NHANES website and save it in "Raw_data" folder. 
   # Name the file and destination. mod="wb" is needed for Windows OS.
   # Other OS users may need to delete it.
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DRXFCD_I.XPT", 
@@ -60,17 +84,17 @@
   foodcodetable_f[1:10, ]
   
 # ---------------------------------------------------------------------------------------------------------------
-# Load and prepare FPED
+# Load and prepare Food Patterns Equivalent Database for use
   
-# FPED has the composition of nutrients and food categories of each food item coded by food codes.
-# FPED can be downloaded from USDA -ARS FPED databases 
+# The Food Patterns Equivalents Database (FPED) has the composition of nutrients and food categories of 
+# each food item coded by food codes. FPED can be downloaded from USDA -ARS FPED databases 
 # (https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/food-surveys-research-group/docs/fped-databases/)
 
-# You need to use the correct version of FPED. With NHANES, use FPED with the same release year
-# as the year of NHANES you are analyzing. For this tutorial, FPED was downloaded from NHANES
-# the FPED table is formatted by renaming the variables with R-loadable ones (e.g., "F_CITMLB (cup eq.)" 
-# --> "F_CITMLB" and saved as "FPED_1516_forR.txt". 
- 
+# You need to use the version of FPED that corresponds with the NHANES version that you explore. When using NHANES,
+# you will need to use the FPED with the same release year as the year of NHANES you are analyzing. 
+# For this tutorial, FPED was downloaded from NHANES the FPED table is formatted by renaming the variables with
+# R-loadable ones (e.g., "F_CITMLB (cup eq.)" -> "F_CITMLB" and saved as "FPED_1516_forR.txt".
+                      
     
 # Load FPED15-16, needed for the AddFoodCat function.
   FPED <- read.table("FPED/FPED_1516_forR.txt", sep="\t", header=T)
@@ -85,7 +109,10 @@
 # Load "food items" data and add food descriptions
 # Download food items data
 
-# Food data can be downloaded from NHANES website.
+# Food data can be downloaded from NHANES website. For each cycle of NHANES there are two days of dietary 
+# records available for many participants. The food-level data is available for each of these days of 
+# dietary records. These are stored separately as Day 1 and Day 2. Here we will download both days and 
+# combine them to obtain better estimates of diet.
 
   # Download day 1 data.
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.XPT", 
@@ -99,8 +126,13 @@
 # data.  Therefore, you will need to change the alphabet (and potentially the other parts of the 
 # variable names) in order to run this script with other releases of NHANES. For example, 
 # DR1IFDCD is a column name for the food code used in the NHANES 2015-2016, and the 
-# alphabet for this release is "I".   
+# alphabet for this release is "I". The alphabet for NHANES 2017-2018 is "J", so the food code 
+# column in that dataset is DR1JFDCD, and the other columns in it have DR1J or DR2J as prefixes.  
 
+# Whilst we will only use one dataset (2015-16) in this tutorial, you may want to combine several releases to 
+# analyze long-term trends. It is recommended that you check the variable names and food item names as the food 
+# databases are updated regularly and they may not perfectly match across versions.
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Load and prepare Day 1 food items data
   

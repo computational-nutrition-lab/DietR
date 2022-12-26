@@ -1,0 +1,15 @@
+02_load_clean_ASA24.R
+03_calc_ASA24totals_by_occasion.R
+10_data_overview_ASA24.R
+10_data_overview_ASA24_TotalEachDay.R
+11_percent_kcal_ASA24.R
+11_percent_kcal_ASA24_TotalEachDay.R
+20_prep_for_clustering_ASA24_byhand.R
+20_prep_for_clustering_ASA24.R
+23_PCA_ASA24.R
+25_k-means_ASA24.R
+30_create_food_tree_ASA24.R
+35_viz_food_tree_ASA24.R
+40_ordination_ASA24.R
+45_viz_ordination_ASA24.R
+x24_PCA_results_ASA24.R

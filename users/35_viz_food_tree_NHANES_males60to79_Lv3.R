@@ -28,14 +28,15 @@
   SpecifyDataDirectory("eg_data/NHANES/Laboratory_data/Foodtree")
 
 # Load your tree object.
-  tree <- read.tree("Food_D12_FC_cc_f_males60to79_red_Lv3.nwk")
+  # tree <- read.tree("Food_D12_FC_cc_f_s_males60to79_red_Lv3.nwk")
+  tree <- read.tree("Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.nwk") # OK. these two are the same trees.
 
 # It is OK to see an error that says:
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
 # Also defined by 'tidytree'
 
 # Prepare the tree data for visualization.
-  PrepFoodTreePlots(input.tree=tree)
+  PrepFoodTreePlots(input.tree = tree)
 
 # Create a color-coded and annotated food tree with 9 L1 levels.
 # Choose either 'circular' or 'radial' for layout.
@@ -45,9 +46,8 @@
 # Take a look at the tree.
   annotated_tree
 
-# Save.
-  ggsave("Food_D12_FC_cc_f_males60to79_red_Lv3_viz.pdf", annotated_tree,
-         device="pdf", width=5.2, height=5)
+  ggsave("Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red_Lv3_viz.png", annotated_tree,
+         device="png", width=5.2, height=5)
 
 # --------------------------------------------------------------------------------------------------------------
 # Come back to the main directory
