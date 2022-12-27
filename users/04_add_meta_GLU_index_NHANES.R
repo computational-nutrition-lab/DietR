@@ -22,6 +22,8 @@
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES")  
 
+# Create a folder called "Laboratory_data" under "NHANES", so that our results with laboratory data (glucose 
+# tolerance test) can be saved.   
 
 # ===============================================================================================================
 # Load NHANES15-16totals with demographic data
@@ -29,7 +31,7 @@
   
 # Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4207 people.
   QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_demo.txt", sep="\t", header=T)
-
+                           
 # Check the number of participants in the QCtotals - should be 4,207 people.
   length(unique(QCtotal_d$SEQN))
 
@@ -38,8 +40,6 @@
 # Add Gender and Age, body measure, and metadata.
 # ===============================================================================================================
 
-# Add Age and Gender. 
-  
 # We are going to use the following columns:
 # RIAGENDR = gender
 # RIDAGEYR = age
@@ -89,7 +89,7 @@
   metadata_raw <- read.xport("Raw_data/DR1TOT_I.XPT")
 
 # Total Day 1 has "dietary data for day 1" and "metadata", but we only need the metadata; thus, take out
-# only the metadata columns (variable) and exclude the day 1 data.
+# only the metadata columns (variables) and exclude the day 1 data.
 # Column names' descriptions can be found here: https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1TOT_I.htm
   
 # First, specify the first and the last column names to select.
@@ -151,58 +151,59 @@
     
     # Otherwise, put "Normal", "Prediabetic" or "Diabetic" to GLU_index column. 
     ifelse(QCtotal_d_ga_body_meta_glu$LBXGLU < 100,
-           "Normal", ifelse(QCtotal_d_ga_body_meta_glu$LBXGLU < 126,
-                            "Prediabetic",
-                            "Diabetic"))
+           "Normal", 
+           ifelse(QCtotal_d_ga_body_meta_glu$LBXGLU < 126,
+                  "Prediabetic",
+                  "Diabetic"))
   )
-
-# Check the first 30 rows of glucose and GLU_index columns in QCtotal_d_glu_body_meta.
+  
+  # Check the first 30 rows of glucose and GLU_index columns in QCtotal_d_glu_body_meta.
   QCtotal_d_ga_body_meta_glu[1:30, c("LBXGLU", "GLU_index")]
   
-# ---------------------------------------------------------------------------------------------------------------
-# There are some missing data, so check the frequenncy with useNA argument to show NAs.
+  # ---------------------------------------------------------------------------------------------------------------
+  # There are some missing data, so check the frequency with useNA argument to show NAs.
   table(QCtotal_d_ga_body_meta_glu$GLU_index, useNA="always")
   
-# Select individuals that have no missing data in the LBXGLU column.
+  # Select individuals that have no missing data in the LBXGLU column.
   QCtotal_d_ga_body_meta_glu_comp <- QCtotal_d_ga_body_meta_glu[!is.na(QCtotal_d_ga_body_meta_glu$LBXGLU), ]
   
-# Check the number of rows - should have 1943 rows.   
+  # Check the number of rows - should have 1943 rows.   
   nrow(QCtotal_d_ga_body_meta_glu_comp)
   
-# Double-check there is no missing data in GLU_index.
+  # Double-check there is no missing data in GLU_index.
   table(QCtotal_d_ga_body_meta_glu_comp$GLU_index, useNA="always")
-      
-
-# ===============================================================================================================
-# Exclude individuals who are following special diets
-# ===============================================================================================================
-
-# There may be some participants following special diets such as low-sodium or gluten-free. Detailed explanation 
-# about the special diet question can be found on the documentation
-# [https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Dietary&Cycle=2017-2018].
-# For this demonstration, we will select only those who are eating freely without following any diet.  
   
-# Check the number of individuals who are following any specific diet (DRQSDIET==1).
+  
+  # ===============================================================================================================
+  # Exclude individuals who are following special diets
+  # ===============================================================================================================
+  
+  # There may be some participants following special diets such as low-sodium or gluten-free. Detailed explanation 
+  # about the special diet question can be found on the documentation
+  # [https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Dietary&Cycle=2017-2018].
+  # For this demonstration, we will select only those who are eating freely without following any diet.  
+  
+  # Check the number of individuals who are following any specific diet (DRQSDIET==1).
   table(QCtotal_d_ga_body_meta_glu_comp$DRQSDIET, useNA="always")
   
-# DRQSDIET==1 is following a special diet, so select only rows with DRQSDIET==2. 
+  # DRQSDIET==1 is following a special diet, so select only rows with DRQSDIET==2. 
   QCtotal_d_ga_body_meta_glu_comp_2 <- subset(QCtotal_d_ga_body_meta_glu_comp, DRQSDIET == 2)
   
-# How many people remained? -- 1625 remained.
+  # How many people remained? -- 1625 remained.
   table(QCtotal_d_ga_body_meta_glu_comp_2$DRQSDIET)
   
-# Check the sample size of each category.
+  # Check the sample size of each category.
   table(QCtotal_d_ga_body_meta_glu_comp_2$GLU_index, useNA="always")
   
   # Diabetic      Normal Prediabetic        <NA> 
-    # 211         684         730           0 
+  # 211         684         730           0 
   
-# Save the dataset as a .txt file in the folder called "Laboratory_data".
+  # Save the dataset as a .txt file in the folder called "Laboratory_data".
   write.table(QCtotal_d_ga_body_meta_glu_comp_2, file="Laboratory_data/QCtotal_d_ga_body_meta_glu_comp_2.txt",
               sep= "\t", row.names=F, quote= F)
-
-# ---------------------------------------------------------------------------------------------------------------
-# Come back to the main directory before you start running another script.  
+  
+  # ---------------------------------------------------------------------------------------------------------------
+  # Come back to the main directory before you start running another script.  
   setwd(main_wd)
   
   

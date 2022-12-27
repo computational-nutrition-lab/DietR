@@ -111,7 +111,7 @@
   keepnames2_mult <- keepnames2[keepnames2 %in% freqtable2_m$SEQN] # 6869
   
   # Select only adults from keepnames2_mult.  
-  keepnames2_mult_adults <- keepnames2_mult[keepnames2_mult %in% adults$SEQN] # 4401
+  keepnames2_mult_adults <- keepnames2_mult[keepnames2_mult %in% adults$SEQN] # 4,401
 
   # Select only the participants whose names are in keepnames2_mult_adults.
   food2b <- food2[food2$SEQN %in% keepnames2_mult_adults, ] # 66,690 rows 
@@ -159,15 +159,17 @@
   
 # Select only the individuals listed in keepnames12. --> This will further be QCed at the end of this script.
   food12f <- food12e[food12e$SEQN %in% keepnames12, ]
-  
+
 # These need to be removed from tutorial, I think..., because input for food tree and for 
 # # Save as a .txt. It will be a HUGE file. Use this as an input for food tree.
 #   write.table(food12f, "Food_D12_FC_cc_f_s.txt", sep="\t", row.names=F, quote=F)
 # 
-# # Add the demographic data to food12f for data overview.  
-#   food12f_demo <- merge(x=food12f, y=demog, by="SEQN", all.x=T)
-#   length(unique(food12f_demo$SEQN))
-# 
+# Add the demographic data to food12f for data overview. (prolly not...)
+  food12f_demo <- merge(x=food12f, y=demog, by="SEQN", all.x=T)
+  length(unique(food12f_demo$SEQN))
+  colnames(food12f_demo)
+  food12f_demo$Day
+ 
 # # Save. It will be a HUGE file  and will take a few moments. Use this as an input for data overview.
 #   write.table(food12f_demo, "Food_D12_FC_cc_f_s_demo.txt", sep="\t", row.names=F, quote=F)
 # until here. 
@@ -195,7 +197,7 @@
   # Select the variables to pick up from the food data
   var_to_use1 <- names(food1bb) %in% day1variables$V1
   
-  # Pick up only the specified variables
+  # Select only the specified variables
   food1c <- food1bb[, var_to_use1]
   
   # Remove "DR1T", "DR1" from the column names 
@@ -217,7 +219,7 @@
   food1c$Day <- 1
   food2c$Day <- 2
 
-# Ensure the columns of food1c and food2c match before joining them.
+# Ensure the columns of food1c and food2c match, before joining them.
   identical(colnames(food1c), colnames(food2c))
   
     # If not, create a dataframe that has the column names of both food1c and food2c,
@@ -233,15 +235,15 @@
   
 # Limit to only the individuals listed in keepnames12.
   food12d <- food12c[food12c$SEQN %in% keepnames12, ]
-
+  
 # Add the demographic data to food12f for data overview.   ### This will be QC-ed later at the end of this script.
   food12d_demo <- merge(x=food12d, y=demog, by="SEQN", all.x=T)
   
 # Save the combined and QC-ed food items as a .txt file. 
 # This has nutrient information, food categories, and day variable for each food item reported,
 # and shall be used to calculate totals in B-2. 
-#### THIS WILL BE A HUGE FILE. ####
-  write.table(food12d_demo, "Food_D12_FC_QC_demo.txt", sep="\t", quote=F, row.names=F)  
+#### THIS WILL BE A VERY LARGE FILE. ####
+  write.table(food12d_demo, "Food_D12_FC_QC_demo_wFoodCodeID.txt", sep="\t", quote=F, row.names=F)  
   
 # ---------------------------------------------------------------------------------------------------------------
 # You may also want to consider special diets that some participants are following: e.g. DASH diet, diabetic diet, 
@@ -253,13 +255,14 @@
 # ===============================================================================================================
 
 # Load the QC-ed food items.
-  food12d_demo <- read.table("Food_D12_FC_QC_demo.txt", sep="\t", header=T)
-
+  food12d_demo <- read.table("Food_D12_FC_QC_demo_wFoodCodeID.txt", sep="\t", header=T)
+  # This has "FoodID" and "FoodCode" columns. 
+    
 # Calculate totals for day 1 and day 2, from the first.val argument through the last.val argument, 
 # and combine the two datasets.
   TotalNHANES(food12d= food12d_demo,
               first.val= "GRMS",    
-              last.val= "A_DRINKS", 
+              last.val=  "A_DRINKS", 
               outfn = "Total_D12_FC_QC_eachday.txt")  
 
 # Load the resultant total for each day.
@@ -287,7 +290,6 @@
 # Load the mean total.
   meantotal12d <- read.table("Total_D12_FC_QC_mean.txt", sep="\t", header=T)
 
-  
 # ===============================================================================================================
 # B-4: QC the mean total in the same way as ASA24. 
 # ===============================================================================================================
@@ -370,8 +372,8 @@
 # ===============================================================================================================
   
 # In the previous section, we have removed individual(s) that did not pass the QC from mean total data.
-# We will remove those individual(s) from the totals (before taking means of days), so that we will have
-# the same individuals in QC-ed mean_total and total. 
+# We will remove those individual(s) from the totals (calculated in B-2, before taking means of days), 
+# so that we will have the same individuals in QC-ed mean_total and total. 
   
 # Among the individuals in total12d_demo, pick up only those in QCtotals_demo. 
   total12d_demo_QCed <- total12d_demo[total12d_demo$SEQN %in% QCtotals_demo$SEQN, ]
@@ -379,18 +381,31 @@
 # Save as a .txt file. This will be the total for each of the "QC-ed" individuals for each day, if you would
 # like to perform clustering analyses with Day 1 and Day 2 separately. 
   write.table(total12d_demo_QCed, "Total_D12_FC_QC_eachday_demo_QCed.txt", sep="\t", quote=F, row.names=F)
-
+  
 # ===============================================================================================================
 # Similarly, remove the QC-ed individual(s) from the items to be consistent
 # ===============================================================================================================
   
-# Among the individuals in food12d_demo, pick up only those in QCtotals_demo. 
-  food12d_demo_QCed <- food12d_demo[ food12d_demo$SEQN %in% QCtotals_demo$SEQN, ]
+# # Among the individuals in food12d_demo, pick up only those in QCtotals_demo. 
+#   food12d_demo_QCed <- food12d_demo[ food12d_demo$SEQN %in% QCtotals_demo$SEQN, ]
+#   
+# # Save as a .txt file. This will be the items for each of the "QC-ed" individuals for each day, to be 
+# # used for ordination etc. 
+#   write.table(food12d_demo_QCed, "Food_D12_FC_QC_demo_wFoodCodeID_QCed.txt", sep="\t", quote=F, row.names=F)
+
+###
+# Use food12f instead to be used as an input for food tree. 
+# Among the individuals in food12f_demo, pick up only those in QCtotals_demo.
+  food12f_demo_QCed <- food12f_demo[ food12f_demo$SEQN %in% QCtotals_demo$SEQN, ]
+
+# Save as a .txt file. This will be the items for each of the "QC-ed" individuals for each day, to be
+# used for ordination etc.
+  # write.table(food12f_demo_QCed, "Food_D12_FC_QC_demo_wFoodCodeID_QCed.txt", sep="\t", quote=F, row.names=F)
+  write.table(food12f_demo_QCed, "Food_D12_FC_cc_f_sel_demo_QCed.txt", sep="\t", quote=F, row.names=F)
+###
   
-# Save as a .txt file. This will be the items for each of the "QC-ed" individuals for each day, to be 
-# used for ordination etc. 
-  write.table(food12d_demo_QCed, "Food_D12_FC_QC_demo_QCed.txt", sep="\t", quote=F, row.names=F)
-    
+  
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.
   setwd(main_wd)  

@@ -55,9 +55,11 @@
   # all.food.record <- read.table("../Food_D12_FC_cc_f.txt", sep="\t", header=T)
   # all.food.record <- read.table("../Food_D12_FC_cc_f_s.txt", sep="\t", header=T)
   # all.food.record <- read.table("../Food_D12_FC_QC_demo_QCed.txt", sep="\t", header=T)
-  all.food.record <- read.table("../Food_D12_FC_QC_demo_QCed_w_FoodID.txt", sep="\t", header=T)
-
-# Select only the individuals listed in 'selectedind'. 
+  # all.food.record <- read.table("../Food_D12_FC_QC_demo_QCed_w_FoodCode.txt", sep="\t", header=T)
+  # all.food.record <- read.table("../Food_D12_FC_QC_demo_wFoodCodeID_QCed.txt", sep="\t", header=T)
+  all.food.record <- read.table("Food_D12_FC_cc_f_sel_demo_QCed.txt", sep="\t", header=T)
+                                     
+# Select only the individuals listed in 'selectedind'.
   sel.food.record <- all.food.record[all.food.record$SEQN %in% selectedind, ]
 
 # Confirm the two contains the same set of individuals. 
@@ -66,7 +68,7 @@
 # Save. This will be the input for the following procedures.
 # write.table(sel.food.record, "Food_D12_FC_cc_f_males60to79_2.txt", # Deleted _2 ...  
   # write.table(sel.food.record, "Food_D12_FC_cc_f_s_males60to79.txt", 
-  write.table(sel.food.record, "Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID.txt", 
+  write.table(sel.food.record, "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79.txt", 
               sep="\t", row.names=F, quote=F) 
 
 # ===============================================================================================================
@@ -82,102 +84,71 @@
   #                       output_fn =        "Food_D12_FC_cc_f_s_males60to79_red.txt")
 
   FilterDbByDietRecords(food_database_fn = "../../Food_tree_eg/NHANESDatabase.txt",
-                        food_records_fn  = "Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID.txt",   # (output of FormatFoods)(?).
-                        output_fn =        "Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.txt")
+                        food_records_fn  = "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79.txt",   # (output of FormatFoods)(?).
+                        output_fn =        "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red.txt")
   
-  ###
-  reduced = read.delim("Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.txt")
-  reduced = read.delim("Food_D12_FC_cc_f_s_males60to79_red.txt")
-  dim(reduced)
-  head(reduced)
-  length(unique(reduced$FoodCodes))
-  length(unique(reduced$FoodID))
-  
-  records_QCed = read.delim('Food_D12_FC_QC_demo_QCed_males60to79.txt')
-  records_s = read.delim('Food_D12_FC_cc_f_s_males60to79.txt')
-  dim(records_QCed) #7603  151
-  dim(records_s)    #7603  131
-  write.table(colnames(records_QCed), 'clipboard', sep="\t", quote=F, row.names=F)
-  write.table(colnames(records_s), 'clipboard', sep="\t", quote=F, row.names=F)
-  colnames(records_s)    
-  
-  
-  head(records)
-  dim(output) # 1274    6
-  head(output)
-  length(unique(records$SEQN)) #1678
-  head(unique(records$Food_code)[order(unique(records$Food_code))])
-  length(unique(output$FoodID)) # 1274
-  head(unique(output$FoodID))
-  # So, FilterDbByDietRecords reduced the number of foods from 1678 to 1274.
-  # Let's check what the function is doing.
-  View(FilterDbByDietRecords)
-  
-  database = read.delim('../../Food_tree_eg/NHANESDatabase.txt')
-  valid_ids <- intersect(database$FoodID, records$FoodID)
-  
-  Food_D12_FC_QC_demo_QCed <- read.delim('../Food_D12_FC_QC_demo_QCed.txt')
-  dim(Food_D12_FC_QC_demo_QCed)  # 128578 x 151!
-  length(unique(Food_D12_FC_QC_demo_QCed$SEQN)) # 4207, filtered after QC totals.
-  length(unique(Food_D12_FC_QC_demo_QCed$)) # 4207, filtered after QC totals.
 
-  ###
-  
 # Use CheckDB function to ensure no food reported Food_D12_FC_cc_f.txt in is missing in the database.
 
 # Check if there is any food item reported by people but are missing in the database. 
   check.db(food_database_fn = "../../Food_tree_eg/NHANESDatabase.txt", 
            # food_records_fn =  "Food_D12_FC_cc_f_males60to79_red.txt", 
            # food_records_fn =  "Food_D12_FC_cc_f_s_males60to79_red.txt", 
-           food_records_fn =  "Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.txt",
-           output_fn =        "Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red_missing.txt")
+           food_records_fn =  "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red.txt",
+           output_fn =        "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_missing.txt")
 
 # Load the output and check if the output contains anything? 
-  mmm = read.table("Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red_missing.txt", sep="\t", header=T)
+  mmm = read.table("Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_missing.txt", sep="\t", header=T)
   head(mmm)
   # Has something ===> put this missing.txt file in addl_foods_fn argument of MakeFoodTree.
   # Empty         ===> put NULL in addl_foods_fn argument of MakeFoodTree.
-
-# Create food tree with the reduced dataset (only reported foods) classified at 
-# a desired level of classification (Lv. 1-6).
-# "NodeLabelsMCT.txt" has a list of food levels and names, which comes with this package.
+  
+  # Create food tree with the reduced dataset (only reported foods) classified at 
+  # a desired level of classification (Lv. 1-6).
+  # "NodeLabelsMCT.txt" has a list of food levels and names, which comes with this package.
   MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt", 
                addl_foods_fn = NULL,
                num.levels = 3,
-               food_database_fn =            "Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.txt",  
-               output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.nwk", 
-               output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.taxonomy.txt"
+               food_database_fn =            "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red.txt",  
+               output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.nwk", 
+               output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.tax.txt"
   )
-
-
-# --------------------------------------------------------------------------------------------------------------
-# Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.
-# It is OK to see the following warning message:
-# In write.table(fiber.otu, output_fn, sep = "\t", quote = F, append = TRUE) :
-# appending column names to file.
-
-# Make the standard food otu table with data in gram weights of food.
-# MakeFoodOtu(food_records_fn=  "Food_D12_FC_cc_f_males60to79.txt",  # need to supply the original data that have 'FoodAmt' before FilterDBByDietRecords.  
-  MakeFoodOtu(food_records_fn=  "Food_D12_FC_cc_f_s_males60to79.txt",  # need to supply the original data that have 'FoodAmt' before FilterDBByDietRecords.  
+  
+  # --------------------------------------------------------------------------------------------------------------
+  # Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.
+  # It is OK to see the following warning message:
+  # In write.table(fiber.otu, output_fn, sep = "\t", quote = F, append = TRUE) :
+  # appending column names to file.
+  
+  # Make the standard food otu table with data in gram weights of food.
+  # MakeFoodOtu(food_records_fn=  "Food_D12_FC_cc_f_males60to79.txt",  # need to supply the original data that have 'FoodAmt' before FilterDBByDietRecords.  
+  # MakeFoodOtu(food_records_fn=           "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79.txt",  # need to supply the original data that have 'FoodAmt' before FilterDBByDietRecords.  
+  MakeFoodOtu(food_records_fn=           "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79.txt",  # need to supply the original data that have 'FoodAmt' before FilterDBByDietRecords. (all.food.records)  
               food_record_id =  "SEQN",                              # The ID of your participants
-              food_taxonomy_fn= "Foodtree/Food_D12_FC_cc_f_s_males60to79_red_Lv3.taxonomy.txt",  # Your taxonomy file produced by MakeFoodTree.
-              output_fn =       "Foodtree/Food_D12_FC_cc_f_s_males60to79_red_Lv3.food.otu.txt")  # Output otu file to be saved.
-
-# Make a food otu table with data in grams of fiber per food
-  MakeFiberOtu(food_records_fn=  "Food_D12_FC_cc_f_s_males60to79.txt", 
+              food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.tax.txt",  # Your taxonomy file produced by MakeFoodTree.
+              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.food.otu.txt")  # Output otu file to be saved.
+  
+  # Done up to here!!!!!!!
+  
+  original =read.delim("Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79.txt")
+  which (colnames(original) == "FoodAmt")
+  
+  # Make a food otu table with data in grams of fiber per food
+  MakeFiberOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79.txt", 
                food_record_id=   "SEQN", 
-               food_taxonomy_fn= "Foodtree/Food_D12_FC_cc_f_s_males60to79_red_Lv3.taxonomy.txt", 
-               output_fn=        "Foodtree/Food_D12_FC_cc_f_s_males60to79_red_Lv3.fiber.otu.txt")
-
-# Make a food otu table as dehydrated grams per kcal
-  MakeDhydrtOtu(food_records_fn=  "Food_D12_FC_cc_f_males60to79.txt", 
+               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.tax.txt", 
+               output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.fiber.otu.txt")
+  
+  # Make a food otu table as dehydrated grams per kcal
+  MakeDhydrtOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79.txt", 
                 food_record_id =  "SEQN", 
-                food_taxonomy_fn= "Foodtree/Food_D12_FC_cc_f_s_males60to79_red_Lv3.taxonomy.txt", 
-                output_fn =       "Foodtree/Food_D12_FC_cc_f_s_males60to79_red_Lv3.dhydrt.otu.txt")  
-
-# ---------------------------------------------------------------------------------------------------------------
-# Come back to the main directory.
+                food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.tax.txt", 
+                output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.dhydrt.otu.txt")  
+  
+  # ---------------------------------------------------------------------------------------------------------------
+  # Come back to the main directory.
   setwd(main_wd)
   
   
-
+  
+  

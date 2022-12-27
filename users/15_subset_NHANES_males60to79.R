@@ -65,14 +65,14 @@
   write.table(glu_2_males60to79, "QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt", 
               sep="\t", row.names = F, quote = F)
   
-  # ===============================================================================================================
-  # Look at the frequency of body measure by diabetic status and test difference by ANOVA.
-  # ===============================================================================================================
+# ===============================================================================================================
+# Look at the frequency of body measure by diabetic status and test difference by ANOVA.
+# ===============================================================================================================
   
-  # BMI
-  # Look at the BMI frequency of each group.
-  # It is OK to see an error saying it removed rows containing non-finite values or missing values,
-  # as long as the charts are produced.
+# BMI
+# Look at the BMI frequency of each group.
+# It is OK to see an error saying it removed rows containing non-finite values or missing values,
+# as long as the charts are produced.
   males60to79_BMIfreq <- 
     ggplot(data=glu_2_males60to79, aes(x=BMXBMI, group=GLU_index, fill=GLU_index)) +
     geom_density(adjust=1.5, alpha=0.4) + space_axes + no_grid +
@@ -84,8 +84,8 @@
   ggsave("males60to79_BMI_by_GLU_index.pdf", 
          males60to79_BMIfreq, device="pdf", width=5.3, height=4.5)
   
-  # ----------------------------------------------------------------------------------------------------------------  
-  # Create a boxplot of BMI of each GLU_index group.
+# ----------------------------------------------------------------------------------------------------------------  
+# Create a boxplot of BMI of each GLU_index group.
   males60to79_BMIbox <- 
     ggplot(glu_2_males60to79, aes(x=GLU_index, y=BMXBMI, fill=GLU_index)) +
     geom_boxplot(outlier.shape = NA) + no_grid + space_axes +
@@ -96,20 +96,20 @@
   ggsave("males60to79_BMI_by_GLU_index_box.pdf", 
          males60to79_BMIbox, device="pdf", width=5.3, height=4.5)
   
-  # ----------------------------------------------------------------------------------------------------------------  
-  # The three GLU_index groups appear to have different BMI means. 
-  # Test the difference between groups by ANOVA.
+# ----------------------------------------------------------------------------------------------------------------  
+# The three GLU_index groups appear to have different BMI means. 
+# Test the difference between groups by ANOVA.
   
-  # Remove samples (rows) that have missing data in the target variable.
+# Remove samples (rows) that have missing data in the target variable.
   df <- glu_2_males60to79[complete.cases(glu_2_males60to79$BMXBMI), ]
   
-  # Run ANOVA
+# Run ANOVA
   myanova <- aov(BMXBMI ~ GLU_index, data=df)
   summary(myanova)
   
-  # The ANOVA results indicate that the groups are different (p<0.05).
+# The ANOVA results indicate that the groups are different (p<0.05).
   
-  # But first, test the assumptions for ANOVA.
+# But first, test the assumptions for ANOVA.
   ## Create a new dataset of residuals of the model.
   res1 <- residuals(myanova)
   
@@ -130,18 +130,18 @@
   ## When the assumptions are satisfied, then you can run ANOVA.
   summary(aov(BMXBMI ~ GLU_index, data=df))
   
-  # If ANOVA is significant, you can do a pairwise t-test.
-  # "holm" (default) is less conservative than Bonferroni p-value adjustment method for multiple comparisons.
-  # Other methods that can be used: "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none".
+# If ANOVA is significant, you can do a pairwise t-test.
+# "holm" (default) is less conservative than Bonferroni p-value adjustment method for multiple comparisons.
+# Other methods that can be used: "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none".
   pairwise.t.test(df$BMXBMI, df$GLU_index, p.adjust.method = "holm") 
   
-  # Based on the p-values, Normal and Prediabetic have the same mean BMI (p=0.12832 > 0.05). 
-  # Normal and Diabetic have different mean BMI (p=0.00056 < 0.05), as do 
-  # Prediabetic and Diabetic (p=0.00499 < 0.05).   
+# Based on the p-values, Normal and Prediabetic have the same mean BMI (p=0.12832 > 0.05). 
+# Normal and Diabetic have different mean BMI (p=0.00056 < 0.05), as do 
+# Prediabetic and Diabetic (p=0.00499 < 0.05).   
   
-  # ----------------------------------------------------------------------------------------------------------------  
-  # KCAL
-  # Look at the KCAL frequency of each group.   
+# ----------------------------------------------------------------------------------------------------------------  
+# KCAL
+# Look at the KCAL frequency of each group.   
   males60to79_KCALfreq <- 
     ggplot(data=glu_2_males60to79, aes(x=KCAL, group=GLU_index, color=GLU_index)) +
     geom_density(adjust=1.5, alpha=0.4, size=1.2, linetype="longdash") + space_axes + no_grid +
