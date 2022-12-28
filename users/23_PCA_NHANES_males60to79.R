@@ -25,8 +25,8 @@
 # Specify where the data is.
   SpecifyDataDirectory("eg_data/NHANES/Laboratory_data")
   
-  # Create two folders named "males60to79_Nut_PCA" and "males60to79_Cat_PCA" inside "Laboratory_data" 
-  # to save PCA results of Nutrients and Food Category data, respectively.
+# Create two folders named "males60to79_Nut_PCA" and "males60to79_Cat_PCA" inside "Laboratory_data" 
+# to save PCA results of Nutrients and Food Category data, respectively.
   
 # ===============================================================================================================
 # PCA with nutrients and BMI
