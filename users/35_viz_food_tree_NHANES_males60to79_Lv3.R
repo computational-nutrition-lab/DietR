@@ -30,7 +30,7 @@
 # Load your tree object.
   # tree <- read.tree("Food_D12_FC_cc_f_s_males60to79_red_Lv3.nwk")
   # tree <- read.tree("Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.nwk") 
-  tree <- read.tree("Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv.nwk") # These three are the same trees. Huh... 
+  tree <- read.tree("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv.nwk") # These three are the same trees. Huh... 
 
 # It is OK to see an error that says:
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
@@ -47,7 +47,7 @@
 # Take a look at the tree.
   annotated_tree
 
-  ggsave("Food_D12_FC_QC_demo_QCed_w_FoodCodeID_males60to79_red_3Lv_viz.png", annotated_tree,
+  ggsave("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv_viz.png", annotated_tree,
          device="png", width=5.2, height=5)
 
 # --------------------------------------------------------------------------------------------------------------

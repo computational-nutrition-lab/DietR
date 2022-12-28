@@ -1,5 +1,5 @@
 # ===============================================================================================================
-# Load NHANES 2015-16 FOOD data, add food description, QC, and calculate total. 
+# Load and clean NHANES food - 2 - QC food data, calculate totals, QC mean totals 
 # Version 1
 # Created on 10/05/2022 by Rie Sadohara and Suzie Hoops
 # ===============================================================================================================
@@ -145,6 +145,7 @@
   food2e <- food2b
 
 # Remove the prefixes "DR1I", "DR1" from the columnnames.
+# The "gsub" function replaces all matches with the specified pattern.    
   colnames(food1e) <- gsub(colnames(food1e), pattern = "^DR1I", replacement = "")
   colnames(food1e) <- gsub(colnames(food1e), pattern = "^DR1",  replacement = "")
   colnames(food2e) <- gsub(colnames(food2e), pattern = "^DR2I", replacement = "")
@@ -157,22 +158,22 @@
 # Combine food1 and food2 as a longtable (add food2 rows after food1 rows).
   food12e <- rbind(food1e, food2e)
   
-# Select only the individuals listed in keepnames12. --> This will further be QCed at the end of this script.
+# Select only the individuals listed in keepnames12. --> This will further be QCed at the end of Procedure B-4.
   food12f <- food12e[food12e$SEQN %in% keepnames12, ]
 
-# These need to be removed from tutorial, I think..., because input for food tree and for 
-# # Save as a .txt. It will be a HUGE file. Use this as an input for food tree.
+##### These need to be removed from tutorial, I think..., 
+# # Save as a .txt. It will be a VERY LARGE file. Use this as an input for food tree.
 #   write.table(food12f, "Food_D12_FC_cc_f_s.txt", sep="\t", row.names=F, quote=F)
 # 
-# Add the demographic data to food12f for data overview. (prolly not...)
+# Add the demographic data to food12f. (not used for data overview)
   food12f_demo <- merge(x=food12f, y=demog, by="SEQN", all.x=T)
   length(unique(food12f_demo$SEQN))
   colnames(food12f_demo)
-  food12f_demo$Day
+  food12f_demo$FoodCode
  
-# # Save. It will be a HUGE file  and will take a few moments. Use this as an input for data overview.
+# # Save. It will be a VERY LARGE file  and will take a few moments. Use this as an input for data overview.
 #   write.table(food12f_demo, "Food_D12_FC_cc_f_s_demo.txt", sep="\t", row.names=F, quote=F)
-# until here. 
+##### until here. 
    
 # ================================================================================================================  
 # Procedure B-1: Further process food1b and food2b for calculating totals and clustering.  
@@ -186,10 +187,12 @@
   names(food1bb)[names(food1bb) == "FoodAmt"] <- "DR1IGRMS"
   names(food2bb)[names(food2bb) == "FoodAmt"] <- "DR2IGRMS"
 
-# [NOTE] Prepare data to combine day 1 and day 2 data.
+# [NOTE] Create a set of variables to use downstream.
 # Refer to the tutorial how to generate NHANES_Food_VarNames_FC_Day1.txt and
 # NHANES_Food_VarNames_FC_Day2.txt. 
-  
+
+# ---------------------------------------------------------------------------------------------------------------
+# Select variables and combine Day 1 and Day 2  
 # Day 1
   # Import the list of variables to be selected in Day 1.  
   day1variables <- read.table('Food_VarNames/NHANES_Food_VarNames_FC_Day1.txt', header=F)
@@ -200,7 +203,7 @@
   # Select only the specified variables
   food1c <- food1bb[, var_to_use1]
   
-  # Remove "DR1T", "DR1" from the column names 
+  # Remove "DR1T", "DR1" from the column names. 
   colnames(food1c) <- gsub(colnames(food1c), pattern = "^DR1I", replacement = "")
   colnames(food1c) <- gsub(colnames(food1c), pattern = "^DR1",  replacement = "")
   
@@ -243,21 +246,22 @@
 # This has nutrient information, food categories, and day variable for each food item reported,
 # and shall be used to calculate totals in B-2. 
 #### THIS WILL BE A VERY LARGE FILE. ####
-  write.table(food12d_demo, "Food_D12_FC_QC_demo_wFoodCodeID.txt", sep="\t", quote=F, row.names=F)  
+  write.table(food12d_demo, "Food_D12_FC_QC_demo.txt", sep="\t", quote=F, row.names=F)  
   
 # ---------------------------------------------------------------------------------------------------------------
 # You may also want to consider special diets that some participants are following: e.g. DASH diet, diabetic diet, 
 # etc. Depending on your research question, you may want to exclude those following special diets.
-# The diet information is found in totals day 1. We will revisit diet information in the next section.
+# The diet information is found in metadata attached to totals day 1. We will revisit diet information in the 
+# next section.
 
 # ===============================================================================================================
 # B-2: Calculate totals/day/participant with the food data of the selected SEQNs.
 # ===============================================================================================================
 
 # Load the QC-ed food items.
-  food12d_demo <- read.table("Food_D12_FC_QC_demo_wFoodCodeID.txt", sep="\t", header=T)
+  food12d_demo <- read.table("Food_D12_FC_QC_demo.txt", sep="\t", header=T)
   # This has "FoodID" and "FoodCode" columns. 
-    
+   
 # Calculate totals for day 1 and day 2, from the first.val argument through the last.val argument, 
 # and combine the two datasets.
   TotalNHANES(food12d= food12d_demo,
@@ -270,7 +274,7 @@
 
 # total12d has the sum of each variable (columns) for each day and participant. 
   head(total12d, 2)
-  
+
 # Merge total12d and demographics by SEQN.
   total12d_demo <- merge(x= total12d, y=demog, by="SEQN", all.x=TRUE)
   
@@ -373,9 +377,9 @@
   
 # In the previous section, we have removed individual(s) that did not pass the QC from mean total data.
 # We will remove those individual(s) from the totals (calculated in B-2, before taking means of days), 
-# so that we will have the same individuals in QC-ed mean_total and total. 
+# so that we will have the same individuals in QC-ed mean_total and total for each day. 
   
-# Among the individuals in total12d_demo, pick up only those in QCtotals_demo. 
+# Among the individuals in total12d_demo, select only those in QCtotals_demo. 
   total12d_demo_QCed <- total12d_demo[total12d_demo$SEQN %in% QCtotals_demo$SEQN, ]
   
 # Save as a .txt file. This will be the total for each of the "QC-ed" individuals for each day, if you would
@@ -393,16 +397,17 @@
 # # used for ordination etc. 
 #   write.table(food12d_demo_QCed, "Food_D12_FC_QC_demo_wFoodCodeID_QCed.txt", sep="\t", quote=F, row.names=F)
 
-###
+### THIS HAS BEEN ADDED TO TUTORIAL. THIS WORKS WITH CREATE FOOD TREE SCRIPT.
 # Use food12f instead to be used as an input for food tree. 
-# Among the individuals in food12f_demo, pick up only those in QCtotals_demo.
+# Among the individuals in food12f_demo, select only those in QCtotals_demo.
   food12f_demo_QCed <- food12f_demo[ food12f_demo$SEQN %in% QCtotals_demo$SEQN, ]
 
 # Save as a .txt file. This will be the items for each of the "QC-ed" individuals for each day, to be
 # used for ordination etc.
   # write.table(food12f_demo_QCed, "Food_D12_FC_QC_demo_wFoodCodeID_QCed.txt", sep="\t", quote=F, row.names=F)
-  write.table(food12f_demo_QCed, "Food_D12_FC_cc_f_sel_demo_QCed.txt", sep="\t", quote=F, row.names=F)
+  write.table(food12f_demo_QCed, "Food_D12_FC_QC_demo_QCed.txt", sep="\t", quote=F, row.names=F)
 ###
+  identical(colnames(food12f_demo_QCed), colnames(all.food.record))
   
   
   

@@ -1,5 +1,5 @@
 # ===============================================================================================================
-# Load NHANES 2015-16 FOOD data, add food description, QC, and calculate total. 
+# Load and clean NHANES - 1 - format food data and add food description. 
 # Version 2
 # Created on 05/18/2022 by Rie Sadohara and Suzie Hoops
 # ===============================================================================================================
@@ -22,7 +22,8 @@
 # (https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=2015) 
 # and save them in the "Raw_data" folder in the "NHANES" folder.
 
-# Open "02_load_clean_NHANES_food_1.R" script in the "users" folder and load the packages needed as per the directions.
+# Open "02_load_clean_NHANES_food_1.R" script (this script) in the "users" folder and load the packages 
+# needed as per the directions.
 
 # In this tutorial, you will learn how to download datasets and associated other databases from NHANES, 
 # how to process that data with DietR, and the food tree to generate dietary patterns, and how to integrate these 
@@ -109,7 +110,7 @@
 # Load "food items" data and add food descriptions
 # Download food items data
 
-# Food data can be downloaded from NHANES website. For each cycle of NHANES there are two days of dietary 
+# Food data can be downloaded from the NHANES website. For each cycle of NHANES there are two days of dietary 
 # records available for many participants. The food-level data is available for each of these days of 
 # dietary records. These are stored separately as Day 1 and Day 2. Here we will download both days and 
 # combine them to obtain better estimates of diet.
@@ -131,13 +132,13 @@
 
 # Whilst we will only use one dataset (2015-16) in this tutorial, you may want to combine several releases to 
 # analyze long-term trends. It is recommended that you check the variable names and food item names as the food 
-# databases are updated regularly and they may not perfectly match across versions.
+# databases are updated regularly, and they may not perfectly match across versions.
   
 # ---------------------------------------------------------------------------------------------------------------
 # Load and prepare Day 1 food items data
   
 # Import items data Day 1, add food item descriptions, and save it as a txt file.
-# OUTPUT WILL LIKELY BE A HUGE FILE.
+# OUTPUT WILL LIKELY BE A VERY LARGE FILE.
   ImportNHANESFoodItems(data.name="Raw_data/DR1IFF_I.XPT", 
                         food.code.column = "DR1IFDCD", 
                         food.code.table = foodcodetable_f,
@@ -188,10 +189,10 @@
 
 # Change column names to more intuitive ones
   
-# Food Day 1 with Food Category *** WILL BE A HUGE TABLE. ***
+# Food Day 1 with Food Category *** WILL BE A VERY LARGE TABLE. ***
   Food_D1_FC <- read.table("Food_D1_FC.txt", sep="\t", header=T)
   
-# Food Day 2 with Food Category *** WILL BE A HUGE TABLE. ***
+# Food Day 2 with Food Category *** WILL BE A VERY LARGE TABLE. ***
   Food_D2_FC <- read.table("Food_D2_FC.txt", sep="\t", header=T)
   
 # Change the colnames for downstream analyses
