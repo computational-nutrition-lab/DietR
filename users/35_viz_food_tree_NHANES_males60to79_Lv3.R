@@ -1,10 +1,8 @@
 # ===============================================================================================================
-# Generate food tree out of GLU - males aged 60-79 with food tree level 3 (test)
-# Version 1
-# Created on 11/16/2022 by Rie Sadohara
+# Generate food tree out of GLU - males aged 60-79 with food tree level 3.
+# Version 2
+# Created on 12/03/2023 by Rie Sadohara
 # ===============================================================================================================
-
-# READY TO BE COPIED TO TUTORIAL =====COPIED ON 08/30/2022====
 
 # Set your working directory as the main directory (dietary_patterns)
   Session --> Set working directory --> Choose directory.
@@ -21,16 +19,14 @@
   setwd(main_wd)
   
 # ===============================================================================================================
-# Visualize food tree.
+# Visualize your food tree.
 # ===============================================================================================================
   
 # Specify where your data is.
   SpecifyDataDirectory("eg_data/NHANES/Laboratory_data/Foodtree")
 
 # Load your tree object.
-  # tree <- read.tree("Food_D12_FC_cc_f_s_males60to79_red_Lv3.nwk")
-  # tree <- read.tree("Food_D12_FC_QC_demo_QCed_males60to79_w_FoodID_red.nwk") 
-  tree <- read.tree("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv.nwk") # These three are the same trees. Huh... 
+  tree <- read.tree("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv.nwk") 
 
 # It is OK to see an error that says:
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
@@ -41,12 +37,15 @@
 
 # Create a color-coded and annotated food tree with 9 L1 levels.
 # Choose either 'circular' or 'radial' for layout.
-# It is OK to see some warning messages about Coordinate system and scale for 'y' already being present.
+# It is OK to see some warning messages that say: 
+  # Coordinate system already present. Adding new coordinate system, which will replace the existing one.
+  # Scale for 'y' is already present. Adding another scale for 'y', which will replace the existing scale.
   VizFoodTree(input.tree=tree, layout="radial")  
 
 # Take a look at the tree.
   annotated_tree
 
+# Save.
   ggsave("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv_viz.png", annotated_tree,
          device="png", width=5.2, height=5)
 
