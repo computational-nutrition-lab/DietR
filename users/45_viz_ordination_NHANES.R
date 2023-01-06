@@ -51,7 +51,7 @@
   eigen_loaded_vec <- eigen_loaded[, 2]
   
 # ---------------------------------------------------------------------------------------------------------------
-# Highlight certain sample(s).
+# Highlight certain sample(s) - e.g. participants 83755 and 83820.
 # Subset datapoint(s) that you would like to highlight. 
   select_point <- subset(loaded_glu_w, SEQN=="83755" | SEQN=="83820" ) 
   
@@ -60,12 +60,12 @@
     # Plot all the datapoints first.
     geom_point(loaded_glu_w, shape=21, size=3, alpha=1, colour="black",
                mapping=aes(x=Axis.1, y=Axis.2, fill=GLU_index)) +  
-    scale_fill_manual(values = c("steelblue3", "yellow", "hotpink")) + # OR use viridis theme for >100 samples.
+    scale_fill_manual(values = c("steelblue3", "yellow", "hotpink")) + 
     xlab( paste("Axis.1 (", paste(round(eigen_loaded_vec[1]*100, 1)), "%)", sep="") ) +
     ylab( paste("Axis.2 (", paste(round(eigen_loaded_vec[2]*100, 1)), "%)", sep="") ) +
     no_grid + space_axes + theme(aspect.ratio = 1) +
     
-    # Add thicker outlined datapoints.
+    # Add thicker outlined datapoints of selected individuals.
     geom_point(select_point, shape=21, size=3, alpha=1, stroke=2, color="black",
                mapping=aes(x=Axis.1, y=Axis.2, fill= GLU_index), show.legend=F) +
     

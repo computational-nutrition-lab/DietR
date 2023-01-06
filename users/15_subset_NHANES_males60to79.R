@@ -55,13 +55,13 @@
 # Check the dimension of the selected data - 237 rows.
   dim(glu_2_males60to79)
   
-  # Ensure the ages of the selected subpopulation are between 60-79.  
+# Ensure the ages of the selected subpopulation are between 60-79.  
   table(glu_2_males60to79$RIDAGEYR)
   
-  # Look at the distribution of GLU_index among the selected subpopulation.
+# Look at the distribution of GLU_index among the selected subpopulation.
   table(glu_2_males60to79$GLU_index, useNA="always")
   
-  # Save the glu_2_males60to79 as a txt file.
+# Save the glu_2_males60to79 as a txt file.
   write.table(glu_2_males60to79, "QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt", 
               sep="\t", row.names = F, quote = F)
   
