@@ -34,14 +34,14 @@
 # Define which columns to drop.
   drops <- c("FoodAmt", "KCAL", "MOIS")
     
-# Load the totals data (as is, not averaged, but with the individuals in the QC-ed mean totals)
+# Load the totals data (for each day, not averaged, but with the individuals in the QC-ed mean totals)
 # "_m" stands for "metadata added", not "means".
   totals <- read.table("VVKAJ_Tot_m_QCed.txt", sep= "\t", header= T)
   
 # Take only the columns whose names are NOT in the drops vector.
   totals_2 <- totals[ , !(names(totals) %in% drops)]
 
-# Load the QC-ed totals that has one data/participant with metadata.
+# Load the averaged and QC-ed totals that has one data per participant with metadata.
   totals_mean <- read.table("VVKAJ_Tot_mean_m_QCed.txt", sep="\t", header=T)  
   
 # Take only the columns whose names are NOT in the drops vector. 
@@ -58,9 +58,12 @@
   start_col <-  match("PROT"    , names(totals_2))
   end_col   <-  match("B12_ADD" , names(totals_2))
 
-# Pick up the BMI, body weight, and the nutrient variables.
+# Select the BMI, body weight, and the nutrient variables.
   user_BMI_nut <- totals_2[ , c(userID_col, BMI_col, start_col:end_col)]
-
+  
+# Ensure user_BMI_nut has only the selected columns (variables).   
+  colnames(user_BMI_nut)
+  
 # Process this input, user_BMI_nut, for clustering analysis as follows. 
   # 1: take complete cases in your variables of interest, 
   # 2: save the original totals of the complete cases individuals as a .txt, 
@@ -87,11 +90,10 @@
   start_col <-    match("PROT"     , names(totals_mean_2))  
   end_col   <-    match("B12_ADD"  , names(totals_mean_2)) 
   
-# Pick up the BMI, body weight, and the nutrient variables.
+# Select the BMI, body weight, and the nutrient variables.
   m_user_BMI_nut <- totals_mean_2[ , c(UserName_col, BMI_col, start_col:end_col)]
 
 # Process this input for clustering analyses.
-  
   PrepForClustering(input_df = m_user_BMI_nut,
                     userID = "UserName",
                     original_totals_df= totals_mean, 
@@ -109,11 +111,10 @@
   start_col <-  match("F_TOTAL"  , names(totals_2))
   end_col   <-  match("A_DRINKS" , names(totals_2))
   
-# Pick up the BMI, body weight, and the nutrient variables.
+# Select the BMI, body weight, and the nutrient variables.
   user_BMI_cat <- totals_2[ , c(userID_col, BMI_col, start_col:end_col)]
-  
+
 # Process this input for clustering analyses.
-  
   PrepForClustering(input_df = user_BMI_cat,
                     userID = "UserName",
                     original_totals_df= totals, 
@@ -129,14 +130,13 @@
 # Obtain the column numbers for UserName, BMI, start.col="F_TOTAL" through end.col="A_DRINKS" in totals_mean_2.
   UserName_col <- match("UserName" , names(totals_mean_2)) 
   BMI_col   <-    match("BMI"      , names(totals_mean_2)) 
-  start_col <-    match("PROT"     , names(totals_mean_2))  
-  end_col   <-    match("B12_ADD"  , names(totals_mean_2)) 
+  start_col <-    match("F_TOTAL"     , names(totals_mean_2))  
+  end_col   <-    match("A_DRINKS"  , names(totals_mean_2)) 
   
 # Pick up the BMI, body weight, and the nutrient variables.
   m_user_BMI_cat <- totals_mean_2[ , c(UserName_col, BMI_col, start_col:end_col)]
-  
+
 # Process this input for clustering analyses.
-  
   PrepForClustering(input_df = m_user_BMI_cat,
                     userID = "UserName",
                     original_totals_df= totals_mean, 

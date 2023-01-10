@@ -29,8 +29,9 @@
 # Nutrient data as is, processed for clustering analyses.
 # ===============================================================================================================
 
-# Load Nut_asis data.
-  Tot_m_QCed_Nut_asis <- read.table(file="VVKAJ_Tot_m_QCed_Nut_asis.txt", sep="\t", header=T)
+# Load the Nut_asis data.
+  # Tot_m_QCed_Nut_asis <- read.table(file="VVKAJ_Tot_m_QCed_Nut_asis.txt", sep="\t", header=T)
+  Tot_m_QCed_Nut_asis <- read.table(file="VVKAJ_Tot_m_QCed_Nut_asis_c_rv.txt", sep="\t", header=T)
     
 # Name your input data.
   pca_input <- Tot_m_QCed_Nut_asis
@@ -39,7 +40,7 @@
   dim(pca_input)
 
 # Scale the data and perform PCA.
-  scaled_pca <- prcomp(x=pca_input, scale = TRUE)   
+  scaled_pca <- prcomp(x=pca_input, scale=TRUE)   
   
 # Specify the directory (folder) to save the results.
   res_dir_nut_asis = "PCA_Nut_asis"
@@ -51,35 +52,38 @@
   OutputPCA(pca.data=pca_input, pca.result=scaled_pca, 
              out.dir= res_dir_nut_asis, out.prefix= res_prefix_nut_asis )
   
-# Combine the input (totals before processing) with all the variables and the PC results. 
-  SaveInputAndPCs(input="VVKAJ_Tot_m_QCed.txt", pca.results = scaled_pca, 
+# Combine the input (Nut before processing) with all the variables and the PC results. 
+  SaveInputAndPCs(input="VVKAJ_Tot_m_QCed_Nut_asis_c.txt", pca.results = scaled_pca, 
                   out.dir= res_dir_nut_asis, out.prefix= res_prefix_nut_asis)
 
 # [Note] Even though the input file has both nutrients (Nut) and food categories (Cat) data,  
 # PCA was done with only either Nut or Cat, not both.
 
 # ---------------------------------------------------------------------------------------------------------------
-# Load the totals data. (The original data before filtering variables)
-  totals <- read.table("VVKAJ_Tot_m_QCed.txt", 
-                       sep="\t", header=T)
+# Color-code datapoints on a biplot by a factor - Diet, in this case. 
+  
+# Load the complete Nutrients data. (before filtering variables)
+  Nut_asis_c <- read.table("VVKAJ_Tot_m_QCed_Nut_asis_c.txt", sep="\t", header=T)
   
   # Change Diet to a factor so that factor levels will be displayed in order.
-  totals$Diet <- factor(totals$Diet,
+  Nut_asis_c$Diet <- factor(Nut_asis_c$Diet,
                         levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
   
   # Use the autoplot function. Specify which PC in the x and y arguments.
   # The 'data' argument needs the original input for PCA, not after selecting specific variables.
-  Nut_asis <- autoplot(scaled_pca, x=1, y=2,    
-                       loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
-                       data = totals,  size= 3 ) +     
-    geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
+  Nut_asis_PC12_diet <- 
+    autoplot(scaled_pca, x=1, y=2,    
+             loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
+             data = Nut_asis_c,  
+             size= 3 ) +     
+             geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
     theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
     no_grid + space_axes +
-    scale_fill_manual( values= distinct100colors) 
-  Nut_asis
+    scale_fill_manual(values= distinct100colors) 
+  Nut_asis_PC12_diet
   
   ggsave("PCA_NUt_asis/VVKAJ_Nut_asis_PC12_diet.pdf", 
-         Nut_asis, device="pdf", width=7, height=6.5)  
+         Nut_asis_PC12_diet, device="pdf", width=7, height=6.5)  
   
 # You can do this operation for the other three datasets: Nut_ave, Cat_asis, Cat_ave, by
 # changing the input names as necessary.
@@ -89,7 +93,7 @@
 # ===============================================================================================================
   
 # Load Nut_ave data.
-  Tot_m_QCed_Nut_ave <- read.table(file="VVKAJ_Tot_m_QCed_Nut_ave_subset.txt", sep="\t", header=T)
+  Tot_m_QCed_Nut_ave <- read.table(file="VVKAJ_Tot_mean_m_QCed_Nut_ave_c_rv.txt", sep="\t", header=T)
   
 # Name your input data.
   pca_input <- Tot_m_QCed_Nut_ave
@@ -107,23 +111,49 @@
   res_prefix_nut_ave = "VVKAJ_Nut_ave"
   
 # Save PCA output files in a specified folder (out.dir) and a prefix (out.prefix).
-# Input is your items/totals input file before any prep for clustering, from which you derived the input for the PCA.
+# Input is your items/Nut input file before any prep for clustering, from which you derived the input for the PCA.
   OutputPCA(pca.data=pca_input, pca.result=scaled_pca, 
              out.dir= res_dir_nut_ave, out.prefix= res_prefix_nut_ave)
   
-# Combine the input (totals before processing) with all the variables and the PC results.
-# In the case of averaged totals data / user, the input file used here is xxx_ave_allvar.txt, which 
+# Combine the input (before processing) with all the variables and the PC results.
+# In the case of averaged data / user, the input file used here is xxx_ave_c.txt, which 
 # has all the variables before filtering out by correlation or zero variance.
-  SaveInputAndPCs(input="VVKAJ_Tot_m_QCed_Nut_ave_allvar.txt", pca.results = scaled_pca, 
+  SaveInputAndPCs(input="VVKAJ_Tot_mean_m_QCed_Nut_ave_c.txt", pca.results = scaled_pca,
                   out.dir= res_dir_nut_ave, out.prefix= res_prefix_nut_ave)
-
+  
+  # ---------------------------------------------------------------------------------------------------------------
+# Color-code datapoints on a biplot by a factor - Diet, in this case.   
+  
+# Load the complete Nut average data. (before filtering variables)
+  Nut_ave_c <- read.table("VVKAJ_Tot_mean_m_QCed_Nut_ave_c.txt", sep="\t", header=T)
+  
+  # Change Diet to a factor so that factor levels will be displayed in order.
+  Nut_ave_c$Diet <- factor(Nut_ave_c$Diet,
+                           levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
+  
+  # Use the autoplot function. Specify which PC in the x and y arguments.
+  # The 'data' argument needs the original input for PCA, not after selecting specific variables.
+  Nut_ave_PC12_diet <- 
+    autoplot(scaled_pca, x=1, y=2,    
+             loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
+             data = Nut_ave_c,  
+             size= 3 ) +     
+      geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
+      theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
+      no_grid + space_axes +
+      scale_fill_manual( values= distinct100colors) 
+  Nut_ave_PC12_diet
+  
+  ggsave("PCA_Nut_ave/VVKAJ_Nut_ave_PC12_diet.pdf", 
+         Nut_ave_PC12_diet, device="pdf", width=7, height=6.5)  
+    
 # ===============================================================================================================
 # Food Category data as is, processed for clustering analyses.
 # ===============================================================================================================
   
 # Load Cat_asis data.
-  Tot_m_QCed_Cat_asis <- read.table(file="VVKAJ_Tot_m_QCed_Cat_asis.txt", sep="\t", header=T)
-  colnames(Tot_m_QCed_Cat_asis)
+  Tot_m_QCed_Cat_asis <- read.table(file="VVKAJ_Tot_m_QCed_Cat_asis_c_rv.txt", sep="\t", header=T)
+  
   # Name your input data.
   pca_input <- Tot_m_QCed_Cat_asis
   
@@ -131,7 +161,7 @@
   dim(pca_input)
   
   # Scale the data and perform PCA.
-  scaled_pca <- prcomp(x=pca_input, scale = TRUE)   
+  scaled_pca <- prcomp(x=pca_input, scale=TRUE)   
   
   # Specify the directory (folder) to save the results.
   res_dir_cat_asis = "PCA_Cat_asis" 
@@ -143,49 +173,40 @@
   OutputPCA(pca.data=pca_input, pca.result=scaled_pca, 
              out.dir= res_dir_cat_asis, out.prefix= res_prefix_cat_asis )
   
-  # Combine the input (totals before processing) with all the variables and the PC results. 
-  SaveInputAndPCs(input="VVKAJ_Tot_m_QCed.txt", pca.results = scaled_pca, 
+  # Combine the input (Cat before processing) with all the variables and the PC results. 
+  SaveInputAndPCs(input="VVKAJ_Tot_m_QCed_Cat_asis_c.txt", pca.results = scaled_pca, 
                   out.dir= res_dir_cat_asis, out.prefix= res_prefix_cat_asis)
   
-  # [Note] Even though the input file has both Nutrients (Nut) and food categories (Cat) data,  
-  # PCA was done with only either Nut or Cat, not both.
-  
-  ############
-  # ---------------------------------------------------------------------------------------------------------------
-  # Load the totals data. (The original data before filtering variables)
-  totals <- read.table("VVKAJ_Tot_m_QCed.txt", 
-                       sep="\t", header=T)
+# ---------------------------------------------------------------------------------------------------------------
+# Color-code datapoints on a biplot by a factor - Diet, in this case. 
+  # Load the complete Cat data. (before filtering variables)
+  Cat_asis_c <- read.table("VVKAJ_Tot_m_QCed_Cat_asis_c.txt", sep="\t", header=T)
   
   # Change Diet to a factor so that factor levels will be displayed in order.
-  totals$Diet <- factor(totals$Diet,
+  Cat_asis_c$Diet <- factor(Cat_asis_c$Diet,
                         levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
   
   # Use the autoplot function. Specify which PC in the x and y arguments.
   # The 'data' argument needs the original input for PCA, not after selecting specific variables.
-  Cat_asis <- autoplot(scaled_pca, x=1, y=2,    
-                       loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
-                       data = totals,  size= 3 ) +     
-    geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
-    theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
-    no_grid + space_axes +
-    scale_fill_manual( values= distinct100colors) 
-  Cat_asis
+  Cat_asis_PC12_diet <- 
+    autoplot(scaled_pca, x=1, y=2,    
+             loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
+             data = Cat_asis_c,  size= 3 ) +     
+      geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
+      theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
+      no_grid + space_axes +
+      scale_fill_manual( values= distinct100colors) 
+  Cat_asis_PC12_diet
   
-  ggsave("PCA_NUt_asis/VVKAJ_Cat_asis_PC12_diet.pdf", 
-         Nut_asis, device="pdf", width=7, height=6.5)  
-  
-  # You can do this operation for the other three datasets: Nut_ave, Cat_asis, Cat_ave, by
-  # changing the input names as necessary.
-  ############
-  
-  
+  ggsave("PCA_Cat_asis/VVKAJ_Cat_asis_PC12_diet.pdf", 
+         Cat_asis_PC12_diet, device="pdf", width=7, height=6.5)  
   
 # ===============================================================================================================
 # Food category data averaged and processed for clustering analyses.
 # ===============================================================================================================
   
 # Load Cat_ave data.
-  Tot_m_QCed_Cat_ave <- read.table(file="VVKAJ_Tot_m_QCed_Cat_ave_subset.txt", sep="\t", header=T)
+  Tot_m_QCed_Cat_ave <- read.table(file="VVKAJ_Tot_mean_m_QCed_Cat_ave_c_rv.txt", sep="\t", header=T)
   
   # Name your input data.
   pca_input <- Tot_m_QCed_Cat_ave
@@ -203,16 +224,42 @@
   res_prefix_cat_ave = "VVKAJ_Cat_ave"
   
   # Save PCA output files in a specified folder (out.dir) and a prefix (out.prefix).
-  # Input is your items/totals input file before any prep for clustering, from which you derived the input for the PCA.
+  # Input is your items/Nut input file before any prep for clustering, from which you derived the input for the PCA.
   OutputPCA(pca.data=pca_input, pca.result=scaled_pca, 
-             out.dir= res_dir_cat_ave, out.prefix= res_prefix_cat_ave)
+            out.dir= res_dir_cat_ave, out.prefix= res_prefix_cat_ave)
   
-  # Combine the input (totals before processing) with all the variables and the PC results. 
-  # In the case of aveaged totals data / user, the input file used here is xxx_ave_allvar.txt, which 
+  # Combine the input (Nut before processing) with all the variables and the PC results. 
+  # In the case of averaged Nut data / user, the input file used here is xxx_ave_c.txt, which 
   # has all the variables before filtering out by correlation or zero variance.
-  SaveInputAndPCs(input="VVKAJ_Tot_m_QCed_Cat_ave_allvar.txt", pca.results= scaled_pca, 
+  SaveInputAndPCs(input="VVKAJ_Tot_mean_m_QCed_Cat_ave_c.txt", pca.results= scaled_pca, 
                   out.dir= res_dir_cat_ave, out.prefix= res_prefix_cat_ave)  
 
+# ---------------------------------------------------------------------------------------------------------------
+# Color-code datapoints on a biplot by a factor - Diet, in this case. 
+  
+  # Load the complete Cat average data. (before filtering variables)
+  Cat_ave_c <- read.table("VVKAJ_Tot_mean_m_QCed_Cat_ave_c.txt", sep="\t", header=T)
+  
+  # Change Diet to a factor so that factor levels will be displayed in order.
+  Cat_ave_c$Diet <- factor(Cat_ave_c$Diet,
+                            levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))
+  
+  # Use the autoplot function. Specify which PC in the x and y arguments.
+  # The 'data' argument needs the original input for PCA, not after selecting specific variables.
+  Cat_ave_PC12_diet <- 
+    autoplot(scaled_pca, x=1, y=2,    
+             loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
+             data = Cat_ave_c,  
+             size= 3 ) +
+      geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
+      theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
+      no_grid + space_axes +
+      scale_fill_manual( values= distinct100colors) 
+  Cat_ave_PC12_diet
+  
+  ggsave("PCA_Cat_ave/VVKAJ_Cat_ave_PC12_diet.pdf", 
+         Cat_ave_PC12_diet, device="pdf", width=7, height=6.5)  
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory
   setwd(main_wd) 

@@ -32,8 +32,7 @@
   
 # ~~~~~ EIDTS TO ADD TO TUTORIAL ADDED, BUT THE WEBSITE IS YET TO BE EDITED. ~~~~~~~~~
 # Load the totals data.
-  # totals <- read.table("VVKAJ_Tot_m_QCed.txt",  sep = "\t", header = T) # this is total/day/user
-  totals <- read.table("VVKAJ_Tot_mean_m_QCed.txt",  sep = "\t", header = T)
+  totals <- read.table("VVKAJ_Tot_mean_m_QCed.txt",  sep="\t", header=T)
 
 # ===============================================================================================================
 # Calculate the percentage of calories from Carbohydrate, Protein, and Total Fat.  
@@ -56,8 +55,9 @@
 # Generate a stacked barchart without SD. 
 # ===============================================================================================================
   
-# Order Diets by a certain macronutrient by the "order.by" argument. # You can also specify the stacking order of all the 
-  # macronutrients by the "macronu.order" argument. Note that the last item will be on the bottom of the barchart.
+# Order Diets by a certain macronutrient by the "order.by" argument. 
+# You can also specify the stacking order of all the macronutrients by the "macronu.order" argument. 
+# Note that the last item will be on the bottom of the barchart.
   PlotStackedwoSD(data=CPT_kcal, 
                   order.by = "Protein", 
                   macronut.order=c("Carbohydrate", "Total Fat", "Protein"))
@@ -67,7 +67,7 @@
   
   # Save as a .pdf.
   ggsave("VVKAJ_Tot_mean_m_QCed_CPT_kcal_wo_SD.pdf", stacked_wo_SD,
-         device="pdf", width=6.2, height=4.2, units="in", dpi=300)
+         device="pdf", width=6.2, height=4.2, units="in")
   
 # When order.by="NULL", the Diets (groups) will be in the alphabetical order by default.
 # If you want to specify the group order, add the group.order argument. 
@@ -91,7 +91,7 @@
   
   # Save as a .pdf.
   ggsave("VVKAJ_Tot_mean_m_QCed_CPT_kcal_dodged_w_SD.pdf", dodged_w_SD,
-         device="pdf", width=6, height=4.5, units="in", dpi=300)
+         device="pdf", width=6, height=4.5, units="in")
 
 # When order.by="NULL", the Diets (groups) will be in the alphabetical order by default.
 # If you want to specify the group order, add the group.order argument. 
@@ -109,7 +109,7 @@
 # Create a vector that contains all the group levels (diets, in this case). 
 # This "groups" vector will be used in the CalcStackedSD function within the PlotStackedWithSD function.
   groups <- unique(CPT_kcal$Group)
-
+  
 # Order Diet by a certain macronutrient by the "order.by" argument. You can also specify the stacking order of all the 
 # macronutrients by the "macronu.order" argument. Note that the last item will be on the bottom of the barchart.
   PlotStackedWithSD(data= CPT_kcal, 
@@ -120,7 +120,7 @@
 
 # Save as a .pdf.
   ggsave("VVKAJ_Tot_mean_m_QCed_CPT_kcal_with_SD.pdf", stacked_with_SD,
-         device="pdf", width=6.2, height=4.3, units="in", dpi=300)
+         device="pdf", width=6.2, height=4.3, units="in")
 
 # When order.by="NULL", the Diets (groups) will be in the alphabetical order by default.
 # If you want to specify the group order, add the group.order argument. 

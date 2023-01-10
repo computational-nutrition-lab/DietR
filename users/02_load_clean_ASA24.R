@@ -55,7 +55,6 @@
 # Save it as a .txt file. 
   write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) 
 
-  # -----------------------------------------
 # Special characters common in food names in dietary data such as "'", ",", "%" may interfere correct 
 # data loading in R; thus, we replace them with an underscore "_".  The format.file  function takes only
 # .txt files as input. 
@@ -78,8 +77,6 @@
   head(items_f)
 # The last column of items_f_id should have food descriptions with special characters replaced with "_".
   
-  
-# -----------------------------------------
 # Add a human-readable sample identifier (SampleID) with a desired prefix, and save it as a txt file. SampleIDs 
 # are IDs unique to each combination of users and day and represent days of dietary intake in this dataset.   
   AddSampleIDtoItems(input.fn="VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", 
@@ -88,9 +85,9 @@
 # Load the formatted Items file with SampleID added.
   items_f_id <- read.table("VVKAJ_Items_f_id.txt", sep="\t", header=T)
 
-# A combination of the specified prefix and sequential number should be added in the SampleID column, the first 
-# column of the items_f_id dataframe. You will probably need to scroll up the output a little bit in the console 
-# to view the first column.     
+# A combination of the specified prefix and sequential number (vvkaj.00001) should be added in the SampleID  
+# column, the first column of the items_f_id dataframe. You will probably need to scroll up the output a
+# little bit in the console to view the first column.     
   head(items_f_id)
 
 # Ensure your items file has the expected dimensions (number of rows x number of columns, 
@@ -149,7 +146,7 @@
   ind_metadata <- read.table("ind_metadata.txt", sep="\t", header=T)
   
 # Look at what the metadata has.
-#This includes information on the removed individual, VVKAJ116, but it will not be used 
+# This includes information on the removed individual, VVKAJ116, but it will not be used 
 # if VVKAJ116 is not in the items data.
   head(ind_metadata)
 
@@ -167,7 +164,7 @@
 # metadata to just the usernames present in the analysis dataset (items_f_id_s) using the "%in%" operator.
   ind_metadata_s <- ind_metadata[ind_metadata$UserName %in% items_f_id_s$UserName, ] 
 
-# Use the tail function to show the last six rows of ind_metadata_s. You can see the last individual
+# Use the tail function to show the last six rows of ind_metadata_s. You can see that the last individual
 # in this metadata is now VVKAJ117, and that VVKAJ116, which was not in items_f_id_s, has been omitted. 
   tail(ind_metadata_s)
   
@@ -176,7 +173,7 @@
 # ===============================================================================================================
 
 # Use one of the input files saved above as an input for calculating totals for.
-# Specify which columns have usernames and Recall.No., which is the number of recorded days. 
+# Specify which columns have usernames and Recall.No., which has the recorded days. 
   GenerateTotals(inputfn = "VVKAJ_Items_f_id_s_m.txt", 
                  User.Name = 'UserName', 
                  Recall.No = 'RecallNo',
@@ -303,7 +300,7 @@
 # We will remove those individual(s) from the totals (before taking means of days), so that we will have
 # the same individuals in the mean_total and total. 
   
-# Among the individuals in new_totals_m, pick up only those in QCtotals. 
+# Among the individuals in new_totals_m, retain only those in QCtotals. 
   new_totals_m_QCed <- new_totals_m[ new_totals_m$UserName %in% QCtotals$UserName, ]
   
 # Save as a .txt file. This will be the total for each of the "QC-ed" individuals for each day, to be 
@@ -311,7 +308,7 @@
   write.table(new_totals_m_QCed, "VVKAJ_Tot_m_QCed.txt", sep="\t", quote=F, row.names=F)
   
 # ===============================================================================================================
-# Similarly, remove the QC-ed individual(s) from the items to be consistent
+# Similarly, remove the QC-ed individual(s) from the items to be consistent with the QC-ed averaged totals
 # ===============================================================================================================
 
 # Among the individuals in new_totals_m, pick up only those in QCtotals. 
