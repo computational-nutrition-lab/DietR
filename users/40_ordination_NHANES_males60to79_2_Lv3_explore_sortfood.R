@@ -63,6 +63,7 @@
   
   # Sort the SEQNs, but do not touch the taxonomy column at the end. 
   food <- food_raw[, c(sortedcolnames_order, taxonomycolumn) ] 
+     # Can save this as .txt for corr.axis.foods...
   
   # Take a look at the food file.
   # The column name of "food" is the ordered SEQNs preceded with an 'X'.
@@ -165,7 +166,7 @@
 # The merged dataframe, 'meta_usersdf', will be used for plotting.
   MergeAxesAndMetadata_NHANES(ord.object= ordinated_w, number.of.axes= 10, meta.data= demog_glu, 
                               output.fn= "Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv_ord_WEIGHTED_meta_users.txt")
-    
+  
 # Load the output again for plotting.
   loaded_glu_w <- read.table("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv_ord_WEIGHTED_meta_users.txt",
                              sep="\t", header=T)
