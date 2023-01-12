@@ -65,13 +65,13 @@
   colnames(user_BMI_nut)
   
 # Process this input, user_BMI_nut, for clustering analysis as follows. 
-  # 1: take complete cases in your variables of interest, 
-  # 2: save the original totals of the complete cases individuals as a .txt, 
-  # 3: keep non-zero columns, 
-  # 4: remove the userID,
-  # 5: identify correlated variables and remove them,
-  # 6: save with uncorrelated variables as a .txt,
-  # 7: save correlation matrix as a .txt.  
+  # 1: Take complete cases in your variables of interest, 
+  # 2: Save the original totals of the complete cases individuals as a .txt, 
+  # 3: Keep non-zero columns, 
+  # 4: Remove the userID,
+  # 5: Identify correlated variables and remove them,
+  # 6: Save with uncorrelated variables as a .txt,
+  # 7: Save correlation matrix as a .txt.  
   
   PrepForClustering(input_df = user_BMI_nut,
                     userID = "UserName",
