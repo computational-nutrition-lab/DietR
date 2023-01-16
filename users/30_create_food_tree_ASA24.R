@@ -16,13 +16,14 @@
 
 # Set your working directory as the main directory (dietary_patterns)
   Session --> Set working directory --> Choose directory.
-  setwd("~/GitHub/dietary_patterns")
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
   
-# You can come back to the main directory by:
-  setwd(main_wd)   
+# ---------------------------------------------------------------------------------------------------------------
+# Load the data.tree package necessary for newick.tree.r, and if it is not installed, install it. 
+  if (!require("data.tree", quietly = TRUE))install.packages("data.tree")
   
 # Load source scripts
   source("lib/specify_data_dir.R")
@@ -35,6 +36,72 @@
   source("lib/Food_tree_scripts/make.fiber.otu.r")
   source("lib/Food_tree_scripts/make.dhydrt.otu.r")
 
+# You can come back to the main directory by:
+  setwd(main_wd)   
+
+# ===============================================================================================================
+# Load and prep data for generating food trees.
+# ===============================================================================================================
+
+# Specify the directory where the data is.
+  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
+
+# Load data.  
+  QCed.foods <- read.table("VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", header=T)
+  head(QCed.foods)
+
+# # ===============================================================================================================
+# # Limit to just the foods reported in your study (use formatted dietrecords.txt as the input) 
+# # ===============================================================================================================
+# # Keep only the foods reported in your study. This is to make data compatible to create a food tree.
+# FilterDbByDietRecords(food_database_fn = "../../Food_tree_eg/NHANESDatabase.txt",
+#                       food_records_fn  = "Food_D12_FC_QC_demo_QCed_males60to79.txt",  # output of filtering above.
+#                       output_fn =        "Food_D12_FC_QC_demo_QCed_males60to79_red.txt")  
+  
+# ===============================================================================================================
+# Limit to just the foods reported in your study (use formatted dietrecords.txt as the input) 
+# ===============================================================================================================
+# Keep only the foods reported in your study. This is to make data compatible to create a food tree.
+  FilterDbByDietRecords(food_database_fn = "../Food_tree_eg/NHANESDatabase.txt",
+                        food_records_fn  = "VVKAJ_Items_f_id_s_m_QCed.txt",  # output of filtering above.
+                        output_fn =        "VVKAJ_Items_f_id_s_m_QCed_red.txt")
+
+  items <- read.delim('VVKAJ_Items_f_id_s_m_QCed.txt')
+  head(items$FoodCode)
+  colnames(items)
+  
+  
+# Use CheckDB function to check if any food reported in VVKAJ_Items_f_id_s_m_QCed_red.txt is missing in the 
+# NHANES food database. # If there is, those will be written in the output file named xxx_missing.txt.
+  check.db(food_database_fn = "../Food_tree_eg/NHANESDatabase.txt", 
+           food_records_fn =  "VVKAJ_Items_f_id_s_m_QCed_red.txt",
+           output_fn =        "VVKAJ_Items_f_id_s_m_QCed_red_missing.txt")
+  
+  NHANESdatabase <- read.delim('../Food_tree_eg/NHANESDatabase.txt')
+  head(NHANESdatabase)
+  colnames(NHANESdatabase)
+  
+  # Load the output and check if the output contains anything? 
+  mmm = read.table("VVKAJ_Items_f_id_s_m_QCed_red_missing.txt", sep="\t", header=T)
+  head(mmm)
+  # Has item(s) ===> put this missing.txt file in addl_foods_fn argument of MakeFoodTree.
+  # Empty       ===> put NULL in addl_foods_fn argument of MakeFoodTree.
+  
+  # Create food tree with the reduced dataset (only reported foods) classified at 
+  # a desired level of classification (Lv. 1-6).
+  # "NodeLabelsMCT.txt" has a list of food levels and names, which comes with the DietR package.
+  MakeFoodTree(nodes_fn="../Food_tree_eg/NodeLabelsMCT.txt", 
+               addl_foods_fn = NULL,
+               num.levels = 3,
+               food_database_fn =            "VVKAJ_Items_f_id_s_m_QCed_red.txt",  
+               output_tree_fn =     "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.nwk", 
+               output_taxonomy_fn = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tax.txt"
+  )
+  
+    
+#
+#
+##### OLD BELOW ######  
 # ===============================================================================================================
 # Prep data
 # ===============================================================================================================

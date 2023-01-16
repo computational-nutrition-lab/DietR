@@ -71,6 +71,10 @@
 # Load the Items_f.txt file to take a look at it.
   items_f <- read.table("VVKAJ_Items_f.txt", sep="\t", header=T)
   
+    ## checking... delete later.
+    colnames(items_f$FoodCode)
+    ##
+  
 # All special characters in the items data should have been replaced with an underscore in the Food_Description 
 # column, the last column of the items_f. We can confirm that by using the head function, which shows the first 
 # six rows of the specified dataset by default. 
