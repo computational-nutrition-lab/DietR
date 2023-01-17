@@ -30,6 +30,7 @@
   source("lib/Food_tree_scripts/newick.tree.r")
   source("lib/Food_tree_scripts/check.db.r")
   source("lib/Food_tree_scripts/format.foods.r")
+  source("lib/Food_tree_scripts/format.foods_2.r")
   source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
   source("lib/Food_tree_scripts/make.food.tree.r")
   source("lib/Food_tree_scripts/make.food.otu.r")
@@ -47,8 +48,8 @@
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
 
 # Load data.  
-  QCed.foods <- read.table("VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", header=T)
-  head(QCed.foods)
+  QCed.foods <- read.table("VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", header=T, quote="", colClasses = "character") # quote="" added.
+  head(QCed.foods) #FoodID has .0!!!!!!
 
 # # ===============================================================================================================
 # # Limit to just the foods reported in your study (use formatted dietrecords.txt as the input) 
@@ -65,11 +66,47 @@
   FilterDbByDietRecords(food_database_fn = "../Food_tree_eg/NHANESDatabase.txt",
                         food_records_fn  = "VVKAJ_Items_f_id_s_m_QCed.txt",  # output of filtering above.
                         output_fn =        "VVKAJ_Items_f_id_s_m_QCed_red.txt")
-
-  items <- read.delim('VVKAJ_Items_f_id_s_m_QCed.txt')
-  head(items$FoodCode)
+  
+  #### Safety check, to be deleted.
+  output_1 <- read.table("VVKAJ_Items_f_id_s_m_QCed_red.txt", sep="\t", header=T, quote="", colClasses="character") # quote="" added.
+  head(output_1,2)
+  tail(output_1,4) # FoodID has .0!!!!!!!!!!
+  dim(output_1)
+  
+  View(FilterDbByDietRecords)
+  head(QCed.foods$FoodCode)
+  
+  database <- read.table("../Food_tree_eg/NHANESDatabase.txt", sep="\t", header=T, quote="") # quote="" added.
+  head(database)
+  head(QCed.foods$FoodID)
   colnames(items)
   
+  
+  food_database_fn = "../Food_tree_eg/NHANESDatabase.txt"
+  food_records_fn  = "VVKAJ_Items_f_id_s_m_QCed.txt"
+  
+  # the inside of the FilterByDietRecords function
+  fdata <- read.table(food_database_fn, header=TRUE, sep="\t", colClasses="character", quote="", strip.white=T)
+  head(fdata$FoodID)
+  
+  diet <- read.table(food_records_fn, header = TRUE, sep="\t", colClasses="character", quote="", strip.white=T)
+  head(diet$FoodID)
+  # .0 is missing. That is why there is nothing in the in the merged file. 
+  
+  valid_ids <- intersect(fdata$FoodID, diet$FoodID)
+  
+  # What about the NHANES input??
+  nhanes = read.table("../NHANES/Laboratory_data/Food_D12_FC_QC_demo_QCed_males60to79.txt", 
+                      header = TRUE, sep="\t", colClasses="character", quote="", strip.white=T  )  
+  head(nhanes$FoodID) # has .0!!
+  
+  nhanes_nochar = read.table("../NHANES/Laboratory_data/Food_D12_FC_QC_demo_QCed_males60to79.txt", 
+                      header = TRUE, sep="\t", quote="", strip.white=T  )  
+  head(nhanes_nochar$FoodID) # has .0!!
+  str(nhanes_nochar[, c("FoodCode", "FoodID")])
+  # FoodID is recognized as a character vector to begin with.  
+  
+  ####
   
 # Use CheckDB function to check if any food reported in VVKAJ_Items_f_id_s_m_QCed_red.txt is missing in the 
 # NHANES food database. # If there is, those will be written in the output file named xxx_missing.txt.
@@ -77,12 +114,11 @@
            food_records_fn =  "VVKAJ_Items_f_id_s_m_QCed_red.txt",
            output_fn =        "VVKAJ_Items_f_id_s_m_QCed_red_missing.txt")
   
-  NHANESdatabase <- read.delim('../Food_tree_eg/NHANESDatabase.txt')
+  NHANESdatabase <- read.table('../Food_tree_eg/NHANESDatabase.txt', header=T, sep="\t", quote="", colClasses="character")
   head(NHANESdatabase)
-  colnames(NHANESdatabase)
   
   # Load the output and check if the output contains anything? 
-  mmm = read.table("VVKAJ_Items_f_id_s_m_QCed_red_missing.txt", sep="\t", header=T)
+  mmm = read.table("VVKAJ_Items_f_id_s_m_QCed_red_missing.txt", sep="\t", header=T, quote="", colClasses="character")
   head(mmm)
   # Has item(s) ===> put this missing.txt file in addl_foods_fn argument of MakeFoodTree.
   # Empty       ===> put NULL in addl_foods_fn argument of MakeFoodTree.
@@ -97,8 +133,8 @@
                output_tree_fn =     "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.nwk", 
                output_taxonomy_fn = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tax.txt"
   )
-  
-    
+  #### it went through!!! Yayyyy 
+      
 #
 #
 ##### OLD BELOW ######  

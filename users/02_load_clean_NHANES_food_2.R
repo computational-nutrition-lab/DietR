@@ -64,6 +64,24 @@
   Food_D1_FC_cc_f <- read.table("Food_D1_FC_cc_f.txt", sep="\t", header=T)
   Food_D2_FC_cc_f <- read.table("Food_D2_FC_cc_f.txt", sep="\t", header=T)
   
+  #### Checking, to be deleted.
+  Food_D1_FC <- read.table("Food_D1_FC_cc.txt", sep="\t", header=T)
+  head(Food_D1_FC)
+  grep(Food_D1_FC$Main.food.description, pattern="'\"" )
+  grep(Food_D1_FC$Main.food.description, pattern="bean" )
+  
+  Food_D1_FC_cc_f_quote <- read.table("Food_D1_FC_cc_f.txt", sep="\t", header=T, quote="")
+  head(Food_D1_FC_cc_f$Old.Main.food.description,100)
+  head(Food_D1_FC_cc_f$Old.Main.food.description,100)
+  head(Food_D1_FC_cc_f_quote$Old.Main.food.description,100)
+  identical(Food_D1_FC_cc_f$Old.Main.food.description, Food_D1_FC_cc_f_quote$Old.Main.food.description)
+  
+  grep(Food_D1_FC_cc_f_quote$Old.Main.food.description, pattern="'\"" )
+  grep(fdata$Old.Main.food.description, pattern="'\"" )
+  grep(items$Main.food.description, pattern="'\"" )
+  
+  ####
+  
 # Check the number of complete and incomplete data for each day. According to the documentation  
 # (https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm), value 4 is incomplete, 
 # so 2,208 rows are marked incomplete for Day 1, and 1,902 rows for Day 2.

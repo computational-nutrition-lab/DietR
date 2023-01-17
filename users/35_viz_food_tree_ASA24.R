@@ -6,7 +6,7 @@
 
 # Set your working directory as the main directory (dietary_patterns)
   Session --> Set working directory --> Choose directory.
-  setwd("~/GitHub/dietary_patterns")
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
@@ -27,13 +27,14 @@
   
 # ---------------------------------------------------------------------------------------------------------------
 # Go to the "Foodtree" directory where the tree files are saved. 
-  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Foodtree")
+  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ_formatfoods/Foodtree")
   
 # Load the generated food tree. This will load the .nwk file and save it as a tree object called "tree".
 # It is OK to see a message saying: 
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
 # Also defined by 'tidytree'  
-  tree <- read.tree("VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk")
+  # tree <- read.tree("VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk")
+  tree <- read.tree("VVKAJ_Items_f_id_s_m_QCed_red_3Lv.nwk")
   tree
   
 # Prepare node labels of L1 for plotting. It assumes that the tree file has 9 L1 levels.
