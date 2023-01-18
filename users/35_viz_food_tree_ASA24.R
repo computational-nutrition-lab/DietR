@@ -34,7 +34,7 @@
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
 # Also defined by 'tidytree'  
   # tree <- read.tree("VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk")
-  tree <- read.tree("VVKAJ_Items_f_id_s_m_QCed_red_3Lv.nwk")
+  tree <- read.tree("VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tree.nwk")
   tree
   
 # Prepare node labels of L1 for plotting. It assumes that the tree file has 9 L1 levels.
@@ -49,8 +49,8 @@
   annotated_tree
   
 # Save the tree as a PDF file. 
-  ggsave("VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.pdf", 
-         annotated_tree, device="pdf", width=6, height=6, units="in", dpi=300)
+  ggsave("VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tree.png", 
+         annotated_tree, device="png", width=6, height=6, units="in", dpi=300)
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.

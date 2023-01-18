@@ -331,7 +331,7 @@
 # used for ordination etc. 
   write.table(items_f_id_s_m_QCed, "VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", quote=F, row.names=F)
   
-# ~~~~~ END OF EDITS TO ADD TO TUTORIAL -- ADDED, BUT YET TO BE ADDED TO THE WEBSITE ~~~~~~~~~
+# ~~~~~ END OF EDITS TO ADD TO TUTORIAL
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory before you start running another script.

@@ -9,7 +9,6 @@
 
 # ===============================================================================================================
 
-
 # Set your working directory to the main directory.
 Session --> Set working directory --> Choose directory.
 setwd("~/GitHub/DietR")
@@ -34,48 +33,50 @@ setwd(main_wd)
 # ===============================================================================================================
 
 # Specify the directory where the data is.
-SpecifyDataDirectory(directory.name= "eg_data/VVKAJ_formatfoods/")
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ_formatfoods/")
 
 # Load your unprocessed (raw) food items-level data (as downloaded from the ASA24 study website).
 # The csv file will be loaded as a dataframe in R and be named as items_raw. 
-items_raw <- read.csv("Raw_data/VVKAJ_Items.csv", sep = ",", header=T) 
+  items_raw <- read.csv("Raw_data/VVKAJ_Items.csv", sep = ",", header=T) 
 
 # Save it as a .txt file. 
-write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) 
+  write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) 
 
 # Special characters common in food names in dietary data such as "'", ",", "%" may interfere correct 
 # data loading in R; thus, we replace them with an underscore "_".  The format.file  function takes only
 # .txt files as input. 
 
 #### Does it have Main.food.desription?
-items <- read.table("VVKAJ_Items.txt", sep="\t", header=T)
-colnames(items)
+  items <- read.table("VVKAJ_Items.txt", sep="\t", header=T)
+  colnames(items)
 # It only has "Food_description".
 # That is why I used format.file.
 
 # So, I need to change Food_description to 'Main.food.decription' in order to make the FormatFoods function work?
-names(items)[names(items) == "Food_Description"] <- "Main.food.description"
-colnames(items)
+  names(items)[names(items) == "Food_Description"] <- "Main.food.description"
+  colnames(items)
 
-write.table(items, "VVKAJ_Items_mainfood.txt", sep="\t", row.names=F) 
+  write.table(items, "VVKAJ_Items_mainfood.txt", sep="\t", row.names=F) 
 
-items_mainfood <- read.table("VVKAJ_Items_mainfood.txt", header=T, sep = "\t")
-head(items_mainfood)
+  items_mainfood <- read.table("VVKAJ_Items_mainfood.txt", header=T, sep = "\t")
+  head(items_mainfood) 
+  # Has special characters.
 
 
-FormatFoods(input_fn = "VVKAJ_Items_mainfood.txt", 
+FormatFoods(input_fn =  "VVKAJ_Items_mainfood.txt", 
             output_fn = "VVKAJ_Items_f.txt",
             dedupe = F)
 
 # afterformatfoods <- read.table("VVKAJ_Items_mainfood_formatfoods.txt", header=T, sep = "\t")
-afterformatfoods <- read.table("VVKAJ_Items_f.txt", quote="", header=T, sep = "\t") # need quote=""!!!
-afterformatfoods <- read.table("VVKAJ_Items_f.txt", colClasses = "character", quote="", header=T, sep = "\t") # need quote=""!!!
-dim(afterformatfoods)  
-head(afterformatfoods)
+  afterformatfoods <- read.table("VVKAJ_Items_f.txt", quote="", header=T, sep = "\t") # need quote=""
+  afterformatfoods <- read.table("VVKAJ_Items_f.txt", colClasses = "character", quote="", header=T, sep = "\t") 
+  dim(afterformatfoods)  
+  head(afterformatfoods)
 
-afterformatfoods_colClasses <- read.table("VVKAJ_Items_f.txt", colClasses = "character", 
+  afterformatfoods_colClasses <- read.table("VVKAJ_Items_f.txt", colClasses = "character", 
                                           quote="", header=T, sep = "\t") 
-head(afterformatfoods_colClasses)
+  head(afterformatfoods_colClasses)
+  
 # Food ID has .0.
 
 # Start from line 80 (after format.file) of 02_load_clean_ASA24.R. i.e.;

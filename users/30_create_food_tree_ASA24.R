@@ -45,9 +45,9 @@
 # ===============================================================================================================
 
 # Specify the directory where the data is.
-  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
+  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ_formatfoods//")
 
-# Load data.  
+# Load data.                
   QCed.foods <- read.table("VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", header=T, quote="", colClasses = "character") # quote="" added.
   head(QCed.foods) #FoodID has .0!!!!!!
 
@@ -81,7 +81,6 @@
   head(QCed.foods$FoodID)
   colnames(items)
   
-  
   food_database_fn = "../Food_tree_eg/NHANESDatabase.txt"
   food_records_fn  = "VVKAJ_Items_f_id_s_m_QCed.txt"
   
@@ -104,7 +103,11 @@
                       header = TRUE, sep="\t", quote="", strip.white=T  )  
   head(nhanes_nochar$FoodID) # has .0!!
   str(nhanes_nochar[, c("FoodCode", "FoodID")])
-  # FoodID is recognized as a character vector to begin with.  
+  # For some reason, for NHANES, FoodID is recognized as a character vector to begin with.  
+  
+  NHANESdatabase <- read.table('../Food_tree_eg/NHANESDatabase.txt', header=T, sep="\t", quote="", colClasses="character")
+  NHANESdatabase <- read.delim('../Food_tree_eg/NHANESDatabase.txt', colClasses="character")
+  head(NHANESdatabase)
   
   ####
   
@@ -113,10 +116,7 @@
   check.db(food_database_fn = "../Food_tree_eg/NHANESDatabase.txt", 
            food_records_fn =  "VVKAJ_Items_f_id_s_m_QCed_red.txt",
            output_fn =        "VVKAJ_Items_f_id_s_m_QCed_red_missing.txt")
-  
-  NHANESdatabase <- read.table('../Food_tree_eg/NHANESDatabase.txt', header=T, sep="\t", quote="", colClasses="character")
-  head(NHANESdatabase)
-  
+
   # Load the output and check if the output contains anything? 
   mmm = read.table("VVKAJ_Items_f_id_s_m_QCed_red_missing.txt", sep="\t", header=T, quote="", colClasses="character")
   head(mmm)
@@ -130,11 +130,47 @@
                addl_foods_fn = NULL,
                num.levels = 3,
                food_database_fn =            "VVKAJ_Items_f_id_s_m_QCed_red.txt",  
-               output_tree_fn =     "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.nwk", 
+               output_tree_fn =     "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tree.nwk", 
                output_taxonomy_fn = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tax.txt"
   )
   #### it went through!!! Yayyyy 
-      
+
+# ===============================================================================================================
+# Generate standard, grams of fiber, and dehydrated grams per kcal OTU tables to be used later.
+# ===============================================================================================================
+# Make the standard food otu table with data in gram weights of food.
+# For the food_records_fn argument, you need to supply the items data which contains 'FoodAmt' column.
+# It is the same file that was used for the "food_records_fn" argument in the FilterDbByDietRecords above. 
+
+# It is OK to see see a warning message: 
+# In write.table(dhydrt.otu, output_fn, sep = "\t", quote = F, append = TRUE) :
+#   appending column names to file
+  MakeFoodOtu(food_records_fn=  "VVKAJ_Items_f_id_s_m_QCed.txt",  # same as food_records_fn in FilterDbByDietRecords 
+              food_record_id =  "SampleID",               # Specify SampleID (User x Day)
+              food_taxonomy_fn= "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tax.txt",  # Specify your taxonomy file produced by MakeFoodTree.
+              output_fn =       "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.food.otu.txt")  # Name your output otu file.
+  
+# Make a food otu table with data in grams of fiber per food
+  MakeFiberOtu(food_records_fn=  "VVKAJ_Items_f_id_s_m_QCed.txt", 
+               food_record_id=   "SampleID", 
+               food_taxonomy_fn= "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tax.txt", 
+               output_fn=        "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.fiber.otu.txt")
+  
+# Make a food otu table as dehydrated grams per kcal.
+  MakeDhydrtOtu(food_records_fn=  "VVKAJ_Items_f_id_s_m_QCed.txt", 
+                food_record_id =  "SampleID", 
+                food_taxonomy_fn= "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tax.txt", 
+                output_fn =       "Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.dhydrt.otu.txt")
+  
+  #### Went through!!! Yayyyy
+  #### Next, check if I can do ordination with these, and revise the ordination script accordingly. 
+       # better to make a copy of ordination and use these newly formed food tree files....
+  
+  
+  
+  
+  
+        
 #
 #
 ##### OLD BELOW ######  
