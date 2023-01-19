@@ -13,7 +13,7 @@
 #### To load the input.fn correctly, added quote="" to the 2nd line, read.table. So that quotation marks (whether 
 # single-quotation or double-quotation marks) will NOT be used as a separator. 
 # Also added colClasses = "character".
-AddSampleIDtoItems_2 <- function(input.fn, user.name="UserName", recall.no="RecallNo", 
+AddSampleIDtoItems <- function(input.fn, user.name="UserName", recall.no="RecallNo", 
                                  prefix, out.fn){
   
   # Load your raw items data.
@@ -60,53 +60,53 @@ AddSampleIDtoItems_2 <- function(input.fn, user.name="UserName", recall.no="Reca
   
 }
 
-
-AddSampleIDtoItems <- function(input.fn, user.name="UserName", recall.no="RecallNo", 
-                               prefix, out.fn){
-  
-  # Load your raw items data.
-  items_raw <- read.table(input.fn, sep = "\t", header=T) 
-  
-  # Create a combination of user and day for merging. 
-  items_raw$userxday <- paste(items_raw[, user.name], items_raw[, recall.no], sep="_")
-  
-  specified_username <- user.name
-  specified_recallno <- recall.no
-  
-  # Create a dataframe that has UserName and RecallNo (Day).
-  user_recallno <- items_raw[, c(specified_username, specified_recallno, "userxday")]
-  
-  # print(head(user_recallno))
-  
-  # Change the colnames for easier processing. 
-  colnames(user_recallno)[1:2] <- c("UserName", "RecallNo")
-  
-  # Remove duplicates 
-  sampleIDtable <- user_recallno[!duplicated(user_recallno), ]
-  
-  # Sort by Username then day. 
-  sampleIDtable_s <- sampleIDtable[order(sampleIDtable$UserName, sampleIDtable$RecallNo) , ]
-  
-  # Create a SampleID column that shows the combination of user x day.
-  sampleIDtable_s$SampleID <- paste(prefix, 
-                                    formatC(seq(from=1, to=nrow(sampleIDtable)), width=5, flag="0" ),
-                                    sep="")
-  # Add SampleID to Items data.
-  items_raw_ID_1 <- merge(x=items_raw, y=sampleIDtable_s[, c("SampleID", "userxday")], 
-                          all.x=T, by="userxday" )
-  
-  # Remove the "userxday" column (which is in the first column) as not necessary.   
-  items_raw_ID_2 <- items_raw_ID_1[, 2: ncol(items_raw_ID_1)]
-  
-  # Bring SampleID (currently in the last column) to the first column. 
-  items_raw_ID_3 <- items_raw_ID_2[, c(ncol(items_raw_ID_2), 1: (ncol(items_raw_ID_2)-1) ) ]
-  
-  # print(head(items_raw_ID_3, 2))
-  
-  # Save it as a .txt file for further processing.
-  write.table(items_raw_ID_3, out.fn, sep="\t", row.names=F, quote=F)  
-  
-}
+# Old version of AddSampleIDtoItems, just for record-keeping.
+# AddSampleIDtoItems_Old <- function(input.fn, user.name="UserName", recall.no="RecallNo", 
+#                                prefix, out.fn){
+#   
+#   # Load your raw items data.
+#   items_raw <- read.table(input.fn, sep = "\t", header=T) 
+#   
+#   # Create a combination of user and day for merging. 
+#   items_raw$userxday <- paste(items_raw[, user.name], items_raw[, recall.no], sep="_")
+#   
+#   specified_username <- user.name
+#   specified_recallno <- recall.no
+#   
+#   # Create a dataframe that has UserName and RecallNo (Day).
+#   user_recallno <- items_raw[, c(specified_username, specified_recallno, "userxday")]
+#   
+#   # print(head(user_recallno))
+#   
+#   # Change the colnames for easier processing. 
+#   colnames(user_recallno)[1:2] <- c("UserName", "RecallNo")
+#   
+#   # Remove duplicates 
+#   sampleIDtable <- user_recallno[!duplicated(user_recallno), ]
+#   
+#   # Sort by Username then day. 
+#   sampleIDtable_s <- sampleIDtable[order(sampleIDtable$UserName, sampleIDtable$RecallNo) , ]
+#   
+#   # Create a SampleID column that shows the combination of user x day.
+#   sampleIDtable_s$SampleID <- paste(prefix, 
+#                                     formatC(seq(from=1, to=nrow(sampleIDtable)), width=5, flag="0" ),
+#                                     sep="")
+#   # Add SampleID to Items data.
+#   items_raw_ID_1 <- merge(x=items_raw, y=sampleIDtable_s[, c("SampleID", "userxday")], 
+#                           all.x=T, by="userxday" )
+#   
+#   # Remove the "userxday" column (which is in the first column) as not necessary.   
+#   items_raw_ID_2 <- items_raw_ID_1[, 2: ncol(items_raw_ID_1)]
+#   
+#   # Bring SampleID (currently in the last column) to the first column. 
+#   items_raw_ID_3 <- items_raw_ID_2[, c(ncol(items_raw_ID_2), 1: (ncol(items_raw_ID_2)-1) ) ]
+#   
+#   # print(head(items_raw_ID_3, 2))
+#   
+#   # Save it as a .txt file for further processing.
+#   write.table(items_raw_ID_3, out.fn, sep="\t", row.names=F, quote=F)  
+#   
+# }
 
 
 # ===============================================================================================================

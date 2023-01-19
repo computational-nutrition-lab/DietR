@@ -27,14 +27,13 @@
   
 # ---------------------------------------------------------------------------------------------------------------
 # Go to the "Foodtree" directory where the tree files are saved. 
-  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ_formatfoods/Foodtree")
+  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Foodtree")
   
 # Load the generated food tree. This will load the .nwk file and save it as a tree object called "tree".
 # It is OK to see a message saying: 
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
 # Also defined by 'tidytree'  
-  # tree <- read.tree("VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.tree.nwk")
-  tree <- read.tree("VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tree.nwk")
+  tree <- read.tree("VVKAJ_Items_f_id_s_m_QCed_red_4Lv.tree.nwk")
   tree
   
 # Prepare node labels of L1 for plotting. It assumes that the tree file has 9 L1 levels.
@@ -49,8 +48,13 @@
   annotated_tree
   
 # Save the tree as a PDF file. 
-  ggsave("VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tree.png", 
-         annotated_tree, device="png", width=6, height=6, units="in", dpi=300)
+  ggsave("VVKAJ_Items_f_id_s_m_QCed_red_4Lv.tree.pdf", 
+         annotated_tree, device="pdf", width=6, height=6, units="in", dpi=300)
+  
+# You can also visualize trees of different levels; Lv2, Lv3, etc., which corresponds to the classification depth
+# of each food item in the dataset. For example, Lv3 contains L1, L2, and L3 categories of food; whereas Lv4 
+# contains L1, L2, L3, and L4 categories. Thus, as the level goes deeper, the more internal nodes there will 
+# be in the food tree.
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.

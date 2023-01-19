@@ -37,10 +37,10 @@
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ_formatfoods/Ordination/")
   
 # Read in the metadata and users' Axis values. 
-  meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_meta_users.txt", header=T)
+  meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_meta_users.txt", header=T)
 
 # Read in the eigenvalues for axis labels of biplots.
-  eigen_loaded <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_eigen_percent.txt", header=T)
+  eigen_loaded <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_eigen_percent.txt", header=T)
   
 # Make a vector that contains the variance explained.
   eigen_loaded_vec <- eigen_loaded[, 2]
@@ -49,6 +49,8 @@
 # Plot Axis 1 and Axis 2 to show the separation of individuals colored by UserName.
 # ===============================================================================================================
 
+# Create a folder called "Viz_Ordination" to save the plots to be produced here.
+  
 # Color-code by UserName.
   by_user <- ggplot(meta_usersdf, aes(x=Axis.1, y=Axis.2, fill=UserName)) +
           geom_point(shape=21, aes(color= UserName), size=3, color="black") + 
@@ -60,12 +62,12 @@
   by_user
   
 # Save by_user plot as a pdf. 
-  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_users_Axis12.pdf", by_user,
+  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_users_Axis12.pdf", by_user,
          device="pdf", height=5, width=7, unit="in", dpi=300)
   
 # Add lines to connect samples in the order in which they appear in the data using geom_path. 
-# [NOTE] geom_line connects in the order of the variable (small to large) on the x axis, 
-# so it could be misleading.
+# [NOTE] A similar-sounding function, geom_line, connects in the order of the variable (small to large) 
+# on the x axis, so it could be misleading. We want to use geom_path here.
   by_user_pathconnected <- by_user +  geom_path(aes(color = UserName)) +
                                       scale_color_manual(values=distinct100colors)
   
@@ -75,6 +77,18 @@
   ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_users_Axis12_pathconnected.pdf", 
          by_user_pathconnected, device="pdf", height=5, width=7, unit="in", dpi=300)
   
+  
+    #### VVKAJ115 has very similar diet for the 3 days. What were they eating?
+      japanese115 =  data.frame(food$taxonomy, food$vvkaj.00043, food$vvkaj.00044, food$vvkaj.00045)
+      head(japanese115[, 2:4])
+      japanese115$rowsums = rowSums(japanese115[, 2:4])
+      plot(japanese115$rowsums)
+      head(japanese115[, 2:5])
+      japanese115 <- japanese115[order(japanese115$rowsums, decreasing = T),]
+      japanese115[1:6, ] # Miso soup and white rice are the most consumed. Exactly Japanese!! So the metadata are correct...
+      japanese115[7:12, ]
+   ####
+      
 # ---------------------------------------------------------------------------------------------------------------
 # Change the appearance of datapoints of specific user(s).
 
@@ -93,7 +107,7 @@
   highlighted
 
 # Save highlighted as a pdf.
-  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_users_Axis12_highlighted.pdf", 
+  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_users_Axis12_highlighted.pdf", 
          highlighted, device="pdf", height=5, width=7, unit="in", dpi=300)
   
   

@@ -45,42 +45,51 @@
 # Load ASA24 data
 # ===============================================================================================================
 
-# Specify the directory where the data is.
-  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
-
-# Load your unprocessed (raw) food items-level data (as downloaded from the ASA24 study website).
-# The csv file will be loaded as a dataframe in R and be named as items_raw. 
-  items_raw <- read.csv("Raw_data/VVKAJ_Items.csv", sep = ",", header=T) 
+# INSTEAD LINE 50-81, FOLLOWED \DietR\eg_data\VVKAJ_formatfoods\01_load_clean_formatfoods.R
   
-# Save it as a .txt file. 
-  write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) 
-
-# Special characters common in food names in dietary data such as "'", ",", "%" may interfere correct 
-# data loading in R; thus, we replace them with an underscore "_".  The format.file  function takes only
-# .txt files as input. 
-
-# Specify column(s) to be processed in the "columns" argument.
-# Specify the output file name in the outfn argument; "_f" stands for "formatted".  
-  format.file(filename = "VVKAJ_Items.txt",
-              columns  = "Food_Description", 
-              outfn    = "VVKAJ_Items_f.txt")  
-
-# [Note] It is best practice to avoid overwriting your raw data. Always save formatted/manipulated versions 
-# as a new file as described above. 
-  
-  
-# Load the Items_f.txt file to take a look at it.
-  items_f <- read.table("VVKAJ_Items_f.txt", sep="\t", header=T)
-  
-# All special characters in the items data should have been replaced with an underscore in the Food_Description 
-# column, the last column of the items_f. We can confirm that by using the head function, which shows the first 
-# six rows of the specified dataset by default. 
-  head(items_f)
-# The last column of items_f_id should have food descriptions with special characters replaced with "_".
-
-  ####
-  ####
+# # Specify the directory where the data is.
+#   SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
+# 
+# # Load your unprocessed (raw) food items-level data (as downloaded from the ASA24 study website).
+# # The csv file will be loaded as a dataframe in R and be named as items_raw. 
+#   items_raw <- read.csv("Raw_data/VVKAJ_Items.csv", sep = ",", header=T) 
+#   
+# # Save it as a .txt file. 
+#   write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) 
+# 
+# # Special characters common in food names in dietary data such as "'", ",", "%" may interfere correct 
+# # data loading in R; thus, we replace them with an underscore "_".  The format.file  function takes only
+# # .txt files as input. 
+# 
+# # Specify column(s) to be processed in the "columns" argument.
+# # Specify the output file name in the outfn argument; "_f" stands for "formatted".  
+#   format.file(filename = "VVKAJ_Items.txt",
+#               columns  = "Food_Description", 
+#               outfn    = "VVKAJ_Items_f.txt")  
+# 
+# # [Note] It is best practice to avoid overwriting your raw data. Always save formatted/manipulated versions 
+# # as a new file as described above. 
+#   
+#   
+# # Load the Items_f.txt file to take a look at it.
+#   items_f <- read.table("VVKAJ_Items_f.txt", sep="\t", header=T)
+#   
+# # All special characters in the items data should have been replaced with an underscore in the Food_Description 
+# # column, the last column of the items_f. We can confirm that by using the head function, which shows the first 
+# # six rows of the specified dataset by default. 
+#   head(items_f)
+# # The last column of items_f_id should have food descriptions with special characters replaced with "_".
+# 
    
+#### 
+# 01_load_clean_formatfoods.R + 02_load_clean_ASA24_FoodIDfixed.R --> 02_load_clean_ASA24.R 
+# (2023/01/19 after fixing the special character issue.)
+#### 
+
+#  ####
+#  PROCESS STARTS from here...
+#  ####
+  
 # Add a human-readable sample identifier (SampleID) with a desired prefix, and save it as a txt file. SampleIDs 
 # are IDs unique to each combination of users and day and represent days of dietary intake in this dataset.   
   AddSampleIDtoItems_2(input.fn="VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", 

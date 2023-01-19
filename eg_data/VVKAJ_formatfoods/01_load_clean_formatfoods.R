@@ -26,7 +26,7 @@ source("lib/QCOutliers.R")
 source("lib/Food_tree_scripts/format.foods_2.r")
 
 # You can come back to the main directory by:
-setwd(main_wd)
+  setwd(main_wd)
 
 # ===============================================================================================================
 # Load ASA24 data
@@ -77,8 +77,35 @@ FormatFoods(input_fn =  "VVKAJ_Items_mainfood.txt",
                                           quote="", header=T, sep = "\t") 
   head(afterformatfoods_colClasses)
   
-# Food ID has .0.
+# Food ID has .0, good.
 
+#### IMPORTANT! ########################################################  
+# So, what I needed to do: 
+  # 1: change Food_description to Main.food.description
+  # 2: run FormatFoods to replace special characters.
+  
+# Specify the directory where the data is.
+  SpecifyDataDirectory(directory.name= "eg_data/VVKAJ_formatfoods/")
+  
+# Load your unprocessed (raw) food items-level data (as downloaded from the ASA24 study website).
+# The csv file will be loaded as a dataframe in R and be named as items_raw. 
+  items_raw <- read.csv("Raw_data/VVKAJ_Items.csv", sep = ",", header=T) 
+  
+# items_raw has a column called "Food_Description", but this needs to be called "Main.food.description".
+# Change the column name.
+  names(items_raw)[names(items_raw) == "Food_Description"] <- "Main.food.description"
+  
+# Check if any column names match with "Main.food.description". If there is a match, it will be printed.  
+  names(items_raw)[names(items_raw) == "Main.food.description"]
+  
+# Save the items file as a .txt file. 
+  write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) 
+
+# Format foods so that special characters will be replaced with "_".    
+  FormatFoods(input_fn =  "VVKAJ_Items_mainfood.txt", 
+              output_fn = "VVKAJ_Items_f.txt",
+              dedupe=F)
+  
 # Start from line 80 (after format.file) of 02_load_clean_ASA24.R. i.e.;
 # Add a human-readable sample identifier (SampleID) with a desired prefix, and save it as a txt file. SampleIDs
 # |
@@ -87,51 +114,11 @@ FormatFoods(input_fn =  "VVKAJ_Items_mainfood.txt",
 # |
 # Fixed!! Now make a copy of scripts to keep both the old and new versions...
 
+# So, make a copy of 02_load_clean_ASA24.R and name it as 02_load_clean_ASA24_Dec2022.R. Then rename the 
+  # copy as 02_load_clean_ASA24.R. And in that, paste the loading and formatting part above, then continue
+  # with 02_load_clean_ASA24_FoodIDfixed.R.
+  # -- Done.
 
+############################################################  
 
-
-
-View(FormatFoods) 
-## FormatFoods function inside
-    fdata <- read.table("VVKAJ_Items_mainfood.txt", header = TRUE, sep="\t", strip.white = T) 
-                        colClasses="character", quote="", strip.white=T)
-    head(fdata)
-    
-    if(sum(colnames(fdata) == "Main.food.description") == 1){
-      fdata$Old.Main.food.description <- fdata$Main.food.description
-      # replace anything that isn't a number or character with an underscore (format for QIIME)
-      fdata$Main.food.description <- gsub("[^[:alnum:]]+", "_", fdata$Main.food.description)
-    }
-    
-    # add a default ModCode column if it doesn't exist
-    if(sum(colnames(fdata) == "ModCode")==0) fdata$ModCode <- rep("0", nrow(fdata))
-    
-    # make a new food id that also uses the mod.code 
-    fdata$FoodID <- paste(fdata$FoodCode, fdata$ModCode, sep=".")
-    head(fdata$FoodCode)
-    head(fdata$ModCode)
-    head(fdata$FoodID)
-
-      # IF dedupe=T:
-      # grab the first occurence of any food id and we'll use that to construct the tree 
-      # note that SuperTracker has duplicate names for each Food ID (important for mapping, but not for the actual tree)
-      dedupedfdata <- fdata[!duplicated(fdata$FoodID),]
-      
-    # write everything out so that we have it for reference
-    write.table(fdata, 'VVKAJ_Items_mainfood_formatfoods_byhand.txt', 
-                sep = "\t", quote = FALSE, row.names = FALSE)
-    
-    byhand = read.table('VVKAJ_Items_mainfood_formatfoods_byhand.txt', sep = "\t", header = TRUE)
-    head(byhand)  
-####
-
-
-
-
-
-# Specify column(s) to be processed in the "columns" argument.
-# Specify the output file name in the outfn argument; "_f" stands for "formatted".  
-format.file(filename = "VVKAJ_Items.txt",
-            columns  = "Food_Description", 
-            outfn    = "VVKAJ_Items_f.txt")  
 

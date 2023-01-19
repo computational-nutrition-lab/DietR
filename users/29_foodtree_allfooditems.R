@@ -7,13 +7,21 @@
 # Created on 01/18/2023 by Rie Sadohara
 # ===============================================================================================================
 
-# This script explains how to:
-# 1. format food list containing "Main.food.description" and "ModCode" by using the FormatFood function.   
-# 2. build a food tree with the entire list of food items in "all.food.desc.txt".
-# 3. visualize the food tree you have created in step 2.
-
 # This brief script is to serve as an example of formatting and generating food trees with your own dataset. 
 
+# This script demonstrates how to:
+# 1. Format food list containing "Main.food.description" and "ModCode" by using the FormatFood function.   
+# 2. Build a food tree with the entire list of food items in "all.food.desc.txt".
+# 3. Visualize the food tree you have created in step 2.
+
+# The functions in Food_tree_scripts folder expects that the input files are tab-delimited txt file with 
+# no special characters that impede correct loading such as:
+#  "
+#  '
+#  #
+#  &
+# The use of the FormatFoods function in 02_load_clean_ASA24.R script has already dealt with it, but
+# It is helpful to know the assumptions which the functions you are going to use were built on.
 
 # Set your working directory as the main directory (dietary_patterns)
 Session --> Set working directory --> Choose directory.
@@ -32,7 +40,7 @@ Session --> Set working directory --> Choose directory.
   source("lib/specify_data_dir.R")
   source("lib/Food_tree_scripts/newick.tree.r")
   source("lib/Food_tree_scripts/check.db.r")
-  source("lib/Food_tree_scripts/format.foods.r")
+  # source("lib/Food_tree_scripts/format.foods.r")
   source("lib/Food_tree_scripts/format.foods_2.r")
   source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
   source("lib/Food_tree_scripts/make.food.tree.r")
@@ -61,19 +69,16 @@ Session --> Set working directory --> Choose directory.
 # Load and prepare items data.
 # ===============================================================================================================
  
-# Move to "Food_tree_eg" directory.
-  SpecifyDataDirectory(directory.name = "eg_data/Food_tree_eg/")
-  
 # Food trees show the classification of each food item entered in your dietary data. For details, please read
 # Johnson et al., 2021.
+  
+# Move to "Food_tree_eg" directory.
+  SpecifyDataDirectory(directory.name = "eg_data/Food_tree_eg/")
 
-# Create a new folder called "Foodtree" in the "VVKAJ" folder.
-# Prepare input data
-# Current ASA24 database doesn't have modcodes, so de-duplicate database file, 
-# replace special characters with "_", and create a new FoodID out of foodcode and modcode.  
-# It will leave all other columns intact.
+# Replace special characters such as quotation marks, "%", with "_", and create a new FoodID out of foodcode 
+# and modcode connected with a period.  The FormatFoods function will leave all other columns intact.
   FormatFoods(input_fn= "all.food.desc.txt", 
-              output_fn="ASA24Database.txt")
+              output_fn="all.food.desc_formatted.txt")
 
 # ---------------------------------------------------------------------------------------------------------------
 # You can also create a list of FoodCode and Main.food.description of additional foods not in ASA24 that you 
@@ -87,14 +92,6 @@ Session --> Set working directory --> Choose directory.
   FormatFoods(input_fn= "Soylent_codes.txt", 
               output_fn="Soylent_codes_formatted.txt")
 
-# ---------------------------------------------------------------------------------------------------------------
-
-# # After preparing those files, specify the directory where the items data is.
-#   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
-
-# # Format your items data, and save the formatted items file to the "Foodtree" folder.  Similarly, the special characters in Main.food.description column in the items file will be replaced with "_".
-#   FormatFoods(input_fn= "VVKAJ_Items_f_id_s_m.txt", 
-#               output_fn="Foodtree/VVKAJ_Items_f_id_s_m_ff.txt", dedupe=F)
 
 # ===============================================================================================================
 # Generate a food tree with the whole ASA24 food database
@@ -103,25 +100,24 @@ Session --> Set working directory --> Choose directory.
 # Create a folder called "Food_tree_all_ASA24" within "Food_tree_eg" folder to save the output.
   
 # Generate a tree with the whole ASA24 food database first as a reference.
-# The file specified by the addl_foods argument will be added to ASA24Database.txt.
+# The file specified by the addl_foods argument will be added to that specified by food_database_fn.
+# NodeLabelsMCT.txt has the full classification level of each food items and its Main.food.description.  
+# The classification level (num.levels) will be the basis of hierarchical food tree generation. 
 
   MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
-               food_database_fn= "ASA24Database.txt", 
+               food_database_fn= "all.food.desc_formatted.txt", 
                addl_foods_fn=    "Soylent_codes_formatted.txt", 
-               num.levels= 3,
-               output_taxonomy_fn="Food_tree_all_ASA24/ASA24_3Lv.taxonomy.txt",  
-               output_tree_fn=    "Food_tree_all_ASA24/ASA24_3Lv.tree.nwk")
+               num.levels= 4,
+               output_tree_fn=    "Food_tree_all_ASA24/ASA24_4Lv.tree.nwk",
+               output_taxonomy_fn="Food_tree_all_ASA24/ASA24_4Lv.tax.txt")  
 
-# The nodes_fn argument specifies the food level (node) information for each fCood item.
-# NodeLabelsMCT.txt has the classification level of each food items and its Main.food.description.  
-# The classification level will be the basis of hierarchical food tree generation. 
-
-  # The food_database_fn specifies the whole ASA24 database to use. 
-  # The addl_foods_fn specifies additional foods that are not in ASA24 database but you would like to add; 
-  # soylent_codes in this case.  If none, enter "NULL" instead.
-  # The num.levels means the number of food levels (1 - 5) to save.
-  # The output_taxonomy_fn specifies the output taxonomy file (to be used later) name. Should end with ".txt".
-  # The output_tree_fn specifies the output tree file name. Should end with ".nwk".
+  # nodes_fn:           the food level (node) information for each food item.
+  # food_database_fn:   the whole ASA24 database to use. 
+  # addl_foods_fn:      additional foods that are not in ASA24 database but you would like to add; 
+  #                     soylent_codes in this case.  If none, enter "NULL" instead.
+  # num.levels:         the number of food levels (1 - 5) to save.
+  # output_tree_fn:     the output tree file name. Should end with ".nwk".
+  # output_taxonomy_fn: the output taxonomy file (to be used later) name.
   
 # ===============================================================================================================
 # Visualize your food tree
@@ -131,7 +127,7 @@ Session --> Set working directory --> Choose directory.
 # It is OK to see a message saying: 
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
 # Also defined by 'tidytree'  
-  tree <- read.tree("Food_tree_all_ASA24/ASA24_3Lv.tree.nwk")
+  tree <- read.tree("Food_tree_all_ASA24/ASA24_4Lv.tree.nwk")
   tree
   
 # Prepare node labels of L1 for plotting. It assumes that the tree file has 9 L1 levels.
@@ -146,13 +142,12 @@ Session --> Set working directory --> Choose directory.
   annotated_tree
   
 # Save the tree as a PDF file. 
-  ggsave("Food_tree_all_ASA24/ASA24_3Lv.tree.png", 
+  ggsave("Food_tree_all_ASA24/ASA24_4Lv.tree.png", 
          annotated_tree, device="png", width=6, height=6, units="in", dpi=300)
   
-  
-  
-  
-  
-  
+
+# ---------------------------------------------------------------------------------------------------------------
+# You can come back to the main directory by:
+  setwd(main_wd) 
 
 

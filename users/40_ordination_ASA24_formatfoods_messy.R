@@ -5,6 +5,11 @@
 # Created on 01/18/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# In this section, we will take the phylogeny of food items into account in clustering individuals according to 
+# their dietary data. In order to do so, we will use the phyloseq package.(https://joey711.github.io/phyloseq/index.html), 
+# which uses phylogeny of microbes and their abundance. We will replace microbes with food items consumed by 
+# our dietary study participants.
+
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
@@ -49,18 +54,17 @@
   
 # Food
   # Load food OTU table - this is our food OTU data
-  # food <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_ff_reduced_4Lv.food.otu.txt", row.names = 1)
-  food <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.food.otu.txt", row.names = 1)
+  food <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_4Lv.food.otu.txt", row.names = 1)
      dim(food) # 286 x 46
   
   # "food" is a matrix of Food descriptions (rows) x SampleID (columns).
-  head(food)
+  head(food)[1:6, 1:4]
   
   # Format the food file and create a otu_table called OTU.
   PrepFood(data= food)
   
 # Taxonomy (tax)
-  tax <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tax.txt")
+  tax <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_4Lv.tax.txt")
   
   # Format the tax file and create a taxonomy table called TAX.
   PrepTax(data= tax)
@@ -72,14 +76,14 @@
   PrepMeta(data= meta)
 
 # Food tree
-  foodtree <- read_tree("Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_3Lv.tree.nwk")
+  foodtree <- read_tree("Foodtree/VVKAJ_Items_f_id_s_m_QCed_red_4Lv.tree.nwk")
   # It is OK to see a message saying that
     # "Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
     # Also defined by 'tidytree'".
   
   # Format food tree and save it as 'TREE'. 
-  PrepTree(data=foodtree)
-  # It is OK to see the same message as the previous line. 
+  PrepTree(data= foodtree)
+  # Again, it is OK to see the same message as the previous line. 
 
 # ---------------------------------------------------------------------------------------------------------------
 # Make a phyloseq object with OTU, TAX, samples, and foodtree.
@@ -95,7 +99,7 @@
 # Show metadata. 
   head(sample_data(phyfoods), n=3)
   
-# Check the level 1 foods in your food tree. There should be nine categories.
+# Check the level 1 foods in your food tree.
   L1s = tax_table(phyfoods)[, "L1"]
   as.vector(unique(L1s))
 
@@ -112,31 +116,27 @@
 # e.g. a large phyloseq object (7.9 MB) takes ~ 1 min. 
   ordinated <- phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", weighted=TRUE) 
 
-# # Save the percent variance explained by the axes as a vector to use in plots.  
-#   eigen_percent <- ordinated$values$Relative_eig
-
 # Save the percent variance explained as a txt file.
   Eigen(eigen.input = ordinated$values$Relative_eig, 
-        output.fn="VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_eigen_percent.txt")
+        output.fn="VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_eigen_percent.txt")
 
 # Merge the first n axes to the metadata and save it as a txt file. 
 # This will be used for plotting ordination results.
   MergeAxesAndMetadata(ord.object=ordinated, number.of.axes=10, meta.data= meta, 
-                       output.fn= "VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_meta_users.txt")
-
+                       output.fn= "VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_meta_users.txt")
   
 # ===============================================================================================================
 # Plot your ordination results 
 # ===============================================================================================================
   
 # Read in the eigenvalues for axis labels of biplots.
-  eigen_loaded <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_eigen_percent.txt", header=T)
+  eigen_loaded <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_eigen_percent.txt", header=T)
   
 # Make a vector that contains the variance explained.
   eigen_loaded_vec <- eigen_loaded[, 2]
   
 # Read in the metadata and users' Axis values. 
-  meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_meta_users.txt", header=T)    
+  meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_meta_users.txt", header=T)    
   
 # Take a look at meta_usersdf that has been loaded. 
   head(meta_usersdf, 3)
@@ -152,13 +152,12 @@
                        dot.colors      = distinct100colors, 
                        ellipses.colors = distinct100colors,  
                        ellipses.cflevel = 0.95,
-                       out.prefix = "VVKAJ_Items_f_id_s_m_QCed_red_3Lv_ord_WEIGHTED_diet"
+                       out.prefix = "VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_diet"
   )  
   
 # ---------------------------------------------------------------------------------------------------------------
 # Some of the Diet groups seem to form distinct clusters. Use beta-diversity and adonis tests 
 # to see if they are actually distinct from one another.
-
   
 # Generate a weighted unifrac distance matrix.
   dist_matrix <- phyloseq::distance(phyfoods, method = "wunifrac")
@@ -188,13 +187,25 @@
 # ===============================================================================================================
 # Generate and save a weighted unifrac distance matrix of "Samples". 
   WeightedUnifracDis(input.phyloseq.obj = phyfoods, 
-                     output.fn = "VVKAJ_Items_f_id_s_m_QCed_red_3Lv_WEIGHTED_uni_dis.txt")        
+                     output.fn = "VVKAJ_Items_f_id_s_m_QCed_red_4Lv_WEIGHTED_uni_dis.txt")        
   
 # Generate and save an unweighted unifrac distance matrix of "Samples". 
   UnweightedUnifracDis(input.phyloseq.obj = phyfoods, 
-                       output.fn = "VVKAJ_Items_f_id_s_m_QCed_red_3Lv_UNweighted_uni_dis.txt")        
+                       output.fn = "VVKAJ_Items_f_id_s_m_QCed_red_4Lv_UNweighted_uni_dis.txt")        
+
+  
+# ===============================================================================================================
+# Use other ordination methods  
+# ===============================================================================================================
+# You can perform Principal Coordinate Analysis (PCoA) with UNweighted unifrac distance of your food data.
+  ordinated_2 = phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", weighted=FALSE)  
+  
+# Use the same code above for creating plots, but now with ordinated_2 for the ord.object argument, and 
+# change WEIGHTED to UNweighted, or an appropriate name for the method you selected.
+  
   
 ##### TUTORIAL UPDATED! 12/05/2022.
+##### TUTORIAL UPDATED! 01/19/2023!
   
 #     
 # # ===============================================================================================================
