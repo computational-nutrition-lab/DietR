@@ -1,6 +1,6 @@
 # ===============================================================================================================
-# Quartiles of pulse consumers 
-# Evaluate the diversity of pulse consumption patterns.
+# Quartiles of pulse consumers. 
+# Evaluate the diversity of pulse consumption patterns and add "LegGroup" variable.
 # Version 1
 # Created on 01/25/2023 by Rie Sadohara
 # ===============================================================================================================
@@ -52,7 +52,8 @@
   colnames(PF)  
   write.table(head(PF, 10), "clipboard", sep="\t", row.names=F, quote=F)  
 # PF_TOTAL is the sum of all the PF_XXX foods EXCEPT PF_LEGUMES!!!
-# Dunno why....  
+# Probably because legumes could be counted as Veg or protein foods, but not both.
+# So it's giving researchers choices whether to include legumes as veg or protein, probably.
 
 # 'PF_MPS_TOTAL' is the sum of Meat, Poultry, Seafood.. 
   diet_mps <- totals[, c("DRQSDIET", "PF_MPS_TOTAL")]
@@ -71,6 +72,7 @@
   totals$PF_LEG_perTOTAL <- totals$PF_LEGUME / totals$PF_TOTAL_LEG *100 
 
   plot(totals$PF_LEGUMES, totals$PF_LEG_perTOTAL)
+  cor.test(totals$PF_LEGUMES, totals$PF_LEG_perTOTAL)
   
   hist(totals$PF_TOTAL_LEG)  
   hist(totals$PF_LEG_perTOTAL)  
@@ -82,6 +84,9 @@
 # Compare those who are following special diets and who are not.  
   boxplot(x= totals$DRQSDIET, totals$PF_LEG_perTOTAL)
 # Those who are following a diet (DRQSDIET=1) have low PF_LEG_perTOTAL... hmmm   
+  
+# ---------------------------------------------------------------------------------------------------------------
+# Split people into 4 groups.
   
 # dplyr has quantile function... 
   library(tidyverse)
@@ -110,15 +115,18 @@
   
   plot(x= totals$quartile, y= totals$PF_LEG_perTOTAL)
   
-# Quantile 1 and 2 have zero legume consumption. 
-# Select only those who consumed legumes.
+# Quantile 1 and 2 have zero legume consumption. not good.
+  
+  
+# ---------------------------------------------------------------------------------------------------------------
+# Select only those who consumed legumes first.
   totals_leg <- subset(totals, PF_LEGUMES > 0)
 
   nrow(totals_leg) /  nrow(totals)  * 100
   # 37% of the individuals consumed legumes at least some during the two days.
   
-  # Split the legume consumption into 3 tiles.
-  totals_leg <-  totals_leg %>% mutate(leg_tritile = ntile(PF_LEG_perTOTAL, 3))
+  # Split the legume consumption group into 3-tiles.
+  # totals_leg <-  totals_leg %>% mutate(leg_tritile = ntile(PF_LEG_perTOTAL, 3))
   totals_leg <-  totals_leg %>% mutate(leg_tritile = ntile(PF_LEGUMES_g,    3))
   table( totals_leg$leg_tritile)
   plot(totals_leg$leg_tritile, totals_leg$PF_LEG_perTOTAL)
@@ -136,19 +144,53 @@
   summary(Tri3$PF_LEG_perTOTAL)
   summary(Tri3$PF_LEGUMES_g)
   
-
+# Add LegGroup names
+  head(totals_leg$leg_tritile, 10)
+  tabletomerge <- data.frame(leg_tritile=c(1,2,3),
+                             LegGroup=c("Leg1", "Leg2", "Leg3"))            
+  tabletomerge
+  table(totals_leg$leg_tritile, useNA = "ifany")
   
+  # Merge the two tables, thereby adding "Leg1" etc to totals_leg.
+  totals_leg  <- merge(x=totals_leg, y=tabletomerge, all.x=T, by="leg_tritile")
+  totals_leg[1:10, c("leg_tritile", "LegGroup")] 
+  totals_leg[600:610, c("leg_tritile", "LegGroup")] 
+  # it's sorted now, but looks good.
+  
+  # Add Leg0 as well, so that the "LegGroup" column in totals have Leg0 - Leg4.    
+  totals$LegGroup <- NA
+  totals_leg_SEQN_LegGroup <- totals_leg[, c("SEQN", "LegGroup")]
+  head(totals_leg_SEQN_LegGroup)
+  
+  for(i in 1:nrow(totals)){
+    if(totals$PF_LEGUMES[i] == 0){
+      
+      totals$LegGroup[i] <- "Leg0"
     
-  #eg
-  foo <- data.frame(a = 1:177,
-                    b = runif(177, 50, 200),
-                    stringsAsFactors = FALSE)
-  head(foo)
+    }else{
+      
+      # Find which row the SEQN is.
+      rownumber <- which( totals$SEQN[i] == totals_leg_SEQN_LegGroup$SEQN )
+      
+      # Pull the LegGroup (column 2) of that pariticular SEQN from the table.
+      totals$LegGroup[i] <- 
+        totals_leg_SEQN_LegGroup[rownumber, 2]
+    } 
+  }
   
-  foo2 = 
-    foo %>%
-    mutate(quantile = ntile(b, 4))
- head(foo2)  
- 
- table(foo2$quantile)
- 
+  table(totals$LegGroup, useNA = "ifany")  
+  
+  is(totals$LegGroup)
+  
+  plot(as.factor(totals$LegGroup), totals$PF_LEGUMES_g)
+  # Looks good!
+  head(totals)
+  
+# So up to here, we looked at the distribution of PF_LEGUME, and grouped participants according to
+# PF_LEGUME_g.
+  write.table(totals, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_Leg.txt",
+              sep="\t", row.names=F, quote=F)
+  
+  
+  
+  
