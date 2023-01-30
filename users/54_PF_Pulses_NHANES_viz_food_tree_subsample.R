@@ -26,7 +26,7 @@
   SpecifyDataDirectory("eg_data/NHANES/PF/Foodtree/")
 
 # Load your tree object.
-  tree <- read.tree("Food_D12_FC_QC_demo_QCed_Leg_morethanone_red_3Lv.nwk") 
+  tree <- read.tree("Food_D12_FC_QC_demo_QCed_Leg_morethanone_red_3Lv.nwk")
 
 # It is OK to see an error that says:
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'

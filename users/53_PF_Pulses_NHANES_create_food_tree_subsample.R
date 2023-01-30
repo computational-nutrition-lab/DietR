@@ -62,33 +62,38 @@
 # load the items in the FPED 15-16 database with 1 or more oz./100 g PF_LEGUME.
   morethanone <- read.delim("../FPED/PFED_1516_PF_LEGUMES_more_than_1.txt")
   nrow(morethanone) # only 110 items.
-  head(morethanone[, 1:2])
+  head(morethanone[100:112, 1:2])
 
 # Filter all.food.record for only the food that is in morethanone by FOODCODE.
   head(all.food.record)  
-  length(unique(all.food.record$Food_code)   )
+  length(unique(all.food.record$Food_code)) # 5063 food items.
   
   all.food.record_leg <- all.food.record[ all.food.record$Food_code %in% morethanone$FOODCODE ,  ]
   
   # How many PF_LEGUME food items in all.food.record_leg?
-  length(unique(all.food.record_leg$Food_code))  # 58.
+  length(unique(all.food.record_leg$Food_code))  # 58 food items.
+  table(all.food.record_leg$Food_code)
   
   length(unique(all.food.record_leg$SEQN))  # 703 people!
   
-  # Need to re-define selectedind.
-  selectedind <- unique(all.food.record_leg$SEQN)
-  length(selectedind)
+  # # Need to re-define selectedind.
+  # selectedind <- unique(all.food.record_leg$SEQN)
+  # length(selectedind)
   
   # Take a look
   all.food.record_leg[1:5, c("Food_code", "Main.food.description", "FoodAmt", "PF_LEGUMES") ]
+
+  # Save. This will be the input for the following procedures.
+  write.table(all.food.record_leg, "Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt", 
+              sep="\t", row.names=F, quote=F) 
   
 ######## TILL HERE ##########  
                                        
 # Select only the individuals listed in 'selectedind'.
-  sel.food.record <- all.food.record[all.food.record$SEQN %in% selectedind, ]
+  # sel.food.record <- all.food.record[all.food.record$SEQN %in% selectedind, ]
 
 # Confirm the two contains the same set of individuals. 
-  identical(unique(sel.food.record$SEQN), selectedind)
+  # identical(unique(sel.food.record$SEQN), selectedind)
 
 # Save. This will be the input for the following procedures.
   write.table(sel.food.record, "Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt", 
@@ -102,13 +107,36 @@
                         food_records_fn  = "Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt",  # output of filtering above.
                         output_fn =        "Food_D12_FC_QC_demo_QCed_Leg_morethanone_red.txt")
 
+  ####
+  NHANESdatabase <- read.delim("../../Food_tree_eg/NHANESDatabase.txt")
+  dim(NHANESdatabase) # 8429 food items
+  head(NHANESdatabase)
+  food_records_fn  <- read.delim("Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt")  # output of filtering above.
+  length(unique(food_records_fn$SEQN)) # 703 
+  length(unique(food_records_fn$Food_code)) # 58
+  
+  merged <- merge(food_records_fn[, c('FoodID', "SEQN")], NHANESdatabase[, c("FoodID", "Main.food.description")], all.x=T)
+  as.data.frame(table(merged$Main.food.description, useNA = 'always'))
+  # some foods are missing in merged. that means some foods in food_records_fn were not in NHANESdatabase.
+  length(unique(merged$SEQN)) # 703 
+  length(unique(merged$FoodID)) # 58
+  # merged, allx=T done correctly. 
+
+  output_fn =        read.delim("Food_D12_FC_QC_demo_QCed_Leg_morethanone_red.txt")
+  dim(output_fn) # 45 x 6 food items
+  head(output_fn)
+  # So after remducing, only 45 items exist in the xxx_red.txt.
+  
+  ####
+  
+  
 # Use CheckDB function to check if any food reported in Food_D12_FC_QC_demo_QCed.txt is missing in the 
 # NHANES food database. # If there is, those will be written in the output file named xxx_missing.txt.
   check.db(food_database_fn = "../../Food_tree_eg/NHANESDatabase.txt", 
            food_records_fn =  "Food_D12_FC_QC_demo_QCed_Leg_morethanone_red.txt",
            output_fn =        "Food_D12_FC_QC_demo_QCed_Leg_morethanone_red_missing.txt")
 
-# Load the output and check if the output contains anything? 
+# Load the output and check if the output contains anything?
   mmm = read.table("Food_D12_FC_QC_demo_QCed_Leg_morethanone_red_missing.txt", sep="\t", header=T)
   head(mmm)
   # Has item(s) ===> put this missing.txt file in addl_foods_fn argument of MakeFoodTree.
