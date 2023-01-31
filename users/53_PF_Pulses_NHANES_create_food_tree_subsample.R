@@ -66,15 +66,16 @@
 
 # Filter all.food.record for only the food that is in morethanone by FOODCODE.
   head(all.food.record)  
-  length(unique(all.food.record$Food_code)) # 5063 food items.
+  length(unique(all.food.record$SEQN))      # 4207 
+  length(unique(all.food.record$Food_code)) # 5063 food items in all.food.record of 4207 people.
   
+  # Keep only the legume-containing food items consumed by 4207 people. 
   all.food.record_leg <- all.food.record[ all.food.record$Food_code %in% morethanone$FOODCODE ,  ]
   
   # How many PF_LEGUME food items in all.food.record_leg?
   length(unique(all.food.record_leg$Food_code))  # 58 food items.
+  length(unique(all.food.record_leg$SEQN))       # 703 people.
   table(all.food.record_leg$Food_code)
-  
-  length(unique(all.food.record_leg$SEQN))  # 703 people!
   
   # # Need to re-define selectedind.
   # selectedind <- unique(all.food.record_leg$SEQN)
@@ -82,7 +83,7 @@
   
   # Take a look
   all.food.record_leg[1:5, c("Food_code", "Main.food.description", "FoodAmt", "PF_LEGUMES") ]
-
+  colnames(all.food.record_leg)
   # Save. This will be the input for the following procedures.
   write.table(all.food.record_leg, "Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt", 
               sep="\t", row.names=F, quote=F) 
@@ -96,8 +97,8 @@
   # identical(unique(sel.food.record$SEQN), selectedind)
 
 # Save. This will be the input for the following procedures.
-  write.table(sel.food.record, "Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt", 
-              sep="\t", row.names=F, quote=F) 
+  # write.table(sel.food.record, "Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt", 
+  #             sep="\t", row.names=F, quote=F) 
 
 # ===============================================================================================================
 # Limit to just the foods reported in your study (use formatted dietrecords.txt as the input) 
@@ -111,7 +112,9 @@
   NHANESdatabase <- read.delim("../../Food_tree_eg/NHANESDatabase.txt")
   dim(NHANESdatabase) # 8429 food items
   head(NHANESdatabase)
-  food_records_fn  <- read.delim("Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt")  # output of filtering above.
+  food_records_fn  <- read.delim("Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt", quote="", colClasses='character')  # output of filtering above.
+  dim(food_records_fn) # 900 x 177
+  
   length(unique(food_records_fn$SEQN)) # 703 
   length(unique(food_records_fn$Food_code)) # 58
   
@@ -122,10 +125,182 @@
   length(unique(merged$FoodID)) # 58
   # merged, allx=T done correctly. 
 
-  output_fn =        read.delim("Food_D12_FC_QC_demo_QCed_Leg_morethanone_red.txt")
+  output_fn = read.delim("Food_D12_FC_QC_demo_QCed_Leg_morethanone_red.txt", quote="", colClasses="character")
   dim(output_fn) # 45 x 6 food items
-  head(output_fn)
-  # So after remducing, only 45 items exist in the xxx_red.txt.
+  head(output_fn, 1)
+  colnames(output_fn)
+  # So after reducing, only 45 items exist in the xxx_red.txt. ????
+  # Asked Abby --> NHANESdatabase.txt is not needed, it was used for her research that included non-NHANES foods. 
+  # So, I do not need to FilterDbByDietRecords.
+  # But need to make a txt that has 6 columns of: "FoodCodes", "drxfcsd", "Main.food.description", 
+  # "Old.Main.food.description", "ModCode", "FoodID". 
+  which(colnames(food_records_fn) == "FoodID")
+  head(food_records_fn$FoodID) # "FoodCodes" doesn't exist in  food_records_fn.  
+  
+  # Make a function to just take out the five columns that are needed.
+  PrepFoodtreeInput <- function(food_records_fn, out_fn){
+    
+    inputfooddf <- read.delim(food_records_fn, quote="", colClasses="character")
+    
+    inputfooddf_sixcol <-inputfooddf[, c("DRXFCSD", "Main.food.description", 
+                                         "Old.Main.food.description", "ModCode", "FoodID")] 
+    
+    write.table(x=inputfooddf_sixcol, file=out_fn, sep="\t", quote=F, row.names=F)
+    
+  }
+  
+  PrepFoodtreeInput(food_records_fn = "Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt",
+                    out_fn          = "Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red.txt")
+  
+  prep_red = read.delim("Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red.txt", quote="", colClasses="character")
+  dim(prep_red) # 900 x 5 food items
+  head(prep_red, 6)
+  colnames(output_fn)
+  max(as.numeric(prep_red$ModCode)) # ModCode are all zero.
+  
+  # This should be enough for making food tree.
+  MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt", 
+               addl_foods_fn = NULL,
+               num.levels = 3,
+               food_database_fn =            "Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red.txt",  
+               output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.nwk", 
+               output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.tax.txt"
+  )
+  
+  tax <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.tax.txt")
+  dim(tax) # 58 x 3, good.
+  colnames(tax)
+  head(tax, 1) # 
+  
+  MakeFoodOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt",   
+              food_record_id =  "SEQN",                              # The ID of your participants
+              food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.tax.txt",       # Your taxonomy file produced by MakeFoodTree.
+              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.food.otu.txt")  # Output otu file to be saved.
+  
+  otu <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.food.otu.txt")
+  dim(otu) # 58 x 705 
+  colnames(otu) # X.FOODID, X87496, X88725, ..., taxonomy.
+  
+  ###### Let's continue to ordination ########################
+  ### Food 
+  # Load food OTU table in Foodtree folder - this is our food OTU data.
+  food_raw <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.food.otu.txt", row.names=1)
+  
+  # Define the taxonomy column number, which is at the end of food.
+  taxonomycolumn <- length(colnames(food_raw))
+  
+  # Order the column names of food (which is SEQN), except the last column which has taxonomy.
+  sortedcolnames_order <- order(colnames(food_raw)[ 1 : taxonomycolumn-1 ])
+  
+  # Sort the SEQNs, but do not touch the taxonomy column at the end. 
+  food <- food_raw[, c(sortedcolnames_order, taxonomycolumn) ] 
+  # Can save this as .txt for corr.axis.foods...
+  
+  # Take a look at the food file.
+  # The column name of "food" is the ordered SEQNs preceded with an 'X'.
+  food[1:8, 1:8] 
+  
+  # Format the food file and create an otu_table called OTU.
+  PrepFood(data=food)
+  
+  ### Taxonomy (tax) -----------------------------------------------------------
+  # Load taxonomy file generated by the MakeFoodTree function.
+  tax <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.tax.txt")
+  # 58 x 3.
+  
+  # Format the tax file and create a taxonomy table called TAX.
+  PrepTax(data=tax)
+  
+  ### Sample -----------------------------------------------------------
+  # Load the demographics data.
+  demog <- read.xport("../Raw_data/DEMO_I.XPT")  
+  
+  # Load our dataset that has the "GLU_index" information.
+  # glu <- read.delim( file="QCtotal_d_ga_body_meta_glu_comp_2.txt", sep= "\t", header= T )
+  leg <- read.delim( file="../Total_D12_FC_QC_mean_QC_demo_ga_body_meta_Leg.txt", sep= "\t", header= T )
+  table(leg$LegGroup)
+
+  # Take out only the SEQN and LegGroup.
+  SEQN_LEG <- leg[, c("SEQN", "LegGroup")]
+
+  # Add LegGroup to metadata.
+  demog_leg <- merge(x=SEQN_LEG, y=demog, all.x=T, by="SEQN")
+
+  # Now, it has LegGroup and demographic data of all the 4207 people.
+  head(demog_leg, 1)
+
+  # # Put 'X' in front of the SEQN and define it as rownames.    
+  # rownames(demog_leg) <- paste("X", demog_leg$SEQN, sep="") 
+  # 
+  # # Prep metadata for generating a phyloseq object.  
+  # PrepMeta_NHANES(data = demog_leg)
+  # 
+  # 
+  # demog_leg has all 4207 people, but I think it needs to have the same number of people
+  # as food does (704 people).
+  
+  # Load a dataset that contains the 704 people and their SEQN.
+  # all.food.record_leg <- read.delim("Food_D12_FC_QC_demo_QCed_Leg_morethanone.txt")
+  #                                   Total_D12_FC_QC_mean_QC_demo_ga_body_meta_Leg.txt
+  
+  length(unique(all.food.record_leg$SEQN))
+  head(all.food.record_leg,1)
+  
+  # From demog_leg, select only the 703 individuals who consumed legume-containing foods which are in all.food.record_leg.  
+  demog_leg_red <- demog_leg[demog_leg$SEQN %in% all.food.record_leg$SEQN,  ] 
+  length(unique(demog_leg_red$SEQN))
+  table(demog_leg_red$LegGroup)
+  
+  # Put 'X' in front of the SEQN and define it as rownames.    
+  rownames(demog_leg_red) <- paste("X", demog_leg_red$SEQN, sep="") 
+  
+  # Prep metadata for generating a phyloseq object.  
+  PrepMeta_NHANES(data = demog_leg_red)
+  
+  # Food tree -----------------------------------------------------------
+  # Load foodtree file generated by the MakeFoodTree function.
+  foodtree <- read_tree("Foodtree/Food_D12_FC_QC_demo_QCed_Leg_morethanone_prep_red_3Lv.nwk")
+  # It is OK to see a message that says:
+  # "Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
+  # Also defined by 'tidytree'"
+  
+  # Format the food tree and save it as 'TREE'. 
+  PrepTree(data=foodtree)
+  # It is OK to see the same message as the previous line. 
+  
+  # ---------------------------------------------------------------------------------------------------------------
+  # Make a phyloseq object with OTU, TAX, samples, and foodtree by using the phyloseq function.
+  phyfoods <- phyloseq(OTU, TAX, SAMPLES, TREE)
+  # It is OK to see the same message as the previous line. They may appear multiple times. 
+  
+  phyfoods
+  
+  # Check your metadata by using the functions in the phyloseq package.
+  # Show the sample names. Change n to adjust the number of rows to show.
+  head(sample_names(phyfoods), n=6)  
+  length(sample_names(phyfoods))
+  
+  # Show their metadata. 
+  head(sample_data(phyfoods), 6)[, 1:2]
+  table(sample_data(phyfoods)[, "LegGroup"], useNA="ifany") 
+  # Leg1 Leg2 Leg3 
+  # 144  246  313 
+  
+  # Show only the columns (variables) of metadata. 
+  sample_variables(phyfoods)
+  
+  # Check the level 1 foods in your food tree 
+  L1s <- tax_table(phyfoods)[, "L1"]
+  as.vector(unique(L1s))
+  
+  # Change to the folder called "Ordination" in your "Ordination" folder.
+  SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Ordination/")
+  
+  # How many samples are there? 
+  length(sample_names(phyfoods))
+  
+  ## From here, use 55_PF_Pulses_NHANES_ord_subsample.R script to build a phyloseq object and do ordination.
+  
   
   ####
   
