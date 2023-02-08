@@ -1,12 +1,9 @@
 # ===============================================================================================================
 # Generate food tree out of PF_LEGUME data from Leg1= - Leg3 groups.
+# Put the items directly into MakeFoodTree function.  
 # Version 1
 # Created on 01/31/2023 by Rie Sadohara
 # ===============================================================================================================
-
-# First, we will load the QC-ed averaged totals of males 60-79 years old (n=237) and all food records (n=4,207). 
-# Then, we will keep the food records of only the individuals in males 60-79 years old and generate a food tree
-# with the filtered food data. 
 
 # Set your working directory as the main directory (dietary_patterns)
   Session --> Set working directory --> Choose directory.
@@ -24,9 +21,9 @@
   source("lib/specify_data_dir.R")
 
   source("lib/Food_tree_scripts/newick.tree.r")
-  source("lib/Food_tree_scripts/check.db.r")
+  # source("lib/Food_tree_scripts/check.db.r")
   source("lib/Food_tree_scripts/format.foods.r")
-  source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
+  # source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
   source("lib/Food_tree_scripts/make.food.tree.r")
   source("lib/Food_tree_scripts/make.food.otu.r")
   source("lib/Food_tree_scripts/make.fiber.otu.r")
@@ -67,8 +64,8 @@
 
 # Filter all.food.record for only the food that is in morethanone by FOODCODE.
   head(all.food.record)  
-  length(unique(all.food.record$SEQN))      # 4207 
-  length(unique(all.food.record$Food_code)) # 5063 food items in all.food.record of 4207 people.
+  length(unique(all.food.record$SEQN))      # 4,207 
+  length(unique(all.food.record$Food_code)) # 5,063 food items in all.food.record of 4207 people.
   
   # Keep only the legume-containing food items consumed by 4207 people. 
   all.food.record_leg <- all.food.record[ all.food.record$Food_code %in% morethanone$FOODCODE ,  ]
@@ -138,27 +135,15 @@
 #   # "Old.Main.food.description", "ModCode", "FoodID". 
 #   which(colnames(food_records_fn) == "FoodID")
 #   head(food_records_fn$FoodID) # "FoodCodes" doesn't exist in  food_records_fn.  
+
+  # # ftc means food tree columns.
+  # PrepFoodtreeInput(food_records_fn = "Food_D12_FC_QC_demo_QCed_leg.txt",
+  #                   out_fn          = "Food_D12_FC_QC_demo_QCed_leg_ftc.txt")
   
-  # Make a function to just take out the five columns that are needed.
-  PrepFoodtreeInput <- function(food_records_fn, out_fn){
-    
-    inputfooddf <- read.delim(food_records_fn, quote="", colClasses="character")
-    
-    inputfooddf_sixcol <-inputfooddf[, c("DRXFCSD", "Main.food.description", 
-                                         "Old.Main.food.description", "ModCode", "FoodID")] 
-    
-    write.table(x=inputfooddf_sixcol, file=out_fn, sep="\t", quote=F, row.names=F)
-    
-  }
-                                       
-  # ftc means food tree columns.
-  PrepFoodtreeInput(food_records_fn = "Food_D12_FC_QC_demo_QCed_leg.txt",
-                    out_fn          = "Food_D12_FC_QC_demo_QCed_leg_ftc.txt")
-  
-  prep_red = read.delim("Food_D12_FC_QC_demo_QCed_leg_ftc.txt", quote="", colClasses="character")
-  dim(prep_red) # 900 x 5 food items
-  head(prep_red, 6)
-  max(as.numeric(prep_red$ModCode)) # ModCode are all zero.
+  # prep_red = read.delim("Food_D12_FC_QC_demo_QCed_leg_ftc.txt", quote="", colClasses="character")
+  # dim(prep_red) # 900 x 5 food items
+  # head(prep_red, 6)
+  # max(as.numeric(prep_red$ModCode)) # ModCode are all zero.
   
 # # Use CheckDB function to check if any food reported in Food_D12_FC_QC_demo_QCed.txt is missing in the 
 #   # NHANES food database. # If there is, those will be written in the output file named xxx_missing.txt.
@@ -176,12 +161,12 @@
   MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt", 
                addl_foods_fn = NULL,
                num.levels = 3,
-               food_database_fn =            "Food_D12_FC_QC_demo_QCed_leg_ftc.txt",  
-               output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.nwk", 
-               output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.tax.txt"
+               food_database_fn =            "Food_D12_FC_QC_demo_QCed_leg.txt",  
+               output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.nwk", 
+               output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.tax.txt"
   )
   
-  tax <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.tax.txt")
+  tax <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.tax.txt")
   dim(tax) # 58 x 3, good.
   colnames(tax)
   head(tax, 1)  
@@ -193,27 +178,27 @@
 # appending column names to file.
   MakeFoodOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_leg.txt",   
               food_record_id =  "SEQN",                              # The ID of your participants
-              food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.tax.txt",       # Your taxonomy file produced by MakeFoodTree.
-              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.food.otu.txt")  # Output otu file to be saved.
+              food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.tax.txt",       # Your taxonomy file produced by MakeFoodTree.
+              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.food.otu.txt")  # Output otu file to be saved.
   
-  otu <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.food.otu.txt")
+  otu <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.food.otu.txt")
   dim(otu) # 58 x 705 
   colnames(otu) # X.FOODID, X87496, X88725, ..., taxonomy.
   
   # Make a food otu table with data in grams of fiber per food.
   MakeFiberOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_leg.txt", 
                food_record_id=   "SEQN", 
-               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.tax.txt", 
-               output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.fiber.otu.txt")
+               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.tax.txt", 
+               output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.fiber.otu.txt")
   
   # Make a food otu table as dehydrated grams per kcal.
   MakeDhydrtOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_leg.txt", 
                 food_record_id =  "SEQN", 
-                food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.tax.txt", 
-                output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.dhydrt.otu.txt")  
+                food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.tax.txt", 
+                output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.dhydrt.otu.txt")  
   
-  # ---------------------------------------------------------------------------------------------------------------
-  # Come back to the main directory.
+# ---------------------------------------------------------------------------------------------------------------
+# Come back to the main directory.
   setwd(main_wd)
   
 

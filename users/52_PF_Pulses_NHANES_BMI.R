@@ -60,7 +60,8 @@
   myanova <- aov(logBMI ~ LegGroup, data=df) 
   # When log-transformed, the residuals are normally distributed, but still ANOVA is not significant (p=0.12)
   summary(myanova) 
-  # BMXBMI p=0.184. not significant.
+  # as is: BMXBMI p=0.184. not significant.
+  # log:   logBMI p=0.124. not significant.
   
   res1 <- residuals(myanova)
   hist(res1)
@@ -74,6 +75,7 @@
   # OK.
   
   anova(lm(df$BMXBMI ~ df$LegGroup))   
+  anova(lm(df$logBMI ~ df$LegGroup))   
   # If ANOVA is significant, you can do a pairwise t-test.
   pairwise.t.test(df$BMXBMI, df$LegGroup, p.adjust.method = "holm") 
   
