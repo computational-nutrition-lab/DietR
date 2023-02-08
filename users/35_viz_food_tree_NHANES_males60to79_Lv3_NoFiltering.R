@@ -1,7 +1,7 @@
 # ===============================================================================================================
 # Generate food tree out of GLU - males aged 60-79 with food tree level 3.
-# Version 2
-# Created on 12/03/2023 by Rie Sadohara
+# Version 1
+# Created on 02/08/2023 by Rie Sadohara
 # ===============================================================================================================
 
 # Set your working directory as the main directory (dietary_patterns)
@@ -26,7 +26,7 @@
   SpecifyDataDirectory("eg_data/NHANES/Laboratory_data/Foodtree")
 
 # Load your tree object.
-  tree <- read.tree("Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.nwk") 
+  tree <- read.tree("Food_D12_FC_QC_demo_QCed_males60to79_3Lv.nwk") 
 
 # It is OK to see an error that says:
 # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
@@ -46,8 +46,8 @@
   annotated_tree
 
 # Save.
-  ggsave("Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv_viz.png", annotated_tree,
-         device="png", width=5.2, height=5)
+  ggsave("Food_D12_FC_QC_demo_QCed_males60to79_3Lv_viz.pdf", annotated_tree,
+         device="pdf", width=5.2, height=5)
 
 # --------------------------------------------------------------------------------------------------------------
 # Come back to the main directory

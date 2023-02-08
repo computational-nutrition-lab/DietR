@@ -24,13 +24,14 @@
   source("lib/specify_data_dir.R")
 
   source("lib/Food_tree_scripts/newick.tree.r")
-  source("lib/Food_tree_scripts/check.db.r")
+  # source("lib/Food_tree_scripts/check.db.r")
   source("lib/Food_tree_scripts/format.foods.r")
-  source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
+  # source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
   source("lib/Food_tree_scripts/make.food.tree.r")
   source("lib/Food_tree_scripts/make.food.otu.r")
   source("lib/Food_tree_scripts/make.fiber.otu.r")
   source("lib/Food_tree_scripts/make.dhydrt.otu.r")
+  source("lib/Prep_Foodtree_Input.R")
   
 # You can come back to the main directory by:
   setwd(main_wd) 
@@ -83,38 +84,49 @@
 #   # Empty       ===> put NULL in addl_foods_fn argument of MakeFoodTree.
 
 ####
-# Make a function to just take out the five columns that are needed.
-  PrepFoodtreeInput <- function(food_records_fn, out_fn){
-    
-    inputfooddf <- read.delim(food_records_fn, quote="", colClasses="character")
-    
-    inputfooddf_sixcol <-inputfooddf[, c("DRXFCSD", "Main.food.description", 
-                                         "Old.Main.food.description", "ModCode", "FoodID")] 
-    
-    write.table(x=inputfooddf_sixcol, file=out_fn, sep="\t", quote=F, row.names=F)
-    
-  }
-  
-  # ftc means food tree columns.
-  PrepFoodtreeInput(food_records_fn = "Food_D12_FC_QC_demo_QCed_males60to79.txt",
-                    out_fn          = "Food_D12_FC_QC_demo_QCed_males60to79_ftc.txt")
-  
-  prep_red = read.delim("Food_D12_FC_QC_demo_QCed_males60to79_ftc.txt", quote="", colClasses="character")
-  dim(prep_red) # 7603 x 5 food items
-  head(prep_red, 6)
-  max(as.numeric(prep_red$ModCode)) # ModCode are all zero.
+# # Make a function to just take out the five columns that are needed.
+#   PrepFoodtreeInput <- function(food_records_fn, out_fn){
+#     
+#     inputfooddf <- read.delim(food_records_fn, quote="", colClasses="character")
+#     
+#     inputfooddf_sixcol <-inputfooddf[, c("DRXFCSD", "Main.food.description", 
+#                                          "Old.Main.food.description", "ModCode", "FoodID")] 
+#     
+#     write.table(x=inputfooddf_sixcol, file=out_fn, sep="\t", quote=F, row.names=F)
+#     
+#   }
+  # 
+  # # ftc means food tree columns.
+  # PrepFoodtreeInput(food_records_fn = "Food_D12_FC_QC_demo_QCed_males60to79.txt",
+  #                   out_fn          = "Food_D12_FC_QC_demo_QCed_males60to79_ftc.txt")
+  # 
+  # prep_red = read.delim("Food_D12_FC_QC_demo_QCed_males60to79_ftc.txt", quote="", colClasses="character")
+  # dim(prep_red) # 7603 x 5 food items
+  # head(prep_red, 6)
+  # max(as.numeric(prep_red$ModCode)) # ModCode are all zero.
   
 # Create food tree with the reduced dataset (only reported foods) classified at 
 # a desired level of classification (Lv. 1-6).
 # "NodeLabelsMCT.txt" has a list of food levels and names, which comes with the DietR package.
+  # MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt", 
+  #              addl_foods_fn = NULL,
+  #              num.levels = 3,
+  #              food_database_fn =            "Food_D12_FC_QC_demo_QCed_males60to79_ftc.txt",  
+  #              output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.nwk", 
+  #              output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.tax.txt"
+  # )
+
+# Use the items file straight into the MakeFoodTree function.
   MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt", 
                addl_foods_fn = NULL,
                num.levels = 3,
-               food_database_fn =            "Food_D12_FC_QC_demo_QCed_males60to79_ftc.txt",  
-               output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.nwk", 
-               output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.tax.txt"
+               food_database_fn =            "Food_D12_FC_QC_demo_QCed_males60to79.txt",  
+               output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.nwk", 
+               output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt"
   )
   
+  
+    
 # --------------------------------------------------------------------------------------------------------------
 # Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.
 # It is OK to see the following warning message:
@@ -125,25 +137,25 @@
 # For the food_records_fn argument, you need to supply 'sel.food.records' file that have 'FoodAmt' column.     
   MakeFoodOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt",   
               food_record_id =  "SEQN",                              # The ID of your participants
-              food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.tax.txt",       # Your taxonomy file produced by MakeFoodTree.
-              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.food.otu.txt")  # Output otu file to be saved.
+              food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt",       # Your taxonomy file produced by MakeFoodTree.
+              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu.txt")  # Output otu file to be saved.
   
 # Make a food otu table with data in grams of fiber per food.
   MakeFiberOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
                food_record_id=   "SEQN", 
-               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.tax.txt", 
-               output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.fiber.otu.txt")
+               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt", 
+               output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.fiber.otu.txt")
   
 # Make a food otu table as dehydrated grams per kcal.
   MakeDhydrtOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
                 food_record_id =  "SEQN", 
-                food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.tax.txt", 
-                output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_ftc_3Lv.dhydrt.otu.txt")  
+                food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt", 
+                output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.dhydrt.otu.txt")  
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.
   setwd(main_wd)
   
-  
+  otu = read.delim("Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu.txt")
   
   
