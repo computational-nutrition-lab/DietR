@@ -36,6 +36,7 @@
   source("lib/specify_data_dir.R")
   source("lib/ordination.R")
   source("lib/ggplot2themes.R")
+  source("lib/sort_OTU_by_ID.R")
   source("lib/plot.axis.1to4.by.factor.R")
 
 # Load the distinct 100 colors for use.   
@@ -54,9 +55,31 @@
 # Load the necessary files for creating a phyloseq object.  
   
 # Food
-  # Load food OTU table - this is our food OTU data
-  food <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt", row.names = 1)
+      # food_raw <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt", row.names = 1)
+      # 
+      # # Define the taxonomy column number, which is at the end of food.
+      # taxonomycolumn <- length(colnames(food_raw))
+      # 
+      # # Order the column names of food (which is SEQN), except the last column which has taxonomy.
+      # sortedcolnames_order <- order(colnames(food_raw)[ 1 : taxonomycolumn-1 ])
+      # 
+      # # Sort the SEQNs, but do not touch the taxonomy column at the end. 
+      # food <- food_raw[, c(sortedcolnames_order, taxonomycolumn) ] 
+      # head(food[, 40:46])
+      # head(food_raw[, 40:46])
+      # 
+      # # Can save this as .txt for corr.axis.foods...
+      # write.table(food, "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sortedbysample.txt",
+      #             sep="\t", row.names=T, quote=F)
+      # 
+
+# Load food OTU table, and sort the columnnames (userID), leaving the last column (taxonomy) intact.
+# Then, save that dataframe as "food".
+# Also, save "food" as a .txt file to be used in "correlation between Axes and foods" section.  
+  SortOTUByID(otu.input = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt",
+              outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sortedbysample.txt")
   
+  # Take a look at the food file.
   # "food" is a matrix of Food descriptions (rows) x SampleID (columns).
   head(food)[1:6, 1:4]
   
@@ -135,7 +158,7 @@
 # Make a vector that contains the variance explained.
   eigen_loaded_vec <- eigen_loaded[, 2]
   
-# Read in the metadata and users' Axis values. 
+# Read in the metadata and users' Axis values.
   meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt", header=T)    
   
 # Take a look at meta_usersdf that has been loaded. 
@@ -153,7 +176,7 @@
                        ellipses.colors = distinct100colors,  
                        ellipses.cflevel = 0.95,
                        out.prefix = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_diet"
-  )  
+  )
   
 # ---------------------------------------------------------------------------------------------------------------
 # Some of the Diet groups seem to form distinct clusters. Use beta-diversity and adonis tests 

@@ -1,6 +1,6 @@
 # ===============================================================================================================
 # Generate a heatmap of correlation between food categories and ordination Axes.
-# WITH DEHYDRATED OTU TABLE!!!! 
+# WITH DEHYDRATED OTU TABLE!!!! ("_d")
 # Version 1
 # Created on 02/07/2023 by Rie Sadohara
 # The create_corr_frame function credit: Mo Hutti. 

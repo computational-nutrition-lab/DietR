@@ -1,7 +1,7 @@
 # ===============================================================================================================
 # Look at difference in BMI between "DivGroup" .
 # Version 1
-# Created on 01/26/2023 by Rie Sadohara
+# Created on 02/09/2023 by Rie Sadohara
 # ===============================================================================================================
 
 # Set your working directory to the main directory.
@@ -53,11 +53,11 @@
 # ANOVA.
   df <- totals_c
   hist(df$BMXBMI)
-  df$logBMI <- log(df$BMXBMI) 
-  hist(df$logBMI)
+  df$BMXBMI_log <- log(df$BMXBMI) 
+  hist(df$BMXBMI_log)
   
-  myanova <- aov(BMXBMI ~ DivGroup, data=df)
-  myanova <- aov(logBMI ~ DivGroup, data=df) 
+  myanova <- aov(BMXBMI     ~ DivGroup, data=df)
+  myanova <- aov(BMXBMI_log ~ DivGroup, data=df) 
   # When log-transformed, the residuals are normally distributed, but still ANOVA is not significant (p=0.12)
   summary(myanova) 
   # as is: BMXBMI p= 2.76e-07. significant.
@@ -74,16 +74,41 @@
   anova(lm(res1sq ~ df$DivGroup))
   # OK.
   
-  anova(lm(df$BMXBMI ~ df$DivGroup))   
-  anova(lm(df$logBMI ~ df$DivGroup))   
+  anova(lm(df$BMXBMI     ~ df$DivGroup))   
+  anova(lm(df$BMXBMI_log ~ df$DivGroup))   
   # If ANOVA is significant, you can do a pairwise t-test.
   pairwise.t.test(df$BMXBMI, df$DivGroup, p.adjust.method = "holm") 
   
 # ---------------------------------------------------------------------------------------------------------------
 # HSD test.
-  library(agricolae)
-  # Define what to repeat first... 
-  # *** REPEAT FROM HERE ***
+  
+# Run the mean separation and lettering for each phenotype.  
+# BMXBMI
+  model <- aov(BMXBMI ~ DivGroup, data=df)
+  
+  ### *** REPEAT the sectin below ***
+  
+  write.table(means_abc, "Div_means_abs_BMXBMI_BMI.txt", sep="\t", row.names=F, quote=F)
+    
+# logBMI
+  model <- aov(BMXBMI_log ~ DivGroup, data=df)
+  
+  ### *** REPEAT ***
+  
+  write.table(means_abc, "Div_means_abs_logBMI.txt", sep="\t", row.names=F, quote=F)
+
+# KCAL
+  summary(totals$KCAL) # no missing data.
+  summary(df$KCAL) # no missing data.
+  model <- aov(KCAL ~ DivGroup, data=df)
+  
+  ### *** REPEAT ***
+  
+  write.table(means_abc, "Div_means_abs_KCAL_n4163.txt", sep="\t", row.names=F, quote=F)
+  
+library(agricolae)
+# Define what to repeat first... 
+# *** REPEAT FROM HERE ***
   # ANOVA table.
   summary(model)
   out <- HSD.test(model, "DivGroup", group=TRUE, console=TRUE)
@@ -99,18 +124,4 @@
   means_abc
   # *** REPEAT TILL HERE ***
   
-# Run the mean separation and lettering for each phenotype.  
-# BMXBMI
-  model <- aov(BMXBMI ~ DivGroup, data=df)
-  
-  ### *** REPEAT ***
-  write.table(means_abc, "Div_means_abs_BMXBMI_BMI.txt", sep="\t", row.names=F, quote=F)
-    
-# logBMI
-  model <- aov(logBMI ~ DivGroup, data=df)
-  
-  ### *** REPEAT ***
-  write.table(means_abc, "Div_means_abs_logBMI.txt", sep="\t", row.names=F, quote=F)
-
-    
 # ---------------------------------------------------------------------------------------------------------------

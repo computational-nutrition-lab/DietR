@@ -26,8 +26,8 @@ setwd("~/GitHub/DietR")
 # ===============================================================================================================
 
   totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup.txt")
-  head(totals, 1)
   dim(totals)
+  head(totals, 1)
   
 # Define the DivGroup as a factor.
   totals$DivGroup <- factor(totals$DivGroup, 
@@ -46,7 +46,7 @@ setwd("~/GitHub/DietR")
   # 674 3533 
   
 # ---------------------------------------------------------------------------------------------------------------
-# Download HDL cholesterol data. 
+# Download HDL cholesterol data.
   download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/HDL_I.XPT", 
                 destfile= "Raw_data/HDL_I.XPT", mode="wb")
   
@@ -91,12 +91,14 @@ setwd("~/GitHub/DietR")
   head(TCHOLrawdata)
   hist(TCHOLrawdata$LBXTC)
   summary(TCHOLrawdata$LBXTC)
+  head(TCHOLrawdata[order(TCHOLrawdata$LBXTC, decreasing = T),])
+  # There are two rows that have 545 and 540.
   
 # ---------------------------------------------------------------------------------------------------------------
 # Add LBDHDD to totals.
-  totals <- merge(totals, HDLrawdata[, c("SEQN", "LBDHDD")], by="SEQN", all.x=T)
+  totals <- merge(totals, HDLrawdata[,    c("SEQN", "LBDHDD")], by="SEQN", all.x=T)
   totals <- merge(totals, TRIGLYrawdata[, c("SEQN", "LBXTR", "LBDLDL")], by="SEQN", all.x=T)
-  totals <- merge(totals, TCHOLrawdata[, c("SEQN", "LBXTC")], by="SEQN", all.x=T)
+  totals <- merge(totals, TCHOLrawdata[,  c("SEQN", "LBXTC")], by="SEQN", all.x=T)
   
   colnames(totals)
 
@@ -105,8 +107,10 @@ setwd("~/GitHub/DietR")
   # ~57% is missing LDL and TR!! 
   nrow(totals)
   totals_c <- totals[complete.cases(totals[, c("SEQN", "LBDHDD", "LBXTR", "LBDLDL", "LBXTC")]), ]
+  # totals_c <- totals[complete.cases(totals[, c("SEQN", "LBDHDD")]), ]
   nrow(totals_c)
   # 1791/4207 = 0.43. Hmm
+  # HDD has 4024 rows.
   
   head(totals_c)  
   summary(totals_c$LBDHDD)  
@@ -136,6 +140,7 @@ setwd("~/GitHub/DietR")
   
   # Exclude 79th row.
   totals_c_hdd <- totals_c[-79, ] 
+  # totals_c_hdd <- totals_c[-169, ] 
   max(totals_c_hdd$LBDHDD)  
   # Now the max HDD is 129.
   hist(totals_c_hdd$LBDHDD) 
@@ -184,15 +189,25 @@ setwd("~/GitHub/DietR")
 # LBXTC
   hist(df$LBXTC)
   plot(as.factor(df$DivGroup), df$LBXTC) 
+
+# KCAL
+  hist(df$KCAL)
+  plot(as.factor(df$DivGroup), df$KCAL) 
+  
+  df$KCAL_log <- log(df$KCAL)
+  hist(df$KCAL_log)
+  plot(as.factor(df$DivGroup), df$KCAL_log) 
   
 # Run ANOVA
-  myanova <- aov(LBDHDD ~ DivGroup, data=df)
+  myanova <- aov(LBDHDD     ~ DivGroup, data=df)
   myanova <- aov(LBDHDD_log ~ DivGroup, data=df)
-  myanova <- aov(LBXTR  ~ DivGroup, data=df)
+  myanova <- aov(LBXTR      ~ DivGroup, data=df)
   myanova <- aov(LBXTR_log  ~ DivGroup, data=df)
-  myanova <- aov(LBDLDL ~ DivGroup, data=df)
+  myanova <- aov(LBDLDL     ~ DivGroup, data=df)
   myanova <- aov(LBDLDL_log ~ DivGroup, data=df)
-  myanova <- aov(LBXTC  ~ DivGroup, data=df)
+  myanova <- aov(LBXTC      ~ DivGroup, data=df)
+  myanova <- aov(KCAL       ~ DivGroup, data=df)
+  myanova <- aov(KCAL_log   ~ DivGroup, data=df)
   summary(myanova)
   
   res1 <- residuals(myanova)
@@ -209,12 +224,54 @@ setwd("~/GitHub/DietR")
   pairwise.t.test(df$LBDHDD, df$DivGroup, p.adjust.method = "holm") 
   pairwise.t.test(df$LBDHDD_log, df$DivGroup, p.adjust.method = "holm") # p value got higher... hmm?  
 
-  anova(lm(df$LBDHDD ~ df$DivGroup))   
-  
 ## Tukey's Honestly Significant Difference. by Filipe. 
-  library(agricolae)
+
+# Run the mean separation and lettering for each phenotype.  
+
+# LBDHDD
+  model <- aov(LBDHDD     ~ DivGroup, data=df)
+  model <- aov(LBDHDD_log ~ DivGroup, data=df)
   
-# Define what to repeat first... 
+  ### *** REPEAT ***
+  write.table(means_abc, "Div_means_abs_LBDHDD_HDL.txt", sep="\t", row.names=F, quote=F)
+  write.table(means_abc, "Div_means_abs_LBDHDD_HDL_log.txt", sep="\t", row.names=F, quote=F)
+  # write.table(means_abc, "Div_means_abs_LBDHDD_HDL_n4204.txt", sep="\t", row.names=F, quote=F)
+  
+# LBXTR
+  model <- aov(LBXTR ~ DivGroup, data=df)
+  model <- aov(LBXTR_log ~ DivGroup, data=df)
+  
+  ### *** REPEAT ***
+  write.table(means_abc, "Div_means_abs_LBXTR_tri.txt", sep="\t", row.names=F, quote=F)
+
+# LBDLDL
+  model <- aov(LBDLDL     ~ DivGroup, data=df)
+  model <- aov(LBDLDL_log ~ DivGroup, data=df)
+  
+  ### *** REPEAT ***
+  write.table(means_abc, "Div_means_abs_LBDLDL_LDL.txt", sep="\t", row.names=F, quote=F)
+  write.table(means_abc, "Div_means_abs_LBDLDL_LDL_log.txt", sep="\t", row.names=F, quote=F)
+  
+#LBXTC - total cholesterol.
+  model <- aov(LBXTC ~ DivGroup, data=df)
+  
+  ### *** REPEAT ***
+  write.table(means_abc, "Div_means_abs_LBXTC_TotalCho.txt", sep="\t", row.names=F, quote=F)
+
+# KCAL
+  # summary(totals$KCAL) # no missing data.
+  summary(df$KCAL) # no missing data.
+  model <- aov(KCAL     ~ DivGroup, data=df)
+  model <- aov(KCAL_log ~ DivGroup, data=df)
+  
+  ### *** REPEAT ***
+  
+  write.table(means_abc, "Div_means_abs_KCAL_n1790.txt", sep="\t", row.names=F, quote=F)
+  
+  
+  
+# Define what to repeat first...
+  library(agricolae)
 # *** REPEAT FROM HERE ***
   # ANOVA table.
   summary(model)
@@ -229,36 +286,4 @@ setwd("~/GitHub/DietR")
   # Add letters to the means table.
   means_abc <- merge(means, letters[, c("DivGroup", "groups")], all.x = T, by="DivGroup")
   means_abc
-# *** REPEAT TILL HERE ***
-
-# Run the mean separation and lettering for each phenotype.  
-  pheno
-  
-# LBDHDD
-  model <- aov(LBDHDD ~ DivGroup, data=df)
-  model <- aov(LBDHDD_log ~ DivGroup, data=df)
-  
-  ### *** REPEAT ***
-  write.table(means_abc, "Div_means_abs_LBDHDD_HDL.txt", sep="\t", row.names=F, quote=F)
-  write.table(means_abc, "Div_means_abs_LBDHDD_HDL_log.txt", sep="\t", row.names=F, quote=F)
-  
-# LBXTR
-  model <- aov(LBXTR ~ DivGroup, data=df)
-  model <- aov(LBXTR_log ~ DivGroup, data=df)
-  
-  ### *** REPEAT ***
-  write.table(means_abc, "Div_means_abs_LBXTR_tri.txt", sep="\t", row.names=F, quote=F)
-
-# LBDLDL
-  model <- aov(LBDLDL ~ DivGroup, data=df)
-  
-  ### *** REPEAT ***
-  write.table(means_abc, "Div_means_abs_LBDLDL_LDL.txt", sep="\t", row.names=F, quote=F)
-  
-#LBXTC - total cholesterol.
-  model <- aov(LBXTC ~ DivGroup, data=df)
-  
-  ### *** REPEAT ***
-  write.table(means_abc, "Div_means_abs_LBXTC_TotalCho.txt", sep="\t", row.names=F, quote=F)
-  
-        
+# *** REPEAT TILL HERE ***        
