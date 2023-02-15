@@ -44,10 +44,11 @@
 
 # BMI
   summary(totals$BMXBMI)
+  boxplot(totals$BMXBMI)
   
 # Take only those that have BMI.
   totals_c <- totals[complete.cases(totals$BMXBMI), ]  
-  
+  # 4163 has BMI data.
   plot(as.factor(totals_c$DivGroup), totals_c$BMXBMI)
   
 # ANOVA.
@@ -77,7 +78,8 @@
   anova(lm(df$BMXBMI     ~ df$DivGroup))   
   anova(lm(df$BMXBMI_log ~ df$DivGroup))   
   # If ANOVA is significant, you can do a pairwise t-test.
-  pairwise.t.test(df$BMXBMI, df$DivGroup, p.adjust.method = "holm") 
+  pairwise.t.test(df$BMXBMI, df$DivGroup, p.adjust.method = "fdr") 
+  pairwise.t.test(df$BMXBMI_log, df$DivGroup, p.adjust.method = "fdr") 
   
 # ---------------------------------------------------------------------------------------------------------------
 # HSD test.
@@ -97,10 +99,10 @@
   
   write.table(means_abc, "Div_means_abs_logBMI.txt", sep="\t", row.names=F, quote=F)
 
-# KCAL
-  summary(totals$KCAL) # no missing data.
-  summary(df$KCAL) # no missing data.
-  model <- aov(KCAL ~ DivGroup, data=df)
+# # KCAL
+#   summary(totals$KCAL) # no missing data.
+#   summary(df$KCAL) # no missing data.
+#   model <- aov(KCAL ~ DivGroup, data=df)
   
   ### *** REPEAT ***
   

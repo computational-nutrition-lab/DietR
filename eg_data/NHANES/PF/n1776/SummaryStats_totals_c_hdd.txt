@@ -186,7 +186,7 @@ DRQSDT1	1	1	1	1	1	1	0
 DRQSDT2	2	2	2	2	2	2	0
 DRQSDT3	3	3	3	3	3	3	0
 DRQSDT4	4	4	4	4	4	4	0
-DRQSDT5	Inf	NA	NA	NaN	NA	-Inf	NA
+DRQSDT5	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric
 DRQSDT6	6	6	6	6	6	6	0
 DRQSDT7	7	7	7	7	7	7	0
 DRQSDT8	8	8	8	8	8	8	0
