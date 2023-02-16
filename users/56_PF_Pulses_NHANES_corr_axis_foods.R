@@ -17,8 +17,7 @@ Session --> Set working directory --> Choose directory.
   library(ggplot2)
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R")
-  source("lib/SubsetByFirstChaInCol.R") 
-  source("lib/create_corr_frame.R") 
+  source("lib/corr.axes.foods.R") 
 
 # Load the distinct 100 colors for use.   
   distinct100colors <- readRDS("lib/distinct100colors.rda")
@@ -30,13 +29,30 @@ Session --> Set working directory --> Choose directory.
   SpecifyDataDirectory("eg_data/NHANES/PF/Ordination/")
 
 # ===============================================================================================================
-# Load ordination data
+# By using function.  
 # ===============================================================================================================
 
-# Run this code below after making your phyloseq object and doing ordination. 
+# WEIGHTED unifrac distance results.
+  CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.food.otu_sortedbysample.txt", 
+               AmountSums.out.fn = "Food_D12_FC_QC_demo_QCed_leg_3Lv_AmountSums_fn.txt",
+               qval.threshold = 0.05,
+               meta.users =            "Food_D12_FC_QC_demo_QCed_leg_3Lv_ord_WEIGHTED_meta_users.txt",
+               corr.axes.foods.outfn = "Food_D12_FC_QC_demo_QCed_leg_3Lv_ord_WEIGHTED_corr_axes_foods_thr0.05_fn.txt")
+  
+  # food.otu_soted:     xxx.food.otu.sorted.txt file, saved in the ordination section.
+  # AmountSums.out.fn:  output filename to be saved which has the total consumption amount of each food.
+  # qval.threshold:     q-value threshold to call a correlation significant.
+  # meta.users:         xxx.meta_users.txt file, waved in the ordination section.
+  # corr.axes.foods.outfn: output filename to be saved which has the correlation between foods and Axes.
+    
+# ===============================================================================================================
+# By hand.
+# ===============================================================================================================
+    
+# Load ordination data
 
 # Load the food file again that was used to build the phyfoods object. 
-  food1 <- read.delim('../Foodtree/Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv.food.otu_sortedbysample.txt')   
+  food1 <- read.delim('../Foodtree/Food_D12_FC_QC_demo_QCed_leg_3Lv.food.otu_sortedbysample.txt')   
   
 # SEQN-sorted food
   dim(food1) # 58 foods x {703 people + 1 taxonomy columns}
@@ -61,26 +77,26 @@ Session --> Set working directory --> Choose directory.
 # food3_s is x. 
 
 # Load the SEQN and Axis values.
-  loaded_leg_w <- read.table("Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv_ord_WEIGHTED_meta_users.txt",
+  loaded_leg_w <- read.table("Food_D12_FC_QC_demo_QCed_leg_3Lv_ord_WEIGHTED_meta_users.txt",
                              sep="\t", header=T)  
 
-  loaded_leg_u <- read.table("Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv_ord_UNweighted_meta_users.txt",
+  loaded_leg_u <- read.table("Food_D12_FC_QC_demo_QCed_leg_3Lv_ord_UNweighted_meta_users.txt",
                              sep="\t", header=T)  
   
 # loaded_leg_u has vectors (Axis values) of each SEQN.
-  head(loaded_leg_u) 
   head(loaded_leg_w) 
+  head(loaded_leg_u) 
     # Add rownames: X83732 etc. This will stay even after selecting only Axis. columns. 
     # rownames(loaded_leg_u) <- paste("X", loaded_leg_u$SEQN, sep="")
-     rownames(loaded_leg_u) <- loaded_leg_u$Row.names
      rownames(loaded_leg_w) <- loaded_leg_w$Row.names
+     rownames(loaded_leg_u) <- loaded_leg_u$Row.names
     
     # pick up only columns whose names start with "Axis.".
-    loaded_leg_u_Axisonly <- SubsetByFirstChaInCol(input.df = loaded_leg_u, starting.str = "Axis.")
     loaded_leg_w_Axisonly <- SubsetByFirstChaInCol(input.df = loaded_leg_w, starting.str = "Axis.")
+    loaded_leg_u_Axisonly <- SubsetByFirstChaInCol(input.df = loaded_leg_u, starting.str = "Axis.")
     # Only the Axis values and the rownames (SEQN) have been selected.
-    head(loaded_leg_u_Axisonly,1)
     head(loaded_leg_w_Axisonly,1)
+    head(loaded_leg_u_Axisonly,1)
     
 # ---------------------------------------------------------------------------------------------------------------
 # Generate correlation matrices.
@@ -92,15 +108,15 @@ Session --> Set working directory --> Choose directory.
   min(rowSums(x)) # there shouldn't be zero, as only those who consumed legume-containing foods are selected.
   min(colSums(x)) # there shouldn't be zero, as only foods that were consumed at least some were selected.
   write.table(as.data.frame(colSums(x)), 
-              "Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv_AmountSums.txt", 
+              "Food_D12_FC_QC_demo_QCed_leg_3Lv_AmountSums.txt", 
               sep="\t", row.names = T, quote=F )
   x[1:3, 1:3]
 
 # y <- as.data.frame(ffq)  # food group values.
   # y <- as.data.frame(ordinated_w_vec)  # food group values.
   # y <- as.data.frame(ordinated_u_vec)  # food group values.
-  y <- as.data.frame(loaded_leg_u_Axisonly)  # food group values.
   y <- as.data.frame(loaded_leg_w_Axisonly)  # food group values.
+  y <- as.data.frame(loaded_leg_u_Axisonly)  # food group values.
   dim(y)
   y[1:3, 1:3]
 
@@ -130,11 +146,11 @@ Session --> Set working directory --> Choose directory.
   
   # Careful which one to save!
     # WEIGHTED
-    write.table(dat, "Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt",
+    write.table(dat, "Food_D12_FC_QC_demo_QCed_leg_3Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt",
                 sep="\t", row.names=F, quote=F)  
   
     # UNweighted
-    write.table(dat, "Food_D12_FC_QC_demo_QCed_leg_ftc_3Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt",
+    write.table(dat, "Food_D12_FC_QC_demo_QCed_3Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt",
                 sep="\t", row.names=F, quote=F)  
   
 # See each axes 

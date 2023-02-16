@@ -16,9 +16,8 @@
 # load the necessary packages and the source code.
   library(ggplot2)
   source("lib/specify_data_dir.R")
+  source("lib/corr.axes.foods.R")
   source("lib/ggplot2themes.R")
-  source("lib/SubsetByFirstChaInCol.R") 
-  source("lib/create_corr_frame.R") 
 
 # Load the distinct 100 colors for use.   
   distinct100colors <- readRDS("lib/distinct100colors.rda")
@@ -30,21 +29,55 @@
   SpecifyDataDirectory("eg_data/VVKAJ/Ordination/")
 
 # ===============================================================================================================
-# Load ordination data
+# Analyze correlation between food and ordination axes values
 # ===============================================================================================================
 
-# Run this code below after making your phyloseq object and doing ordination. 
+# From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, 
+# and a table with correlation coefficients, p-values, and q-values with desired threshold between 
+# food items and Axes that were saved in the ordination section. 
+# Be careful about not to confuse WEIGHTED and UNweighted unifrac distances   
+  CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt", 
+               AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
+               qval.threshold = 0.05,
+               meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt",
+               corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
 
+  # food.otu_soted:     xxx.food.otu.sorted.txt file, saved in the ordination section.
+  # AmountSums.out.fn:  output filename to be saved which has the total consunption amount of each food.
+  # qval.threshold:     q-value threshold to call a correlation significant.
+  # meta.users:         xxx.meta_users.txt file, waved in the ordination section.
+  # corr.axes.foods.outfn: output filename to be saved which has the correlation between foods and Axees.
+  
+
+  
+  # Check if the output by hand and the output amountsums.out.fn and corr.axes.foods.outfn.txt 
+  # are the same.
+  
+  byhand = read.delim("amountsums.out.fn.txt")
+  byhand = read.delim("corr.axes.foods.outfn.txt")
+  byfn = read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_WEIGHTED_")
+  byfn = read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
+  byfn = byfn[order(byfn$qval), ]
+  
+  identical(byhand, dat_s)
+  head(byhand)
+  head(byfn)
+  
+    
+####
+  
+# Do it by hand.
+    
 # Load the food file again that was used to build the phyfoods object. 
-  food1 <- read.delim("../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sortedbysample.txt")
+food1 <- read.delim("../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt")
   
 # SEQN-sorted food
   dim(food1) # 351 foods x {45 people + 1 taxonomy columns}
   food1[1:3, 1:3]
-  
+
 # samples (individuals) needs to be the rownames. So, transform it.
 # Remove the taxonomy column from 'food'.
-  food2 <- food1[, !colnames(food1) == "taxonomy"] 
+  food2 <- food1[, !colnames(food1) == "taxonomy"]
   colnames(food2)
   dim(food2) # 351 x 45
 
@@ -52,42 +85,42 @@
   food3 <- as.data.frame(t(food2))
   head(colnames(food3))    # columns have foods
   head(rownames(food3))    # rows have individuals
-  dim(food3) 
+  dim(food3)
 
-# Sort individuals (rows) in order. **IMPORTANT!** 
+# Sort individuals (rows) in order. **IMPORTANT!**
   food3_s <- food3[order(rownames(food3)), ]
   head(rownames(food3_s), 10)       # individuals should be in order.
   dim(food3_s) # 45 people x 351 foods
-# food3_s is x. 
+# food3_s = foodOTU_x is x.
 
 # Load the SEQN and Axis values.
   loaded_leg_w <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt",
-                             sep="\t", header=T)  
+                             sep="\t", header=T)
 
   loaded_leg_u <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt",
                              sep="\t", header=T)  
   
 # loaded_leg_u has vectors (Axis values) of each SEQN.
-  head(loaded_leg_w) 
-  head(loaded_leg_u) 
-    # Add rownames: X83732 etc. This will stay even after selecting only Axis. columns. 
+  head(loaded_leg_w)
+  head(loaded_leg_u)
+    # Add rownames: X83732 etc. This will stay even after selecting only Axis. columns.
     # rownames(loaded_leg_u) <- paste("X", loaded_leg_u$SEQN, sep="")
      rownames(loaded_leg_w) <- loaded_leg_w$Row.names
      rownames(loaded_leg_u) <- loaded_leg_u$Row.names
-    
+
     # pick up only columns whose names start with "Axis.".
     loaded_leg_w_Axisonly <- SubsetByFirstChaInCol(input.df = loaded_leg_w, starting.str = "Axis.")
     loaded_leg_u_Axisonly <- SubsetByFirstChaInCol(input.df = loaded_leg_u, starting.str = "Axis.")
     # Only the Axis values and the rownames (SEQN) have been selected.
-    head(loaded_leg_w_Axisonly,1)
-    head(loaded_leg_u_Axisonly,1)
+    head(loaded_leg_w_Axisonly, 1)
+    head(loaded_leg_u_Axisonly, 1)
     
 # ---------------------------------------------------------------------------------------------------------------
 # Generate correlation matrices.
 
 # correlate them with each other
 # x <- as.data.frame(t(foodgroups_s))
-  x <- as.data.frame(food3_s)
+  x <- food3_s
   dim(x)
   x[1:3, 1:3]
   x[44:45, 350:351]
@@ -137,6 +170,8 @@
     write.table(dat, "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt",
                 sep="\t", row.names=F, quote=F)  
   
+    
+    
 # See each axes 
 # Select Axis 1 rows
   dat_1 <- subset(dat, Axis=="Axis.1")

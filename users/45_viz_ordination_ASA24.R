@@ -31,16 +31,16 @@
 # In the ordination section, biplots were generated with the users color-coded by their Diet. 
 # However, they can also be color-coded individually. In addition, specific users can be highlighted 
 # with a thicker outline if desired. All of these can be done by loading the saved ordination results - 
-# Axis values and meadata combined, and the proportion of variance explained.
+# Axis values and metadata combined, and the proportion of variance explained.
 
 # Change to the folder called "Ordination" in your "VVKAJ" folder.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Ordination/")
   
 # Read in the metadata and users' Axis values. 
-  meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_meta_users.txt", header=T)
+  meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt", header=T)
   
 # Read in the eigenvalues for axis labels of biplots.
-  eigen_loaded <- read.table("VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_eigen_percent.txt", header=T)
+  eigen_loaded <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_eigen_percent.txt", header=T)
   
 # Make a vector that contains the variance explained.
   eigen_loaded_vec <- eigen_loaded[, 2]
@@ -62,7 +62,7 @@
   by_user
   
 # Save by_user plot as a pdf. 
-  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_users_Axis12.pdf", by_user,
+  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_users_Axis12.pdf", by_user,
          device="pdf", height=5, width=7, unit="in", dpi=300)
   
 # Add lines to connect samples in the order in which they appear in the data using geom_path. 
@@ -74,29 +74,32 @@
   by_user_pathconnected
   
   # Save by_user_pathconnected as a pdf.
-  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_users_Axis12_pathconnected.png", 
-         by_user_pathconnected, device="png", height=5, width=7, unit="in", dpi=300)
+  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_users_Axis12_pathconnected.pdf", 
+         by_user_pathconnected, device="pdf", height=5, width=7, unit="in", dpi=300)
   
 
 # ---------------------------------------------------------------------------------------------------------------
 # Change the appearance of datapoints of specific user(s).
 
-# Subset datapoint(s) that you would like to highlight. 
-  select_point_12 <- subset(meta_usersdf, UserName=="VVKAJ101" |UserName=="VVKAJ102") 
+# Subset datapoint(s) that you would like to highlight.
+# Let us highlight those on keto diet: VVKAJ103, VVKAJ108, and VVKAJ113.
+  select_point_keto <- subset(meta_usersdf, UserName=="VVKAJ103" | UserName=="VVKAJ108" | UserName=="VVKAJ113") 
+  
+  # The vertical var "|" means "or" in the subset condition.
   
 # Add selected user(s) above with a thicker outline.
   highlighted <- 
     by_user + 
-      geom_point(select_point_12, shape=21, size=3, alpha=1, stroke=2,
+      geom_point(select_point_keto, shape=21, size=3, alpha=1, stroke=2,
                  mapping=aes(x=Axis.1, y=Axis.2, fill=UserName), show.legend=F) +
-      # Specify that the first two datapoint will have a thicker outline (stroke=2),
+      # Specify that the 3rd, 8th, and 13th datapoints will have a thicker outline (stroke=2),
       # and all others will have stroke=0. 
-      guides(fill=guide_legend(override.aes=list(stroke=c(2,2, rep(0,13))))) 
+      guides(fill=guide_legend(override.aes=list(stroke=c(0,0,2,0,0, 0,0,2,0,0, 0,0,2,0,0)))) 
   
   highlighted
 
 # Save highlighted as a pdf.
-  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_red_4Lv_ord_WEIGHTED_users_Axis12_highlighted.pdf", 
+  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_users_Axis12_highlighted.pdf", 
          highlighted, device="pdf", height=5, width=7, unit="in", dpi=300)
   
   

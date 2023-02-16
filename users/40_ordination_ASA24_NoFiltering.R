@@ -1,9 +1,9 @@
 # ===============================================================================================================
 # Create a phyloseq object out of dietary and tree data and run ordination.
-# Use foodtree gengerated Without using FilterDBByDiets. 
+# Use foodtrees gengerated Without using FilterDBByDiets. 
 # After running formatfoods first and keeping ".0" in FoodIDs. 
-# Version 1 
-# Created on 01/19/2022 by Rie Sadohara
+# Version 2 
+# Created on 02/16/2022 by Rie Sadohara
 # ===============================================================================================================
 
 # In this section, we will take the phylogeny of food items into account in clustering individuals according to 
@@ -24,7 +24,7 @@
   if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
   
 # Then download and install the phyloseq package.
-  BiocManager::install("phyloseq")
+  # BiocManager::install("phyloseq")
 
 # ---------------------------------------------------------------------------------------------------------------
 # load the necessary packages.
@@ -55,35 +55,16 @@
 # Load the necessary files for creating a phyloseq object.  
   
 # Food
-      # food_raw <- read.delim("Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt", row.names = 1)
-      # 
-      # # Define the taxonomy column number, which is at the end of food.
-      # taxonomycolumn <- length(colnames(food_raw))
-      # 
-      # # Order the column names of food (which is SEQN), except the last column which has taxonomy.
-      # sortedcolnames_order <- order(colnames(food_raw)[ 1 : taxonomycolumn-1 ])
-      # 
-      # # Sort the SEQNs, but do not touch the taxonomy column at the end. 
-      # food <- food_raw[, c(sortedcolnames_order, taxonomycolumn) ] 
-      # head(food[, 40:46])
-      # head(food_raw[, 40:46])
-      # 
-      # # Can save this as .txt for corr.axis.foods...
-      # write.table(food, "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sortedbysample.txt",
-      #             sep="\t", row.names=T, quote=F)
-      # 
-
 # Load food OTU table, and sort the columnnames (userID), leaving the last column (taxonomy) intact.
-# Then, save that dataframe as "food".
-# Also, save "food" as a .txt file to be used in "correlation between Axes and foods" section.  
-  SortOTUByID(otu.input = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt",
-              outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sortedbysample.txt")
+# This dataframe will be saved as "food".
+# Also, save "food" as a .txt file to be used in the "correlation between Axes and foods" section.  
+  SortOTUByID(otu.input =           "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt",
+              outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt")
   
-  # Take a look at the food file.
   # "food" is a matrix of Food descriptions (rows) x SampleID (columns).
   head(food)[1:6, 1:4]
   
-  # Format the food file and create an otu_table called OTU.
+  # Format the food object and create an otu_table called OTU.
   PrepFood(data= food)
   
 # Taxonomy (tax)
@@ -98,13 +79,13 @@
   # Format the metadata file and save it as 'SAMPLES'. 
   PrepMeta(data= meta)
 
-# Food tree
+# Foodtree
   foodtree <- read_tree("Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.tree.nwk")
   # It is OK to see a message saying that
     # "Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
     # Also defined by 'tidytree'".
   
-  # Format food tree and save it as 'TREE'. 
+  # Format foodtree and save it as 'TREE'. 
   PrepTree(data= foodtree)
   # Again, it is OK to see the same message as the previous line. 
 
@@ -179,7 +160,7 @@
   )
   
 # ---------------------------------------------------------------------------------------------------------------
-# Some of the Diet groups seem to form distinct clusters. Use beta-diversity and adonis tests 
+# Some of the Diet groups seem to form distinct clusters. Use beta-diversity and adonis (permanova) tests 
 # to see if they are actually distinct from one another.
   
 # Generate a weighted unifrac distance matrix.
@@ -204,7 +185,7 @@
 # If overall adonis is significant, which is true in this case,  
 # you can run pairwise adonis to see which group pairs are different.
   pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
-                  p.adjust.m = "fdr")    
+                  p.adjust.m = "none")    
 
   
 # ===============================================================================================================
@@ -212,15 +193,15 @@
 # ===============================================================================================================
 # Generate and save a weighted unifrac distance matrix of "Samples". 
   WeightedUnifracDis(input.phyloseq.obj = phyfoods, 
-                     output.fn = "VVKAJ_Items_f_id_s_m_QCed_red_4Lv_WEIGHTED_uni_dis.txt")        
+                     output.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_WEIGHTED_uni_dis.txt")        
   
 # Generate and save an unweighted unifrac distance matrix of "Samples". 
   UnweightedUnifracDis(input.phyloseq.obj = phyfoods, 
-                       output.fn = "VVKAJ_Items_f_id_s_m_QCed_red_4Lv_UNweighted_uni_dis.txt")        
+                       output.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_UNweighted_uni_dis.txt")        
 
   
 # ===============================================================================================================
-# Use other ordination methods  
+# Use unweighted unifrac distance.  
 # ===============================================================================================================
 # You can perform Principal Coordinate Analysis (PCoA) with UNweighted unifrac distance of your food data.
   ordinated_u = phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", weighted=FALSE)  
@@ -293,11 +274,11 @@
   # If overall adonis is significant, which is true in this case,  
   # you can run pairwise adonis to see which group pairs are different.
   pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
-                  p.adjust.m = "fdr")    
+                  p.adjust.m = "none")    
   
   
 ##### TUTORIAL UPDATED! 12/05/2022.
-##### TUTORIAL UPDATED! 01/19/2023!
-##### TUTORIAL NEEDS TO BE UPDATED AGAIN.. 
+##### TUTORIAL UPDATED! 01/19/2023.
+##### TUTORIAL UPDATED! 02/16/2023.
 
   

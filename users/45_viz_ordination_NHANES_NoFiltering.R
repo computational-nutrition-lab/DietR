@@ -37,7 +37,7 @@
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/Laboratory_data/Ordination/")
   
 # Read in the metadata and users' Axis values.  
-  loaded_glu_w <- read.table("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv_ord_WEIGHTED_meta_users.txt", 
+  loaded_glu_w <- read.table("Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_meta_users.txt", 
                              sep="\t", header=T)
 
 # Convert the GLU_index as a factor to plot it in order.
@@ -45,10 +45,12 @@
   table(loaded_glu_w$GLU_index, useNA = "always")
     
 # Load the eigenvalues as a vector.
-  eigen_loaded <- read.table("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv_ord_WEIGHTED_eigen.txt", header=T)
+  eigen_loaded <- read.table("Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_eigen.txt", header=T)
 
 # Make a vector that contains the variance explained.
   eigen_loaded_vec <- eigen_loaded[, 2]
+  
+# Create a folder called "Viz_Ordination" to save the plots to be produced here.
   
 # ---------------------------------------------------------------------------------------------------------------
 # Highlight certain sample(s) - e.g. participants 83755 and 83820.
@@ -75,8 +77,8 @@
   
   highlighted
   
-  ggsave("Food_D12_FC_QC_demo_QCed_males60to79_red_3Lv_ord_WEIGHTED_Axis12_highlighted.pdf", 
-         highlighted, device="pdf", width=7, height=5.5, unit="in", dpi=300)
+  ggsave("Viz_Ordination/Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_Axis12_highlighted.png", 
+         highlighted, device="png", width=7, height=5.5, unit="in", dpi=300)
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.
