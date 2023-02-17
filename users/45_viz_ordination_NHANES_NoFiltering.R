@@ -42,7 +42,6 @@
 
 # Convert the GLU_index as a factor to plot it in order.
   loaded_glu_w$GLU_index <- factor(loaded_glu_w$GLU_index, levels= c("Normal", "Prediabetic", "Diabetic"))
-  table(loaded_glu_w$GLU_index, useNA = "always")
     
 # Load the eigenvalues as a vector.
   eigen_loaded <- read.table("Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_eigen.txt", header=T)

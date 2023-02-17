@@ -33,9 +33,10 @@ Session --> Set working directory --> Choose directory.
 # ===============================================================================================================
   
 # From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, 
-# and a table with correlation coefficients, p-values, and q-values with desired threshold between 
-# food items and Axes that were saved in the ordination section. 
-# Be careful about not to confuse WEIGHTED and UNweighted unifrac distances.
+# and a table with correlation coefficients, p-values, and q-values with a desired threshold between 
+# food items and Axes that were saved in the ordination section. This function will print out the food items' 
+# names while calculating the correlation measures.
+# Be careful not to confuse WEIGHTED and UNweighted unifrac distances as you name the files.
   
 # WEIGHTED unifrac distance results.
   CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sortedbysample.txt", 
@@ -50,9 +51,9 @@ Session --> Set working directory --> Choose directory.
   # meta.users:         xxx.meta_users.txt file, waved in the ordination section.
   # corr.axes.foods.outfn: output filename to be saved which has the correlation between foods and Axes.
   
-  # UNweighted unifrac distance ordination results.
-  # xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method
-  # (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
+# UNweighted unifrac distance ordination results.
+# xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method
+# (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
   
   CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sortedbysample.txt",
                AmountSums.out.fn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
@@ -63,7 +64,7 @@ Session --> Set working directory --> Choose directory.
 # ---------------------------------------------------------------------------------------------------------------
 # Load the output.
   # WEIGHTED         
-  dat <- read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
+  dat <- read.delim("Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
   
   # Show only food items that are significantly correlated with one of the axes.
   subset(dat, Significance=="*")
