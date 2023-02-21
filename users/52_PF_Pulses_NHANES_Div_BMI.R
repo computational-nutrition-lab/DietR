@@ -41,7 +41,6 @@
   # 1    2 
   # 674 3533 
   
-
 # BMI
   summary(totals$BMXBMI)
   boxplot(totals$BMXBMI)
@@ -58,8 +57,9 @@
   hist(df$BMXBMI_log)
   
   myanova <- aov(BMXBMI     ~ DivGroup, data=df)
-  myanova <- aov(BMXBMI_log ~ DivGroup, data=df) 
+  summary(myanova) 
   # When log-transformed, the residuals are normally distributed, but still ANOVA is not significant (p=0.12)
+  myanova <- aov(BMXBMI_log ~ DivGroup, data=df) 
   summary(myanova) 
   # as is: BMXBMI p= 2.76e-07. significant.
   # log:   logBMI p= 7.53e-08. significant.

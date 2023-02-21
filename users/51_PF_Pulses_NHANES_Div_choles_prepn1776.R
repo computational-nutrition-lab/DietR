@@ -149,9 +149,9 @@ setwd("~/GitHub/DietR")
   boxplot(totals_c_hdd$LBXTC)  
   boxplot(totals_c_hdd$LBXTR)  
   
-# rows with complete cases of Total cholesterol, HDL, LDL, and tryglycerides,
-# there were 1791 rows. 
-# After removing one outlier in HDL (226 mg/dL),  there are 1790 rows.
+# rows with complete cases of BMI, KCAL, Total cholesterol, HDL, LDL, and tryglycerides,
+# there were 1777 rows. 
+# After removing one outlier in HDL (226 mg/dL),  there are 1776 rows.
   
   write.table(x=totals_c_hdd, "n1777/Total_D12_FC_QC_mean_QC_demo_ga_body_meta_Div_cholesterol.txt",
               sep="\t", row.names=F, quote=F)
