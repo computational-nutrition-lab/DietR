@@ -16,8 +16,8 @@ Session --> Set working directory --> Choose directory.
 
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R") 
-  source("lib/data_overview.R") 
-  source("lib/add_gender_and_age.R") # to use AddGenderAgeGroups function.  
+  # source("lib/data_overview.R") 
+  # source("lib/add_gender_and_age.R") # to use AddGenderAgeGroups function.  
 
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist/")  
@@ -39,6 +39,11 @@ Session --> Set working directory --> Choose directory.
   totals_c_wa$DivGroup <- factor(totals_c_wa$DivGroup, 
                                   levels = c('DivNA', 'Div0', 'Div1', 'Div2'))
 
+# Make Gender as a factor.
+  table(totals_c_wa$Gender)
+  # totals_c_wa$Gender <- factor(totals_c_wa$Gender, 
+                                 # levels = c('F', 'M'))
+  
 # Let's look at Groups
   table(totals_c_wa$DivGroup, useNA = "ifany")
   
@@ -93,8 +98,6 @@ Session --> Set working directory --> Choose directory.
   
   #### lm... Same model but without the aov.
   lm.simple <- lm( BMXWAIST ~ DivGroup, data=df)  
-  lm.full <-   lm( BMXWAIST ~ DivGroup + FIBE + RIDAGEYR + Gender + 
-                   PF_TOTAL_LEG + KCAL, data=df)
   
   library(car)
   car::Anova(lm.simple,      type="III")  # gives the same results.
@@ -126,11 +129,11 @@ Session --> Set working directory --> Choose directory.
 # PF_TOTAL_LEG vs waist. R=0.04,  p=0.0138
   plot(df$PF_TOTAL_LEG, df$BMXWAIST)  
 # No correlation. 
-# low p-value does not necessarily mean a meaningful correlation because n is just so huge.  
+# low p-value for R does not necessarily mean a meaningful correlation because n is just so huge.  
   
 
 # ===============================================================================================================
-# ancova.full
+# ancova.full - BMXWAIST.
 # ===============================================================================================================
 # Check assumptions.  
   res1 <- residuals(ancova.full)
@@ -162,21 +165,40 @@ Session --> Set working directory --> Choose directory.
 # lm.full needs to be used, because emmeans only supports lm or glm as an input.
   emmeans::emmeans(lm.full, pairwise ~ DivGroup) 
                   
-# pairwise obtained!
+# pairwise difference obtained;  DivNA - Div2 = 5.24 cm, p<.0001. 
+# simple means by group are this different.   
+  aggregate(df$BMXWAIST, list(df$DivGroup), FUN=mean)
+  
+  lm.agegender <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender , data=df)
+  emmeans::emmeans(lm.agegender, pairwise ~ DivGroup )
 
+  lm.agegender.f <-  lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + FIBE, data=df)
+  emmeans::emmeans(lm.agegender.f, pairwise ~ DivGroup )
+  
+  lm.agegender.p <-  lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
+  emmeans::emmeans(lm.agegender.p, pairwise ~ DivGroup )
+  
+  lm.agegender.k <-  lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + KCAL, data=df)
+  emmeans::emmeans(lm.agegender.k, pairwise ~ DivGroup )
+  
+  lm.full <-   lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + FIBE + PF_TOTAL_LEG + KCAL, data=df)
+  emmeans::emmeans(lm.full, pairwise ~ DivGroup )
+  # The more terms, very slighly the less difference, but overall, means don't change much. 
+  
+  
 # ===============================================================================================================
-# ancova.full.log.fLog-transform the response variable.
+# ancova.full.log. Log-transform the response variable.
 # ===============================================================================================================
   
-  ancova.full.log <-    aov(lm( log(BMXWAIST) ~ DivGroup + FIBE + RIDAGEYR + factor(Gender) + 
+  ancova.full.log <-    aov(lm( log(BMXWAIST) ~ DivGroup + FIBE + RIDAGEYR + Gender + 
                                                 PF_TOTAL_LEG + KCAL, data=df)) 
   car::Anova(ancova.full.log, type="III")
   
-  lm.full.log <-    lm( log(BMXWAIST) ~ DivGroup + FIBE + RIDAGEYR + factor(Gender) + 
-                                  PF_TOTAL_LEG + KCAL, data=df) 
+  lm.full.log <-    lm( log(BMXWAIST) ~ DivGroup + FIBE + RIDAGEYR + Gender + 
+                                        PF_TOTAL_LEG + KCAL, data=df) 
   
   car::Anova(lm.full.log, type="III")
-  # Stil, all terms are siginificant.
+  # Still, all terms are significant.
   # Compare ancova.agegender.log and ancova.full.log, and p= 3.956e-07 ***. i.e., reducing to age-gender only 
   # model makes a huge difference. Hence, keep all the terms of the full model.
   
@@ -208,33 +230,79 @@ Session --> Set working directory --> Choose directory.
   # I should use unequal variance model...? --> below.
   
 # Anyway Let's get Means so that I can say mean difference between DivGroups is xxxx.
-# HSD test ... controls family-wise error rate when doing multiple comparisons.
+
+### HSD test ... controls family-wise error rate when doing multiple comparisons.
 # can be used even when ANOVA is not significant beause the Tukey test controls the Type I error rate on its own.
 # but equal variance of groups is assumed.
 # agricolae package.
-  agricolae::HSD.test(ancova.full.log, "DivGroup", group=TRUE, console=TRUE)
+  hsd <- agricolae::HSD.test(ancova.full.log, "DivGroup", group=TRUE, console=TRUE)
+  hsd
   # agricolae::HSD.test(lm.full.log, "DivGroup", group=TRUE, console=TRUE) also produces the same results.
-  agricolae <- 
-  # runs!!
-  
+
   # check if the means are similar to plain means.
   aggregate(log(df$BMXWAIST), list(df$DivGroup), FUN=mean) # they are the same.
-  plot(    df$DivGroup, df$BMXWAIST)
+  plot(df$DivGroup, df$BMXWAIST)
   # looks good.
   
-  # pairwise emmeans, from the tutorial.
+  # Calc difference between DivNA and Div2.
+  diffNA_2 <- hsd$groups['DivNA',1] - hsd$groups['Div2',1]
+  diffNA_2
+  # this is log, so need to back-t.
+  exp(diffNA_2) # 1.053 cm.... because log(DivNA)-log(Div2) = log(DivNA/Div2); different from log(DivNA-Div2).
+  
+  # back-t first.
+  back_t_diffNA_2 <- exp(hsd$groups['DivNA',1]) - exp(hsd$groups['Div2',1])
+  back_t_diffNA_2
+  # 5.0097 cm. closer...   
+  # The closest pairwise difference is;  exp(DivNA)-exp(Div2)=5.0097 cm, (Tukey HSD, alpha=0.05). 
+  
+  
+### pairwise emmeans, from the tutorial.
   # This is not useful. The differences are log(DivNA) - log(Div2) etc., so the difference cannot be 
   # backtransformed properly. 
-  emmeans::emmeans(lm.full.log, pairwise ~ DivGroup, 
-                      mode = "df.error" )
+  emmeans::emmeans(lm.full.log, pairwise ~ DivGroup )
+  emmeans::emmeans(lm.full.log, pairwise ~ DivGroup, mode = "df.error" ) # same results as above.
   
-  # emmeans. from YBC Fiber script. 
-  emmeans::emmeans(lm.full.log, "DivGroup", type="response",
-                   mode = "df.error")
-
+  # emmeans. from YBC Fiber script. backtransformed. 
+  emmeans <- emmeans::emmeans(lm.full.log, "DivGroup", type="response", mode = "df.error")
+  emmeans
   # This is back-transformed.
   # each level has different SE, as expected.
   
+  #### trial and error according to vigniette("interactions", "emmeans")
+  # pairwise_emm2 <- emmeans(fitdata3, pairwise ~ Religion * Race | Dimension, type = "response") 
+  pairwise_emm2 <- emmeans::emmeans(lm.full.log, pairwise ~ DivGroup * Gender , type = "response") # all combination of DivGroup * Gender. 
+  pairwise_emm2 <- emmeans::emmeans(lm.full.log, pairwise ~ DivGroup , type = "response")  # by DivGroup.
+  pairwise_emm2 <- emmeans::emmeans(lm.full.log, pairwise ~ DivGroup | Gender , type = "response")  # by DivGroup and by Gender.
+  pairwise_emm2
+  pairwise_emm2$contrasts
+  # M and F have exactly the same results...?
+  # emmeans::emmip(lm.full.log, type ~ size | side)
+  emmeans::emmip(lm.full.log, Gender ~ DivGroup  ) # DivGroup in x, gender in legend.
+  # response variable decreases in a similar way for both F and M. 
+  # This gives differences only in ratios.  
+  
+### use lsmeans (old version of emmeans)
+  mylsmeans <- lsmeans::lsmeans(lm.full.log, "DivGroup", type="response", mode = "df.error")
+  # Gives the same results as emmeans::emmeans. lsmeans has been renamed as emmeans; but it is doing the same thing.
+  
+  # As a convenience, a pairs method is provided that calls contrast with method="pairwise". 
+  lsmeans::contrast(mylsmeans, method="pairwise")
+  # contrast is constructed with ratio, not difference, because my response variable is log-transformed... hmm.... 
+  
+  # Create a log-transformed response variable first.
+  df$BMXWAIST_log <- log(df$BMXWAIST)
+  lm.full.log2 <-    lm( BMXWAIST_log ~ DivGroup + FIBE + RIDAGEYR + Gender + 
+                         PF_TOTAL_LEG + KCAL, data=df) 
+  
+  mylsmeans2 <- lsmeans::lsmeans(lm.full.log2, "DivGroup", type="response", mode="df.error")
+  mylsmeans2
+  lsmeans::contrast(mylsmeans2, method="pairwise")
+  # DivNA - Div2  = 0.05323.
+  exp(0.05323)
+  # only 1.054672. because it is doing ln(DivNA)-ln(Div2). No good!  
+  
+    
 # ===============================================================================================================
 # ancova.full.log.uv (unequal variance)
 # ===============================================================================================================
@@ -311,11 +379,136 @@ Session --> Set working directory --> Choose directory.
 # Cannot use Tukey's HSD by base.R for a complex model with numeric covarirate(s). 
   
   
+# ===============================================================================================================
+# ancova.full. resp.var = KCAL
+# ===============================================================================================================
+  # Resp = KCAL.
+  anova.simple.kcal     <- aov(lm( KCAL ~ DivGroup, data=df))  
+  ancova.agegender.kcal <- aov(lm( KCAL ~ DivGroup + RIDAGEYR + Gender, data=df)) 
+  ancova.full.kcal      <- aov(lm( KCAL ~ DivGroup + FIBE + RIDAGEYR + Gender + 
+                                PF_TOTAL_LEG, data=df)) 
+  # install.packages("car")
+  library(car)
+  car::Anova(anova.simple.kcal,     type="III")
+  car::Anova(ancova.agegender.kcal, type="III")
+  car::Anova(ancova.full.kcal,      type="III")
   
-#  
-   
+  lm.simple.kcal <-       lm( KCAL ~ DivGroup, data=df)
+  lm.agegender.kcal <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender , data=df)
+  lm.agegender.f.kcal <-  lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE, data=df)
+  lm.agegender.p.kcal <-  lm( KCAL ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
+  lm.full.kcal <-         lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE + PF_TOTAL_LEG, data=df)
+  
+  # Check assumptions.  
+  res1 <- residuals(ancova.full.kcal)
+  res1 <- residuals(lm.agegender.p.kcal)
+  # Generate a 2x2 plot field. 
+  par(mfrow = c(2, 2))
+  # Histogram of res1.
+  hist(res1)
+  # QQ plot of res1. 
+  qqnorm(res1, plot.it=TRUE)
+  qqline(res1)
+  # Boxplot
+  boxplot(res1 ~ df$DivGroup)
+  title("Boxplot of res1")
+  # produce residual vs. fitted plot
+  plot(fitted(ancova.full.kcal), res1)
+  #add a horizontal line at 0 
+  abline(0,0)
+  title("Fitted vs. Res1 plot")
+  par(mfrow = c(1, 1))
+  
+  # Create a new variable of squared residuals.
+  res1sq <- res1*res1
+  # Run Levene's test (ANOVA for the squared residuals as the response).
+  Levenes_test <- anova(lm(res1sq ~ df$DivGroup))
+  Levenes_test 
+  # variance is not different among DivGroups.
+  
+  # pairwise emmeans, from the tutorial.
+  # lm.full needs to be used, because emmeans only supports lm or glm as an input.
+  emmeans::emmeans(lm.simple.kcal,        pairwise ~ DivGroup)  # emmeans similar to simple means.
+  emmeans::emmeans(lm.agegender.kcal,     pairwise ~ DivGroup)  # emmeans similar to simple means.
+  emmeans::emmeans(lm.agegender.f.kcal,   pairwise ~ DivGroup)  # When I add FIBE in the model, the means change a lot!
+  emmeans::emmeans(lm.agegender.p.kcal,   pairwise ~ DivGroup)  # When I add PF_TOTAL_LEG in the model, the means are almost the same (2006-2037.)
+  emmeans::emmeans(lm.full.kcal,          pairwise ~ DivGroup)  # When I add all the terms to the model again, emmeans difference became large again. 
+  # What I add to the model is super important, because it could change the means and separation results. 
+  # How do I decide which term to include....? --> need to do lit search.
+  # pairwise difference;  DivNA - Div2 = 379.9 KCAL, p<.0001. But this says DivNA has higher kcal than Div2, wrong. 
 
+  aggregate(df$KCAL, list(df$DivGroup), FUN=mean)
+  2192.276-1947.107=245.169.
+  # simple means by group are this different.   
+  plot(df$DivGroup, df$KCAL)
   
+    
+# HSD
+  hsd <- agricolae::HSD.test(lm.full.kcal, "DivGroup", group=TRUE, console=TRUE)
+  hsd
+  # compare means of DivNA and Div2.
+  hsd$means['DivNA',1] - hsd$means['Div2',1]
+  # -245.1695 kcal. So different from emmeans difference! 
+  
+  emmeans::emmip(lm.full.kcal, Gender ~ DivGroup  ) # DivGroup in x, gender in legend.
+  emmeans::emmip(lm.simple.kcal, Gender ~ DivGroup  ) # DivGroup in x, gender in legend.
+  
+  emmeans <- emmeans::emmeans(lm.full.kcal, "DivGroup", type="response", mode="df.error")
+  emmeans
+  
+  hsd.simple <- agricolae::HSD.test(lm.simple.kcal, "DivGroup", group=TRUE, console=TRUE)
+  hsd.simple
+  # hsd.simple and hsd(.full) .. the letter separation is different, but means and std are exactly the same.
+  # that shouldn't be correct, because they are based on different models...?
+
+  #  Use lsmeans.
+  mylsmeans <- lsmeans::lsmeans(lm.full.kcal, "DivGroup", type="response", mode = "df.error")
+  mylsmeans
+  # similar to emmeans. DivNA has the highest. WHY??
+  df$DivGroup
+  
+# emmens and hsd means are so different. emmeans do not seem to be correct. Not good...!
+  
+# ===============================================================================================================
+# ancova.full. resp.var = FIBE
+# ===============================================================================================================
+  # Resp = KCAL.
+  anova.simple.fibe     <- aov(lm( FIBE ~ DivGroup, data=df))  
+  ancova.agegender.fibe <- aov(lm( FIBE ~ DivGroup + RIDAGEYR + Gender, data=df)) 
+  ancova.full.fibe      <- aov(lm( FIBE ~ DivGroup + KCAL + RIDAGEYR + Gender + 
+                                     PF_TOTAL_LEG, data=df)) 
+  # install.packages("car")
+  library(car)
+  car::Anova(anova.simple.fibe,     type="III")
+  car::Anova(ancova.agegender.fibe, type="III")
+  car::Anova(ancova.full.fibe,      type="III")
+  
+  lm.full.fibe <-   lm( FIBE ~ DivGroup + RIDAGEYR + Gender + KCAL + PF_TOTAL_LEG, data=df)
+  
+  lm.simple.fibe <- lm( FIBE ~ DivGroup + RIDAGEYR + Gender, data=df)
+  
+  emmeans::emmeans(lm.full.fibe, pairwise ~ DivGroup) 
+  # pairwise difference;  DivNA - Div2 = -10.57, p<.0001. 
+  
+  aggregate(df$FIBE, list(df$DivGroup), FUN=mean)
+  # emmeans and simple means are kinda close...
+  
+  hsd <- agricolae::HSD.test(lm.full.fibe, "DivGroup", group=TRUE, console=TRUE)
+  hsd
+  # compare means of DivNA and Div2.
+  hsd$means['DivNA',1] - hsd$means['Div2',1]
+  # -12.07102. hmm, almost close to emmeans' difference.
+  
+  hsd.simple <- agricolae::HSD.test(lm.simple.fibe, "DivGroup", group=TRUE, console=TRUE)
+  hsd.simple
+  hsd.simple$means['DivNA',1] - hsd.simple$means['Div2',1]
+  # -12.07102. same as the lm.full.fibe results.
+  
+  
+  #
+  
+  
+  #### OLD BELOW ####
 # ---------------------------------------------------------------------------------------------------------------
 # Run ANOVA
   myanova <- aov(LBDHDD     ~ DivGroup, data=df)
