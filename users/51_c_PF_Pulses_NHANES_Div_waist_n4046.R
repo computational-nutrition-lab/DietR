@@ -86,7 +86,7 @@ Session --> Set working directory --> Choose directory.
 # Resp = Waist circumference.
   anova.simple <-     aov(lm( BMXWAIST ~ DivGroup, data=df))  
   ancova.agegender <- aov(lm( BMXWAIST ~ DivGroup + RIDAGEYR + factor(Gender), data=df)) 
-  ancova.full <-      aov(lm( BMXWAIST ~ DivGroup + FIBE + RIDAGEYR + factor(Gender) + 
+  ancova.full <-      aov(lm( BMXWAIST ~ DivGroup + RIDAGEYR + factor(Gender) + FIBE +  
                                          PF_TOTAL_LEG + KCAL, data=df)) 
   
   # install.packages("car")
@@ -99,9 +99,7 @@ Session --> Set working directory --> Choose directory.
   #### lm... Same model but without the aov.
   lm.simple <- lm( BMXWAIST ~ DivGroup, data=df)  
   
-  library(car)
   car::Anova(lm.simple,      type="III")  # gives the same results.
-  car::Anova(lm.full,      type="III")    # gives the same results.
   ####
   
   
@@ -180,6 +178,10 @@ Session --> Set working directory --> Choose directory.
   
   lm.agegender.k <-  lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + KCAL, data=df)
   emmeans::emmeans(lm.agegender.k, pairwise ~ DivGroup )
+  
+  lm.agegender.pk <-  lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG + KCAL, data=df)
+  emmeans::emmeans(lm.agegender.pk, pairwise ~ DivGroup )
+  
   
   lm.full <-   lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + FIBE + PF_TOTAL_LEG + KCAL, data=df)
   emmeans::emmeans(lm.full, pairwise ~ DivGroup )
@@ -392,12 +394,36 @@ Session --> Set working directory --> Choose directory.
   car::Anova(anova.simple.kcal,     type="III")
   car::Anova(ancova.agegender.kcal, type="III")
   car::Anova(ancova.full.kcal,      type="III")
-  
+
+# pairwise emmeans, from the tutorial.
+  # lm.full needs to be used, because emmeans only supports lm or glm as an input.
   lm.simple.kcal <-       lm( KCAL ~ DivGroup, data=df)
+  emmeans::emmeans(lm.simple.kcal,        pairwise ~ DivGroup)  # emmeans similar to simple means.
+  
   lm.agegender.kcal <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender , data=df)
+  emmeans::emmeans(lm.agegender.kcal,     pairwise ~ DivGroup)  # emmeans similar to simple means.
+  
   lm.agegender.f.kcal <-  lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE, data=df)
+  emmeans::emmeans(lm.agegender.f.kcal,   pairwise ~ DivGroup)  # When I add FIBE in the model, the means change a lot!
+  
   lm.agegender.p.kcal <-  lm( KCAL ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
+  emmeans::emmeans(lm.agegender.p.kcal,   pairwise ~ DivGroup)  # When I add PF_TOTAL_LEG in the model, the means are almost the same (2006-2037.)
+  
+  lm.agegender.p.kcal <-  lm( KCAL ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
+  emmeans::emmeans(lm.agegender.p.kcal,   pairwise ~ DivGroup)  # When I add PF_TOTAL_LEG in the model, the means are almost the same (2006-2037.)
+  
+  
   lm.full.kcal <-         lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE + PF_TOTAL_LEG, data=df)
+  emmeans::emmeans(lm.full.kcal,          pairwise ~ DivGroup)  # When I add all the terms to the model again, emmeans difference became large again. 
+  # What I add to the model is super important, because it could change the means and separation results. 
+  # How do I decide which term to include....? --> need to do lit search.
+  # pairwise difference;  DivNA - Div2 = 379.9 KCAL, p<.0001. But this says DivNA has higher kcal than Div2, wrong. 
+  
+  aggregate(df$KCAL, list(df$DivGroup), FUN=mean)
+  2192.276-1947.107=245.169.
+  # simple means by group are this different.   
+  plot(df$DivGroup, df$KCAL)
+  boxplot(df$KCAL)
   
   # Check assumptions.  
   res1 <- residuals(ancova.full.kcal)
@@ -426,21 +452,6 @@ Session --> Set working directory --> Choose directory.
   Levenes_test 
   # variance is not different among DivGroups.
   
-  # pairwise emmeans, from the tutorial.
-  # lm.full needs to be used, because emmeans only supports lm or glm as an input.
-  emmeans::emmeans(lm.simple.kcal,        pairwise ~ DivGroup)  # emmeans similar to simple means.
-  emmeans::emmeans(lm.agegender.kcal,     pairwise ~ DivGroup)  # emmeans similar to simple means.
-  emmeans::emmeans(lm.agegender.f.kcal,   pairwise ~ DivGroup)  # When I add FIBE in the model, the means change a lot!
-  emmeans::emmeans(lm.agegender.p.kcal,   pairwise ~ DivGroup)  # When I add PF_TOTAL_LEG in the model, the means are almost the same (2006-2037.)
-  emmeans::emmeans(lm.full.kcal,          pairwise ~ DivGroup)  # When I add all the terms to the model again, emmeans difference became large again. 
-  # What I add to the model is super important, because it could change the means and separation results. 
-  # How do I decide which term to include....? --> need to do lit search.
-  # pairwise difference;  DivNA - Div2 = 379.9 KCAL, p<.0001. But this says DivNA has higher kcal than Div2, wrong. 
-
-  aggregate(df$KCAL, list(df$DivGroup), FUN=mean)
-  2192.276-1947.107=245.169.
-  # simple means by group are this different.   
-  plot(df$DivGroup, df$KCAL)
   
     
 # HSD
