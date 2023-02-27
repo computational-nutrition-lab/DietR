@@ -85,8 +85,8 @@ Session --> Set working directory --> Choose directory.
 
 # Resp = Waist circumference.
   anova.simple <-     aov(lm( BMXWAIST ~ DivGroup, data=df))  
-  ancova.agegender <- aov(lm( BMXWAIST ~ DivGroup + RIDAGEYR + factor(Gender), data=df)) 
-  ancova.full <-      aov(lm( BMXWAIST ~ DivGroup + RIDAGEYR + factor(Gender) + FIBE +  
+  ancova.agegender <- aov(lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender, data=df)) 
+  ancova.full <-      aov(lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + FIBE +  
                                          PF_TOTAL_LEG + KCAL, data=df)) 
   
   # install.packages("car")
@@ -118,12 +118,20 @@ Session --> Set working directory --> Choose directory.
 # ---------------------------------------------------------------------------------------------------------------
 # Correlation matrix
   x <- df[, c("BMXWAIST", "RIAGENDR", "RIDAGEYR", "FIBE", "PF_TOTAL_LEG", "PF_LEGUMES", "KCAL")]
+  x <- df[, c("BMXWAIST", "RIAGENDR", "RIDAGEYR", "FIBE", "PF_LEGUMES", "KCAL")]
+  x <- df[, c("KCAL", "RIAGENDR", "RIDAGEYR", "FIBE", "PF_LEGUMES")]
+  x <- df[, c("BMXBMI", "RIAGENDR", "RIDAGEYR",  "KCAL", "FIBE", "PF_LEGUMES", "BMXWAIST")]
   str(x)  
 # Get correlation coeff R and p-values for them.
-  Hmisc::rcorr(x= as.matrix(x), type ="pearson")
+  rp <- Hmisc::rcorr(x= as.matrix(x), type ="pearson")
+  write.table(rp[[2]], 'clipboard', sep="\t", row.names=T, quote=F)
+  write.table(rp[[3]], 'clipboard', sep="\t", row.names=T, quote=F)
 
 # Age vs waist. R= 0.22, p=0.0000. But so scattered.
-  plot(df$RIDAGEYR, df$BMXWAIST)  
+  plot(df$RIDAGEYR, df$BMXWAIST)
+  plot(df$FIBE, df$KCAL)
+  plot(df$FIBE, df$BMXBMI)
+  
 # PF_TOTAL_LEG vs waist. R=0.04,  p=0.0138
   plot(df$PF_TOTAL_LEG, df$BMXWAIST)  
 # No correlation. 
@@ -135,6 +143,7 @@ Session --> Set working directory --> Choose directory.
 # ===============================================================================================================
 # Check assumptions.  
   res1 <- residuals(ancova.full)
+  res1 <- residuals(lm.kcal.agf)
   # Generate a 2x2 plot field. 
   par(mfrow = c(2, 2))
   # Histogram of res1.
@@ -187,7 +196,47 @@ Session --> Set working directory --> Choose directory.
   emmeans::emmeans(lm.full, pairwise ~ DivGroup )
   # The more terms, very slighly the less difference, but overall, means don't change much. 
   
+# ===============================================================================================================
+# ancova - BMXWAIST ~ DivGroup + Age + Gender + FIBE.
+# ===============================================================================================================
+# According to eg_data\NHANES\PF\Covariate selection.xlsx
   
+  lm.agf <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + FIBE, data=df)
+  emmeans::emmeans(lm.agf, pairwise ~ DivGroup )
+  
+  car::Anova(lm.agf, type="III")
+  # FIBE does not have effect. OH... 
+  
+  # Try KCAL instead of FIBE. KCAL and FIBE are both weakly correlated (|R|=0.04) with WAIST, and 
+  # they are highly correlated with each other (R=0.52), so, only one of them is needed, I think. 
+  
+# ===============================================================================================================
+# ancova - BMXWAIST ~ DivGroup + Age + Gender + KCAL.
+# ===============================================================================================================
+  
+  lm.agk <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + KCAL, data=df)
+  emmeans::emmeans(lm.agk, pairwise ~ DivGroup )
+  
+  car::Anova(lm.agk, type="III")
+  # KCAL has an effect (p=0.000106). OK.. interesting. So I can just have KCAL in the model, then.
+  
+# ===============================================================================================================
+# ancova - KCAL ~ DivGroup + Age + Gender + FIBE.
+# ===============================================================================================================
+# According to eg_data\NHANES\PF\Covariate selection.xlsx
+  
+  lm.kcal.agf <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE, data=df)
+  emmeans::emmeans(lm.kcal.agf, pairwise ~ DivGroup )
+  # DivNA-Div2=251.4. 
+  
+  car::Anova(lm.kcal.agf, type="III")
+  # All terms are significant.
+  # Residuals are normally distributed, and their variances are equal among levels of DivGroup. Good.
+  
+
+
+  
+#### Toil and moil below...     
 # ===============================================================================================================
 # ancova.full.log. Log-transform the response variable.
 # ===============================================================================================================
@@ -398,23 +447,29 @@ Session --> Set working directory --> Choose directory.
 # pairwise emmeans, from the tutorial.
   # lm.full needs to be used, because emmeans only supports lm or glm as an input.
   lm.simple.kcal <-       lm( KCAL ~ DivGroup, data=df)
-  emmeans::emmeans(lm.simple.kcal,        pairwise ~ DivGroup)  # emmeans similar to simple means.
+  emmeans::emmeans(lm.simple.kcal,        pairwise ~ DivGroup)  
+  # emmeans similar to simple means.
   
   lm.agegender.kcal <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender , data=df)
-  emmeans::emmeans(lm.agegender.kcal,     pairwise ~ DivGroup)  # emmeans similar to simple means.
+  emmeans::emmeans(lm.agegender.kcal,     pairwise ~ DivGroup)  
+  # emmeans similar to simple means.
   
   lm.agegender.f.kcal <-  lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE, data=df)
-  emmeans::emmeans(lm.agegender.f.kcal,   pairwise ~ DivGroup)  # When I add FIBE in the model, the means change a lot!
+  emmeans::emmeans(lm.agegender.f.kcal,   pairwise ~ DivGroup)  
+  # When I add FIBE in the model, the means change a lot!
   
   lm.agegender.p.kcal <-  lm( KCAL ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
-  emmeans::emmeans(lm.agegender.p.kcal,   pairwise ~ DivGroup)  # When I add PF_TOTAL_LEG in the model, the means are almost the same (2006-2037.)
+  emmeans::emmeans(lm.agegender.p.kcal,   pairwise ~ DivGroup)  
+  # When I add PF_TOTAL_LEG in the model, the means are almost the same (2006-2037.)
   
   lm.agegender.p.kcal <-  lm( KCAL ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
-  emmeans::emmeans(lm.agegender.p.kcal,   pairwise ~ DivGroup)  # When I add PF_TOTAL_LEG in the model, the means are almost the same (2006-2037.)
+  emmeans::emmeans(lm.agegender.p.kcal,   pairwise ~ DivGroup)  
+  # When I add PF_TOTAL_LEG in the model, the means are almost the same (2006-2037.)
   
   
   lm.full.kcal <-         lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE + PF_TOTAL_LEG, data=df)
-  emmeans::emmeans(lm.full.kcal,          pairwise ~ DivGroup)  # When I add all the terms to the model again, emmeans difference became large again. 
+  emmeans::emmeans(lm.full.kcal,          pairwise ~ DivGroup)  
+  # When I add all the terms to the model again, emmeans difference became large again. 
   # What I add to the model is super important, because it could change the means and separation results. 
   # How do I decide which term to include....? --> need to do lit search.
   # pairwise difference;  DivNA - Div2 = 379.9 KCAL, p<.0001. But this says DivNA has higher kcal than Div2, wrong. 
