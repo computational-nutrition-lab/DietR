@@ -1,12 +1,83 @@
 ---
-title: "Test"
-output: html_document
+title: "Test page"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+# code_folding: hide
 ---
 
-# arrows!
-Flag if VC (Vitamin C) is <5 or >400 &rarr; then, ...
+<style type="text/css">
 
-# Chunk names must be unique - should be no duplications.
+<!-- body{ /* Normal  */ -->
+<!--       font-size: 12px; -->
+<!--   } -->
+<!-- td {  /* Table  */ -->
+<!--   font-size: 8px; -->
+}
+h1.title {
+  font-size: 38px;
+  font-family: "Tahoma", sans-serif;
+  color: DarkSlateGray;
+}
+h1 { /* Header 1 */
+  font-size: 28px;
+  color: DarkGreen;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: DarkGreen;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  color: DarkGreen;
+}
+<!-- code.r{ /* Code block */ -->
+<!--     font-size: 12px; -->
+<!-- } -->
+<!-- pre { /* Code block - determines code spacing between lines */ -->
+<!--     font-size: 14px; -->
+<!-- } -->
+</style>
+
+# First level header
+## Second level header
+### third level header
+
+<br>
+
+# Another first level header
+## How to insert arrow symbols
+Flag if VC (Vitamin C) is <5 or >400 &rarr; then, ...
+<br>
+
+**[NOTES in bold]**
+<br>
+
+## Color text
+<span style="color: red;">text in color</span>
+<br>
+
+## Curly brackets
+The number of rows should be {No. of users x No. days}. 
+
+## Change to a new line in a long text.
+This sentence is followed by two trailing spaces.  
+Hit return. Now these two should appear in two separate lines.
+<br>
+
+## Insert an image
+
+Just type "![my image caption](" and press the tab key - it will show you potential images to be inserted. Handy!
+
+![my image caption](Screenshots_for_Tutorial/ASA24 Ordination/4Lv WEIGHTED ord.png)
+
+
+## R code chunks
+### Chunk names must be unique - should be no duplications.
 ```{r Name of this chunk, echo=FALSE}
 # echo=FALSE
 aaaa <- 5 + 2

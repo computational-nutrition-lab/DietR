@@ -11,7 +11,7 @@
 
 
 
-<title>Test</title>
+<title>Test page</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -226,6 +229,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -233,6 +299,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -261,7 +337,18 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
-<li class="dropdown-header">NHANES</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    NHANES
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="NHANES_1_load_and_clean_1.html">Load and clean NHANES data - 1</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="Links.html">Links</a>
 </li>
@@ -277,25 +364,97 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Test</h1>
+<h1 class="title toc-ignore">Test page</h1>
 
 </div>
 
 
-<div id="arrows" class="section level1">
-<h1>arrows!</h1>
-<p>Flag if VC (Vitamin C) is &lt;5 or &gt;400 → then, …</p>
+<style type="text/css">
+
+<!-- body{ /* Normal  */ -->
+<!--       font-size: 12px; -->
+<!--   } -->
+<!-- td {  /* Table  */ -->
+<!--   font-size: 8px; -->
+}
+h1.title {
+  font-size: 38px;
+  font-family: "Tahoma", sans-serif;
+  color: DarkSlateGray;
+}
+h1 { /* Header 1 */
+  font-size: 28px;
+  color: DarkGreen;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: DarkGreen;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  color: DarkGreen;
+}
+<!-- code.r{ /* Code block */ -->
+<!--     font-size: 12px; -->
+<!-- } -->
+<!-- pre { /* Code block - determines code spacing between lines */ -->
+<!--     font-size: 14px; -->
+<!-- } -->
+</style>
+<div id="first-level-header" class="section level1">
+<h1>First level header</h1>
+<div id="second-level-header" class="section level2">
+<h2>Second level header</h2>
+<div id="third-level-header" class="section level3">
+<h3>third level header</h3>
+<p><br></p>
 </div>
-<div id="chunk-names-must-be-unique---should-be-no-duplications." class="section level1">
-<h1>Chunk names must be unique - should be no duplications.</h1>
+</div>
+</div>
+<div id="another-first-level-header" class="section level1">
+<h1>Another first level header</h1>
+<div id="how-to-insert-arrow-symbols" class="section level2">
+<h2>How to insert arrow symbols</h2>
+<p>Flag if VC (Vitamin C) is &lt;5 or &gt;400 → then, … <br></p>
+<p><strong>[NOTES in bold]</strong> <br></p>
+</div>
+<div id="color-text" class="section level2">
+<h2>Color text</h2>
+<p><span style="color: red;">text in color</span> <br></p>
+</div>
+<div id="curly-brackets" class="section level2">
+<h2>Curly brackets</h2>
+<p>The number of rows should be {No. of users x No. days}.</p>
+</div>
+<div id="change-to-a-new-line-in-a-long-text." class="section level2">
+<h2>Change to a new line in a long text.</h2>
+<p>This sentence is followed by two trailing spaces.<br />
+Hit return. Now these two should appear in two separate lines. <br></p>
+</div>
+<div id="insert-an-image" class="section level2">
+<h2>Insert an image</h2>
+<p>Just type “[my image caption](” and press the tab key - it will show you potential images to be inserted. Handy!</p>
+<div class="figure">
+<img src="Screenshots_for_Tutorial/ASA24%20Ordination/4Lv%20WEIGHTED%20ord.png" alt="" />
+<p class="caption">my image caption</p>
+</div>
+</div>
+<div id="r-code-chunks" class="section level2">
+<h2>R code chunks</h2>
+<div id="chunk-names-must-be-unique---should-be-no-duplications." class="section level3">
+<h3>Chunk names must be unique - should be no duplications.</h3>
 <pre><code>## [1] 7</code></pre>
 <pre class="r"><code># eval=FALSE
 evalFALSE &lt;- 1 + 2
 evalFALSE</code></pre>
 </div>
+</div>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -328,6 +487,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

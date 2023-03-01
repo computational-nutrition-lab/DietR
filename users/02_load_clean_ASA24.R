@@ -29,13 +29,13 @@
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
 
-# Name your main directory for future use.
+# Name your main directory where input files are pulled.
   main_wd <- file.path(getwd())
 
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")  
   source("lib/load_clean_ASA24.R")
-  source("lib/format.file.R")
+  # source("lib/format.file.R")
   source("lib/average.by.R") 
   source("lib/QCOutliers.R")
   source("lib/Food_tree_scripts/format.foods_2.r")
@@ -73,16 +73,15 @@
 
 # Format foods so that special characters will be replaced with "_". "_f" stands for "formatted".
   FormatFoods(input_fn =  "VVKAJ_Items.txt", 
-              output_fn = "VVKAJ_Items_f.txt",
-              dedupe=F)
-  
+              output_fn = "VVKAJ_Items_f.txt")
+
 # [Note] It is best practice to avoid overwriting your raw data. Always save formatted/manipulated versions 
 # as a new file as described above. 
   
 # Load the Items_f.txt file to take a look at it.
 # You need the "quote=""" and "colClasses="character"" arguments to ignore quotation marks (do not regard them 
 # as a cell separator) and to load all the columns as characters so that FoodID will keep the trailing ".0".  
-  items_f <- read.delim("VVKAJ_Items_f.txt", quote="", )
+  items_f <- read.delim("VVKAJ_Items_f.txt", quote="", colClasses="character")
   
 # All special characters in the items data should have been replaced with an underscore in the Main.foood.description 
 # column, the 3rd from the last column of the items_f. We can confirm that by using the head function, which shows the 
@@ -233,7 +232,7 @@
   nrow(new_totals_mean)     
 
 # ===============================================================================================================
-#  Add the participants' metadata to the mean totals.
+# Add the participants' metadata to the mean totals.
 # ===============================================================================================================
   
 # Load ind_metadata.txt if you have not done so.
@@ -288,7 +287,9 @@
               c('UserName', 'KCAL', 'FoodAmt', 'PROT', 'TFAT', 'CARB')]  
 # If you think it is a true outlier, then run the QCOutliers command for KCAL again, and click "Yes" to 
 # remove the outlier. Here for this tutorial, we will remove this individual.
-    
+
+# Continue the QC process with other variables.
+      
 # Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 10, max = 240)
 
