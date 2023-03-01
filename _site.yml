@@ -34,9 +34,9 @@ navbar:
     # - text: "Visualize ordination"
     #   href: ASA24_12_viz_ordination.html
   - text: NHANES
-    # menu:
-    # - text: "Load and clean NHANES data - 1"
-    #   href: NHANES_1_load_and_clean_1.html
+    menu:
+    - text: "Load and clean NHANES data - 1"
+      href: NHANES_1_load_and_clean_1.html
     # - text: "Load and clean NHANES data - 2"
     #   href: NHANES_2_load_and_clean_2.html
     # - text: "Data overview"

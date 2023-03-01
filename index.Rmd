@@ -29,6 +29,8 @@ This tutorial shows how to analyze ASA24 and NHANES data.
 
 3. See the [links page](https://computational-nutrition-lab.github.io/DietR_gh_pages/Links.html) for additional resources for using R.
 
+<span style="color: red;">text</span>
+
 </div>
 <div class="col-sm-6">
 

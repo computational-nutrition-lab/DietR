@@ -1,6 +1,0 @@
----
-title: "NHANES script"
-output: html_document
----
-
-
