@@ -31,68 +31,30 @@
 # ---------------------------------------------------------------------------------------------------------------
 # Keep only the columns with non-zero variance in order to perform PCA.
   KeepNonZeroVarColumns <- function(data){
+    
     subsetted_non0var <<- data[, which(apply(data, 2, var) != 0)] 
+    
     # Print which column(s) were removed.
+    
     if(ncol(data) == ncol(subsetted_non0var)){
-      cat("No columns were removed.", "\n")
+      
+      cat("No columns had zero variance.", "\n")
+      cat("The numeric data without ID has", nrow(subsetted_non0var), "rows and", ncol(subsetted_non0var), "variables.\n")
+      
+      
     }
     if(ncol(data) != ncol(subsetted_non0var)){
+      
       cat("The following column(s) in ", deparse(substitute(data)), " had zero variance and were removed.", "\n")
+      cat("The numeric data without ID now has", nrow(subsetted_non0var), "rows and", ncol(subsetted_non0var), "variables.\n")
+      
       print(which(apply(data, 2, var) == 0))
+      
+      
     }
   }
 # ---------------------------------------------------------------------------------------------------------------
 
-# ---------------------------------------------------------------------------------------------------------------
-# Average each participant: average by username.
-# Need to take average per user in the totals because subsetted_non0var does not have UserName.
-
-# Function to take average by a specified column. 
-  AverageBy <- function(data, by, start.col, end.col, outfn){
-
-    # Column Variables of "totals" as a dataframe.
-    colvars <- names(data)
-    # Get the first ID
-    start_col_number <- match(start.col, colvars)
-    # Get the last ID
-    end_col_number <- match(end.col, colvars)
-    # Subset the 'by' column and the columns in the start-end range.
-    by_start_end <- data[, c(which(colnames(data)==by), start_col_number:end_col_number)]
-    
-    # Define which variables to take means. and a list to save results
-    myvar <- colnames(by_start_end)[-1]
-    # Define the category entries (username in this case) to calculate means for.
-    category_by <- unique(by_start_end[, 1]) 
-    # Create a dataframe with the rownames corresponding to the category entries to calculate means for. 
-    meansbycategorydf_1 <- data.frame(row.names = category_by)
-    
-    # Calculate means for each colname in myvar. 
-    for(i in 1:length(myvar)){
-      # mymean <- tapply(X = df[, i+1], INDEX = as.factor(df[, 1]), FUN = mean )
-      resarray <- tapply(X = by_start_end[, i+1], INDEX = as.factor(by_start_end[, 1]), FUN = mean)
-      resdf <- data.frame(resarray)   # save the results (array) as a dataframe.
-      colnames(resdf) <- myvar[i]     # name the column with the variable.
-      meansbycategorydf_1 <- cbind(meansbycategorydf_1, resdf)   # add the new resdf to the existing result meansbycategorydf_1.
-    }
-    
-    # Create a column that has the usernames.
-    meansbycategorydf_1$UserName <- rownames(meansbycategorydf_1)
-    
-    # Bring the rownames to the first column.
-    # Take out the rownames (usernames), which is in the last column. ["var_name"] take it out as a dataframe. 
-    meansbycategorydf_1_usernames <- meansbycategorydf_1["UserName"]
-    
-    # Take out the rest of the columns: i.e. take all the columns except the last one (usernames).  
-    meansbycategorydf_1_var <- meansbycategorydf_1[, -ncol(meansbycategorydf_1)]
-    
-    # Combine meansbycategorydf_usernames and meansbycategorydf_var.
-    meansbycategorydf <- cbind(meansbycategorydf_1_usernames, meansbycategorydf_1_var)
-    
-    # Save meansbycategorydf as a .txt file.
-    write.table(x=meansbycategorydf, outfn, sep="\t", row.names=F, quote=F)
-    
-  }
-# ---------------------------------------------------------------------------------------------------------------
 
 # ========================================================================================
 # Collapse variables by correlation: take only 1 variable if 2 ore more are highly 
@@ -109,10 +71,10 @@
     #     library('fastcluster')
     cc <<- cor(x, use='pairwise.complete.obs', method='pear')
     # if(ncol(x) == 379) browser()
-    cc_1 <<- as.dist(1-cc)
-    hc <<- hclust(cc_1)
-    res <<- cutree(hc, h=1-min.cor)
-    names(res) <<- colnames(x)
+    cc_1 <- as.dist(1-cc)
+    hc <- hclust(cc_1)
+    res <- cutree(hc, h=1-min.cor)
+    names(res) <- colnames(x)
     return(res)
   }  
 
@@ -151,8 +113,91 @@
 # Function to save the correlation matrix as a txt file.
 # The correlation matrix (cc) is produced by ClusterByCorrelation().
   SaveCorrMatrix <- function(x=cc, out.fn){
-    write.table(as.data.frame(as.matrix(x)), out.fn, sep = "\t", row.names = F)
+    
+    write.table(as.data.frame(as.matrix(x)), out.fn, sep = "\t", 
+                row.names=T, col.names=NA, quote=F)
+    # col.names=NA inserts a blank colname to the rownames coloumn so that the order of colnames
+    # will not be off by one. 
+    
   } 
 # ---------------------------------------------------------------------------------------------------------------  
+
+# ---------------------------------------------------------------------------------------------------------------  
+# Use the functions defined above and prepare input data (totals) for clustering.
+# The PrepForClustering function below does:
+  # 1: take complete cases in your variables of interest, 
+  # 2: save the original totals of the complete cases individuals as a .txt, 
+  # 3: keep non-zero columns, 
+  # 4: remove the userID,
+  # 5: identify correlated variables and remove them,
+  # 6: save with uncorrelated variables as a .txt,
+  # 7: save correlation matrix as a .txt.  
   
+  PrepForClustering <- function(
+    input_df,
+    original_totals_df,
+    userID,
+    complete_cases_fn,
+    clustering_input_fn,
+    corr_matrix_fn){
+    
+    cat(deparse(substitute(input_df)), "has", nrow(input_df), "rows and", ncol(input_df), "variables.\n")
+    
+    # Save a vector that contains the number of missing data in each column of the input_df.
+    missing.vec <- colSums(is.na(input_df))[order(colSums(is.na(input_df)), decreasing=T)]
+    
+    # Show only the columns with any missing data.
+    cat("The following column(s) in", deparse(substitute(input_df)), "have missing data shown below.\nRows (samples) containing those missing data will be removed.\n ")
+    print(missing.vec[missing.vec > 0])
+    
+    # Take only the rows with no missing data. 
+    input_df_c <- input_df[complete.cases(input_df), ]
+    
+    # Take the rows of the original totals that are also present in "input_df_c".
+    original_totals_df_c <- original_totals_df[original_totals_df[, userID] %in% input_df_c[, userID], ]
+    
+    # Check that those two have exactly the same individuals (with complete data). (for script writers)
+    # print(identical(original_totals_df_c[, userID],  input_df_c[, userID])) 
+    
+    # Save the new selected totals to be used as the original input later in the PCA script.
+    write.table(x= original_totals_df_c, file= complete_cases_fn, 
+                sep="\t", row.names=F, quote=F)
+    
+    # Remove the userID column because it is the participants' ID and not appropriate to include in a PCA input.
+    input_df_c_wo_ID = input_df_c[, !names(input_df_c) %in% userID]
+    
+    # This dataset, input_df_c_wo_ID, with no missing data and no userID column, will be the input for the
+    # following preparation for clustering.
+    
+    # ---------------------
+    # Pick up only the columns with non-zero variance, in order to run cluster analyses.
+    # The removed columns will be shown if any.
+    KeepNonZeroVarColumns(data= input_df_c_wo_ID)
+    # The output is a df called "subsetted_non0var".
+
+    # ---------------------
+    # Collapse variables by correlation: take only one variable if they are highly correlated.
+    # Identify correlated variables.
+    cbc_res <- CollapseByCorrelation(x = subsetted_non0var,
+                                     min.cor = 0.75,
+                                     select.rep.fcn = 'mean', verbose = T)
+    
+    # Save the correlation matrix for record in the results folder.
+    # cc is the correlation matrix produced when variables are collapsed by correlation.
+    SaveCorrMatrix(x=cc, out.fn= corr_matrix_fn)
+    
+    # Filter out highly correlated variables from the original dataset.
+    selected_variables <- subsetted_non0var[, cbc_res$reps]
+    
+    cat("After removing correlated variables,", nrow(selected_variables), "rows and", ncol(selected_variables), "variables remained.\n")
+    
+    # ***"selected_variables" is the dataframe to be used for PCA, cluster analyses etc.***
+    
+    # Save the variables after removing correlated variables, to be used as the input.
+    write.table(x= selected_variables, file= clustering_input_fn,
+                sep="\t", row.names=F, quote=F)
+    
+  }
   
+# ---------------------------------------------------------------------------------------------------------------  
+    

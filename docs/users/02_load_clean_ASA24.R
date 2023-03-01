@@ -1,11 +1,12 @@
 # ===============================================================================================================
-# Load and clean ASA24 data.
+# Load and clean ASA24 data. After FormatFoods has been fixed.
 # Version 1
-# Created on 02/04/2022 by Rie Sadohara
+# Created on 01/19/2023 by Rie Sadohara
 # ===============================================================================================================
 
 # 11/04/2022 editing to calculate means across days of totals in the load_data section instead of here... 
 # mark edits with #~~~~~ EIDTS TO ADD TO TUTORIAL~~~~~~~~~
+# Tutorial updated on 01/19/2023 after changing to FormatFoods() function!
 
 # In this tutorial, we will use mock data from the VVKAJ dataset that was created with ASA24 
 # (https://epi.grants.cancer.gov/asa24/). VVKAJ stands for Vegetarian, Vegan, Keto, American, Japanese and 
@@ -26,6 +27,7 @@
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use.
   main_wd <- file.path(getwd())
@@ -34,6 +36,9 @@
   source("lib/specify_data_dir.R")  
   source("lib/load_clean_ASA24.R")
   source("lib/format.file.R")
+  source("lib/average.by.R") 
+  source("lib/QCOutliers.R")
+  source("lib/Food_tree_scripts/format.foods_2.r")
   
 # You can come back to the main directory by:
   setwd(main_wd)
@@ -44,63 +49,71 @@
 
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
-
+  
 # Load your unprocessed (raw) food items-level data (as downloaded from the ASA24 study website).
 # The csv file will be loaded as a dataframe in R and be named as items_raw. 
   items_raw <- read.csv("Raw_data/VVKAJ_Items.csv", sep = ",", header=T) 
   
-# Save it as a .txt file. 
+# items_raw has a column called "Food_Description", but this needs to be changed to "Main.food.description".
+# Change the column name.
+  names(items_raw)[names(items_raw) == "Food_Description"] <- "Main.food.description"
+  
+# Check if any column names match with "Main.food.description". If there is a match, it will be printed.  
+  names(items_raw)[names(items_raw) == "Main.food.description"]
+
+  # [Note] The numbers in the square brackets of the output indicate the sequential number of each element to 
+  # help count the number of elements. 
+  
+# Save the items file as a .txt file. This command saves the object "items_raw" as a .txt file with 
+# the specified filename using the write.table function. 
   write.table(items_raw, "VVKAJ_Items.txt", sep="\t", row.names=F) 
-
-  # -----------------------------------------
+  
 # Special characters common in food names in dietary data such as "'", ",", "%" may interfere correct 
-# data loading in R; thus, we replace them with an underscore "_".  The format.file  function takes only
-# .txt files as input. 
+# data loading in R; thus, we replace them with an underscore "_". 
 
-# Specify column(s) to be processed in the "columns" argument.
-# Specify the output file name in the outfn argument; "_f" stands for "formatted".  
-  format.file(filename = "VVKAJ_Items.txt",
-              columns  = "Food_Description", 
-              outfn    = "VVKAJ_Items_f.txt")  
-
-# [Note] It is best practice to avoid overwriting your raw data. Always save formated/manipulated versions 
+# Format foods so that special characters will be replaced with "_". "_f" stands for "formatted".
+  FormatFoods(input_fn =  "VVKAJ_Items.txt", 
+              output_fn = "VVKAJ_Items_f.txt",
+              dedupe=F)
+  
+# [Note] It is best practice to avoid overwriting your raw data. Always save formatted/manipulated versions 
 # as a new file as described above. 
   
 # Load the Items_f.txt file to take a look at it.
-  items_f <- read.table("VVKAJ_Items_f.txt", sep="\t", header=T)
+# You need the "quote=""" and "colClasses="character"" arguments to ignore quotation marks (do not regard them 
+# as a cell separator) and to load all the columns as characters so that FoodID will keep the trailing ".0".  
+  items_f <- read.delim("VVKAJ_Items_f.txt", quote="", )
   
-# All special characters in the items data should have been replaced with an underscore in the Food_Description 
-# column, the last column of the items_f. We can confirm that by using the head function, which shows the first 
-# six rows of the specified dataset by default. 
+# All special characters in the items data should have been replaced with an underscore in the Main.foood.description 
+# column, the 3rd from the last column of the items_f. We can confirm that by using the head function, which shows the 
+# first six rows of the specified dataset by default. 
   head(items_f)
-# The last column of items_f_id should have food descriptions with special characters replaced with "_".
   
-  
-# -----------------------------------------
 # Add a human-readable sample identifier (SampleID) with a desired prefix, and save it as a txt file. SampleIDs 
 # are IDs unique to each combination of users and day and represent days of dietary intake in this dataset.   
   AddSampleIDtoItems(input.fn="VVKAJ_Items_f.txt", user.name="UserName", recall.no="RecallNo", 
                      prefix="vvkaj.", out.fn="VVKAJ_Items_f_id.txt")
 
 # Load the formatted Items file with SampleID added.
-  items_f_id <- read.table("VVKAJ_Items_f_id.txt", sep="\t", header=T)
-
-# A combination of the specified prefix and sequential number should be added in the SampleID column, the first 
-# column of the items_f_id dataframe. You will probably need to scroll up the output a little bit in the console 
-# to view the first column.     
+  items_f_id <- read.delim("VVKAJ_Items_f_id.txt", quote="", colClasses="character")
+  
+# A combination of the specified prefix and sequential number (vvkaj.00001) should be added in the SampleID  
+# column, the first column of the items_f_id dataframe. You will probably need to scroll up the output a
+# little bit in the console to view the first column.     
   head(items_f_id)
 
 # Ensure your items file has the expected dimensions (number of rows x number of columns, 
 # shown as number of obs. and number of variables) in the environment window of R Studio. 
-# Or by using dim(items_f_id) and dim(items_raw). Note that items_f_id has 1 more column (131 variables) 
-# than items_raw because a new column of SampleID has been added.
+# Or by using dim(items_f_id) and dim(items_raw). Note that items_f_id has 3 more columns 
+# than items_raw because new columns of FoodID, Old.Main.food.description, and SampleID have been added.
   dim(items_f_id)
+  dim(items_raw)
 
 # ===============================================================================================================
-# <Optional> Use individuals_to_remove.txt to filter out users marked as Remove = yes.  
+# Use individuals_to_remove.txt to filter out users marked as Remove = yes.  
 # ===============================================================================================================
 # Load your metadata that has information about which UserName(s) to remove. 
-  ind_to_rm <- read.table("individuals_to_remove.txt", sep="\t", header=T)
+  ind_to_rm <- read.delim("individuals_to_remove.txt")
 
   ind_to_rm
   # Metadata for this purpose (ind_to_rm) has UserName and which one to be removed:
@@ -109,14 +122,15 @@
   # 2   VVKAJ102    
   # ... ...        
   # ... ...        
-  # 16  VVKAJ116   yes 
+  # 16  VVKAJ116   yes
+  # 17  VVKAJ117
 
 # Show which has "yes" in the "Remove" column. 
   subset(ind_to_rm, Remove == "yes")
 
 # As shown in the console, the user named "VVKAJ116" is marked to be removed. VVKAJ116 has only 1 day of data, 
 # which may not be complete, thus it is marked as an individual to remove.  However, be careful when 
-# deleting a datapoint from your study and never remove individuals from the raw dataset to ensure you 
+# deleting a datapoint from your study and never remove individuals from the raw dataset, to ensure you 
 # can always go back and include them if desired.
 
 # Remove the specified individuals.  
@@ -126,16 +140,13 @@
              output.name= "VVKAJ_Items_f_id_s.txt")
   
 # Load the output for further processing.
-  items_f_id_s <- read.table("VVKAJ_Items_f_id_s.txt", header=T, sep="\t")
-  
+  items_f_id_s <- read.delim("VVKAJ_Items_f_id_s.txt", quote="", colClasses="character")
+
 # Show unique usernames in items_f_id_s and confirm "VVKAJ116" has been removed.
   unique(items_f_id_s$UserName)  
-
-# [Note] The numbers in the square brackets of the output indicate the sequential number of each element to 
-# help count the number of elements. 
   
 # ===============================================================================================================
-# <Optional> Merge individuals' metadata to items.   
+#  Merge individuals' metadata to items.   
 # ===============================================================================================================
   
 # ind_metadata has the participants' gender, age, height, weight, BMI, and Waist.Circumference, etc.
@@ -146,48 +157,51 @@
   
 # Look at what the metadata has.
   head(ind_metadata)
+# This includes information on the removed individual, VVKAJ116, but it will not be used 
+# if VVKAJ116 is not in the items data.
 
-# Add this metadata of each participant in totals or items.
+# Add this metadata of each participant to totals or items.
 # 'NA' will be inserted to UserNames which are not in ind_metadata.
   items_f_id_s_m <- merge(x=items_f_id_s, y=ind_metadata, by="UserName", all.x=T)
   
 # Check that the items data and metadata are merged.
   head(items_f_id_s_m)
-  
-# Save the merged dataframe as a .txt file.
-  write.table(items_f_id_s_m, "VVKAJ_Items_f_id_s_m.txt", sep="\t", row.names=F, quote=F)
 
 # Furthermore, as a quick way to look at the metadata of only the selected individuals, you can subset the 
 # metadata to just the usernames present in the analysis dataset (items_f_id_s) using the "%in%" operator.
   ind_metadata_s <- ind_metadata[ind_metadata$UserName %in% items_f_id_s$UserName, ] 
 
-# Use the tail function to show the last six rows of ind_metadata_s. You can see the last individual
-# in this metadata is now VVKAJ115, and that VVKAJ116, which was not in items_f_id_s, has been omitted. 
+# Use the tail function to show the last six rows of ind_metadata_s. You can see that the last individual
+# in this metadata is now VVKAJ117, and that VVKAJ116, which was not in items_f_id_s, has been omitted. 
   tail(ind_metadata_s)
   
+# Save the merged dataframe as a .txt file.
+  write.table(items_f_id_s_m, "VVKAJ_Items_f_id_s_m.txt", sep="\t", row.names=F, quote=F)
+  
+  
 # ===============================================================================================================
-# Generate new totals file if any edits were made to the items file. 
+# Generate new totals file from the items file. 
 # ===============================================================================================================
 
 # Use one of the input files saved above as an input for calculating totals for.
-# Specify which columns have usernames and Recall.No., which is the number of recorded days. 
-  GenerateTotals(inputfn = "VVKAJ_Items_f_id_s_m.txt", 
-                 User.Name = 'UserName', 
-                 Recall.No = 'RecallNo',
-                 outfn = "VVKAJ_Tot.txt")
+# Specify which columns have usernames and Recall.No., which has the recorded days. 
+  GenerateTotals(inputfn =   "VVKAJ_Items_f_id_s_m.txt", 
+                 User.Name = "UserName", 
+                 Recall.No = "RecallNo",
+                 outfn =     "VVKAJ_Tot.txt")
 
 # Load the total file generated above.
   new_totals <- read.table("VVKAJ_Tot.txt", header=T, sep="\t")
 
 # The number of rows should be {No. of users x No. days}.
-# For the example data, 15 users x 3 days = 45 rows (observations).
+# For the example data, 16 users x 3 days = 48 rows (observations).
   nrow(new_totals) 
 
-# View the new_totals
+# View the new_totals.
   head(new_totals)
 
 # ===============================================================================================================
-# <Optional> Add the participants' metadata back to totals.
+#  Add the participants' metadata back to totals.
 # ===============================================================================================================
 
 # Load ind_metadata.txt if you have not done so.
@@ -203,11 +217,10 @@
 # Save the merged dataframe as a .txt file.
   write.table(new_totals_m, "VVKAJ_Tot_m.txt", sep="\t", row.names=F, quote=F)
 
-# ~~~~~ EIDTS TO ADD TO TUTORIAL -- ADDED, BUT YET TO BE ADDED TO THE WEBSITE ~~~~~~~~~
 # ===============================================================================================================
 # Calculate the mean of totals/participant
 # ===============================================================================================================
-
+  
 # Calculate the mean of the totals data across all the days for each participant.
   AverageBy(data= new_totals, by= "UserName", start.col= "FoodAmt", end.col= "A_DRINKS",
             outfn="VVKAJ_Tot_mean.txt")
@@ -215,12 +228,12 @@
 # Load the output for further processing.  
   new_totals_mean <- read.table("VVKAJ_Tot_mean.txt", header=T, sep="\t")
 
-# The number of rows should be equal to No. of users.
-# This example data has 15 users, so there should be 15 rows of mean totals.
+# The number of rows should be equal to the number of users.
+# This example data has 16 users, so there should be 16 rows of mean totals.
   nrow(new_totals_mean)     
 
 # ===============================================================================================================
-# <Optional> Add the participants' metadata back to totals.
+#  Add the participants' metadata to the mean totals.
 # ===============================================================================================================
   
 # Load ind_metadata.txt if you have not done so.
@@ -231,7 +244,7 @@
   new_totals_mean_m <- merge(x=new_totals_mean, y=ind_metadata, by="UserName", all.x=T)
   
 # Check that the mean totals and the users' metadata are merged.
-  head(new_totals_mean_m)
+  head(new_totals_mean_m, 1)
   
 # Save the merged dataframe as a .txt file.
   write.table(new_totals_mean_m, "VVKAJ_Tot_mean_m.txt", sep="\t", row.names=F, quote=F)
@@ -267,6 +280,15 @@
 # carefully to double-check if the removal is warranted. It is possible to have a valid record that could 
 # meet the threshold for removal. Only you will know if you can trust the record when working with real data.
 
+# If you find potential outlier(s) here, click "No", and view those 
+# total(s) with their other nutrient intake information by running the following;
+  KCAL_outliers <- subset(QCtotals, KCAL < 600 | KCAL > 5700)     
+  # Sort the rows by KCAL and show only the specified variables.
+  KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
+              c('UserName', 'KCAL', 'FoodAmt', 'PROT', 'TFAT', 'CARB')]  
+# If you think it is a true outlier, then run the QCOutliers command for KCAL again, and click "Yes" to 
+# remove the outlier. Here for this tutorial, we will remove this individual.
+    
 # Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 10, max = 240)
 
@@ -275,17 +297,38 @@
 
 # Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 400)
-    
-      # You may find numerous potential outliers here. Then, click "No", and view those 
-      # outliers with their other nutrient intake information by running the following;
-      VC_outliers <- subset(new_totals, VC < 5 | VC > 400)    
-      # sort in the order of VC and show only the specified variables.
-      VC_outliers[order(VC_outliers$BCAR, decreasing = T),
-                  c('UserName', 'KCAL', 'VC', 'V_TOTAL', 'V_DRKGR', 'F_TOTAL')]  # F is fruits.
-
-# Save as "Totals_m_QCed.txt"
+  
+# Save as a .txt file.
   write.table(QCtotals, "VVKAJ_Tot_mean_m_QCed.txt", sep="\t", quote=F, row.names=F)
 
+  
+# ===============================================================================================================
+# Remove the QC-ed individual(s) from the totals to be consistent
+# ===============================================================================================================
+  
+# In the previous section, we have removed individual(s) that did not pass the QC from mean total data.
+# We will remove those individual(s) from the totals (before taking means of days), so that we will have
+# the same individuals in the mean_total and total. 
+  
+# Among the individuals in new_totals_m, retain only those in QCtotals. 
+  new_totals_m_QCed <- new_totals_m[ new_totals_m$UserName %in% QCtotals$UserName, ]
+  
+# Save as a .txt file. This will be the total for each of the "QC-ed" individuals for each day, to be 
+# used for clustering analyses. 
+  write.table(new_totals_m_QCed, "VVKAJ_Tot_m_QCed.txt", sep="\t", quote=F, row.names=F)
+  
+# ===============================================================================================================
+# Similarly, remove the QC-ed individual(s) from the items to be consistent with the QC-ed averaged totals
+# ===============================================================================================================
+
+# Among the individuals in new_totals_m, pick up only those in QCtotals. 
+  items_f_id_s_m_QCed <- items_f_id_s_m[ items_f_id_s_m$UserName %in% QCtotals$UserName, ]
+  
+# Save as a .txt file. This will be the items for each of the "QC-ed" individuals for each day, to be 
+# used for ordination etc. 
+  write.table(items_f_id_s_m_QCed, "VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", quote=F, row.names=F)
+  
+    
 # ~~~~~ END OF EDITS TO ADD TO TUTORIAL -- ADDED, BUT YET TO BE ADDED TO THE WEBSITE ~~~~~~~~~
   
 # ---------------------------------------------------------------------------------------------------------------

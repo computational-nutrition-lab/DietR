@@ -259,64 +259,9 @@ $(document).ready(function () {
     <li>
       <a href="ASA24_1_load_and_clean.html">Load and clean ASA24 data</a>
     </li>
-    <li>
-      <a href="ASA24_2_calc_totals_by_occasion.html">Calculate totals by occasion</a>
-    </li>
-    <li>
-      <a href="ASA24_3_data_overview.html">Data overview</a>
-    </li>
-    <li>
-      <a href="ASA24_4_percent_kcal.html">Percent kcal of CARB, PROT, TFAT</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="ASA24_5_prep_clustering.html">Prepare for clustering</a>
-    </li>
-    <li>
-      <a href="ASA24_6_PCA.html">PCA</a>
-    </li>
-    <li>
-      <a href="ASA24_7_PCA_results.html">PCA results</a>
-    </li>
-    <li>
-      <a href="ASA24_8_k-means.html">K-means</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="ASA24_9_create_food_tree.html">Create food tree</a>
-    </li>
-    <li>
-      <a href="ASA24_10_viz_food_tree.html">Visualize food tree</a>
-    </li>
-    <li>
-      <a href="ASA24_11_ordination.html">Ordination</a>
-    </li>
-    <li>
-      <a href="ASA24_12_viz_ordination.html">Visualize ordination</a>
-    </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    NHANES
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="NHANES_1_load_and_clean_1.html">Load and clean NHANES data - 1</a>
-    </li>
-    <li>
-      <a href="NHANES_2_load_and_clean_2.html">Load and clean NHANES data - 2</a>
-    </li>
-    <li>
-      <a href="NHANES_3_data_overview.html">Data overview</a>
-    </li>
-    <li>
-      <a href="NHANES_4_percent_kcal.html">Percent kcal of CARB, PROT, TFAT</a>
-    </li>
-  </ul>
-</li>
+<li class="dropdown-header">NHANES</li>
 <li>
   <a href="Links.html">Links</a>
 </li>
@@ -352,7 +297,8 @@ $(document).ready(function () {
 <p>Load the necessary functions.</p>
 <pre class="r"><code>  source(&quot;lib/specify_data_dir.R&quot;)
   source(&quot;lib/load_clean_ASA24.R&quot;)
-  source(&quot;lib/format.file.R&quot;)</code></pre>
+  source(&quot;lib/format.file.R&quot;)
+  source(&quot;lib/QCOutliers.R&quot;)</code></pre>
 <p><br></p>
 <div id="load-asa24-items-data" class="section level3">
 <h3>Load ASA24 Items data</h3>
@@ -701,7 +647,7 @@ Click to expand output
 <p><br></p>
 <p>Ensure your items file has the expected dimensions (number of rows x number of columns, shown as number of obs. and number of variables) in the environment window of R Studio. Or by using dim(items_f_id) and dim(items_raw). Note that <code>items_f_id</code> has 1 more column (131 variables) than items_raw because a new column of SampleID has been added to it.</p>
 <pre class="r"><code>dim(items_f_id)</code></pre>
-<pre><code>## [1] 684 131</code></pre>
+<pre><code>## [1] 779 131</code></pre>
 <p><br></p>
 </div>
 <div id="use-individuals_to_remove.txt-to-filter-out-users-marked-as-remove-yes." class="section level3">
@@ -726,7 +672,8 @@ Click to expand output
 ## 13 VVKAJ113       
 ## 14 VVKAJ114       
 ## 15 VVKAJ115       
-## 16 VVKAJ116    yes</code></pre>
+## 16 VVKAJ116    yes
+## 17 VVKAJ117</code></pre>
 <p>Show which has “yes” in the “Remove” column.</p>
 <pre class="r"><code>subset(ind_to_rm, Remove == &quot;yes&quot;)</code></pre>
 <pre><code>##    UserName Remove
@@ -745,7 +692,7 @@ The output will be saved as a text file with the specified name. This assumes th
 <pre class="r"><code>  unique(items_f_id_s$UserName)</code></pre>
 <pre><code>##  [1] &quot;VVKAJ101&quot; &quot;VVKAJ102&quot; &quot;VVKAJ103&quot; &quot;VVKAJ104&quot; &quot;VVKAJ105&quot; &quot;VVKAJ106&quot;
 ##  [7] &quot;VVKAJ107&quot; &quot;VVKAJ108&quot; &quot;VVKAJ109&quot; &quot;VVKAJ110&quot; &quot;VVKAJ111&quot; &quot;VVKAJ112&quot;
-## [13] &quot;VVKAJ113&quot; &quot;VVKAJ114&quot; &quot;VVKAJ115&quot;</code></pre>
+## [13] &quot;VVKAJ113&quot; &quot;VVKAJ114&quot; &quot;VVKAJ115&quot; &quot;VVKAJ117&quot;</code></pre>
 <p>[Note] The numbers in the square brackets of the output indicate the sequential number of each element to help count the number of elements.</p>
 <p><br></p>
 </div>
@@ -914,12 +861,12 @@ Click to expand output
 <p>Use the tail function to show the last six rows of <code>ind_metadata_s</code>. You can see the last individual in this metadata is now VVKAJ115, and that VVKAJ116, which was not in <code>items_f_id_s</code>, has been omitted.</p>
 <pre class="r"><code>tail(ind_metadata_s)</code></pre>
 <pre><code>##    UserName       Diet Gender Age  Weight Height      BMI Waist.Circumference
-## 10 VVKAJ110   Japanese      F  38 55.0000  152.0 23.80540                78.0
 ## 11 VVKAJ111 Vegetarian      M  60 74.9000  164.1 27.81408                78.0
 ## 12 VVKAJ112      Vegan      F  48 69.8992  158.0 28.00000                95.5
 ## 13 VVKAJ113       Keto      M  43 80.0000  183.0 23.88844                98.0
 ## 14 VVKAJ114   American      F  62 90.7235  161.0 35.00000               110.0
-## 15 VVKAJ115   Japanese      M  22 69.6348  174.0 23.00000                70.0</code></pre>
+## 15 VVKAJ115   Japanese      M  22 69.6348  174.0 23.00000                70.0
+## 17 VVKAJ117      error      M  23 76.0000  175.0 24.81633                80.0</code></pre>
 <p><br></p>
 </div>
 <div id="generate-new-totals-file-if-any-edits-were-made-to-the-items-file." class="section level3">
@@ -933,7 +880,7 @@ Click to expand output
 <pre class="r"><code>  new_totals &lt;- read.table(&quot;VVKAJ_Tot.txt&quot;, header=T, sep=&quot;\t&quot;)</code></pre>
 <p>The number of rows should be {No. of users x No. days}. For the example data, 15 users x 3 days = 45 rows (observations).</p>
 <pre class="r"><code>  nrow(new_totals) </code></pre>
-<pre><code>## [1] 45</code></pre>
+<pre><code>## [1] 48</code></pre>
 <p>View the new_totals.</p>
 <pre class="r"><code>  head(new_totals)</code></pre>
 <details>
@@ -1175,32 +1122,36 @@ Click to expand output
 <pre class="r"><code>  QCtotals &lt;- new_totals  </code></pre>
 <p>Flag if KCAL is &lt;600 or &gt;5700 –&gt; ask remove or not –&gt; if yes, remove those rows</p>
 <pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;KCAL&quot;, min = 600, max = 5700)</code></pre>
-<pre><code>## There are 0 observations with &lt; 600 or &gt; 5700 . 
-## There are no outlier rows, but the input data was renamed as QCtotals.
-##  45 rows remained.</code></pre>
+<pre><code>## There are 1 observations with &lt; 600 or &gt; 5700 . 
+## Remove? (Yes/no/cancel) 
+## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
+##  47 rows remained.</code></pre>
 <p>This function will print out rows that fall outside the specified min-max range, and <strong>a dialogue box</strong> will appear outside the R Studio, asking whether to remove them. You should make sure to review these records carefully to double check if the removal is warranted. It is possible to have a valid record that could meet the threshold for removal. Only you will know if you can trust the record when working with real data.</p>
 <p>Flag if PROT is &lt;10 or &gt;240 –&gt; ask remove or not –&gt; if yes, remove those rows</p>
 <pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;PROT&quot;, min = 10, max = 240)</code></pre>
 <pre><code>## There are 0 observations with &lt; 10 or &gt; 240 . 
 ## There are no outlier rows, but the input data was renamed as QCtotals.
-##  45 rows remained.</code></pre>
+##  47 rows remained.</code></pre>
 <p>Flag if TFAT is &lt;15 or &gt;230 –&gt; ask remove or not –&gt; if yes, remove those rows</p>
 <pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;TFAT&quot;, min = 15, max = 230)</code></pre>
-<pre><code>## There are 0 observations with &lt; 15 or &gt; 230 . 
-## There are no outlier rows, but the input data was renamed as QCtotals.
-##  45 rows remained.</code></pre>
+<pre><code>## There are 1 observations with &lt; 15 or &gt; 230 . 
+## Remove? (Yes/no/cancel) 
+## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
+##  46 rows remained.</code></pre>
 <p>Flag if VC (Vitamin C) is &lt;5 or &gt;400 –&gt; ask remove or not –&gt; if yes, remove those rows</p>
 <pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;VC&quot;, min = 5, max = 400)</code></pre>
-<pre><code>## There are 0 observations with &lt; 5 or &gt; 400 . 
-## There are no outlier rows, but the input data was renamed as QCtotals.
+<pre><code>## There are 1 observations with &lt; 5 or &gt; 400 . 
+## Remove? (Yes/no/cancel) 
+## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
 ##  45 rows remained.</code></pre>
 <p>You may find numerous potential outliers here. Then, click “No”, and view those outliers with their other nutrient intake information by running the following;</p>
 <pre class="r"><code>  VC_outliers &lt;- subset(new_totals, VC &lt; 5 | VC &gt; 400)    </code></pre>
 <p>Sort in the order of VC and show only the specified variables.</p>
 <pre class="r"><code>  VC_outliers[order(VC_outliers$BCAR, decreasing = T),
               c(&#39;UserName&#39;, &#39;KCAL&#39;, &#39;VC&#39;, &#39;V_TOTAL&#39;, &#39;V_DRKGR&#39;, &#39;F_TOTAL&#39;)]  # F is fruits.</code></pre>
-<pre><code>## [1] UserName KCAL     VC       V_TOTAL  V_DRKGR  F_TOTAL 
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<pre><code>##    UserName     KCAL       VC   V_TOTAL  V_DRKGR  F_TOTAL
+## 47 VVKAJ117 7792.151 974.0868 14.657594 3.112137 13.68892
+## 48 VVKAJ117 3970.332 613.0345  5.773735 1.975625 11.20646</code></pre>
 <p>Save as “Totals_m_QCed.txt”</p>
 <pre class="r"><code>  write.table(QCtotals, &quot;VVKAJ_Tot_m_QCed.txt&quot;, sep=&quot;\t&quot;, quote=F, row.names=F)</code></pre>
 <p><br></p>

@@ -1,7 +1,7 @@
 # ===============================================================================================================
-# Visualize ordination results.
-# Version 3 - cleaner version with just 'Users' plot.
-# Created on 10/03/2022 by Rie Sadohara
+# Visualize ordination results - color-code individuals and highlight specific individuals if desired. 
+# Version 1 
+# Created on 01/19/2023 by Rie Sadohara
 # ===============================================================================================================
 
 # Set your working directory to the main directory.
@@ -25,142 +25,81 @@
   setwd(main_wd)
 
 # ===============================================================================================================
-# Load ordination results
+# Load ordination results - whether weighted or unweighted Unifrac distance results. 
 # ===============================================================================================================
-  
-# Change to the folder called "Unifrac" in your "VVKAJ" folder.
-  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Unifrac/")
+
+# In the ordination section, biplots were generated with the users color-coded by their Diet. 
+# However, they can also be color-coded individually. In addition, specific users can be highlighted 
+# with a thicker outline if desired. All of these can be done by loading the saved ordination results - 
+# Axis values and metadata combined, and the proportion of variance explained.
+
+# Change to the folder called "Ordination" in your "VVKAJ" folder.
+  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Ordination/")
   
 # Read in the metadata and users' Axis values. 
-# meta_usersdf_loaded <- read.table("results/ordinated_weighted_axes_meta_MCT.txt", header=T)
-  meta_usersdf <- read.table("4Lv_ordinated_Weighted_meta_users.txt", header=T)
-
-# Take a look at meta_usersdf_loaded. 
-  head(meta_usersdf,3)
-
-# Read in the eigenvalues for axis labels of biplots.
-  eigen_loaded <- read.table("4Lv_ordinated_Weighted_eigen_percent.txt", header=T)
+  meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt", header=T)
   
-# ---------------------------------------------------------------------------------------------------------------
-# Plot Axis 1 and Axis 2 to show the separation of samples colored by UserName, gender, timing, etc. as in the metadata.
+# Read in the eigenvalues for axis labels of biplots.
+  eigen_loaded <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_eigen_percent.txt", header=T)
+  
+# Make a vector that contains the variance explained.
+  eigen_loaded_vec <- eigen_loaded[, 2]
 
-# By UserName.
-  by_user <- ggplot(meta_usersdf, aes(x=Axis.1, y=Axis.2, color=UserName)) +
-          geom_point(aes(color=UserName), size=2) + 
-          scale_color_manual(values = distinct100colors) + # OR use viridis theme.
+# ===============================================================================================================
+# Plot Axis 1 and Axis 2 to show the separation of individuals colored by UserName.
+# ===============================================================================================================
+
+# Create a folder called "Viz_Ordination" to save the plots to be produced here.
+  
+# Color-code by UserName.
+  by_user <- ggplot(meta_usersdf, aes(x=Axis.1, y=Axis.2, fill=UserName)) +
+          geom_point(shape=21, aes(color= UserName), size=3, color="black") + 
+          scale_fill_manual(values = distinct100colors) + # OR use viridis theme.
           # scale_color_viridis_d() +
-          xlab( paste("Axis.1 (", paste(round(eigen_loaded[1,2]*100, 1)), "%)", sep="") ) +
-          ylab( paste("Axis.2 (", paste(round(eigen_loaded[2,2]*100, 1)), "%)", sep="") ) +
+          xlab( paste("Axis.1 (", paste(round(eigen_loaded_vec[1]*100, 1)), "%)", sep="") ) +
+          ylab( paste("Axis.2 (", paste(round(eigen_loaded_vec[2]*100, 1)), "%)", sep="") ) +
           no_grid + space_axes + theme(aspect.ratio = 1)
   by_user
   
-# Save by_user plot as a PDF. 
-  ggsave("4Lv_ordinated_Weighted_Axis12_users.pdf", by_user,
-         device="pdf", height=6, width=6, unit="in", dpi=300)
+# Save by_user plot as a pdf. 
+  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_users_Axis12.pdf", by_user,
+         device="pdf", height=5, width=7, unit="in", dpi=300)
   
 # Add lines to connect samples in the order in which they appear in the data using geom_path. 
-# [NOTE] geom_line connects in the order of the variable (small to large) on the x axis, 
-# so it could be misleading.
-  by_user_pathconnected <- by_user + geom_path(aes(color = UserName))  
+# [NOTE] A similar-sounding function, geom_line, connects in the order of the variable (small to large) 
+# on the x axis, so it could be misleading. We want to use geom_path here.
+  by_user_pathconnected <- by_user +  geom_path(aes(color = UserName)) +
+                                      scale_color_manual(values=distinct100colors)
+  
   by_user_pathconnected
   
-  # Save by_user_pathconnected as a PDF.
-  ggsave("4Lv_ordinated_Weighted_Axis12_users_pathconnected.pdf", 
-         by_user_pathconnected, device="pdf", height=6, width=6, unit="in", dpi=300)
+  # Save by_user_pathconnected as a pdf.
+  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_users_Axis12_pathconnected.pdf", 
+         by_user_pathconnected, device="pdf", height=5, width=7, unit="in", dpi=300)
   
+
 # ---------------------------------------------------------------------------------------------------------------
-# Color individuals by diet (Vegan, Vegetarian, Keto, American, and Japanese).
-  by_diet <- ggplot(meta_usersdf, aes(x=Axis.1, y=Axis.2, color=Diet)) +
-    geom_point(aes(color=Diet), size=2) + 
-    scale_color_manual(values = distinct100colors) + # OR use viridis theme.
-    # scale_color_viridis_d() +
-    xlab( paste("Axis.1 (", paste(round(eigen_loaded[1,2]*100, 1)), "%)", sep="") ) +
-    ylab( paste("Axis.2 (", paste(round(eigen_loaded[2,2]*100, 1)), "%)", sep="") ) +
-    no_grid + space_axes + theme(aspect.ratio = 1)
-  by_diet
+# Change the appearance of datapoints of specific user(s).
+
+# Subset datapoint(s) that you would like to highlight.
+# Let us highlight those on keto diet: VVKAJ103, VVKAJ108, and VVKAJ113.
+  select_point_keto <- subset(meta_usersdf, UserName=="VVKAJ103" | UserName=="VVKAJ108" | UserName=="VVKAJ113") 
   
-# You can add ellipses at a desired confidence level. 
-  by_diet_ellipses <- by_diet + stat_ellipse(level=0.95) 
-  by_diet_ellipses
+  # The vertical var "|" means "or" in the subset condition.
   
-# Save by_user_diet_ellipses as a PDF. 
-  ggsave("4Lv_ordinated_Weighted_Axis12_diet_ellipses.pdf", by_diet_ellipses, 
-         device="pdf", height=6, width=6, unit="in", dpi=300)
-
-# Make polygons by diet.
-  by_diet_polygons <- by_diet + geom_polygon(aes(fill = Diet)) + 
-    geom_point(aes(color = Diet), size=2) + 
-    scale_fill_manual(values = distinct100colors)
-  by_diet_polygons
-  
-  # Save by_diet_polygons as a PDF. 
-  ggsave("4Lv_ordinated_Weighted_Axis12_diet_polygons.pdf", 
-         by_diet_polygons, device="pdf", height=6, width=6, unit="in", dpi=300)
-
-
-# ===============================================================================================================
-# Change colors for specific user(s) 
-# ===============================================================================================================
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# [A] Highlight one sample with others being grey.  
-  # Specify which user to highlight; e.g. VVKAJ101.
-  select_point_1 <- subset(meta_usersdf, UserName=="VVKAJ101") 
-
-  panelA <- 
-    by_user + geom_point(size=2, color="grey") +  
-    geom_point(data=select_point_1, aes(x=Axis.1, y=Axis.2), color="black", size=2) 
-  panelA
-  
-# Save the panel as a PDF. 
-  ggsave("4Lv_ordinated_Weighted_Axis12_users_VVKAJ101_grey.pdf", 
-         panelA, device="pdf", height=6, width=6, unit="in", dpi=300)
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# [B] Highlight multiple samples with others being grey.
-# Specify colors for each samples to be highlighted in the scale_color_manual argument.
-  select_points <- subset(meta_usersdf, UserName=="VVKAJ101" | UserName=="VVKAJ106" )
-
-  panelB <- 
-    by_user + geom_point(data=select_points, aes(x=Axis.1, y=Axis.2, color=as.factor(UserName))) +
-    scale_color_manual(values = c("VVKAJ101"="red", "VVKAJ106"="blue")) 
-  # It is OK to see a message: "Scale for 'colour' is already present. 
-  # Adding another scale for 'colour', which will replace the existing scale."
-  panelB
-  
-# Save the panel as a PDF. 
-  ggsave("4Lv_ordinated_Weighted_Axis12_users_VVKAJ101_106_grey.pdf", 
-         panelB, device="pdf", height=6, width=6, unit="in", dpi=300)
-  
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# [C] Highlight one sample; other points will retain their original colors. 
-  select_point_1 <- subset(meta_usersdf, UserName=="VVKAJ101") 
-
-# Changing the shape sizes might help find the dots. Note that points may be overlapping
-  panelC <- 
-    by_user + geom_point(data=select_point_1, aes(x=Axis.1, y=Axis.2), color="black", size=4) 
-  panelC
-  
-# Save the panel as a PDF. 
-  ggsave("4Lv_ordinated_Weighted_Axis12_users_VVKAJ101_color.pdf", 
-         panelC, device="pdf", height=6, width=6, unit="in", dpi=300)
-  
-    
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# [D] Highlight multiple samples; other points will retain their original colors. 
-  select_point_1 <- subset(meta_usersdf, UserName=="VVKAJ101") 
-  select_point_2 <- subset(meta_usersdf, UserName=="VVKAJ106") 
-
-  panelD <- 
+# Add selected user(s) above with a thicker outline.
+  highlighted <- 
     by_user + 
-    geom_point(data=select_point_1, aes(x=Axis.1, y=Axis.2), color="black", size=4) +
-    geom_point(data=select_point_2, aes(x=Axis.1, y=Axis.2), color="green", size=4) 
-  panelD
+      geom_point(select_point_keto, shape=21, size=3, alpha=1, stroke=2,
+                 mapping=aes(x=Axis.1, y=Axis.2, fill=UserName), show.legend=F) +
+      # Specify that the 3rd, 8th, and 13th datapoints will have a thicker outline (stroke=2),
+      # and all others will have stroke=0. 
+      guides(fill=guide_legend(override.aes=list(stroke=c(0,0,2,0,0, 0,0,2,0,0, 0,0,2,0,0)))) 
   
-# Save the panel as a PDF. 
-  ggsave("4Lv_ordinated_Weighted_Axis12_users_VVKAJ101_106_color.png", 
-         panelD, device="png", height=6, width=6, unit="in", dpi=300)
-  
+  highlighted
 
+# Save highlighted as a pdf.
+  ggsave("Viz_Ordination/VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_users_Axis12_highlighted.pdf", 
+         highlighted, device="pdf", height=5, width=7, unit="in", dpi=300)
+  
   

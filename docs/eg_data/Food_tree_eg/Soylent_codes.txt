@@ -3,3 +3,4 @@ FoodCode	Main.food.description
 95120053	Soylent_Cacoa
 95120052	Soylent_Nectar
 95120054	Soylent_Coffiest
+95120056	Soylent_2%_fat

@@ -1,0 +1,901 @@
+DRXFCSD	Main.food.description	Old.Main.food.description	ModCode	FoodID
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT NOT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_not_added_in_cooking	Beans, dry, cooked, NS as to type, fat not added in cooking	0	41101020.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT NOT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_not_added_in_cooking	Beans, dry, cooked, NS as to type, fat not added in cooking	0	41101020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+BEANS, DRY, COOKED WITH PORK	Beans_dry_cooked_with_pork	Beans, dry, cooked with pork	0	41208100.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+FALAFEL	Falafel	Falafel	0	41209000.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+VADA, FRIED DUMPLING	Vada_fried_dumpling	Vada, fried dumpling	0	58175000.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+SOFT TACO WITH BEANS AND SOUR CREAM	Soft_taco_with_beans_and_sour_cream	Soft taco with beans and sour cream	0	58101615.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+BEANS, DRY, COOKED WITH PORK	Beans_dry_cooked_with_pork	Beans, dry, cooked with pork	0	41208100.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+BEAN CHIPS	Bean_chips	Bean chips	0	41310900.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+RED KIDNEY BEANS, CANNED, DRAINED, FAT NOT ADDED IN COOKING	Red_kidney_beans_canned_drained_fat_not_added_in_cooking	Red kidney beans, canned, drained, fat not added in cooking	0	41106080.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+BEAN CHIPS	Bean_chips	Bean chips	0	41310900.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BEAN DIP, MADE WITH REFRIED BEANS	Bean_dip_made_with_refried_beans	Bean dip, made with refried beans	0	41205050.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+SOFT TACO WITH BEANS AND SOUR CREAM	Soft_taco_with_beans_and_sour_cream	Soft taco with beans and sour cream	0	58101615.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+CHICKPEAS, CANNED, DRAINED, FAT NOT ADDED IN COOKING	Chickpeas_canned_drained_fat_not_added_in_cooking	Chickpeas, canned, drained, fat not added in cooking	0	41302080.0
+CHICKPEAS, DRY, COOKED, FAT NOT ADDED IN COOKING	Chickpeas_dry_cooked_fat_not_added_in_cooking	Chickpeas, dry, cooked, fat not added in cooking	0	41302020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, FAT NOT ADDED	Black_brown_or_Bayo_beans_canned_drained_fat_not_added_in_cooking	Black, brown, or Bayo beans, canned, drained, fat not added in cooking	0	41102080.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+CHICKPEAS, DRY, COOKED, FAT NOT ADDED IN COOKING	Chickpeas_dry_cooked_fat_not_added_in_cooking	Chickpeas, dry, cooked, fat not added in cooking	0	41302020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BEAN DIP, MADE WITH REFRIED BEANS	Bean_dip_made_with_refried_beans	Bean dip, made with refried beans	0	41205050.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+TACO OR TOSTADA WITH BEANS	Taco_or_tostada_with_beans	Taco or tostada with beans	0	58101720.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BEAN DIP, MADE WITH REFRIED BEANS	Bean_dip_made_with_refried_beans	Bean dip, made with refried beans	0	41205050.0
+BEAN DIP, MADE WITH REFRIED BEANS	Bean_dip_made_with_refried_beans	Bean dip, made with refried beans	0	41205050.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, LOW SODIUM, FA	Black_brown_or_Bayo_beans_canned_drained_low_sodium_fat_added_in_cooking	Black, brown, or Bayo beans, canned, drained, low sodium, fat added in cooking	0	41102110.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT ADDED IN COOKI	Black_brown_or_Bayo_beans_dry_cooked_fat_added_in_cooking_NS_as_to_type_of_fat	Black, brown, or Bayo beans, dry, cooked, fat added in cooking, NS as to type of fat	0	41102010.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE, WHITE, WITH LENTILS, NS AS TO FAT ADDED IN COOKING	Rice_white_with_lentils_NS_as_to_fat_added_in_cooking	Rice, white, with lentils, NS as to fat added in cooking	0	58160800.0
+RED KIDNEY BEANS, CANNED, DRAINED, FAT NOT ADDED IN COOKING	Red_kidney_beans_canned_drained_fat_not_added_in_cooking	Red kidney beans, canned, drained, fat not added in cooking	0	41106080.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BEAN DIP, MADE WITH REFRIED BEANS	Bean_dip_made_with_refried_beans	Bean dip, made with refried beans	0	41205050.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+BEAN CHIPS	Bean_chips	Bean chips	0	41310900.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEAN CHIPS	Bean_chips	Bean chips	0	41310900.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+MISO	Miso	Miso	0	41420110.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+TACO OR TOSTADA WITH BEANS	Taco_or_tostada_with_beans	Taco or tostada with beans	0	58101720.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT ADDED	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_added_in_cooking_NS_as_to_type_of_fat	Pinto, calico, or red Mexican beans, dry, cooked, fat added in cooking, NS as to type of fat	0	41104010.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RED KIDNEY BEANS, CANNED, DRAINED, FAT NOT ADDED IN COOKING	Red_kidney_beans_canned_drained_fat_not_added_in_cooking	Red kidney beans, canned, drained, fat not added in cooking	0	41106080.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+RICE, WHITE, WITH LENTILS, NS AS TO FAT ADDED IN COOKING	Rice_white_with_lentils_NS_as_to_fat_added_in_cooking	Rice, white, with lentils, NS as to fat added in cooking	0	58160800.0
+FALAFEL	Falafel	Falafel	0	41209000.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+TACO OR TOSTADA WITH BEANS	Taco_or_tostada_with_beans	Taco or tostada with beans	0	58101720.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+RICE, WHITE, WITH LENTILS, FAT ADDED IN COOKING	Rice_white_with_lentils_fat_added_in_cooking	Rice, white, with lentils, fat added in cooking	0	58160805.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT AD	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_added_in_cooking_NS_as_to_type_of_fat	Pinto, calico, or red Mexican beans, canned, drained, fat added in cooking, NS as to type of fat	0	41104040.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT ADDED	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_added_in_cooking_NS_as_to_type_of_fat	Pinto, calico, or red Mexican beans, dry, cooked, fat added in cooking, NS as to type of fat	0	41104010.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT ADDED	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_added_in_cooking_NS_as_to_type_of_fat	Pinto, calico, or red Mexican beans, dry, cooked, fat added in cooking, NS as to type of fat	0	41104010.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_added_in_cooking	Beans, dry, cooked, NS as to type, fat added in cooking	0	41101010.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BEANS, CANNED, DRAINED, NS AS TO TYPE, FAT ADDED IN COOKING	Beans_canned_drained_NS_as_to_type_fat_added_in_cooking	Beans, canned, drained, NS as to type, fat added in cooking	0	41101060.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+SOFT TACO WITH BEANS AND SOUR CREAM	Soft_taco_with_beans_and_sour_cream	Soft taco with beans and sour cream	0	58101615.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+CAKE OR PANCAKE MADE WITH RICE FLOUR AND_OR DRIED BEANS	Cake_or_pancake_made_with_rice_flour_and_or_dried_beans	Cake or pancake made with rice flour and_or dried beans	0	55702000.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, FAT NOT ADDED	Black_brown_or_Bayo_beans_canned_drained_fat_not_added_in_cooking	Black, brown, or Bayo beans, canned, drained, fat not added in cooking	0	41102080.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_added_in_cooking	Beans, dry, cooked, NS as to type, fat added in cooking	0	41101010.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, FAT NOT ADDED	Black_brown_or_Bayo_beans_canned_drained_fat_not_added_in_cooking	Black, brown, or Bayo beans, canned, drained, fat not added in cooking	0	41102080.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, FAT NOT ADDED	Black_brown_or_Bayo_beans_canned_drained_fat_not_added_in_cooking	Black, brown, or Bayo beans, canned, drained, fat not added in cooking	0	41102080.0
+RICE, WHITE, WITH LENTILS, FAT NOT ADDED IN COOKING	Rice_white_with_lentils_fat_not_added_in_cooking	Rice, white, with lentils, fat not added in cooking	0	58160810.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+VEGETABLES, DIPPED IN CHICK-PEA FLOUR BATTER, FRIED, PAKORA	Vegetables_dipped_in_chick_pea_flour_batter_fried_Pakora	Vegetables, dipped in chick-pea flour batter, fried, Pakora	0	75440400.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT ADDED	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_added_in_cooking_NS_as_to_type_of_fat	Pinto, calico, or red Mexican beans, dry, cooked, fat added in cooking, NS as to type of fat	0	41104010.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, FAT NOT ADDED	Black_brown_or_Bayo_beans_canned_drained_fat_not_added_in_cooking	Black, brown, or Bayo beans, canned, drained, fat not added in cooking	0	41102080.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT NOT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_not_added_in_cooking	Beans, dry, cooked, NS as to type, fat not added in cooking	0	41101020.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RICE, WHITE, WITH LENTILS, FAT ADDED IN COOKING	Rice_white_with_lentils_fat_added_in_cooking	Rice, white, with lentils, fat added in cooking	0	58160805.0
+CAKE OR PANCAKE MADE WITH RICE FLOUR AND_OR DRIED BEANS	Cake_or_pancake_made_with_rice_flour_and_or_dried_beans	Cake or pancake made with rice flour and_or dried beans	0	55702000.0
+VADA, FRIED DUMPLING	Vada_fried_dumpling	Vada, fried dumpling	0	58175000.0
+RICE, WHITE, WITH LENTILS, FAT ADDED IN COOKING	Rice_white_with_lentils_fat_added_in_cooking	Rice, white, with lentils, fat added in cooking	0	58160805.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_added_in_cooking	Beans, dry, cooked, NS as to type, fat added in cooking	0	41101010.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BEAN DIP, MADE WITH REFRIED BEANS	Bean_dip_made_with_refried_beans	Bean dip, made with refried beans	0	41205050.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+REFRIED BEANS, CANNED, LOW SODIUM	Refried_beans_canned_low_sodium	Refried beans, canned, low sodium	0	41205040.0
+REFRIED BEANS, CANNED, LOW SODIUM	Refried_beans_canned_low_sodium	Refried beans, canned, low sodium	0	41205040.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BEAN PASTE, SWEETENED	Bean_paste_sweetened	Bean paste, sweetened	0	91407150.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_added_in_cooking	Beans, dry, cooked, NS as to type, fat added in cooking	0	41101010.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+BEAN DIP, MADE WITH REFRIED BEANS	Bean_dip_made_with_refried_beans	Bean dip, made with refried beans	0	41205050.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+BEAN PASTE, SWEETENED	Bean_paste_sweetened	Bean paste, sweetened	0	91407150.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+DOSA (INDIAN), WITH FILLING	Dosa_Indian_with_filling	Dosa (Indian), with filling	0	58174100.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PAPAD, GRILLED OR BROILED	Papad_grilled_or_broiled	Papad, grilled or broiled	0	41311000.0
+TACO OR TOSTADA WITH BEANS AND SOUR CREAM	Taco_or_tostada_with_beans_and_sour_cream	Taco or tostada with beans and sour cream	0	58101725.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BEAN PASTE, SWEETENED	Bean_paste_sweetened	Bean paste, sweetened	0	91407150.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+LADOO, ROUND BALL, ASIAN-INDIAN DESSERT	Ladoo_round_ball_Asian_Indian_dessert	Ladoo, round ball, Asian-Indian dessert	0	91718300.0
+PAPAD, GRILLED OR BROILED	Papad_grilled_or_broiled	Papad, grilled or broiled	0	41311000.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT NOT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_not_added_in_cooking	Beans, dry, cooked, NS as to type, fat not added in cooking	0	41101020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT NOT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_not_added_in_cooking	Beans, dry, cooked, NS as to type, fat not added in cooking	0	41101020.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_added_in_cooking	Beans, dry, cooked, NS as to type, fat added in cooking	0	41101010.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, LOW SODIUM, FA	Black_brown_or_Bayo_beans_canned_drained_low_sodium_fat_added_in_cooking	Black, brown, or Bayo beans, canned, drained, low sodium, fat added in cooking	0	41102110.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, LOW SODIUM, FA	Black_brown_or_Bayo_beans_canned_drained_low_sodium_fat_added_in_cooking	Black, brown, or Bayo beans, canned, drained, low sodium, fat added in cooking	0	41102110.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+REFRIED BEANS, CANNED, LOW SODIUM	Refried_beans_canned_low_sodium	Refried beans, canned, low sodium	0	41205040.0
+RICE, WHITE, WITH LENTILS, FAT ADDED IN COOKING	Rice_white_with_lentils_fat_added_in_cooking	Rice, white, with lentils, fat added in cooking	0	58160805.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+NUTS, CAROB-COATED	Nuts_carob_coated	Nuts, carob-coated	0	91703500.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+DOSA (INDIAN), WITH FILLING	Dosa_Indian_with_filling	Dosa (Indian), with filling	0	58174100.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BEAN PASTE, SWEETENED	Bean_paste_sweetened	Bean paste, sweetened	0	91407150.0
+FAVA BEANS, DRY, COOKED, FAT ADDED IN COOKING	Fava_beans_dry_cooked_fat_added_in_cooking	Fava beans, dry, cooked, fat added in cooking	0	41102210.0
+BEAN PASTE, SWEETENED	Bean_paste_sweetened	Bean paste, sweetened	0	91407150.0
+FAVA BEANS, DRY, COOKED, FAT ADDED IN COOKING	Fava_beans_dry_cooked_fat_added_in_cooking	Fava beans, dry, cooked, fat added in cooking	0	41102210.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_added_in_cooking	Beans, dry, cooked, NS as to type, fat added in cooking	0	41101010.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_added_in_cooking	Beans, dry, cooked, NS as to type, fat added in cooking	0	41101010.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+LONG RICE NOODLES, MADE FROM MUNG BEANS, COOKED	Long_rice_noodles_made_from_mung_beans_cooked	Long rice noodles, made from mung beans, cooked	0	56116990.0
+CHICKPEAS, CANNED, DRAINED, LOW SODIUM, FAT ADDED IN COOKING	Chickpeas_canned_drained_low_sodium_fat_added_in_cooking	Chickpeas, canned, drained, low sodium, fat added in cooking	0	41302110.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+SOYBEANS, DRY, COOKED, FAT ADDED IN COOKING	Soybeans_dry_cooked_fat_added_in_cooking	Soybeans, dry, cooked, fat added in cooking	0	41107010.0
+LADOO, ROUND BALL, ASIAN-INDIAN DESSERT	Ladoo_round_ball_Asian_Indian_dessert	Ladoo, round ball, Asian-Indian dessert	0	91718300.0
+LADOO, ROUND BALL, ASIAN-INDIAN DESSERT	Ladoo_round_ball_Asian_Indian_dessert	Ladoo, round ball, Asian-Indian dessert	0	91718300.0
+TACO OR TOSTADA WITH BEANS AND SOUR CREAM	Taco_or_tostada_with_beans_and_sour_cream	Taco or tostada with beans and sour cream	0	58101725.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BEAN PASTE, SWEETENED	Bean_paste_sweetened	Bean paste, sweetened	0	91407150.0
+FAVA BEANS, DRY, COOKED, FAT ADDED IN COOKING	Fava_beans_dry_cooked_fat_added_in_cooking	Fava beans, dry, cooked, fat added in cooking	0	41102210.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, FAT NOT ADDED	Black_brown_or_Bayo_beans_canned_drained_fat_not_added_in_cooking	Black, brown, or Bayo beans, canned, drained, fat not added in cooking	0	41102080.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+PINK BEANS, DRY, COOKED, FAT ADDED IN COOKING	Pink_beans_dry_cooked_fat_added_in_cooking	Pink beans, dry, cooked, fat added in cooking	0	41103070.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+CHICKPEAS, CANNED, DRAINED, FAT NOT ADDED IN COOKING	Chickpeas_canned_drained_fat_not_added_in_cooking	Chickpeas, canned, drained, fat not added in cooking	0	41302080.0
+CHICKPEAS, CANNED, DRAINED, FAT NOT ADDED IN COOKING	Chickpeas_canned_drained_fat_not_added_in_cooking	Chickpeas, canned, drained, fat not added in cooking	0	41302080.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+TACO OR TOSTADA WITH BEANS	Taco_or_tostada_with_beans	Taco or tostada with beans	0	58101720.0
+BAKED BEANS, NFS	Baked_beans_NFS	Baked beans, NFS	0	41201010.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+REFRIED BEANS, FAT ADDED IN COOKING, NS AS TO TYPE OF FAT	Refried_beans_fat_added_in_cooking_NS_as_to_type_of_fat	Refried beans, fat added in cooking, NS as to type of fat	0	41205010.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+CAKE OR PANCAKE MADE WITH RICE FLOUR AND_OR DRIED BEANS	Cake_or_pancake_made_with_rice_flour_and_or_dried_beans	Cake or pancake made with rice flour and_or dried beans	0	55702000.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+BEAN DIP, MADE WITH REFRIED BEANS	Bean_dip_made_with_refried_beans	Bean dip, made with refried beans	0	41205050.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT NOT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_not_added_in_cooking	Beans, dry, cooked, NS as to type, fat not added in cooking	0	41101020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+FALAFEL	Falafel	Falafel	0	41209000.0
+CHIMICHANGA, MEATLESS	Chimichanga_meatless	Chimichanga, meatless	0	58104520.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT ADDED	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_added_in_cooking_NS_as_to_type_of_fat	Pinto, calico, or red Mexican beans, dry, cooked, fat added in cooking, NS as to type of fat	0	41104010.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT NOT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_not_added_in_cooking	Beans, dry, cooked, NS as to type, fat not added in cooking	0	41101020.0
+RED KIDNEY BEANS, CANNED, DRAINED, FAT NOT ADDED IN COOKING	Red_kidney_beans_canned_drained_fat_not_added_in_cooking	Red kidney beans, canned, drained, fat not added in cooking	0	41106080.0
+RICE, WHITE, WITH LENTILS, FAT ADDED IN COOKING	Rice_white_with_lentils_fat_added_in_cooking	Rice, white, with lentils, fat added in cooking	0	58160805.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BLACK, BROWN, OR BAYO BEANS, CANNED, DRAINED, FAT NOT ADDED	Black_brown_or_Bayo_beans_canned_drained_fat_not_added_in_cooking	Black, brown, or Bayo beans, canned, drained, fat not added in cooking	0	41102080.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+CHICKPEAS, DRY, COOKED, FAT NOT ADDED IN COOKING	Chickpeas_dry_cooked_fat_not_added_in_cooking	Chickpeas, dry, cooked, fat not added in cooking	0	41302020.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+RICE, WHITE, WITH LENTILS, FAT ADDED IN COOKING	Rice_white_with_lentils_fat_added_in_cooking	Rice, white, with lentils, fat added in cooking	0	58160805.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+REFRIED BEANS, FROM RESTAURANT	Refried_beans_from_restaurant	Refried beans, from restaurant	0	41205017.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+BEANS, DRY, COOKED, NS AS TO TYPE, FAT NOT ADDED IN COOKING	Beans_dry_cooked_NS_as_to_type_fat_not_added_in_cooking	Beans, dry, cooked, NS as to type, fat not added in cooking	0	41101020.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+WHITE BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	White_beans_dry_cooked_fat_not_added_in_cooking	White beans, dry, cooked, fat not added in cooking	0	41101120.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BEANS AND TOMATOES, FAT NOT ADDED IN COOKING	Beans_and_tomatoes_fat_not_added_in_cooking	Beans and tomatoes, fat not added in cooking	0	41202505.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+TACO OR TOSTADA WITH BEANS	Taco_or_tostada_with_beans	Taco or tostada with beans	0	58101720.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+LENTILS, DRY, COOKED, FAT NOT ADDED IN COOKING	Lentils_dry_cooked_fat_not_added_in_cooking	Lentils, dry, cooked, fat not added in cooking	0	41305000.0
+CHICKPEAS, DRY, COOKED, FAT NOT ADDED IN COOKING	Chickpeas_dry_cooked_fat_not_added_in_cooking	Chickpeas, dry, cooked, fat not added in cooking	0	41302020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, FLAVORED	Hummus_flavored	Hummus, flavored	0	41205075.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED KIDNEY BEANS, DRY, COOKED, FAT NOT ADDED IN COOKING	Red_kidney_beans_dry_cooked_fat_not_added_in_cooking	Red kidney beans, dry, cooked, fat not added in cooking	0	41106020.0
+BLACK, BROWN, OR BAYO BEANS, DRY, COOKED, FAT NOT ADDED IN C	Black_brown_or_Bayo_beans_dry_cooked_fat_not_added_in_cooking	Black, brown, or Bayo beans, dry, cooked, fat not added in cooking	0	41102020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+SOFT TACO WITH BEANS	Soft_taco_with_beans	Soft taco with beans	0	58101610.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RED BEANS AND RICE	Red_beans_and_rice	Red beans and rice	0	58160150.0
+BEANS AND TOMATOES, FAT ADDED IN COOKING	Beans_and_tomatoes_fat_added_in_cooking	Beans and tomatoes, fat added in cooking	0	41202510.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+LADOO, ROUND BALL, ASIAN-INDIAN DESSERT	Ladoo_round_ball_Asian_Indian_dessert	Ladoo, round ball, Asian-Indian dessert	0	91718300.0
+LADOO, ROUND BALL, ASIAN-INDIAN DESSERT	Ladoo_round_ball_Asian_Indian_dessert	Ladoo, round ball, Asian-Indian dessert	0	91718300.0
+TACO OR TOSTADA WITH BEANS AND SOUR CREAM	Taco_or_tostada_with_beans_and_sour_cream	Taco or tostada with beans and sour cream	0	58101725.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+PORK AND BEANS	Pork_and_beans	Pork and beans	0	41208030.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+PINTO, CALICO, OR RED MEXICAN BEANS, DRY, COOKED, FAT NOT AD	Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, dry, cooked, fat not added in cooking	0	41104020.0
+RICE WITH BEANS	Rice_with_beans	Rice with beans	0	58160110.0
+RICE, BROWN, WITH BEANS	Rice_brown_with_beans	Rice, brown, with beans	0	58161320.0
+PINTO, CALICO, OR RED MEXICAN BEANS, CANNED, DRAINED, FAT NO	Pinto_calico_or_red_Mexican_beans_canned_drained_fat_not_added_in_cooking	Pinto, calico, or red Mexican beans, canned, drained, fat not added in cooking	0	41104080.0
+RED KIDNEY BEANS, CANNED, DRAINED, FAT NOT ADDED IN COOKING	Red_kidney_beans_canned_drained_fat_not_added_in_cooking	Red kidney beans, canned, drained, fat not added in cooking	0	41106080.0
+BAKED BEANS, VEGETARIAN	Baked_beans_vegetarian	Baked beans, vegetarian	0	41201020.0
+BURRITO WITH BEANS, MEATLESS	Burrito_with_beans_meatless	Burrito with beans, meatless	0	58100320.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+HUMMUS, PLAIN	Hummus_plain	Hummus, plain	0	41205070.0
+EDAMAME, COOKED	Edamame_cooked	Edamame, cooked	0	41420020.0

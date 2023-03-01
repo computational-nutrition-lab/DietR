@@ -161,7 +161,7 @@
     # Use the elbow method to find the ideal K. K cannot be larger than the number of datapoints (rows) in input. 
     elbowmethod <- ElbowMethod(k.values = 1 : (maxK-1) )
     
-    # Save the elbowmethod graphic (K vs total within-clusters sum of squares) as a PDF.
+    # Save the elbowmethod graphic (K vs total within-clusters sum of squares) as a pdf.
     ggsave( paste(out.dir, paste(out.prefix, "_elbowmethod.pdf", sep=""), sep= .Platform$file.sep),
             elbowmethod, device="pdf", width=5, height=5, units="in")
 
@@ -171,7 +171,7 @@
     
     silhouettechart <- factoextra::fviz_nbclust(kmeans_input, kmeans, k.max= maxK-1, method="silhouette")
 
-    # Save the silhouette method graphic as a PDF.
+    # Save the silhouette method graphic as a pdf.
     ggsave( paste(out.dir, paste(out.prefix, "_silhouettemethod.pdf", sep=""), sep= .Platform$file.sep),
             silhouettechart, device="pdf", width=5, height=5, units="in")
 
@@ -179,7 +179,7 @@
     # Use the factoextra package to use the Gap statistic method.
     gapchart <- FactoextraGapMethod(k.values = 1: (maxK-1) )
 
-    # Save the silhouette method graphic as a PDF.
+    # Save the silhouette method graphic as a pdf.
     ggsave( paste(out.dir, paste(out.prefix, "_gapmethod.pdf", sep=""), sep= .Platform$file.sep),
             gapchart, device="pdf", width=5, height=5, units="in")
    
@@ -205,9 +205,12 @@
                              show.clust.cent = F,
                              ggtheme = theme_bw(base_size = 10),
                              repel = F, labelsize = 10,
-                             main = plot_title_one) + theme(aspect.ratio = 1)
+                             main = plot_title_one) + 
+      theme(aspect.ratio = 1) +
+      theme(panel.grid.major = element_blank()) +
+      theme(panel.grid.minor = element_blank()) 
     
-    # Save the plot as a PDF file.
+    # Save the plot as a pdf file.
     ggsave(paste(out.dir, paste(out.fn, ".pdf", sep=""), sep= .Platform$file.sep), 
            oneKplot, device="pdf", width=4, height=4.05, units="in")  
     
@@ -230,13 +233,16 @@
         plot_title <- paste("K=", myKs[i], sep = "")
         
         # Plot
-        plots[[i]] = factoextra::fviz_cluster(km_results_mult[[i]],
+        plots[[i]] <- factoextra::fviz_cluster(km_results_mult[[i]],
                                               data = kmeans_input,
                                               ellipse = T, ellipse.alpha = 0.1,
                                               show.clust.cent = F,
                                               ggtheme = theme_bw(base_size = 10),
                                               repel = F, labelsize = 10,
-                                              main = plot_title ) + theme(aspect.ratio = 1)
+                                              main = plot_title ) +
+          theme(aspect.ratio = 1) +
+          theme(panel.grid.major = element_blank()) +
+          theme(panel.grid.minor = element_blank()) 
       }
     
     # Install the gridExtra package if needed.
@@ -257,7 +263,7 @@
           "Please enter 2-4 K values and run again."))
     }
     
-    # Save the plot as a PDF file.
+    # Save the plot as a pdf file.
     ggsave(paste(out.dir, paste(out.fn, ".pdf", sep=""), sep= .Platform$file.sep), 
            panel, device="pdf", width=8, height=8.1, units="in")  
     

@@ -9,40 +9,40 @@ navbar:
     menu:
     - text: "Load and clean ASA24 data"
       href: ASA24_1_load_and_clean.html
-    - text: "Calculate totals by occasion"
-      href: ASA24_2_calc_totals_by_occasion.html
-    - text: "Data overview"
-      href: ASA24_3_data_overview.html
-    - text: "Percent kcal of CARB, PROT, TFAT"
-      href: ASA24_4_percent_kcal.html
-    - text: "---------"
-    - text: "Prepare for clustering"
-      href: ASA24_5_prep_clustering.html
-    - text: "PCA"
-      href: ASA24_6_PCA.html
-    - text: "PCA results"
-      href: ASA24_7_PCA_results.html
-    - text: "K-means"
-      href: ASA24_8_k-means.html
-    - text: "---------"
-    - text: "Create food tree"
-      href: ASA24_9_create_food_tree.html
-    - text: "Visualize food tree"
-      href: ASA24_10_viz_food_tree.html
-    - text: "Ordination"
-      href: ASA24_11_ordination.html
-    - text: "Visualize ordination"
-      href: ASA24_12_viz_ordination.html
+    # - text: "Calculate totals by occasion"
+    #   href: ASA24_2_calc_totals_by_occasion.html
+    # - text: "Data overview"
+    #   href: ASA24_3_data_overview.html
+    # - text: "Percent kcal of CARB, PROT, TFAT"
+    #   href: ASA24_4_percent_kcal.html
+    # - text: "---------"
+    # - text: "Prepare for clustering"
+    #   href: ASA24_5_prep_clustering.html
+    # - text: "PCA"
+    #   href: ASA24_6_PCA.html
+    # - text: "PCA results"
+    #   href: ASA24_7_PCA_results.html
+    # - text: "K-means"
+    #   href: ASA24_8_k-means.html
+    # - text: "---------"
+    # - text: "Create food tree"
+    #   href: ASA24_9_create_food_tree.html
+    # - text: "Visualize food tree"
+    #   href: ASA24_10_viz_food_tree.html
+    # - text: "Ordination"
+    #   href: ASA24_11_ordination.html
+    # - text: "Visualize ordination"
+    #   href: ASA24_12_viz_ordination.html
   - text: NHANES
-    menu:
-    - text: "Load and clean NHANES data - 1"
-      href: NHANES_1_load_and_clean_1.html
-    - text: "Load and clean NHANES data - 2"
-      href: NHANES_2_load_and_clean_2.html
-    - text: "Data overview"
-      href: NHANES_3_data_overview.html
-    - text: "Percent kcal of CARB, PROT, TFAT"
-      href: NHANES_4_percent_kcal.html
+    # menu:
+    # - text: "Load and clean NHANES data - 1"
+    #   href: NHANES_1_load_and_clean_1.html
+    # - text: "Load and clean NHANES data - 2"
+    #   href: NHANES_2_load_and_clean_2.html
+    # - text: "Data overview"
+    #   href: NHANES_3_data_overview.html
+    # - text: "Percent kcal of CARB, PROT, TFAT"
+    #   href: NHANES_4_percent_kcal.html
   - text: Links
     href: Links.html      
 output_dir: "docs"

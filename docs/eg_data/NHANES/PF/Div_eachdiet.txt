@@ -1,0 +1,6 @@
+DivGroup	1	Total
+Div0	111	111
+Div1	40	40
+Div2	36	36
+DivNA	155	155
+Total	342	342
