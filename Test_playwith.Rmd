@@ -12,9 +12,9 @@ output:
 
 <style type="text/css">
 
-<!-- body{ /* Normal  */ -->
-<!--       font-size: 12px; -->
-<!--   } -->
+body{ /* Normal  */
+     color: #3c3c3c;
+  }
 <!-- td {  /* Table  */ -->
 <!--   font-size: 8px; -->
 }
@@ -44,7 +44,18 @@ h3 { /* Header 3 */
 </style>
 
 # First level header
+
+**Note**
+This is a note section. 
+
 ## Second level header
+
+**Warning**
+This is a warning section.  
+
+<br>
+
+
 ### third level header
 
 <br>
