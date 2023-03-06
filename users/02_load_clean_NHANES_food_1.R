@@ -55,7 +55,7 @@
 # Load necessary functions.
   source("lib/specify_data_dir.R")
   source("lib/load_clean_NHANES.R")
-  source("lib/Food_tree_scripts/format.foods.r")
+  source("lib/Food_tree_scripts/format.foods_2.r")
   
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES")  
@@ -108,8 +108,7 @@
 # you will need to use the FPED with the same release year as the year of NHANES you are analyzing. 
 # For this tutorial, FPED was downloaded from NHANES the FPED table is formatted by renaming the variables with
 # R-loadable ones (e.g., "F_CITMLB (cup eq.)" -> "F_CITMLB" and saved as "FPED_1516_forR.txt".
-                      
-    
+                    
 # Load FPED15-16, needed for the AddFoodCat function.
   FPED <- read.table("FPED/FPED_1516_forR.txt", sep="\t", header=T)
   
@@ -183,7 +182,7 @@
 # Add food item description and save it as a txt file.
   Food_D2 <- read.table("DR2IFF_I_d.txt", sep="\t", header=T)
 
-# Count the number of participants - should be 7027 people.
+# Count the number of participants - should be 7,027 people.
   length(unique(Food_D2$SEQN)) 
 
 # Do the same for Day 2. Add the food items info and serving for each item. 
@@ -218,7 +217,12 @@
   names(Food_D2_FC)[names(Food_D2_FC) == "DRXFCLD"] <- "Main.food.description"
   
 # Ensure the column names are changed. 
-  colnames(Food_D1_FC)
+# Among the colnames of Food_D1_FC, show one that matches with "DR1IFDCD", if it exists.
+# If it returns the specified colname, "DR1IFDCD", a column with that name exists.
+# If it returns "character(0)", no colname matched the specified characters, which means 
+# colnames of our interest do not exist.
+  names(Food_D1_FC)[names(Food_D1_FC) == "FoodCode"]
+  names(Food_D2_FC)[names(Food_D2_FC) == "Main.food.description"]
   
 # Save after changing the column names. "cc" stands for column names changed.
   write.table(Food_D1_FC, "Food_D1_FC_cc.txt", sep="\t", row.names=F, quote=F)
@@ -228,10 +232,10 @@
   
 # FotmatFoods() function adds "Main.Food.Description" where special characters are removed/replaced, the previous
 # Main.Food.Description as Old.Main.Food.Description, ModCode, and FoodID. $FoodID is a cha vector, but has .0 at the end. 
-# MAKE SURE dedupe=F. If true (default!), duplicated foods will be removed! 
-  FormatFoods(input_fn="Food_D1_FC_cc.txt", output_fn= "Food_D1_FC_cc_f.txt", dedupe=F)
-  FormatFoods(input_fn="Food_D2_FC_cc.txt", output_fn= "Food_D2_FC_cc_f.txt", dedupe=F)
+  FormatFoods(input_fn="Food_D1_FC_cc.txt", output_fn= "Food_D1_FC_cc_f.txt")
+  FormatFoods(input_fn="Food_D2_FC_cc.txt", output_fn= "Food_D2_FC_cc_f.txt")
 
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.
   setwd(main_wd)  

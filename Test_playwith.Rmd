@@ -13,8 +13,8 @@ output:
 <style type="text/css">
 
 body{ /* Normal  */
-     color: #3c3c3c;
-  }
+  color: #3c3c3c;
+  background-color: lightblue;
 <!-- td {  /* Table  */ -->
 <!--   font-size: 8px; -->
 }
@@ -35,6 +35,7 @@ h3 { /* Header 3 */
   font-size: 18px;
   color: DarkGreen;
 }
+
 <!-- code.r{ /* Code block */ -->
 <!--     font-size: 12px; -->
 <!-- } -->
@@ -71,6 +72,11 @@ Flag if VC (Vitamin C) is <5 or >400 &rarr; then, ...
 ## Color text
 <span style="color: red;">text in color</span>
 <br>
+
+## Block quote
+
+> "If it weren't for my lawyer, I'd still be in prison.
+>  It went a lot faster with two people digging."
 
 ## Curly brackets
 The number of rows should be {No. of users x No. days}. 

@@ -29,8 +29,11 @@ h3 { /* Header 3 */
   color: MidNightBlue;
 }
 body{ /* Normal  */
-      color: #262626;
+  background-color: rgb(251, 251, 251);
   }
+blockquote{ 
+  font-size: 14px;
+}
 </style>
 
 <br>
@@ -97,8 +100,7 @@ Check if any column names match with "Main.food.description". If there is a matc
 names(items_raw)[names(items_raw) == "Main.food.description"]
 ```
 
-**[NOTE]** The numbers in the square brackets of the output indicate the sequential number of each element to 
-  # help count the number of elements. 
+> **[NOTE]** The numbers in the square brackets of the output indicate the sequential number of each element to help count the number of elements. 
 
 Save the items file as a .txt file. This command saves the object "items_raw" as a .txt file with the specified filename using the write.table function.
 ```{r}
@@ -114,7 +116,7 @@ FormatFoods(input_fn =  "VVKAJ_Items.txt",
             output_fn = "VVKAJ_Items_f.txt")
 ```
 
-**[NOTE]** It is best practice to avoid overwriting your raw data. Always save formatted/manipulated versions as a new file as described above.
+> **[NOTE]** It is best practice to avoid overwriting your raw data. Always save formatted/manipulated versions as a new file as described above.
 
 Load the Items_f.txt file to take a look at it.  
 You need the `quote=""` and `colClasses="character"` arguments to ignore quotation marks (do not regard them as a cell separator) and to load all the columns as characters so that FoodID will keep the trailing ".0".

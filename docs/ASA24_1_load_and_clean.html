@@ -388,8 +388,11 @@ h3 { /* Header 3 */
   color: MidNightBlue;
 }
 body{ /* Normal  */
-      color: #262626;
+  background-color: rgb(251, 251, 251);
   }
+blockquote{ 
+  font-size: 14px;
+}
 </style>
 <p><br></p>
 <div id="introduction" class="section level1">
@@ -430,14 +433,18 @@ source(&quot;lib/average.by.R&quot;)</code></pre>
 <p>Check if any column names match with “Main.food.description”. If there is a match, it will be printed.</p>
 <pre class="r"><code>names(items_raw)[names(items_raw) == &quot;Main.food.description&quot;]</code></pre>
 <pre><code>## [1] &quot;Main.food.description&quot;</code></pre>
-<p><strong>[NOTE]</strong> The numbers in the square brackets of the output indicate the sequential number of each element to # help count the number of elements.</p>
+<blockquote>
+<p><strong>[NOTE]</strong> The numbers in the square brackets of the output indicate the sequential number of each element to help count the number of elements.</p>
+</blockquote>
 <p>Save the items file as a .txt file. This command saves the object “items_raw” as a .txt file with the specified filename using the write.table function.</p>
 <pre class="r"><code>write.table(items_raw, &quot;VVKAJ_Items.txt&quot;, sep=&quot;\t&quot;, row.names=F) </code></pre>
 <p>Special characters common in food names in dietary data such as <code>"</code>, <code>'</code>, <code>,</code>, <code>%</code> may interfere correct data loading in R; thus, we replace them with an underscore <code>_</code>.</p>
 <p><br> Format foods so that special characters will be replaced with “_“.”_f” stands for “formatted”.</p>
 <pre class="r"><code>FormatFoods(input_fn =  &quot;VVKAJ_Items.txt&quot;, 
             output_fn = &quot;VVKAJ_Items_f.txt&quot;)</code></pre>
+<blockquote>
 <p><strong>[NOTE]</strong> It is best practice to avoid overwriting your raw data. Always save formatted/manipulated versions as a new file as described above.</p>
+</blockquote>
 <p>Load the Items_f.txt file to take a look at it.<br />
 You need the <code>quote=""</code> and <code>colClasses="character"</code> arguments to ignore quotation marks (do not regard them as a cell separator) and to load all the columns as characters so that FoodID will keep the trailing “.0”.</p>
 <pre class="r"><code>items_f &lt;- read.delim(&quot;VVKAJ_Items_f.txt&quot;, quote=&quot;&quot;, colClasses=&quot;character&quot;)</code></pre>
