@@ -38,9 +38,11 @@
   SpecifyDataDirectory(directory.name = "eg_data/NHANES")  
 
 # ===============================================================================================================
-# QC the food data: filter by age, completeness, >1 food item reported/day, data exists on both days. 
+# QC the food data
 # ===============================================================================================================
 
+# Here, we will filter food data by age, completeness, >1 food item reported/day, and complete data on both days.
+  
 # Download demographics data (DEMO_I.XPT) from NHANES website.
 # Name the file and destination. mod="wb" is needed for Windows OS.
 # Other OS users may need to delete it.

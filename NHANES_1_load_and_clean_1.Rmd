@@ -84,6 +84,11 @@ You can come back to the main directory by:
 setwd(main_wd)
 ```
 
+Specify the directory where the data is.
+```{r, eval=FALSE}
+SpecifyDataDirectory(directory.name = "eg_data/NHANES")
+```
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE)
 knitr::opts_knit$set(root.dir = 'eg_data/NHANES')
@@ -303,3 +308,5 @@ Come back to the main directory.
 setwd(main_wd)
 ```
 
+<!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

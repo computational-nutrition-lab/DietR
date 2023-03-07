@@ -92,7 +92,6 @@ Just type "![my image caption](" and press the tab key - it will show you potent
 
 ![my image caption](Screenshots_for_Tutorial/ASA24 Ordination/4Lv WEIGHTED ord.png)
 
-
 ## R code chunks
 ### Chunk names must be unique - should be no duplications.
 ```{r Name of this chunk, echo=FALSE}
@@ -106,3 +105,10 @@ aaaa
 evalFALSE <- 1 + 2
 evalFALSE
 ```
+
+<!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
+
+
+
+

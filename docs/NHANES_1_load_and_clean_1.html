@@ -347,6 +347,9 @@ div.tocify {
     <li>
       <a href="NHANES_1_load_and_clean_1.html">Load and clean NHANES data - 1</a>
     </li>
+    <li>
+      <a href="NHANES_2_load_and_clean_2.html">Load and clean NHANES data - 2</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -424,6 +427,8 @@ source(&quot;lib/load_clean_NHANES.R&quot;)</code></pre>
 <pre class="r"><code>source(&quot;lib/Food_tree_scripts/format.foods_2.r&quot;)</code></pre>
 <p>You can come back to the main directory by:</p>
 <pre class="r"><code>setwd(main_wd)</code></pre>
+<p>Specify the directory where the data is.</p>
+<pre class="r"><code>SpecifyDataDirectory(directory.name = &quot;eg_data/NHANES&quot;)</code></pre>
 <p><br></p>
 </div>
 <div id="prepare-food-codes-fped-and-food-items-files" class="section level1">
@@ -597,6 +602,10 @@ If it returns “character(0)”, no colname matched the specified characters, w
 <hr />
 <p>Come back to the main directory.</p>
 <pre class="r"><code>setwd(main_wd)</code></pre>
+<!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
 </div>
 </div>
 

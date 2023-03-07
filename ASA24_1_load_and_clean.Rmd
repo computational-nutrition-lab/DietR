@@ -68,11 +68,6 @@ source("lib/QCOutliers.R")
 source("lib/average.by.R")
 ```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo=TRUE)
-knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
-```
-
 <br>
 
 # Load ASA24 Items data
@@ -83,6 +78,12 @@ SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
 ```
 <!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
 <!--  the code so that this tutorial will have the same code as the R script.  -->
+
+<!-- This is the R-markdown code to change directories. -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
+```
 
 Load your unprocessed (raw) food items-level data (as downloaded from the ASA24 study website).
 The csv file will be loaded as a dataframe in R and be named as items_raw. 
@@ -411,7 +412,7 @@ Flag if KCAL is <600 or >5700 &rarr; ask remove or not &rarr; if yes, remove tho
 QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 600, max = 5700)
 ```
 
-This function will print out rows that fall outside the specified min-max range, and a dialogue box will appear outside the R Studio, asking whether to remove them. You should make sure to review these records carefully to double-check if the removal is warranted. It is possible to have a valid record that could meet the threshold for removal. Only you will know if you can trust the record when working with real data.
+This function will print out rows that fall outside the specified min-max range, and a dialogue box will appear outside the R Studio (shown below), asking whether to remove them. You should make sure to review these records carefully to double-check if the removal is warranted. It is possible to have a valid record that could meet the threshold for removal. Only you will know if you can trust the record when working with real data.
 
 ![](Screenshots_for_Tutorial/ASA24_load_clean/QC totals Dialogue box.png)
 
@@ -430,7 +431,7 @@ KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
 
 If you think it is a true outlier, then run the QCOutliers command for KCAL again, and click "Yes" to remove the outlier. Here for this tutorial, we will remove this individual.
 
-```{r, echo=FALSE, eval=TRUE}
+```{r}
 QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 600, max = 5700)
 ```
 
@@ -496,3 +497,5 @@ Come back to the main directory before you start running another script.
   setwd(main_wd)
 ```
 
+<!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

@@ -347,6 +347,9 @@ div.tocify {
     <li>
       <a href="NHANES_1_load_and_clean_1.html">Load and clean NHANES data - 1</a>
     </li>
+    <li>
+      <a href="NHANES_2_load_and_clean_2.html">Load and clean NHANES data - 2</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -426,6 +429,7 @@ source(&quot;lib/average.by.R&quot;)</code></pre>
 <pre class="r"><code>SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/&quot;)</code></pre>
 <!-- [NOTE] SpecifyDataDirectory function is not executed by R markdown, but just showing  -->
 <!--  the code so that this tutorial will have the same code as the R script.  -->
+<!-- This is the R-markdown code to change directories. -->
 <p>Load your unprocessed (raw) food items-level data (as downloaded from the ASA24 study website). The csv file will be loaded as a dataframe in R and be named as items_raw.</p>
 <pre class="r"><code>items_raw &lt;- read.csv(&quot;Raw_data/VVKAJ_Items.csv&quot;, sep = &quot;,&quot;, header=T)</code></pre>
 <p><code>items_raw</code> has a column called “Food_Description”, but this needs to be changed to “Main.food.description”. Change the column name.</p>
@@ -1290,7 +1294,7 @@ Click to expand output
 <pre class="r"><code>QCtotals &lt;- new_totals_mean_m  </code></pre>
 <p>Flag if KCAL is &lt;600 or &gt;5700 → ask remove or not → if yes, remove those rows.</p>
 <pre class="r"><code>QCOutliers(input.data = QCtotals, target.colname = &quot;KCAL&quot;, min = 600, max = 5700)</code></pre>
-<p>This function will print out rows that fall outside the specified min-max range, and a dialogue box will appear outside the R Studio, asking whether to remove them. You should make sure to review these records carefully to double-check if the removal is warranted. It is possible to have a valid record that could meet the threshold for removal. Only you will know if you can trust the record when working with real data.</p>
+<p>This function will print out rows that fall outside the specified min-max range, and a dialogue box will appear outside the R Studio (shown below), asking whether to remove them. You should make sure to review these records carefully to double-check if the removal is warranted. It is possible to have a valid record that could meet the threshold for removal. Only you will know if you can trust the record when working with real data.</p>
 <p><img src="Screenshots_for_Tutorial/ASA24_load_clean/QC%20totals%20Dialogue%20box.png" /></p>
 <p>If you find potential outlier(s) here, click “No”, and view those total(s) with their other nutrient intake information by running the following;</p>
 <pre class="r"><code>KCAL_outliers &lt;- subset(QCtotals, KCAL &lt; 600 | KCAL &gt; 5700)     </code></pre>
@@ -1301,6 +1305,7 @@ KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
 ## 16 VVKAJ117 5789.476 5639.525 194.1051 263.8755 674.0867</code></pre>
 <p><br></p>
 <p>If you think it is a true outlier, then run the QCOutliers command for KCAL again, and click “Yes” to remove the outlier. Here for this tutorial, we will remove this individual.</p>
+<pre class="r"><code>QCOutliers(input.data = QCtotals, target.colname = &quot;KCAL&quot;, min = 600, max = 5700)</code></pre>
 <pre><code>## There are 1 observations with &lt; 600 or &gt; 5700 . 
 ## Remove? (Yes/no/cancel) 
 ## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
@@ -1346,6 +1351,10 @@ KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
 <hr />
 <p>Come back to the main directory before you start running another script.</p>
 <pre class="r"><code>  setwd(main_wd)</code></pre>
+<!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
 </div>
 </div>
 
