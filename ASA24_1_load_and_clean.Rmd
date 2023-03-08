@@ -68,6 +68,11 @@ source("lib/QCOutliers.R")
 source("lib/average.by.R")
 ```
 
+You can come back to the main directory by:
+```{r, eval=FALSE}
+setwd(main_wd)
+```
+
 <br>
 
 # Load ASA24 Items data

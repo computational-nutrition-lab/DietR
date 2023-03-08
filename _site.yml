@@ -10,9 +10,9 @@ navbar:
     - text: "Load and clean ASA24 data"
       href: ASA24_1_load_and_clean.html
     # - text: "Calculate totals by occasion"
-    #   href: ASA24_2_calc_totals_by_occasion.html
-    # - text: "Data overview"
-    #   href: ASA24_3_data_overview.html
+      # href: ASA24_2_calc_totals_by_occasion.html
+    - text: "Data overview"
+      href: ASA24_3_data_overview.html
     # - text: "Percent kcal of CARB, PROT, TFAT"
     #   href: ASA24_4_percent_kcal.html
     # - text: "---------"

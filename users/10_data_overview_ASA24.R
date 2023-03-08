@@ -2,11 +2,8 @@
 # Take an overview of ASA24 items and totals data.
 # Version 2 without the line plot.
 # Created on 11/10/2022 by Rie Sadohara
+# Updated on 03/08/2023 by Rie Sadohara
 # ===============================================================================================================
-
-# 11/04/2022 editing to calculate means across days of totals in the load_data section instead of here... 
-# mark edits with #~~~~~ EDITS TO ADD TO TUTORIAL~~~~~~~~~ and
-# ~~~~~ END OF EDITS TO ADD TO TUTORIAL~~~~~~~~~
 
 # We can view summary statistics of either the individual food data or the totals data. First, let us take 
 # a look at theitems data. This section is not intended to be a complete guide to analysis, but rather to give
@@ -19,6 +16,7 @@
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
+  
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
@@ -30,9 +28,6 @@
 # Call color palette.
   distinct100colors <- readRDS("lib/distinct100colors.rda")
 
-# You can come back to the main directory by:
-  setwd(main_wd)
-
 # Make a vector of colors for each factor of Diet so that plots will have consistent colors.
   # Take the first five colors from distinct100colors. 
   diet_colors <- distinct100colors[1:5]
@@ -40,7 +35,10 @@
   names(diet_colors) <- c("Vegetarian", "Vegan", "Keto", "American", "Japanese") 
   # Specific colors are assigned to be used for each diet.
   diet_colors
-    
+
+# You can come back to the main directory by:
+  setwd(main_wd)
+
 # ===============================================================================================================
 # Load and analyze (QC-ed) ASA24 food items data
 # ===============================================================================================================
@@ -51,8 +49,8 @@
 # Load your items data to be analyzed.
 # "_f_id_s_m" stands for: "food names formatted", "SampleID added", "selected individuals", 
 # "metadata merged", and "the individuals that passed the QC of averaged totals".  
-  items_f_id_s_m <- read.table("VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", header=T)
- 
+  items_f_id_s_m <- read.delim("VVKAJ_Items_f_id_s_m_QCed.txt")
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Summary statistics
   
@@ -73,7 +71,7 @@
 # Boxplot
 # Generate a boxplot to view data distribution.
   
-# Boxplot of KCAL by users. And 
+# Boxplot of KCAL by users. 
   users_kcal <- ggplot(items_f_id_s_m, aes(x=UserName, y=KCAL)) +
     geom_boxplot() + no_grid + space_axes + rotate_X_labels
   users_kcal
@@ -99,7 +97,7 @@
 # total fat and kilocalories. We would expect these values to be related because fat contributes a high 
 # number of calories in foods.
   
-# Scaterplot of two numeric variables: TFAT and KCAL. 
+# Scatterplot of two numeric variables: TFAT and KCAL. 
   TFAT_KCAL <- ggplot(items_f_id_s_m, aes(x=TFAT, y=KCAL)) +
     geom_point() + no_grid + space_axes + theme(aspect.ratio = 1)
   TFAT_KCAL
@@ -117,10 +115,8 @@
 # Load and analyze (QC-ed) ASA24 mean totals data
 # ===============================================================================================================
   
-# ~~~~~ EIDTS TO ADD TO TUTORIAL - ADDED TO TUTORIAL, BUT THE WEBISTE IS YET TO BE UPDATED ~~~~~~~~~
-  
 # Load your QC-ed mean totals data to be analyzed.
-  tot_mean_m_QCed <- read.table("VVKAJ_Tot_mean_m_QCed.txt", sep="\t", header=T)
+  tot_mean_m_QCed <- read.delim("VVKAJ_Tot_mean_m_QCed.txt")
   
 # Note that each row is the mean of total dietary intake of each user. 
   tot_mean_m_QCed[1:4, 1:4]
@@ -163,8 +159,9 @@
   ggsave("VVKAJ_tot_mean_m_QCed_diet_KCAL.pdf", diet_KCAL_t, 
          device="pdf", width=5, height=4.5)
   
-# Boxplot of KCAL by Diet, with each datapoint. Note that geom_boxplot must have outlier.shape = NA 
-# when plotted with geom_jitter. Otherwise, outlier points will be duplicated and will be misleading. 
+# Boxplot of KCAL by Diet, with each datapoint. 
+# [NOTE] geom_boxplot must have outlier.shape = NA when plotted with geom_jitter. Otherwise, outlier points 
+# will be duplicated and will be misleading.
   diet_KCAL_t_dots <- ggplot(tot_mean_m_QCed, aes(x=Diet_by_median, y=KCAL, fill=Diet_by_median)) +
     geom_boxplot(outlier.shape = NA) + labs(x="Diet") +    
     geom_jitter(width=0.3) +
@@ -197,7 +194,6 @@
 # The output should show p-value and R correlation coefficient.
   cor.test(x=tot_mean_m_QCed$TFAT, y=tot_mean_m_QCed$KCAL, method="pearson")
 
-# ~~~~~ END OF EIDTS TO ADD TO TUTORIAL - ADDED TO TUTORIAL, BUT THE WEBISTE IS YET TO BE UPDATED ~~~~~~~~~
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory before you start running another script.
   setwd(main_wd)

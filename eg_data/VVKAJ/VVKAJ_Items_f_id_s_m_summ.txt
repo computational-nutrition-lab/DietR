@@ -129,7 +129,9 @@ SOLID_FATS	0	0	0	1.92292289216814	0.5338125	38.675	4.73059698547127
 ADD_SUGARS	0	0	0	0.475239625294985	0	21.3525	1.70488637339573
 A_DRINKS	0	0	0	0.0167566371681416	0	2.016	0.133867300225335
 FoodComp	1	1	1	1	1	1	0
-Food_Description	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric
+Main.food.description	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric
+Old.Main.food.description	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric
+FoodID	11100000	41420300	63105010	60118100.7684366	75302080	95230020	24454655.0435722
 Diet	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric
 Gender	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric	not_numeric
 Age	22	31	43	43.5545722713864	60	71	15.1110845297786
