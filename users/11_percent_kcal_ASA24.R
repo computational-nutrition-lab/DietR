@@ -30,7 +30,6 @@
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
   
-# ~~~~~ EIDTS TO ADD TO TUTORIAL ADDED, BUT THE WEBSITE IS YET TO BE EDITED. ~~~~~~~~~
 # Load the totals data.
   totals <- read.table("VVKAJ_Tot_mean_m_QCed.txt",  sep="\t", header=T)
 
@@ -141,6 +140,5 @@
 # Come back to the main directory
   setwd(main_wd)
   
-# ~~~~~ END OF EIDTS TO ADD TO TUTORIAL -- ADDED, BUT THE WEBSITE IS YET TO BE EDITED. ~~~~~~~~~
   
   

@@ -11,6 +11,10 @@
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
+# Load necessary pacages.
+  library(ggplot2)
+  library(ggfortify)
+  
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R")
@@ -25,12 +29,14 @@
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
   
+# Before you proceed to perform PCA, create folders called "PCA_Nut_asis", "PCA_Nut_ave", "PCA_Cat_asis", 
+# "PCA_Cat_asis" in your VVKAJ directory to save output.
+  
 # ===============================================================================================================
 # Nutrient data as is, processed for clustering analyses.
 # ===============================================================================================================
 
 # Load the Nut_asis data.
-  # Tot_m_QCed_Nut_asis <- read.table(file="VVKAJ_Tot_m_QCed_Nut_asis.txt", sep="\t", header=T)
   Tot_m_QCed_Nut_asis <- read.table(file="VVKAJ_Tot_m_QCed_Nut_asis_c_rv.txt", sep="\t", header=T)
     
 # Name your input data.
@@ -50,7 +56,7 @@
   
 # Save PCA output files in a specified folder (out.dir) and a prefix (out.prefix).
   OutputPCA(pca.data=pca_input, pca.result=scaled_pca, 
-             out.dir= res_dir_nut_asis, out.prefix= res_prefix_nut_asis )
+            out.dir= res_dir_nut_asis, out.prefix= res_prefix_nut_asis )
   
 # Combine the input (Nut before processing) with all the variables and the PC results. 
   SaveInputAndPCs(input="VVKAJ_Tot_m_QCed_Nut_asis_c.txt", pca.results = scaled_pca, 
@@ -113,7 +119,7 @@
 # Save PCA output files in a specified folder (out.dir) and a prefix (out.prefix).
 # Input is your items/Nut input file before any prep for clustering, from which you derived the input for the PCA.
   OutputPCA(pca.data=pca_input, pca.result=scaled_pca, 
-             out.dir= res_dir_nut_ave, out.prefix= res_prefix_nut_ave)
+            out.dir= res_dir_nut_ave, out.prefix= res_prefix_nut_ave)
   
 # Combine the input (before processing) with all the variables and the PC results.
 # In the case of averaged data / user, the input file used here is xxx_ave_c.txt, which 

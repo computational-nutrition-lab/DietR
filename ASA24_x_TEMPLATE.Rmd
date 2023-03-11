@@ -1,0 +1,96 @@
+---
+title: "Percent kcal of CARB, PROT, TFAT"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+# code_folding: hide
+---
+
+<style type="text/css">
+h1.title {
+  font-size: 38px;
+  font-family: "Tahoma", sans-serif;
+  color: DarkSlateGray;
+}
+h1 { /* Header 1 */
+  font-size: 28px;
+  color: MidNightBlue;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: MidNightBlue;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  color: MidNightBlue;
+}
+body{ /* Normal  */
+  background-color: rgb(251, 251, 251);
+  }
+blockquote{ 
+  font-size: 14px;
+}
+</style>
+
+<br>
+
+# Introduction
+
+
+<br>
+
+# Load functions and packages  
+
+Name the path to DietR directory where input files are pulled.
+```{r}
+main_wd <- "~/GitHub/DietR"
+```
+
+Load the necessary functions.
+```{r}
+source("lib/specify_data_dir.R")
+source("lib/percent_kcal.R")
+source("lib/ggplot2themes.R")
+```
+
+Call color palette.
+```{r}
+distinct100colors <- readRDS("lib/distinct100colors.rda")
+```
+
+You can come back to the main directory by:
+```{r, eval=FALSE}
+setwd(main_wd)
+```
+
+Specify the directory where the data is.
+```{r, eval = FALSE}
+SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
+```
+
+<!-- This is the R-markdown code to change directories. -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
+```
+
+<br>
+
+
+
+
+
+<br>  
+
+---
+Come back to the main directory before you start running another script.
+```{r, eval=FALSE}
+  setwd(main_wd)
+```
+
+<!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
