@@ -24,9 +24,9 @@ navbar:
     #   href: ASA24_7_PCA_results.html
     - text: "K-means"
       href: ASA24_8_k-means.html
-    # - text: "---------"
-    # - text: "Create food tree"
-    #   href: ASA24_9_create_food_tree.html
+    - text: "---------"
+    - text: "Create food tree"
+      href: ASA24_9_create_foodtree_allfooditems.html
     # - text: "Visualize food tree"
     #   href: ASA24_10_viz_food_tree.html
     # - text: "Ordination"

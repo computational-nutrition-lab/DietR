@@ -11,6 +11,9 @@
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
+# Load necessary packages.
+  library(ggfortify)
+  
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")
   source("lib/k-means.R")
@@ -22,11 +25,8 @@
 # Import data from your data directory 
 # ===============================================================================================================
 
-# Specify the directory where the data is.
-  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
-
-# Here, we will run k-means analysis for each of Nutrient as is, Nutrient average, Food categories as is, 
-# and Food categories average.
+# In this section, we are going to perform k-means analysis for each of Nutrient as is, Nutrient average, 
+# Food categories as is, and Food categories average.
   
 # Before proceeding, ensure to have four directories (folders) named as: 
 #   kmeans_Nut_asis
@@ -36,6 +36,9 @@
 #   
 # K-means analysis results will be saved in this folder.  You can change those directory names, but 
 # if you do so, you will need to modify the directory name, "res_dir_xxx_xxxx", to match your new directory name.
+
+# Specify the directory where the data is.
+  SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
   
 # ===============================================================================================================
 # Nutrient data as is, processed for clustering analyses.

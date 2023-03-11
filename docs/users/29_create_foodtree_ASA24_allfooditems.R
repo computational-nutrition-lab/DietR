@@ -36,11 +36,10 @@ Session --> Set working directory --> Choose directory.
 # Load the data.tree package necessary for newick.tree.r, and if it is not installed, install it. 
   if (!require("data.tree", quietly = TRUE))install.packages("data.tree")
 
-# Load source scripts
+# Load functions necessary for foodtree building.
   source("lib/specify_data_dir.R")
   source("lib/Food_tree_scripts/newick.tree.r")
   source("lib/Food_tree_scripts/check.db.r")
-  # source("lib/Food_tree_scripts/format.foods.r")
   source("lib/Food_tree_scripts/format.foods_2.r")
   source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
   source("lib/Food_tree_scripts/make.food.tree.r")
@@ -58,8 +57,7 @@ Session --> Set working directory --> Choose directory.
 # Then, use BiocManager to install the "ggtree" package.
   BiocManager::install("ggtree")
   
-# Load the functions necessary to set directories.
-  source("lib/specify_data_dir.R")
+# Load the functions necessary to visualize foodtrees.
   source("lib/viz_food_tree.r")
   
 # You can come back to the main directory by:
@@ -133,7 +131,7 @@ Session --> Set working directory --> Choose directory.
 # Prepare node labels of L1 for plotting. It assumes that the tree file has 9 L1 levels.
   PrepFoodTreePlots(input.tree=tree)
   
-# Create a color-coded and annotated food tree with 9 L1 levels.
+# Create a color-coded and annotated food tree with nine L1 levels.
 # Choose either 'circular' or 'radial' for layout.
 # It is OK to see some warning messages about Coordinate system and scale for 'y' already being present.
   VizFoodTree(input.tree=tree, layout="radial")
@@ -142,10 +140,9 @@ Session --> Set working directory --> Choose directory.
   annotated_tree
   
 # Save the tree as a PDF file. 
-  ggsave("Food_tree_all_ASA24/ASA24_4Lv.tree.png", 
+  ggsave("Food_tree_all_ASA24/ASA24_4Lv.tree.pdf",
          annotated_tree, device="png", width=6, height=6, units="in", dpi=300)
   
-
 # ---------------------------------------------------------------------------------------------------------------
 # You can come back to the main directory by:
   setwd(main_wd) 
