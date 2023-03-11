@@ -10,6 +10,7 @@
 # ========================================================================================
 # Set your working directory as to the main directory.
   Session --> Set working directory --> Choose directory.
+  setwd("~/GitHub/DietR/")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
@@ -41,7 +42,9 @@
 # Load your items data.
 # Items_raw <- read.csv("VVKAJ_Items_NoCommas.csv", sep = ",", header=T)
   items_f_id_s_m <- read.table("VVKAJ_Items_f_id_s_m.txt", sep = "\t", header=T)
-  
+  items_f_id_s_m <- read.delim("VVKAJ_Items_f_id_s_m.txt", sep = "\t", header=T)
+  items_f_id_s_m_QCed <- read.delim("VVKAJ_Items_f_id_s_m_QCed.tx", sep = "\t", header=T)
+  dim(items_f_id_s_m)
  
 # # Load your metadata if you have one. 
 #   metadata_1 <- read.csv("Metadata_1.csv", header=T)

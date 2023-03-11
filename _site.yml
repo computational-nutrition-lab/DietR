@@ -39,8 +39,10 @@ navbar:
       href: NHANES_1_load_and_clean_1.html
     - text: "Load and clean NHANES data - 2"
       href: NHANES_2_load_and_clean_2.html
-    # - text: "Data overview"
-    #   href: NHANES_3_data_overview.html
+    - text: "Add metadata and GLU-index"
+      href: NHANES_3_add_meta_GLU_index.html
+    - text: "Data overview"
+      href: NHANES_4_overview_GLU_index.html
     # - text: "Percent kcal of CARB, PROT, TFAT"
     #   href: NHANES_4_percent_kcal.html
   - text: Links

@@ -86,6 +86,19 @@ This sentence is followed by two trailing spaces.
 Hit return. Now these two should appear in two separate lines.
 <br>
 
+## Table
+
+Relevant variables here include: 
+
+Variable | Description
+--------- | ---------------------------------
+BMDSTATS | Body Measures Component Status Code:
+          | 1 == Complete data for age group
+          | 2 ==	Partial: Only height and weight obtained
+BMXHT    | Standing Height (cm)
+BMIHT    | Standing Height Comment
+BMXBMI   | Body Mass Index (kg/m^2^)
+
 ## Insert an image
 
 Just type "![my image caption](" and press the tab key - it will show you potential images to be inserted. Handy!

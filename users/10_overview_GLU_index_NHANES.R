@@ -50,7 +50,7 @@
 # If there are missing data, it will give a Warning message:
 # "Removed 14 rows containing non-finite values (stat_density)."
 
-# Save the chart as .pdf. n = 1625 - 14 missing = 1611.
+# Save the chart as .pdf. It is helpful to make note of the number of datapoints: n = 1625 - 14 missing = 1611.
   ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1611_BMI_by_GLU_index.pdf",
          BMIfreq, device="pdf", width=5.3, height=4.5)
 
