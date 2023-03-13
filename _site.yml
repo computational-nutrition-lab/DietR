@@ -25,14 +25,18 @@ navbar:
     - text: "K-means"
       href: ASA24_8_k-means.html
     - text: "---------"
-    - text: "Create food tree"
+    - text: "Foodtrees with all food items"
       href: ASA24_9_create_foodtree_allfooditems.html
-    # - text: "Visualize food tree"
-    #   href: ASA24_10_viz_food_tree.html
-    # - text: "Ordination"
-    #   href: ASA24_11_ordination.html
-    # - text: "Visualize ordination"
-    #   href: ASA24_12_viz_ordination.html
+    - text: "Foodtrees with your own data"
+      href: ASA24_10_create_foodtree_ownitems.html
+    - text: "Visualize foodtrees"
+      href: ASA24_11_viz_food_tree.html
+    - text: "Ordination"
+      href: ASA24_12_ordination.html
+    - text: "Visualize ordination"
+      href: ASA24_13_viz_ordination.html
+    - text: "Correlation between axes and foods"
+      href: ASA24_14_corr_axis_foods.html
   - text: NHANES
     menu:
     - text: "Load and clean NHANES data - 1"

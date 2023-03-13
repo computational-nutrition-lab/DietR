@@ -99,6 +99,13 @@ BMXHT    | Standing Height (cm)
 BMIHT    | Standing Height Comment
 BMXBMI   | Body Mass Index (kg/m^2^)
 
+## Lists
+Numbered list
+
+1. Build a foodtree with food items reported by VVKAJ study participants.
+2. Generate OTU tables from the taxonomy information of reported food items.
+
+
 ## Insert an image
 
 Just type "![my image caption](" and press the tab key - it will show you potential images to be inserted. Handy!

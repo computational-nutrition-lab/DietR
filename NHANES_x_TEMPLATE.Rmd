@@ -1,5 +1,5 @@
 ---
-title: "Percent kcal of CARB, PROT, TFAT"
+title: "Title"
 output:
   html_document:
     toc: true
@@ -50,16 +50,21 @@ Name the path to DietR directory where input files are pulled.
 main_wd <- "~/GitHub/DietR"
 ```
 
+Install the SASxport package if it is not installed yet.
+```{r, eval=FALSE}
+if (!require("SASxport", quietly = TRUE)) install.packages("SASxport")
+```
+
+Load necessary packages.
+```{r}
+library(SASxport)
+```
+
 Load the necessary functions.
 ```{r}
 source("lib/specify_data_dir.R")
-source("lib/percent_kcal.R")
-source("lib/ggplot2themes.R")
-```
-
-Call color palette.
-```{r}
-distinct100colors <- readRDS("lib/distinct100colors.rda")
+source("lib/load_clean_NHANES.R")
+source("lib/Food_tree_scripts/format.foods_2.r")
 ```
 
 You can come back to the main directory by:
@@ -68,14 +73,13 @@ setwd(main_wd)
 ```
 
 Specify the directory where the data is.
-```{r, eval = FALSE}
-SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/")
+```{r, eval=FALSE}
+SpecifyDataDirectory(directory.name = "eg_data/NHANES")
 ```
 
-<!-- This is the R-markdown code to change directories. -->
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE)
-knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
+knitr::opts_knit$set(root.dir = 'eg_data/NHANES')
 ```
 
 <br>
@@ -87,9 +91,10 @@ knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ')
 <br>  
 
 ---
-Come back to the main directory before you start running another script.
+
+Come back to the main directory.
 ```{r, eval=FALSE}
-  setwd(main_wd)
+setwd(main_wd)
 ```
 
 <!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->

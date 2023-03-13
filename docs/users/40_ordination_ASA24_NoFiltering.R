@@ -90,7 +90,7 @@
   # Again, it is OK to see the same message as the previous line. 
 
 # ---------------------------------------------------------------------------------------------------------------
-# Make a phyloseq object with OTU, TAX, samples, and foodtree.
+# Make a phyloseq object with OTU, TAX, SAMPLES, and TREE.
   phyfoods <- phyloseq(OTU, TAX, SAMPLES, TREE)
   # It is OK to see a message (or multiple of them) saying that
     # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
@@ -160,13 +160,15 @@
   )
   
 # ---------------------------------------------------------------------------------------------------------------
+# Permanova tests  
+  
 # Some of the Diet groups seem to form distinct clusters. Use beta-diversity and adonis (permanova) tests 
 # to see if they are actually distinct from one another.
   
 # Generate a weighted unifrac distance matrix.
   dist_matrix <- phyloseq::distance(phyfoods, method = "wunifrac")
   
-# Dispersion test and plot
+# Perform dispersion test.
 # vegan::betadisper computes centeroids and distance of each datapoint from it. 
   dispr <- vegan::betadisper(d=dist_matrix, phyloseq::sample_data(phyfoods)$Diet)
   
@@ -176,7 +178,9 @@
 # Use dispr to do a permutation test for homogeneity of multivariate dispersion
   vegan::permutest(dispr, perm=5000)
   # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
-  # Note that the p-values will slightly differ each run, as it is a permutation test.
+  # Note that the p-values will slightly differ each run, as it is a permutation test. The results here 
+  # indicate that the dispersion of each group may be different, so we should consider this information in 
+  # discussion. Nevertheless, we will proceed for demonstration purposes. 
   
 # Use adonis to test whether there is a difference between groups' composition. 
 # i.e., composition among groups (food they consumed) is similar or not.
@@ -189,17 +193,13 @@
 
   
 # ===============================================================================================================
-# Save unifrac distance (unweighted or weighted) matrices
+# Save weighted unifrac distance matrix
 # ===============================================================================================================
 # Generate and save a weighted unifrac distance matrix of "Samples". 
   WeightedUnifracDis(input.phyloseq.obj = phyfoods, 
                      output.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_WEIGHTED_uni_dis.txt")        
   
-# Generate and save an unweighted unifrac distance matrix of "Samples". 
-  UnweightedUnifracDis(input.phyloseq.obj = phyfoods, 
-                       output.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_UNweighted_uni_dis.txt")        
 
-  
 # ===============================================================================================================
 # Use unweighted unifrac distance.  
 # ===============================================================================================================
@@ -249,6 +249,8 @@
   )    
   
 # ---------------------------------------------------------------------------------------------------------------
+# Permanova tests
+  
 # Some of the Diet groups seem to form distinct clusters. Use beta-diversity and adonis tests 
 # to see if they are actually distinct from one another.
 
@@ -275,6 +277,14 @@
   # you can run pairwise adonis to see which group pairs are different.
   pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
                   p.adjust.m = "none")    
+  
+# ===============================================================================================================
+# Save unweighted unifrac distance matrix
+# ===============================================================================================================
+
+# Generate and save an unweighted unifrac distance matrix of "Samples". 
+  UnweightedUnifracDis(input.phyloseq.obj = phyfoods, 
+                       output.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_UNweighted_uni_dis.txt")        
   
   
 ##### TUTORIAL UPDATED! 12/05/2022.

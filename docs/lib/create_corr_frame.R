@@ -29,7 +29,8 @@ create_corr_frame <- function(df1, df2, method="spearman"){
       pval[index] <- cor$p.value
       index <- index + 1
     }
-    print(i)
+    # print food items that were processed on the console if you'd like.
+    # print(i)
   }
   
   dat <- data.frame(x=x, y=y, correlation=correlation, pval=pval)

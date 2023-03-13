@@ -25,7 +25,7 @@
 # You can come back to the main directory by:
   setwd(main_wd)
 
-# Set working directory.
+# Specify the directory where the data is.
   SpecifyDataDirectory("eg_data/VVKAJ/Ordination/")
 
 # ===============================================================================================================
@@ -36,7 +36,7 @@
 # and a table with correlation coefficients, p-values, and q-values with desired threshold between 
 # food items and Axes that were saved in the ordination section. 
 # Be careful about not to confuse WEIGHTED and UNweighted unifrac distances.
-  
+
 # WEIGHTED unifrac distance results.
   CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt", 
                AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",

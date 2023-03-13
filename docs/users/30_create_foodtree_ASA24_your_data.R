@@ -1,8 +1,31 @@
 # ===============================================================================================================
-# Generate a food tree from ASA24 data without using FilterDBByDiet, a clean version.
+# Generate a foodtree from ASA24 data without using FilterDBByDiet, a clean version.
 # Version 2
 # Created on 02/16/2023 by Rie Sadohara
 # ===============================================================================================================
+
+# This brief script is to serve as an example of generating foodtrees and OTU tables with your own dataset. 
+# OTU tables contain participants and food items, showing the consumption amount of each food item by each 
+# participant. OTU tables also contain the taxonomy (food group information) for each food items and will be 
+# used in ordination (grouping) analyses.
+
+# This script demonstrates how to:
+# 1. Build a foodtree with food items reported by VVKAJ study participants.
+# 2. Generate OTU tables from the taxonomy information of reported food items.
+
+# As explained in the previous script, the functions in Food_tree_scripts folder expects that the input files are 
+# tab-delimited txt file with no special characters that impede correct loading such as:
+#   "
+#   '
+#   #
+#   &
+
+# The use of the FormatFoods function in 02_load_clean_ASA24.R script has already dealt with special characters in 
+# the VVKAJ items data, but it is helpful to know the assumptions which the functions you are going to use were built on.
+
+# Before proceeding, create a new folder called “Foodtree” in the “VVKAJ” folder, in which you will save the output.
+
+# ---------------------------------------------------------------------------------------------------------------
 
 # Set your working directory as the main directory (dietary_patterns)
   Session --> Set working directory --> Choose directory.
@@ -26,16 +49,15 @@
 # You can come back to the main directory by:
   setwd(main_wd)   
 
-# Create a new folder called "Foodtree" in the "VVKAJ" folder.  
   
 # ===============================================================================================================
-# Generate a food tree from food items reported in your study.
+# Generate a foodtree from food items reported in your study.
 # ===============================================================================================================
   
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/")
 
-# Create food tree with the reduced dataset (only reported foods) classified at 
+# Create foodtree with the reduced dataset (only reported foods) classified at 
 # a desired level of classification.
 
   MakeFoodTree(nodes_fn="../Food_tree_eg/NodeLabelsMCT.txt", 

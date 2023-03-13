@@ -42,18 +42,19 @@ blockquote{
 
 Food trees show the classification of each food item entered in your dietary data. For details, please read [Johnson et al., 2021](https://doi.org/10.1016/j.chom.2019.05.005).
 
-This brief script is to serve as an example of formatting and generating food trees with your own dataset. This script demonstrates how to:  
+This brief script is to serve as an example of formatting and generating food trees with your own dataset. This script demonstrates how to: 
+
 1. Format food list containing "Main.food.description" and "ModCode" by using the FormatFood function.   
 2. Build a food tree with the entire list of food items in "all.food.desc.txt".
 3. Visualize the food tree you have created in step 2.
 
-The functions in Food_tree_scripts folder expects that the input files are tab-delimited txt file with no special characters that impede correct loading such as:  
+The functions in Food_tree_scripts folder expects that the input files are tab-delimited txt file with no special characters that impede correct loading, such as:  
 "  
 '  
 #  
 &  
 
-The use of the FormatFoods function in 02_load_clean_ASA24.R script has already dealt with it, but it is helpful to know the assumptions which the functions you are going to use were built on.
+So, we will use the FormatFoods function to replace special characters in the food description column with underscores.
 
 <br>
 

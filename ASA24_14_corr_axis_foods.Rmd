@@ -1,0 +1,189 @@
+---
+title: "Analyze correlation between ordination axes and foods"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+# code_folding: hide
+---
+
+<style type="text/css">
+h1.title {
+  font-size: 38px;
+  font-family: "Tahoma", sans-serif;
+  color: DarkSlateGray;
+}
+h1 { /* Header 1 */
+  font-size: 28px;
+  color: MidNightBlue;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: MidNightBlue;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  color: MidNightBlue;
+}
+body{ /* Normal  */
+  background-color: rgb(251, 251, 251);
+  }
+blockquote{ 
+  font-size: 14px;
+}
+</style>
+
+<br>
+
+# Load functions and packages  
+
+Name the path to DietR directory where input files are pulled.
+```{r}
+main_wd <- "~/GitHub/DietR"
+```
+
+Load the necessary packages.
+```{r}
+library(ggplot2)
+```
+
+Load the necessary functions.
+```{r}
+source("lib/specify_data_dir.R")
+source("lib/corr.axes.foods.R")
+source("lib/ggplot2themes.R")
+```
+
+Call color palette.
+```{r}
+distinct100colors <- readRDS("lib/distinct100colors.rda")
+```
+
+You can come back to the main directory by:
+```{r, eval=FALSE}
+setwd(main_wd)
+```
+
+Specify the directory where the data is.
+```{r, eval = FALSE}
+SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/Ordination/")
+```
+
+<!-- This is the R-markdown code to change directories. -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ/Ordination/')
+```
+
+<br>
+
+# Analyze correlation between ordination axes values and foods
+
+From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, and a table with correlation coefficients, p-values, and q-values with desired threshold between food items and axes that were saved in the ordination section.  
+Be careful about not to confuse WEIGHTED and UNweighted unifrac distances.  
+
+<br>
+
+## WEIGHTED unifrac distance ordination results
+```{r}
+CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt", 
+             AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
+             qval.threshold = 0.05,
+             meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt",
+             corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
+```
+
+Argument | Description
+--------- | ---------------------------------
+food.otu_soted | xxx.food.otu.sorted.txt file, saved in the ordination section
+AmountSums.out.fn | output filename to be saved which has the total consumption amount of each food
+qval.threshold | q-value threshold to call a correlation significant
+meta.users | xxx.meta_users.txt file, waved in the ordination section
+corr.axes.foods.outfn | output filename to be saved which has the correlation between foods and Axes
+
+<br>
+
+## UNweighted unifrac distance ordination results
+
+xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
+
+```{r}
+CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt",
+             AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
+             qval.threshold = 0.05,
+             meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt",
+             corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
+```
+
+<br>
+
+# Load the output
+
+## WEIGHTED
+```{r}
+dat <- read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
+```
+
+Show only food items that are significantly correlated with one of the axes.
+```{r}
+subset(dat, Significance=="*")
+```
+
+Axis.1 is positively correlated with miso soup, green tea, white rice, and soy sauce. Those are commonly used in Japanese cuisine. So, it makes sense that Japanese-diet consumers are clustered on the right side of the biplot (Axis.1 x Axis.2 plot). Similarly, Axis.2 is negatively correlated with Avocado and Nutritional powder mix, whey based, and they are commonly found in keto (high protein, high fat, low carb) diet. And keto-diet consuming individuals tend to have lower Axis.2 values in the biplot. Correlation between axes and foods can be useful in identifying characteristics of the diet based on clustered individuals on the ordination biplot.
+
+It is also possible to view each axis separately.
+```{r}
+# Select Axis 1 rows
+dat_1 <- subset(dat, Axis=="Axis.1")
+head(dat_1[order(dat_1$qval), ], 10)
+```
+
+```{r}
+# Select Axis 2 rows and sort by qval.  
+dat_2 <- subset(dat, Axis=="Axis.2")
+head(dat_2[order(dat_2$qval), ], 10)
+```
+
+```{r}
+# Select Axis 3 rows and sort by qval.  
+dat_3 <- subset(dat, Axis=="Axis.3")
+head(dat_3[order(dat_3$qval), ], 10)
+```
+
+```{r}
+# Select Axis 4 rows and sort by qval.  
+dat_4 <- subset(dat, Axis=="Axis.4")
+head(dat_4[order(dat_4$qval), ], 10)
+```
+
+<br>
+
+---
+
+## Unweighted
+
+UNweighted can be viewed in the same way.
+```{r}
+dat <- read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
+```
+
+Show only food items that are significantly correlated with one of the axes.
+```{r}
+subset(dat, Significance=="*")
+```
+
+
+<br>
+
+---
+
+Come back to the main directory before you start running another script.
+```{r, eval=FALSE}
+setwd(main_wd)
+```
+
+<!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

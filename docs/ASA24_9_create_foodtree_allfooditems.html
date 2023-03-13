@@ -356,7 +356,22 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="ASA24_9_create_foodtree_allfooditems.html">Create food tree</a>
+      <a href="ASA24_9_create_foodtree_allfooditems.html">Foodtrees with all food items</a>
+    </li>
+    <li>
+      <a href="ASA24_10_create_foodtree_ownitems.html">Foodtrees with your own data</a>
+    </li>
+    <li>
+      <a href="ASA24_11_viz_food_tree.html">Visualize foodtrees</a>
+    </li>
+    <li>
+      <a href="ASA24_12_ordination.html">Ordination</a>
+    </li>
+    <li>
+      <a href="ASA24_13_viz_ordination.html">Visualize ordination</a>
+    </li>
+    <li>
+      <a href="ASA24_14_corr_axis_foods.html">Correlation between axes and foods</a>
     </li>
   </ul>
 </li>
@@ -430,15 +445,19 @@ blockquote{
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>Food trees show the classification of each food item entered in your dietary data. For details, please read <a href="https://doi.org/10.1016/j.chom.2019.05.005">Johnson et al., 2021</a>.</p>
-<p>This brief script is to serve as an example of formatting and generating food trees with your own dataset. This script demonstrates how to:<br />
-1. Format food list containing “Main.food.description” and “ModCode” by using the FormatFood function.<br />
-2. Build a food tree with the entire list of food items in “all.food.desc.txt”. 3. Visualize the food tree you have created in step 2.</p>
-<p>The functions in Food_tree_scripts folder expects that the input files are tab-delimited txt file with no special characters that impede correct loading such as:<br />
+<p>This brief script is to serve as an example of formatting and generating food trees with your own dataset. This script demonstrates how to:</p>
+<ol style="list-style-type: decimal">
+<li>Format food list containing “Main.food.description” and “ModCode” by using the FormatFood function.<br />
+</li>
+<li>Build a food tree with the entire list of food items in “all.food.desc.txt”.</li>
+<li>Visualize the food tree you have created in step 2.</li>
+</ol>
+<p>The functions in Food_tree_scripts folder expects that the input files are tab-delimited txt file with no special characters that impede correct loading, such as:<br />
 ”<br />
 ’<br />
 #<br />
 &amp;</p>
-<p>The use of the FormatFoods function in 02_load_clean_ASA24.R script has already dealt with it, but it is helpful to know the assumptions which the functions you are going to use were built on.</p>
+<p>So, we will use the FormatFoods function to replace special characters in the food description column with underscores.</p>
 <p><br></p>
 </div>
 <div id="load-functions-and-packages" class="section level1">
@@ -467,19 +486,10 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
 <h2>Load the packages/scripts necessary for tree visualization</h2>
 <p>If you have not downloaded and installed the ggtree package yet,you can do so by first installing BiocManager (if you have not done so):</p>
 <pre class="r"><code>if (!require(&quot;BiocManager&quot;, quietly = TRUE))install.packages(&quot;BiocManager&quot;)</code></pre>
-<pre><code>## Bioconductor version &#39;3.14&#39; is out-of-date; the current release version &#39;3.16&#39;
-##   is available with R version &#39;4.2&#39;; see https://bioconductor.org/install</code></pre>
 <p>Then, use BiocManager to install the “ggtree” package.</p>
 <pre class="r"><code>BiocManager::install(&quot;ggtree&quot;)</code></pre>
 <p>Load the functions necessary to visualize foodtrees.</p>
 <pre class="r"><code>source(&quot;lib/viz_food_tree.r&quot;)</code></pre>
-<pre><code>## ggtree v3.2.1  For help: https://yulab-smu.top/treedata-book/
-## 
-## If you use ggtree in published research, please cite the most appropriate paper(s):
-## 
-## 1. Guangchuang Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96
-## 2. Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods for mapping and visualizing associated data on phylogeny using ggtree. Molecular Biology and Evolution. 2018, 35(12):3041-3043. doi:10.1093/molbev/msy194
-## 3. Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
 <p><br></p>
 <p>You can come back to the main directory by:</p>
 <pre class="r"><code>setwd(main_wd)</code></pre>
