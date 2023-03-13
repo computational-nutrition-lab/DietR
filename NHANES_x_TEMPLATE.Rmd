@@ -63,8 +63,11 @@ library(SASxport)
 Load the necessary functions.
 ```{r}
 source("lib/specify_data_dir.R")
-source("lib/load_clean_NHANES.R")
-source("lib/Food_tree_scripts/format.foods_2.r")
+```
+
+Load the distinct 100 colors for use.
+```{r}
+distinct100colors <- readRDS("lib/distinct100colors.rda")
 ```
 
 You can come back to the main directory by:

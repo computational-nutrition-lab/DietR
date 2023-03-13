@@ -4,8 +4,12 @@
 # Created on 10/28/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# In the previous procedure, we identified males in their 60s and older seem to be an appropriate subsample to 
+# analyze their diabetic statuses and diet. We will remove people who are 80 years old or potentially above 
+# from our analyses because they may be using meal assistance and thus may not be eating freely.
+
 # ===============================================================================================================
-# Load NHANES15-16totals totals data
+# Load necessary functions and packages
 # ===============================================================================================================
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
@@ -17,11 +21,11 @@
 # Load necessary functions.
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R") 
-  
-# Load the distinct 100 colors for use.   
-  distinct100colors <- readRDS("lib/distinct100colors.rda")
 
-# ---------------------------------------------------------------------------------------------------------------
+# ===============================================================================================================
+# Load NHANES15-16 totals data
+# ===============================================================================================================
+  
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/Laboratory_data")  
   
@@ -46,7 +50,7 @@
   
   
 # ===============================================================================================================
-# Select only MEN 60-79 years old, so that our samples are more uniform.
+# Select only males 60-79 years old, so that our samples are more uniform.
 # ===============================================================================================================
   
 # Select those who are males and whose ages fall between 60-79.
@@ -97,6 +101,8 @@
          males60to79_BMIbox, device="pdf", width=5.3, height=4.5)
   
 # ----------------------------------------------------------------------------------------------------------------  
+# ANOVA between groups
+  
 # The three GLU_index groups appear to have different BMI means. 
 # Test the difference between groups by ANOVA.
   
@@ -123,7 +129,7 @@
   
   ##  Create a new variable of squared residuals.
   res1sq <- res1*res1
-  ## Run ANOVA for the squared residuals as the response (Levene's test).
+  ## Levene's test -- Run ANOVA for the squared residuals as the response.
   anova(lm(res1sq ~ df$GLU_index))
   ## If Pr>0.05, the residuals of the groups have equal variance.
   
@@ -154,8 +160,8 @@
   ggsave("males60to79_KCAL_by_GLU_index.pdf", 
          males60to79_KCALfreq, device="pdf", width=5.3, height=4.5)
   
-  # ----------------------------------------------------------------------------------------------------------------  
-  # Create a boxplot of KCAL of each GLU_index group.
+# ----------------------------------------------------------------------------------------------------------------  
+# Create a boxplot of KCAL of each GLU_index group.
   males60to79_KCALbox <- 
     ggplot(glu_2_males60to79, aes(x=GLU_index, y=KCAL, fill=GLU_index)) +
     geom_boxplot(outlier.shape = NA) + no_grid + space_axes +
@@ -166,20 +172,20 @@
   ggsave("males60to79_KCAL_by_GLU_index_box.pdf", 
          males60to79_KCALbox, device="pdf", width=5.3, height=4.5)
   
-  # ----------------------------------------------------------------------------------------------------------------  
-  # Test the difference of KCAL between groups by ANOVA.
-  # Remove samples (rows) that have missing data in the target variable.
+# ----------------------------------------------------------------------------------------------------------------  
+# Test the difference of KCAL between groups by ANOVA.
+# Remove samples (rows) that have missing data in the target variable.
   df <- glu_2_males60to79[complete.cases(glu_2_males60to79$KCAL), ]
   
-  # Run ANOVA
+# Run ANOVA
   summary(aov(KCAL ~ GLU_index, data=df))
   
-  # Based on the p-values for ANOVA, the energy intake in KCAL is not different between the GLU_index groups 
-  # are not different.    
+# Based on the p-values for ANOVA, the energy intake in KCAL is not different between the GLU_index groups 
+# are not different.    
   
   
-  # --------------------------------------------------------------------------------------------------------------
-  # Come back to the main directory
+# --------------------------------------------------------------------------------------------------------------
+# Come back to the main directory
   setwd(main_wd)
   
   

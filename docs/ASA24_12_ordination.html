@@ -352,7 +352,7 @@ div.tocify {
       <a href="ASA24_6_PCA.html">PCA</a>
     </li>
     <li>
-      <a href="ASA24_8_k-means.html">K-means</a>
+      <a href="ASA24_8_k-means.html">k-means</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -394,6 +394,16 @@ div.tocify {
     <li>
       <a href="NHANES_4_overview_GLU_index.html">Data overview</a>
     </li>
+    <li>
+      <a href="NHANES_5_GLU_index_by_age_gender.html">GLU-index by age and gender</a>
+    </li>
+    <li>
+      <a href="NHANES_6_subset_males60to79.html">Subset males 60-79 years old</a>
+    </li>
+    <li>
+      <a href="NHANES_7_males60to79_percent_kcal.html">Percent kcal of CARB, PROT, TFAT</a>
+    </li>
+    <li class="divider"></li>
   </ul>
 </li>
 <li>
@@ -448,7 +458,7 @@ blockquote{
 <p><br></p>
 </div>
 <div id="load-the-necessary-packages-and-functions" class="section level1">
-<h1>load the necessary packages and functions</h1>
+<h1>Load the necessary packages and functions</h1>
 <p>Name your main directory for future use.</p>
 <pre class="r"><code>main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
 <p>If you have not downloaded and installed the phyloseq package yet, you can do so by first installing BiocManager (if you have not done so):</p>
@@ -489,6 +499,7 @@ source(&quot;lib/plot.axis.1to4.by.factor.R&quot;)</code></pre>
 <pre><code>## [1] &quot;The data directory has been set as&quot;</code></pre>
 <pre><code>## [1] &quot;~/GitHub/DietR/eg_data/VVKAJ/&quot;</code></pre>
 <!-- This is the R-markdown code to change directories. -->
+<p><br></p>
 <div id="load-files-for-creating-a-phyloseq-object" class="section level2">
 <h2>Load files for creating a phyloseq object</h2>
 <div id="food" class="section level3">
@@ -629,7 +640,7 @@ as.vector(unique(L1s))</code></pre>
                      ellipses.colors = distinct100colors,  
                      ellipses.cflevel = 0.95,
                      out.prefix = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_diet&quot;
-)</code></pre>
+                     )</code></pre>
 <p><br></p>
 <hr />
 </div>
@@ -653,7 +664,7 @@ as.vector(unique(L1s))</code></pre>
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm  Pr(&gt;F)  
-## Groups     4 0.022031 0.0055078 2.6938   5000 0.04319 *
+## Groups     4 0.022031 0.0055078 2.6938   5000 0.04399 *
 ## Residuals 40 0.081785 0.0020446                        
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
@@ -683,9 +694,9 @@ as.vector(unique(L1s))</code></pre>
 <pre class="r"><code>pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
                 p.adjust.m = &quot;none&quot;)    </code></pre>
 <pre><code>##                     pairs Df  SumsOfSqs  F.Model         R2    p.value
-## 1     Vegetarian vs Vegan  1 0.07557735 1.178911 0.06862547 0.20815837
-## 2      Vegetarian vs Keto  1 0.13097005 1.888662 0.10557872 0.00479904
-## 3  Vegetarian vs American  1 0.15189915 2.540675 0.13703252 0.00039992
+## 1     Vegetarian vs Vegan  1 0.07557735 1.178911 0.06862547 0.20755849
+## 2      Vegetarian vs Keto  1 0.13097005 1.888662 0.10557872 0.00659868
+## 3  Vegetarian vs American  1 0.15189915 2.540675 0.13703252 0.00019996
 ## 4  Vegetarian vs Japanese  1 0.31482162 5.654587 0.26112652 0.00019996
 ## 5           Vegan vs Keto  1 0.19900379 2.430678 0.13188217 0.00019996
 ## 6       Vegan vs American  1 0.16773768 2.319599 0.12661843 0.00019996
@@ -694,9 +705,9 @@ as.vector(unique(L1s))</code></pre>
 ## 9        Keto vs Japanese  1 0.32249324 4.391284 0.21535104 0.00019996
 ## 10   American vs Japanese  1 0.40135753 6.282904 0.28196075 0.00019996
 ##    p.adjusted sig
-## 1  0.20815837    
-## 2  0.00479904   *
-## 3  0.00039992  **
+## 1  0.20755849    
+## 2  0.00659868   *
+## 3  0.00019996  **
 ## 4  0.00019996  **
 ## 5  0.00019996  **
 ## 6  0.00019996  **
@@ -765,7 +776,7 @@ as.vector(unique(L1s))</code></pre>
                      ellipses.colors = distinct100colors,  
                      ellipses.cflevel = 0.95,
                      out.prefix = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_diet&quot;
-)    </code></pre>
+                     )</code></pre>
 <p><br></p>
 <hr />
 </div>
@@ -819,27 +830,27 @@ vegan::betadisper computes centeroids and distance of each datapoint from it.</p
 <pre class="r"><code>pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
                 p.adjust.m = &quot;none&quot;)    </code></pre>
 <pre><code>##                     pairs Df SumsOfSqs   F.Model         R2    p.value
-## 1     Vegetarian vs Vegan  1 0.4374127 0.9882078 0.05817022 0.50849830
-## 2      Vegetarian vs Keto  1 0.6542830 1.5148347 0.08648867 0.00099980
+## 1     Vegetarian vs Vegan  1 0.4374127 0.9882078 0.05817022 0.49690062
+## 2      Vegetarian vs Keto  1 0.6542830 1.5148347 0.08648867 0.00039992
 ## 3  Vegetarian vs American  1 0.7838799 1.7984651 0.10104608 0.00019996
-## 4  Vegetarian vs Japanese  1 1.1927048 3.1013470 0.16236274 0.00039992
-## 5           Vegan vs Keto  1 0.7691534 1.7648633 0.09934573 0.00019996
-## 6       Vegan vs American  1 0.7535836 1.7136319 0.09674085 0.00039992
+## 4  Vegetarian vs Japanese  1 1.1927048 3.1013470 0.16236274 0.00019996
+## 5           Vegan vs Keto  1 0.7691534 1.7648633 0.09934573 0.00059988
+## 6       Vegan vs American  1 0.7535836 1.7136319 0.09674085 0.00019996
 ## 7       Vegan vs Japanese  1 1.2403751 3.1929421 0.16636022 0.00019996
 ## 8        Keto vs American  1 0.9196267 2.1434374 0.11813844 0.00039992
 ## 9        Keto vs Japanese  1 1.1584619 3.0666706 0.16083933 0.00019996
-## 10   American vs Japanese  1 1.3304323 3.4855237 0.17887760 0.00039992
+## 10   American vs Japanese  1 1.3304323 3.4855237 0.17887760 0.00019996
 ##    p.adjusted sig
-## 1  0.50849830    
-## 2  0.00099980  **
+## 1  0.49690062    
+## 2  0.00039992  **
 ## 3  0.00019996  **
-## 4  0.00039992  **
-## 5  0.00019996  **
-## 6  0.00039992  **
+## 4  0.00019996  **
+## 5  0.00059988  **
+## 6  0.00019996  **
 ## 7  0.00019996  **
 ## 8  0.00039992  **
 ## 9  0.00019996  **
-## 10 0.00039992  **</code></pre>
+## 10 0.00019996  **</code></pre>
 <p><br></p>
 <hr />
 </div>

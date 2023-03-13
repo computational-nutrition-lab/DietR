@@ -5,6 +5,13 @@
 # Created on 09/07/2022 by Rie Sadohara
 # ==============================================================================================================
 
+# We will calculate the percentage of calories from each of the three macronutrients in the sum of calories 
+# from the three macronutrients. Thus, the percentage of calories from CARB, PROT, and TFAT will add up to 100.
+
+# ==============================================================================================================
+# Load packages and functions
+# ==============================================================================================================
+
 # Set working directory to "dietary_patterns".
   Session --> Set working directory --> Choose directory.  
   setwd("~/GitHub/DietR/")
@@ -12,6 +19,9 @@
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
+# Load necessary packages.
+  library(ggplot2)
+  
 # Load the necessary functions.
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R")
@@ -23,33 +33,32 @@
 # You can come back to the main directory by:
   setwd(main_wd)
  
-# --------------------------------------------------------------------------------------------------------------
+# ==============================================================================================================
+# Import data from your data directory
+# ==============================================================================================================
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/Laboratory_data/")
 
 # Load subsetted totals data with males 60-79 years old.
   totals <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt",  sep="\t", header=T)
-  
-# --------------------------------------------------------------------------------------------------------------
-# We will calculate the percentage of calories from each of the three macronutrients in the sum of 
-# calories from the three macronutrients.
-# Thus, the percentage of calories from CARB, PROT, and TFAT will add up to 100.   
 
+# ==============================================================================================================
 # Calculate the %kcal of CARB, PROT, and TFAT for each user and take means by Gender_Age.   
+# ==============================================================================================================
+  
   CPTpctKcalPerUser(inputfn=totals, group='GLU_index', across='SEQN', 
                     outfn="QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_by_GLU.txt")
-View(CPTpctKcalPerUser)
+
 # Load the output.
   CPT_kcal <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_by_GLU.txt", sep="\t", header=T)
 
 # CPT_kcal has Group, macronutrient, n, mean, and sd of each group.
   CPT_kcal
+
+# ==============================================================================================================
+# Generate a stacked barchart without SD.
+# ==============================================================================================================
   
-# # Make GLU_index as a factor for plotting.
-#   CPT_kcal$Group <- factor(CPT_kcal$Group, levels = c("Normal", "Prediabetic", "Diabetic"))
-#   
-# --------------------------------------------------------------------------------------------------------------
-# Plot a barchart without SD.
 # Order Gender_Age by a certain macronutrient by the "order.by" argument. 
 # You can also specify the stacking order of all the macronutrients by the "macronu.order" argument. 
 # Note that the last item will be on the bottom of the barchart.
@@ -73,8 +82,10 @@ View(CPTpctKcalPerUser)
                   
   stacked_wo_SD
   
-# --------------------------------------------------------------------------------------------------------------
+# ==============================================================================================================
 # Plot the "dodge"-type of barchart (3 bars per group, NOT STACKED).
+# ==============================================================================================================
+
 # Order Diets by a certain macronutrient by the "order.by" argument. You can also specify the plotting order
 # of all the macronutrients by the "macronut.order" argument. Note that the first item will be the leftmost bar.
 
@@ -97,8 +108,9 @@ View(CPTpctKcalPerUser)
              group.order = c("Normal", "Prediabetic", "Diabetic"))
   dodged_w_SD
   
-# --------------------------------------------------------------------------------------------------------------
+# ==============================================================================================================
 # Generate a stacked barchart with SD as error bars.
+# ==============================================================================================================
   
 # Create a vector that contains all the group levels (Gender_Age, in this case). This "groups" vector will be
 # used in the CalcStackedSD function within the PlotStackedWithSD function.
@@ -111,6 +123,8 @@ View(CPTpctKcalPerUser)
   PlotStackedWithSD(data= CPT_kcal, 
                     order.by = "Carbohydrate", 
                     macronut.order= c("Protein", "Total Fat", "Carbohydrate"))
+  
+# The chart is saved as stacked_with_SD.
   stacked_with_SD
   
 # Save as a .pdf.
