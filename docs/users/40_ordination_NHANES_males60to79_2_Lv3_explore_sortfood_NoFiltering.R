@@ -4,6 +4,11 @@
 # Created on 02/06/2023 by Rie Sadohara
 # ===============================================================================================================
 
+# In this section, we will take the phylogeny of food items into account in clustering individuals according 
+# to their dietary data. In order to do so, we will use the phyloseq package
+# (https://joey711.github.io/phyloseq/index.html), which uses phylogeny of microbes and their abundance. 
+# We will replace microbes with food items consumed by our dietary study participants.
+
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
@@ -47,10 +52,10 @@
   SpecifyDataDirectory("eg_data/NHANES/Laboratory_data/")
 
 # ===============================================================================================================
-# Generate a phyloseq object using food, taxonomy, tree, and sample (metadata) for ordination. 
+# Create a phyloseq object for ordination. 
 # ===============================================================================================================
   
-# Load the necessary files for creating a phyloseq object.  
+# Load files for creating a phyloseq object.  
 
 # Food 
 # Load food OTU table, and sort the columnnames (userID), leaving the last column (taxonomy) intact.
@@ -107,7 +112,8 @@
   # It is OK to see the same message as the previous line. 
   
 # ---------------------------------------------------------------------------------------------------------------
-# Make a phyloseq object with OTU, TAX, samples, and foodtree by using the phyloseq function.
+# Create a phyloseq object with OTU, TAX, SAMPLES, and TREE.
+  
   phyfoods <- phyloseq(OTU, TAX, SAMPLES, TREE)
   # It is OK to see the same message as the previous line. They may appear multiple times. 
   
@@ -129,7 +135,7 @@
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/Laboratory_data/Ordination/")
 
 # ===============================================================================================================
-# Use your phyloseq object and perform ordination - WEIGHTED unifrac distance
+# Perform ordination with WEIGHTED unifrac distance
 # ===============================================================================================================
   
 # Perform Principal Coordinate Analysis (PCoA) with WEIGHTED unifrac distance of your food data.
@@ -186,17 +192,18 @@
                        dot.colors      = c("steelblue3", "yellow", "hotpink"), 
                        ellipses.colors = c("steelblue3", "gold3", "hotpink"),  
                        ellipses.cflevel = 0.95,
-                       out.prefix = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED"
-                       )
+                       out.prefix = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED")
 
 # ---------------------------------------------------------------------------------------------------------------
+# Permanova tests
+  
 # The GLU_index groups look different. Use beta-diversity and adonis tests to see
 # if they are actually distinct from one another.
 
 # Generate a weighted unifrac distance matrix.
   dist_matrix_w <- phyloseq::distance(phyfoods, method = "wunifrac") # weighted
   
-# Dispersion test and plot
+# Perform dispersion test.
 # vegan::betadisper computes centeroids and distance of each datapoint from it. 
   dispr_w <- vegan::betadisper(d=dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index)
 
@@ -216,6 +223,15 @@
                   p.adjust.m = "none")  
   
 
+# ===============================================================================================================
+# Save weighted unifrac distance matrix
+# ===============================================================================================================  
+
+# Generate and save an WEIGHTED unifrac distance matrix of "Samples". 
+  WeightedUnifracDis(input.phyloseq.obj = phyfoods, 
+                     output.fn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_uni_dis.txt")        
+  
+    
 # ===============================================================================================================
 # Use your phyloseq object and perform ordination - UNweighted
 # ===============================================================================================================
@@ -256,23 +272,25 @@
 # The reults are saved with filenames with the specified "prefix_AxisXY.pdf" or "prefix_AxisXY_ellipses.pdf".
 # You need to supply the same number of colors in the order of the factor level to be used. 
 # dot.colors are for datapoints, and ellipses.colors are for ellipses outlines. 
-# [NOTE} For UNweighted results, change the input, eigen vectors, and prefix names accordingly. 
+# [NOTE] For the "UNweighted" results, change the input, eigen vectors, and prefix names accordingly. 
   PlotAxis1to4ByFactor(axis.meta.df    = loaded_glu_u, 
                        factor.to.color = "GLU_index", 
                        eigen.vector    = eigen_percent_u ,
                        dot.colors      = c("steelblue3", "yellow", "hotpink"), 
                        ellipses.colors = c("steelblue3", "gold3", "hotpink"),  
                        ellipses.cflevel = 0.95,
-                       out.prefix = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted"
-  )
+                       out.prefix = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted")
 
 # ---------------------------------------------------------------------------------------------------------------
-# Use beta-diversity and adonis tests to see if they are they actually distinct from one another.
+# Permanova tests
+  
+# It is not clear from the plots whether The GLU_index groups are different. Use beta-diversity and adonis 
+# tests to see if they are they actually distinct from one another.
 
 # Generate an UNweighted unifrac distance matrix.
   dist_matrix_u <- phyloseq::distance(phyfoods, method="unifrac")  # UNweighted
   
-# Dispersion test and plot
+# Perform dispersion test.
   # vegan::betadisper computes centeroids and distance of each datapoint from it. 
   dispr_u <- vegan::betadisper(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_index)
   
@@ -295,11 +313,6 @@
 # Save unifrac distance (UNweighted or WEIGHTED) matrices 
 # ===============================================================================================================
 
-# Generate and save an WEIGHTED unifrac distance matrix of "Samples". 
-  WeightedUnifracDis(input.phyloseq.obj = phyfoods, 
-                     output.fn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_uni_dis.txt")        
-
-# ---------------------------------------------------------------------------------------------------------------
 # Generate and save an UNweighted unifrac distance matrix of "Samples". 
   UnweightedUnifracDis(input.phyloseq.obj = phyfoods, 
                        output.fn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_uni_dis.txt")        

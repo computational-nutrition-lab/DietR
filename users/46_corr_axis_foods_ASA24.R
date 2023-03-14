@@ -5,6 +5,8 @@
 # The create_corr_frame function credit: Mo Hutti. 
 # ===============================================================================================================
 
+# In this script, we will analyze correlation between ordination axes values and foods.
+
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR/")
@@ -29,7 +31,7 @@
   SpecifyDataDirectory("eg_data/VVKAJ/Ordination/")
 
 # ===============================================================================================================
-# Analyze correlation between ordination axes values and foods 
+# Weighted unifrac distance ordination results
 # ===============================================================================================================
 
 # From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, 
@@ -50,21 +52,15 @@
   # meta.users:         xxx.meta_users.txt file, waved in the ordination section.
   # corr.axes.foods.outfn: output filename to be saved which has the correlation between foods and Axes.
 
-# UNweighted unifrac distance ordination results.
-# xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method
-# (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
-
-  CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt",
-               AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
-               qval.threshold = 0.05,
-               meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt",
-               corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
-  
 # ---------------------------------------------------------------------------------------------------------------
-# Load the output.
-# WEIGHTED         
+# Load and analyze the output.
+
   dat <- read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
-  
+
+# Check the number of food items with significant q-values.
+  nrow(subset(dat, Significance=="*"))
+    
+# There are 8 food items significantly correlated with one of the axes. 
 # Show only food items that are significantly correlated with one of the axes.
   subset(dat, Significance=="*")
   
@@ -95,9 +91,33 @@
   head(dat_4[order(dat_4$qval), ], 10)
   
   
+# ===============================================================================================================
+# UNweighted unifrac distance ordination results.
+# ===============================================================================================================
+
+# xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method
+# (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
+  
+  CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt",
+               AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
+               qval.threshold = 0.05,
+               meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt",
+               corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
+  
+# ---------------------------------------------------------------------------------------------------------------
+# Load and analyze the output.
+    
 # UNweighted can be viewed in the same way.         
   dat <- read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
   
+# Check the number of food items with significant q-values.
+  nrow(subset(dat, Significance=="*"))
+
+# There are 6 food items significantly correlated with one of the axes. 
 # Show only food items that are significantly correlated with one of the axes.
   subset(dat, Significance=="*")
+  
+# ---------------------------------------------------------------------------------------------------------------
+# Come back to the main directory.
+  setwd(main_wd)  
   

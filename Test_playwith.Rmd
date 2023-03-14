@@ -67,6 +67,18 @@ Flag if VC (Vitamin C) is <5 or >400 &rarr; then, ...
 <br>
 
 **[NOTES in bold]**
+
+## Print symbols as is
+
+Symbols may be preceded by a backslash to be printed as is.
+
+Two dollar signs show an equation: $Y = ax + b$
+
+If wanted to print dollar sign or special symbols as they are, put a backslash before.
+
+Dollar sign printed: \$Y = ax + b\$  
+
+
 <br>
 
 ## Color text
@@ -98,6 +110,12 @@ BMDSTATS | Body Measures Component Status Code:
 BMXHT    | Standing Height (cm)
 BMIHT    | Standing Height Comment
 BMXBMI   | Body Mass Index (kg/m^2^)
+
+## Text in a white box
+
+    # this box is preceded by two tub key hits, it seems like.
+    A pound sign is not necessary.
+    
 
 ## Lists
 Numbered list

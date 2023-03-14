@@ -11,7 +11,7 @@
 
 
 
-<title>Analyze correlation between ordination axes and foods</title>
+<title>Visualize ordination</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -371,7 +371,7 @@ div.tocify {
       <a href="ASA24_13_viz_ordination.html">Visualize ordination</a>
     </li>
     <li>
-      <a href="ASA24_14_corr_axis_foods.html">Correlation between axes and foods</a>
+      <a href="ASA24_14_corr_axes_foods.html">Correlation between axes and foods</a>
     </li>
   </ul>
 </li>
@@ -411,11 +411,23 @@ div.tocify {
       <a href="NHANES_09_males60to79_PCA.html">PCA</a>
     </li>
     <li>
-      <a href="NHANES_10_males60to79_k-means.html">*k*-means</a>
+      <a href="NHANES_10_males60to79_k-means.html">k-means</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="NHANES_11_males60to79_generate_foodtrees.html">Generate foodtrees</a>
+    </li>
+    <li>
+      <a href="NHANES_12_males60to79_viz_foodtrees.html">Visualize foodtrees</a>
+    </li>
+    <li>
+      <a href="NHANES_13_males60to79_ordination.html">Ordination</a>
+    </li>
+    <li>
+      <a href="NHANES_14_males60to79_viz_ordination.html">Visualize ordination</a>
+    </li>
+    <li>
+      <a href="NHANES_15_males60to79_corr_axes_foods.html">Correlation between axes and foods</a>
     </li>
   </ul>
 </li>
@@ -434,7 +446,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Analyze correlation between ordination axes and foods</h1>
+<h1 class="title toc-ignore">Visualize ordination</h1>
 
 </div>
 
@@ -465,242 +477,78 @@ blockquote{
 }
 </style>
 <p><br></p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>There may be cases where you want to highlight specific users in the biplot because they have distinct metadata etc. Individuals can be highlighted with a thicker outline if desired. This can be done by loading the saved ordination results - Axis values and metadata combined, and the proportion of variance explained.</p>
+<p><br></p>
+</div>
 <div id="load-functions-and-packages" class="section level1">
 <h1>Load functions and packages</h1>
 <p>Name the path to DietR directory where input files are pulled.</p>
 <pre class="r"><code>main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
-<p>Load the necessary packages.</p>
+<p>Load necessary packages.</p>
 <pre class="r"><code>library(ggplot2)</code></pre>
 <p>Load the necessary functions.</p>
 <pre class="r"><code>source(&quot;lib/specify_data_dir.R&quot;)
-source(&quot;lib/corr.axes.foods.R&quot;)
 source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
-<p>Call color palette.</p>
+<p>Load the distinct 100 colors for use.</p>
 <pre class="r"><code>distinct100colors &lt;- readRDS(&quot;lib/distinct100colors.rda&quot;)</code></pre>
 <p>You can come back to the main directory by:</p>
 <pre class="r"><code>setwd(main_wd)</code></pre>
 <p>Specify the directory where the data is.</p>
-<pre class="r"><code>SpecifyDataDirectory(directory.name= &quot;eg_data/VVKAJ/Ordination/&quot;)</code></pre>
-<!-- This is the R-markdown code to change directories. -->
+<pre class="r"><code>SpecifyDataDirectory(directory.name = &quot;eg_data/NHANES&quot;)</code></pre>
 <p><br></p>
 </div>
-<div id="analyze-correlation-between-ordination-axes-values-and-foods" class="section level1">
-<h1>Analyze correlation between ordination axes values and foods</h1>
-<p>From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, and a table with correlation coefficients, p-values, and q-values with desired threshold between food items and axes that were saved in the ordination section.<br />
-Be careful about not to confuse WEIGHTED and UNweighted unifrac distances.</p>
-<p><br></p>
-<div id="weighted-unifrac-distance-ordination-results" class="section level2">
-<h2>WEIGHTED unifrac distance ordination results</h2>
-<pre class="r"><code>CorrAxesFood(food.otu_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt&quot;, 
-             AmountSums.out.fn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt&quot;,
-             qval.threshold = 0.05,
-             meta.users =            &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt&quot;,
-             corr.axes.foods.outfn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt&quot;)</code></pre>
-<table>
-<colgroup>
-<col width="21%" />
-<col width="78%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Argument</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>food.otu_soted</td>
-<td>xxx.food.otu.sorted.txt file, saved in the ordination section</td>
-</tr>
-<tr class="even">
-<td>AmountSums.out.fn</td>
-<td>output filename to be saved which has the total consumption amount of each food</td>
-</tr>
-<tr class="odd">
-<td>qval.threshold</td>
-<td>q-value threshold to call a correlation significant</td>
-</tr>
-<tr class="even">
-<td>meta.users</td>
-<td>xxx.meta_users.txt file, waved in the ordination section</td>
-</tr>
-<tr class="odd">
-<td>corr.axes.foods.outfn</td>
-<td>output filename to be saved which has the correlation between foods and Axes</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-</div>
-<div id="unweighted-unifrac-distance-ordination-results" class="section level2">
-<h2>UNweighted unifrac distance ordination results</h2>
-<p>xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.</p>
-<pre class="r"><code>CorrAxesFood(food.otu_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt&quot;,
-             AmountSums.out.fn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt&quot;,
-             qval.threshold = 0.05,
-             meta.users =            &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt&quot;,
-             corr.axes.foods.outfn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt&quot;)</code></pre>
-<p><br></p>
-</div>
-</div>
-<div id="load-the-output" class="section level1">
-<h1>Load the output</h1>
-<div id="weighted" class="section level2">
-<h2>WEIGHTED</h2>
-<pre class="r"><code>dat &lt;- read.delim(&quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt&quot;)</code></pre>
-<p>Show only food items that are significantly correlated with one of the axes.</p>
-<pre class="r"><code>subset(dat, Significance==&quot;*&quot;)</code></pre>
-<pre><code>##                                         Food   Axis correlation         pval
-## 1                    Soybean soup miso broth Axis.1   0.7127549 3.960138e-08
-## 2                         Tea hot leaf green Axis.1   0.7216284 2.228514e-08
-## 3 Rice white cooked fat not added in cooking Axis.1   0.6943809 1.220027e-07
-## 4                                  Soy sauce Axis.1   0.6323384 3.168152e-06
-## 5                                Avocado raw Axis.2  -0.6235105 4.755867e-06
-## 6                                       Beer Axis.4   0.5795861 3.019255e-05
-## 7                                  Water tap Axis.4  -0.5817230 2.776637e-05
-## 8      Nutritional powder mix whey based NFS Axis.2  -0.5678651 4.731394e-05
-##           qval Significance
-## 1 6.950042e-05            *
-## 2 6.950042e-05            *
-## 3 1.427431e-04            *
-## 4 2.780054e-03            *
-## 5 3.338619e-03            *
-## 6 1.513941e-02            *
-## 7 1.513941e-02            *
-## 8 2.075899e-02            *</code></pre>
-<p>Axis.1 is positively correlated with miso soup, green tea, white rice, and soy sauce. Those are commonly used in Japanese cuisine. So, it makes sense that Japanese-diet consumers are clustered on the right side of the biplot (Axis.1 x Axis.2 plot). Similarly, Axis.2 is negatively correlated with Avocado and Nutritional powder mix, whey based, and they are commonly found in keto (high protein, high fat, low carb) diet. And keto-diet consuming individuals tend to have lower Axis.2 values in the biplot. Correlation between axes and foods can be useful in identifying characteristics of the diet based on clustered individuals on the ordination biplot.</p>
-<p>It is also possible to view each axis separately.</p>
-<pre class="r"><code># Select Axis 1 rows
-dat_1 &lt;- subset(dat, Axis==&quot;Axis.1&quot;)
-head(dat_1[order(dat_1$qval), ], 10)</code></pre>
-<pre><code>##                                            Food   Axis correlation         pval
-## 1                       Soybean soup miso broth Axis.1   0.7127549 3.960138e-08
-## 2                            Tea hot leaf green Axis.1   0.7216284 2.228514e-08
-## 3    Rice white cooked fat not added in cooking Axis.1   0.6943809 1.220027e-07
-## 4                                     Soy sauce Axis.1   0.6323384 3.168152e-06
-## 9                                     Water tap Axis.1  -0.5184238 2.642395e-04
-## 12 Soybeans dry cooked fat not added in cooking Axis.1   0.4644421 1.309222e-03
-## 13                                 Soybean curd Axis.1   0.4635566 1.341198e-03
-## 17 Seaweed cooked NS as to fat added in cooking Axis.1   0.4387608 2.569919e-03
-## 18                                   Milk whole Axis.1   0.4336419 2.921872e-03
-## 41                      Almond milk unsweetened Axis.1  -0.2984626 4.643090e-02
-##            qval Significance
-## 1  6.950042e-05            *
-## 2  6.950042e-05            *
-## 3  1.427431e-04            *
-## 4  2.780054e-03            *
-## 9  1.030534e-01             
-## 12 3.621234e-01             
-## 13 3.621234e-01             
-## 17 5.306128e-01             
-## 18 5.697650e-01             
-## 41 6.984895e-01</code></pre>
-<pre class="r"><code># Select Axis 2 rows and sort by qval.  
-dat_2 &lt;- subset(dat, Axis==&quot;Axis.2&quot;)
-head(dat_2[order(dat_2$qval), ], 10)</code></pre>
-<pre><code>##                                     Food   Axis correlation         pval
-## 5                            Avocado raw Axis.2  -0.6235105 4.755867e-06
-## 8  Nutritional powder mix whey based NFS Axis.2  -0.5678651 4.731394e-05
-## 19                              Milk NFS Axis.2  -0.2089448 1.683699e-01
-## 23                            Milk whole Axis.2  -0.2909457 5.250417e-02
-## 30                   Milk reduced fat 2  Axis.2  -0.3767086 1.075195e-02
-## 35                       Milk low fat 1  Axis.2  -0.2734407 6.914211e-02
-## 60                           Cheese Brie Axis.2  -0.2553770 9.043337e-02
-## 71          Cheese Mozzarella whole milk Axis.2  -0.2089448 1.683699e-01
-## 75           Cheese Mozzarella part skim Axis.2  -0.2321609 1.248796e-01
-## 83                          Cheese Swiss Axis.2   0.2339003 1.219991e-01
-##           qval Significance
-## 5  0.003338619            *
-## 8  0.020758993            *
-## 19 0.698489461             
-## 23 0.698489461             
-## 30 0.698489461             
-## 35 0.698489461             
-## 60 0.698489461             
-## 71 0.698489461             
-## 75 0.698489461             
-## 83 0.698489461</code></pre>
-<pre class="r"><code># Select Axis 3 rows and sort by qval.  
-dat_3 &lt;- subset(dat, Axis==&quot;Axis.3&quot;)
-head(dat_3[order(dat_3$qval), ], 10)</code></pre>
-<pre><code>##                                     Food   Axis correlation        pval
-## 11                       Milk low fat 1  Axis.3  -0.4731188 0.001030000
-## 20                              Milk NFS Axis.3   0.2321609 0.124879574
-## 24                            Milk whole Axis.3   0.3953723 0.007185917
-## 31                   Milk reduced fat 2  Axis.3   0.4047371 0.005820053
-## 40                 Almond milk sweetened Axis.3  -0.2089448 0.168369896
-## 61                           Cheese Brie Axis.3  -0.2205528 0.145426875
-## 67                           Cheese Feta Axis.3  -0.2321609 0.124879574
-## 72          Cheese Mozzarella whole milk Axis.3   0.2321609 0.124879574
-## 76           Cheese Mozzarella part skim Axis.3   0.2089448 0.168369896
-## 99 Beef steak braised lean and fat eaten Axis.3  -0.2321609 0.124879574
-##         qval Significance
-## 11 0.3286635             
-## 20 0.6984895             
-## 24 0.6984895             
-## 31 0.6984895             
-## 40 0.6984895             
-## 61 0.6984895             
-## 67 0.6984895             
-## 72 0.6984895             
-## 76 0.6984895             
-## 99 0.6984895</code></pre>
-<pre class="r"><code># Select Axis 4 rows and sort by qval.  
-dat_4 &lt;- subset(dat, Axis==&quot;Axis.4&quot;)
-head(dat_4[order(dat_4$qval), ], 10)</code></pre>
-<pre><code>##                              Food   Axis correlation         pval       qval
-## 6                            Beer Axis.4   0.5795861 3.019255e-05 0.01513941
-## 7                       Water tap Axis.4  -0.5817230 2.776637e-05 0.01513941
-## 15                    Spinach raw Axis.4  -0.4528371 1.787181e-03 0.39546611
-## 25                     Milk whole Axis.4   0.2039034 1.791104e-01 0.69848946
-## 36                Milk low fat 1  Axis.4  -0.2421731 1.089806e-01 0.69848946
-## 42        Almond milk unsweetened Axis.4  -0.3571222 1.602957e-02 0.69848946
-## 47                   Coconut milk Axis.4  -0.3482679 1.905603e-02 0.69848946
-## 55 Yogurt Greek nonfat milk fruit Axis.4  -0.1973367 1.938259e-01 0.69848946
-## 58                    Cream heavy Axis.4   0.2205528 1.454269e-01 0.69848946
-## 62                    Cheese Brie Axis.4   0.2089448 1.683699e-01 0.69848946
-##    Significance
-## 6             *
-## 7             *
-## 15             
-## 25             
-## 36             
-## 42             
-## 47             
-## 55             
-## 58             
-## 62</code></pre>
+<div id="load-ordination-results" class="section level1">
+<h1>Load ordination results</h1>
+<p>Change to the folder called “Ordination”.</p>
+<pre class="r"><code>SpecifyDataDirectory(directory.name = &quot;eg_data/NHANES/Laboratory_data/Ordination/&quot;)</code></pre>
+<p>Read in the metadata and users’ Axis values.</p>
+<pre class="r"><code>loaded_glu_w &lt;- read.table(&quot;Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_meta_users.txt&quot;, 
+                           sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Convert the GLU_index as a factor to plot it in order.</p>
+<pre class="r"><code>loaded_glu_w$GLU_index &lt;- factor(loaded_glu_w$GLU_index, levels= c(&quot;Normal&quot;, &quot;Prediabetic&quot;, &quot;Diabetic&quot;))</code></pre>
+<p>Load the eigenvalues as a vector.</p>
+<pre class="r"><code>eigen_loaded &lt;- read.table(&quot;Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_eigen.txt&quot;, header=T)</code></pre>
+<p>Make a vector that contains the variance explained.</p>
+<pre class="r"><code>eigen_loaded_vec &lt;- eigen_loaded[, 2]</code></pre>
+<p>Create a folder called “Viz_Ordination” to save the plots to be produced here.</p>
 <p><br></p>
 <hr />
 </div>
-<div id="unweighted" class="section level2">
-<h2>Unweighted</h2>
-<p>UNweighted can be viewed in the same way.</p>
-<pre class="r"><code>dat &lt;- read.delim(&quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt&quot;)</code></pre>
-<p>Show only food items that are significantly correlated with one of the axes.</p>
-<pre class="r"><code>subset(dat, Significance==&quot;*&quot;)</code></pre>
-<pre><code>##                                         Food   Axis correlation         pval
-## 1                    Soybean soup miso broth Axis.1   0.7110313 4.417103e-08
-## 2                         Tea hot leaf green Axis.1   0.7087858 5.086451e-08
-## 3 Rice white cooked fat not added in cooking Axis.1   0.6853274 2.061340e-07
-## 4                                Avocado raw Axis.2  -0.6763446 3.406440e-07
-## 5                                  Soy sauce Axis.1   0.6570469 9.471300e-07
-## 6                                       Beer Axis.3  -0.5547960 7.655434e-05
-##           qval Significance
-## 1 8.926721e-05            *
-## 2 8.926721e-05            *
-## 3 2.411768e-04            *
-## 4 2.989151e-04            *
-## 5 6.648852e-04            *
-## 6 4.478429e-02            *</code></pre>
+<div id="highlight-certain-samples---e.g.-participants-83755-and-83820" class="section level1">
+<h1>Highlight certain sample(s) - e.g. participants 83755 and 83820</h1>
+<p>Subset datapoint(s) that you would like to highlight.</p>
+<pre class="r"><code>select_point &lt;- subset(loaded_glu_w, SEQN==&quot;83755&quot; | SEQN==&quot;83820&quot; ) </code></pre>
+<p>Plot participants in different colors, then plot the selected participants (SEQNs) above with a thicker outline.</p>
+<pre class="r"><code>highlighted &lt;- ggplot() +
+  
+  # Plot all the datapoints first.
+  geom_point(loaded_glu_w, shape=21, size=3, alpha=1, colour=&quot;black&quot;,
+             mapping=aes(x=Axis.1, y=Axis.2, fill=GLU_index)) +  
+  scale_fill_manual(values = c(&quot;steelblue3&quot;, &quot;yellow&quot;, &quot;hotpink&quot;)) + 
+  xlab( paste(&quot;Axis.1 (&quot;, paste(round(eigen_loaded_vec[1]*100, 1)), &quot;%)&quot;, sep=&quot;&quot;) ) +
+  ylab( paste(&quot;Axis.2 (&quot;, paste(round(eigen_loaded_vec[2]*100, 1)), &quot;%)&quot;, sep=&quot;&quot;) ) +
+  no_grid + space_axes + theme(aspect.ratio = 1) +
+  
+  # Add thicker outlined datapoints of selected individuals.
+  geom_point(select_point, shape=21, size=3, alpha=1, stroke=2, color=&quot;black&quot;,
+             mapping=aes(x=Axis.1, y=Axis.2, fill= GLU_index), show.legend=F) +
+  
+  # Add a caption to explain the highlighted datapoint(s).
+  labs(caption=&quot;SEQN 83755 and 83820 are highlighted with a thick outline.&quot;) +
+  theme(plot.caption =  element_text(hjust=1, face=&quot;italic&quot;))</code></pre>
+<pre class="r"><code>highlighted</code></pre>
+<p><img src="NHANES_14_males60to79_viz_ordination_files/figure-html/unnamed-chunk-14-1.png" width="70%" /></p>
+<pre class="r"><code>ggsave(&quot;Viz_Ordination/Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_Axis12_highlighted.png&quot;, 
+       highlighted, device=&quot;png&quot;, width=7, height=5.5, unit=&quot;in&quot;, dpi=300)</code></pre>
 <p><br></p>
 <hr />
-<p>Come back to the main directory before you start running another script.</p>
+<p>Come back to the main directory.</p>
 <pre class="r"><code>setwd(main_wd)</code></pre>
 <!-- This is to remove big white space at the end of the rendered html, which is produced due to toc_floating.  Source: https://stackoverflow.com/questions/52933437/how-to-remove-white-space-at-the-end-of-an-rmarkdown-html-output -->
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
 
-</div>
 </div>
 </div>
 

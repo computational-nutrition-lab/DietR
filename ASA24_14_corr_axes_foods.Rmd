@@ -1,5 +1,5 @@
 ---
-title: "Analyze correlation between ordination axes and foods"
+title: "Correlation between ordination axes and foods"
 output:
   html_document:
     toc: true
@@ -35,6 +35,12 @@ blockquote{
   font-size: 14px;
 }
 </style>
+
+<br>
+
+# Introduction
+
+In this script, we will analyze correlation between ordination axes values and foods.
 
 <br>
 
@@ -80,14 +86,11 @@ knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ/Ordination/')
 
 <br>
 
-# Analyze correlation between ordination axes values and foods
+# Weighted unifrac distance ordination results
 
 From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, and a table with correlation coefficients, p-values, and q-values with desired threshold between food items and axes that were saved in the ordination section.  
 Be careful about not to confuse WEIGHTED and UNweighted unifrac distances.  
 
-<br>
-
-## WEIGHTED unifrac distance ordination results
 ```{r}
 CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt", 
              AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
@@ -106,26 +109,20 @@ corr.axes.foods.outfn | output filename to be saved which has the correlation be
 
 <br>
 
-## UNweighted unifrac distance ordination results
+---
 
-xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
+## Load and analyze the output
 
-```{r}
-CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt",
-             AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
-             qval.threshold = 0.05,
-             meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt",
-             corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
-```
-
-<br>
-
-# Load the output
-
-## WEIGHTED
 ```{r}
 dat <- read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
 ```
+
+Check the number of food items with significant q-values.
+```{r}
+nrow(subset(dat, Significance=="*"))
+```
+
+There are 8 food items significantlly correlated with one of the axes.
 
 Show only food items that are significantly correlated with one of the axes.
 ```{r}
@@ -161,14 +158,36 @@ head(dat_4[order(dat_4$qval), ], 10)
 
 <br>
 
+# Unweighted unifrac distance ordination results
+
+xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
+
+```{r}
+CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt",
+             AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
+             qval.threshold = 0.05,
+             meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt",
+             corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
+```
+
+
+<br>
+
 ---
 
-## Unweighted
+## Load and analyze the output
 
 UNweighted can be viewed in the same way.
 ```{r}
 dat <- read.delim("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
 ```
+
+Check the number of food items with significant q-values.
+```{r}
+nrow(subset(dat, Significance=="*"))
+```
+
+There are 6 food items significantlly correlated with one of the axes.
 
 Show only food items that are significantly correlated with one of the axes.
 ```{r}

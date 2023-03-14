@@ -26,6 +26,12 @@
 # Then download and install the phyloseq package.
   # BiocManager::install("phyloseq")
 
+# Install the devtools package necessary for installing the pairwiseAdonis package. 
+  if (!require("devtools",    quietly = TRUE))install.packages("devtools")
+
+# Install pairwise adonis function from Github. (https://github.com/pmartinezarbizu/pairwiseAdonis)
+  # devtools::install_github("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")  
+  
 # ---------------------------------------------------------------------------------------------------------------
 # load the necessary packages.
   library(phyloseq)
@@ -285,10 +291,8 @@
 # Generate and save an unweighted unifrac distance matrix of "Samples". 
   UnweightedUnifracDis(input.phyloseq.obj = phyfoods, 
                        output.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_UNweighted_uni_dis.txt")        
-  
-  
-##### TUTORIAL UPDATED! 12/05/2022.
-##### TUTORIAL UPDATED! 01/19/2023.
-##### TUTORIAL UPDATED! 02/16/2023.
 
+# ---------------------------------------------------------------------------------------------------------------
+# Come back to the main directory.
+  setwd(main_wd)  
   

@@ -4,6 +4,10 @@
 # Created on 12/05/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# There may be cases where you want to highlight specific users in the biplot because they have distinct 
+# metadata etc. Individuals can be highlighted with a thicker outline if desired. This can be done by loading 
+# the saved ordination results - Axis values and metadata combined, and the proportion of variance explained.
+
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
@@ -27,11 +31,6 @@
 # ===============================================================================================================
 # Load ordination results - whether weighted or unweighted Unifrac distance results. 
 # ===============================================================================================================
-
-# There may be cases where you want to highlight specific users in the biplot because they have 
-# distinct metadata etc. Individuals can be highlighted with a thicker outline if desired. 
-# This can be done by loading the saved ordination results - 
-# Axis values and metadata combined, and the proportion of variance explained.
 
 # Change to the folder called "Ordination".
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/Laboratory_data/Ordination/")
@@ -58,6 +57,7 @@
   
   # Plot participants in different colors, then plot the selected participants (SEQNs) above with a thicker outline.
   highlighted <- ggplot() +
+    
     # Plot all the datapoints first.
     geom_point(loaded_glu_w, shape=21, size=3, alpha=1, colour="black",
                mapping=aes(x=Axis.1, y=Axis.2, fill=GLU_index)) +  
