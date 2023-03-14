@@ -4,8 +4,10 @@
 # Created on 08/29/2022 by Rie Sadohara
 # ===============================================================================================================
 
-# READY TO BE COPIED TO TUTORIAL. === COPIED ON 08/30/2022. == EDITED AGAIN AND
-# READY TO BE COPIED TO TUTORIAL 12/26/2022.
+# Here, we will run k-means analysis with the NHANES 2-day average totals, subsetted for males, 60-79 years old.
+
+# Create two folders named "males60to79_Nut_k-means" and "males60to79_Cat_k-means" inside "Laboratory_data" 
+# to save k-means results of Nutrients and Food Category data, respectively.
 
 # Set your working directory as to the main directory.
   Session --> Set working direHctory --> Choose directory.
@@ -29,16 +31,12 @@
 # Specify the directory where your data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/Laboratory_data/")
   
-# Create two folders named "males60to79_Nut_k-means" and "males60to79_Cat_k-means" inside "Laboratory_data" 
-# to save k-means results of Nutrients and Food Category data, respectively.
-  
-# Here, we will run k-means analysis for each of Nutrients and Food categories.
-  
 # ===============================================================================================================
 # Nutrient data, processed for clustering analyses.
 # ===============================================================================================================
 
-# Your input data should be a data frame with variables with non-zero variance.
+# Your input data should be a data frame with uncorrelated variables with non-zero variance and with no 
+# missing data.
   nut_kmeansinput <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_rv.txt",
                                 sep="\t", header=T)
   
@@ -61,7 +59,7 @@
 # The gap method output will be printed on the Console. The gap values are plotted in 
 # xxx_gapmethod.pdf.
   ChooseK(out.dir= res_dir_nut, out.prefix= res_prefix_nut)
-  
+
 # The Gap method output on the console may say "Warning message: did not converge in 10 iterations." 
 # If this happens, the optimum K suggested may not be as conclusive, but we can proceed for now while
 # keeping that in mind.
@@ -85,7 +83,8 @@
 # Food category data, processed for clustering analyses.
 # ===============================================================================================================
 
-# Your input data should be a data frame with variables with non-zero variance.
+# Your input data should be a data frame with uncorrelated variables with non-zero variance and with no 
+# missing data.
   cat_kmeansinput <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_rv.txt", 
                                 sep="\t", header=T)
 

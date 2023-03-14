@@ -105,6 +105,13 @@ Numbered list
 1. Build a foodtree with food items reported by VVKAJ study participants.
 2. Generate OTU tables from the taxonomy information of reported food items.
 
+## Insert a PDF as an image
+
+?????
+
+<br>
+
+---
 
 ## Insert an image
 

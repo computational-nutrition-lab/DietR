@@ -1,9 +1,12 @@
 # ===============================================================================================================
-# Generate food tree out of GLU - males in their 60-79, with 55 subsamples of Prediabetic.
+# Generate foodtree out of GLU - males in their 60-79, with 55 subsamples of Prediabetic.
 # Do not use format.foods or CheckDB or FilterDBByDiet functions. Clean version. 
 # Version 3
 # Created on 02/16/2023 by Rie Sadohara
 # ===============================================================================================================
+
+# In this script, we will build a foodtree with the NHANES 2-day average totals, subsetted for males, 
+# 60-79 years old. 
 
 # First, we will load the QC-ed averaged totals of males 60-79 years old (n=237) and all food records (n=4,207). 
 # Then, we will keep the food records of only the individuals in males 60-79 years old and generate a foodtree
@@ -34,7 +37,7 @@
   setwd(main_wd) 
   
 # ===============================================================================================================
-# Load and prep data for generating food trees 
+# Load and prep data for generating foodtrees 
 # ===============================================================================================================
   
 # Specify where the data is.
@@ -66,14 +69,21 @@
 
 # Create foodtree with the foods classified at a desired level of classification (Lv. 1-6).
 # "NodeLabelsMCT.txt" has a list of food levels and names, which comes with the DietR package.
-  MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt", 
-               addl_foods_fn = NULL,
+  MakeFoodTree(nodes_fn= "../../Food_tree_eg/NodeLabelsMCT.txt", 
                num.levels = 3,
                food_database_fn =            "Food_D12_FC_QC_demo_QCed_males60to79.txt",  
+               addl_foods_fn = NULL,
                output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.nwk", 
                output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt"
   )
+
+  # food_database_fn:   Your food item data.
+  # addl_foods_fn:      List of foods not present in the list can be added. NULL by default. 
+  # output_tree_fn:     Name output tree file with .nwk at the end.
+  # output_taxonomy_fn: Name output taxonomy file.  
   
+# The xxx.nwk is the foodtree, and xxx.tax.txt is the taxonomy file that is to be used to OTU tables next. 
+    
 # --------------------------------------------------------------------------------------------------------------
 # Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.
 # It is OK to see the following warning message:
@@ -87,10 +97,10 @@
               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt",       
               output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu.txt")  
   
-  # food_records_fn:   Your food record.
+  # food_records_fn:   Same as food_records_fn in MakeFoodTree.
   # food_record_id:    The colunmname of your participants' ID.
-  # food_taxonomy_fn:  Your taxonomy file produced by MakeFoodTree.
-  # output_fn:         Output otu file to be saved.
+  # food_taxonomy_fn:  taxonomy file produced by MakeFoodTree.
+  # output_fn:         Name output otu file to be saved.
   
 # Make a food otu table with data in grams of fiber per food.
   MakeFiberOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 

@@ -4,6 +4,9 @@
 # Created on 12/01/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# In this script, we will perform Principal Component Analysis (PCA) with the NHANES 2-day average totals,
+# subsetted for males, 60-79 years old.
+
 # Set your working directory as the main directory (dietary_patterns)
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
@@ -32,7 +35,7 @@
 # PCA with nutrients and BMI
 # ===============================================================================================================
 
-# Your input data should be a data frame with uncorrelated variables with non-zero variance. 
+# Your input data should be a dataframe with uncorrelated variables with non-zero variance and with no missing data. 
   pca_input <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_rv.txt", 
                           sep="\t", header=T)
 
@@ -53,10 +56,13 @@
   OutputPCA(pca.data= pca_input, pca.result= scaled_pca, 
              out.dir= res_dir_Nut, out.prefix= res_prefix_Nut)
   
-# Now, output .pdf and .txt files should be found in your folder specified as. res_prefix_Nut.
+# Now, output .pdf and .txt files should be found in your folder specified as in res_prefix_Nut.
 
 # Combine the input with all the variables and the PC results. 
-# Input is your items/totals input file with no missing data in your variables of interest.
+# "input" is your items/totals input file with no missing data in your variables, but including the ones that 
+# are highly correlated and therefore were removed when processed into clustering input; however, these 
+# variables are going to be included here so that we will be able to take a look at all the variables and 
+# see which of them are correlated with the PCA axes and metadata etc.
   SaveInputAndPCs(input="QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut.txt", 
                   pca.results = scaled_pca, 
                   out.dir= res_dir_Nut, out.prefix= res_prefix_Nut)
@@ -69,7 +75,7 @@
   
 # Load the totals_males60to79 data with no missing data in your variables of interest.
   totals_males60to79 <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut.txt", 
-                               sep="\t", header=T)
+                                   sep="\t", header=T)
   
 # Change GLU_index to a factor so that factors will be displayed in order.
   totals_males60to79$GLU_index <- factor(totals_males60to79$GLU_index, 
@@ -94,7 +100,7 @@
 # PCA with food categories and BMI
 # ===============================================================================================================
 
-# Your input data should be a data frame with variables with non-zero variance. 
+# Your input data should be a dataframe with uncorrelated variables with non-zero variance and with no missing data. 
   pca_input <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_rv.txt",
                           sep="\t", header=T)
 
@@ -115,7 +121,6 @@
              out.dir= res_dir_Cat, out.prefix= res_prefix_Cat)
 
 # Combine the input with all the variables and the PC results. 
-# Input is your items/totals input file with no missing data in your variables of interest.
   SaveInputAndPCs(input="QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat.txt", 
                   pca.results = scaled_pca, 
                   out.dir= res_dir_Cat, out.prefix= res_prefix_Cat)
