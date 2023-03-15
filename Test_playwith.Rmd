@@ -54,6 +54,9 @@ This is a note section.
 **Warning**
 This is a warning section.  
 
+**Underline**
+<span style="text-decoration:underline">Underline this text</span> 
+
 <br>
 
 
@@ -83,6 +86,7 @@ Dollar sign printed: \$Y = ax + b\$
 
 ## Color text
 <span style="color: red;">text in color</span>
+
 <br>
 
 ## Block quote
@@ -111,6 +115,12 @@ BMXHT    | Standing Height (cm)
 BMIHT    | Standing Height Comment
 BMXBMI   | Body Mass Index (kg/m^2^)
 
+Data type | Nutrients (PROT - B12_ADD) | Food categories (F_TOTAL - A_DRINKS)
+-------- | -------- | --------
+As is (1 row = user/day) | Nut_asis | Cat_asis
+Averaged across days (1 row = user) | Nut_ave | Cat_ave
+
+
 ## Text in a white box
 
     # this box is preceded by two tub key hits, it seems like.
@@ -135,7 +145,15 @@ Numbered list
 
 Just type "![my image caption](" and press the tab key - it will show you potential images to be inserted. Handy!
 
-![my image caption](Screenshots_for_Tutorial/ASA24 Ordination/4Lv WEIGHTED ord.png)
+![width60%](Screenshots_for_Tutorial/ASA24 Ordination/4Lv WEIGHTED ord.png){width=60%}
+
+
+![width60%](Screenshots_for_Tutorial/ASA24 Ordination/4Lv WEIGHTED ord.png){width=500px}
+
+
+The preview does not have a proper proportion, but it'll be fine once knitted! 
+
+
 
 ## R code chunks
 ### Chunk names must be unique - should be no duplications.

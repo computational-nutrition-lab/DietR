@@ -432,7 +432,7 @@ div.tocify {
   </ul>
 </li>
 <li>
-  <a href="Links.html">Links</a>
+  <a href="Test_playwith.html">Links</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -490,6 +490,7 @@ h3 { /* Header 3 */
 <div id="second-level-header" class="section level2">
 <h2>Second level header</h2>
 <p><strong>Warning</strong> This is a warning section.</p>
+<p><strong>Underline</strong> <span style="text-decoration:underline">Underline this text</span></p>
 <p><br></p>
 <div id="third-level-header" class="section level3">
 <h3>third level header</h3>
@@ -514,7 +515,8 @@ h3 { /* Header 3 */
 </div>
 <div id="color-text" class="section level2">
 <h2>Color text</h2>
-<p><span style="color: red;">text in color</span> <br></p>
+<p><span style="color: red;">text in color</span></p>
+<p><br></p>
 </div>
 <div id="block-quote" class="section level2">
 <h2>Block quote</h2>
@@ -568,6 +570,27 @@ Hit return. Now these two should appear in two separate lines. <br></p>
 </tr>
 </tbody>
 </table>
+<table>
+<thead>
+<tr class="header">
+<th>Data type</th>
+<th>Nutrients (PROT - B12_ADD)</th>
+<th>Food categories (F_TOTAL - A_DRINKS)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>As is (1 row = user/day)</td>
+<td>Nut_asis</td>
+<td>Cat_asis</td>
+</tr>
+<tr class="even">
+<td>Averaged across days (1 row = user)</td>
+<td>Nut_ave</td>
+<td>Cat_ave</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="text-in-a-white-box" class="section level2">
 <h2>Text in a white box</h2>
@@ -592,9 +615,14 @@ A pound sign is not necessary.</code></pre>
 <h2>Insert an image</h2>
 <p>Just type “[my image caption](” and press the tab key - it will show you potential images to be inserted. Handy!</p>
 <div class="figure">
-<img src="Screenshots_for_Tutorial/ASA24%20Ordination/4Lv%20WEIGHTED%20ord.png" alt="" />
-<p class="caption">my image caption</p>
+<img src="Screenshots_for_Tutorial/ASA24%20Ordination/4Lv%20WEIGHTED%20ord.png" style="width:60.0%" alt="" />
+<p class="caption">width60%</p>
 </div>
+<div class="figure">
+<img src="Screenshots_for_Tutorial/ASA24%20Ordination/4Lv%20WEIGHTED%20ord.png" width="500" alt="" />
+<p class="caption">width60%</p>
+</div>
+<p>The preview does not have a proper proportion, but it’ll be fine once knitted!</p>
 </div>
 <div id="r-code-chunks" class="section level2">
 <h2>R code chunks</h2>

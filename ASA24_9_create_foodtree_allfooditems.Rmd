@@ -141,15 +141,42 @@ FormatFoods(input_fn= "all.food.desc.txt",
 
 <br>
 
+all.food.desc.txt
+
+![](Screenshots_for_Tutorial/ASA24 Foodtree/all.food.desc.png){width=45%}
+
+<br>
+
+all.food.desc_formatted.txt
+
+![](Screenshots_for_Tutorial/ASA24 Foodtree/all.food.desc_formatted.png){width=80%}
+
+<br>
+
 ---
 
 You can also create a list of FoodCode and Main.food.description of additional foods not in ASA24 that you would like to include in the analysis. As an example, Soylent_codes.txt has two columns: FoodCode and Main.food.description. You can generate food codes for the food items unique to your dataset. Be sure to use a nine-digit number that is not already in the all.food.desc.txt.
-  
+
+<br>
+
+Soylent_codes.txt
+
+![](Screenshots_for_Tutorial/ASA24 Foodtree/soylent_codes.png){width=40%}
+
+<br>
+
 Format this soylent_codes.txt for use - replace special characters with "_". There are no special characters in this file, so Main.food.description will result in the same as Old.Main.food.description with this particular file.
 ```{r}
 FormatFoods(input_fn= "Soylent_codes.txt", 
             output_fn="Soylent_codes_formatted.txt")
 ```
+
+
+<br>
+
+Soylent_codes_formatted.txt
+
+![](Screenshots_for_Tutorial/ASA24 Foodtree/soylent_codes_formatted.png){width=70%}
 
 <br>
 
@@ -179,6 +206,18 @@ output_taxonomy_fn| output taxonomy file (to be used later) name.
 
 <br>
 
+The nodes_fn argument specifies the food level (node) information for each food item. <span style="color: red;">NodeLabelsMCT.txt</span> has the classification level of each food items and its Main.food.description.  The classification level will be the basis of hierarchical food tree generation.
+
+<br>
+
+NodeLabelsMCT.txt
+
+![](Screenshots_for_Tutorial/ASA24 Foodtree/NodeLabelsMCT.png){width=50%}
+
+<br>
+
+---
+
 # Visualize your food tree
 
 ## Load the generated food tree
@@ -203,7 +242,7 @@ PrepFoodTreePlots(input.tree=tree)
 
 <br>
 
-## Create a color-coded and annotated food tree with 9 L1 levels 
+## Create a color-coded and annotated food tree with nine L1 levels 
 
 Choose either 'circular' or 'radial' for layout.  
 It is OK to see some warning messages about Coordinate system and scale for 'y' already being present.

@@ -298,8 +298,35 @@ names(food1bb)[names(food1bb) == "FoodAmt"] <- "DR1IGRMS"
 names(food2bb)[names(food2bb) == "FoodAmt"] <- "DR2IGRMS"
 ```
 
-> **[NOTE]** Create a set of variables to use downstream.
-> Refer to the tutorial how to generate NHANES_Food_VarNames_FC_Day1.txt and NHANES_Food_VarNames_FC_Day2.txt. 
+**[NOTE]** Create a set of variables to use downstream.
+
+This will be more conveniently done by using spreadsheet software such as MS Excel rather than R. This process is to generate: <span style="text-decoration:underline">NHANES_Food_VarNames_FC_Day1.txt</span> and 
+<span style="text-decoration:underline">NHANES_Food_VarNames_FC_Day2.txt</span> so that we will be able to select nutrients and food category variables and a few others that are necessary, out of many other variables present in the NHANES food data.
+
+Appendix 2 of [food data documentation](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DRXFCD_I.htm#Appendix_2._Variables_in_the_Individual_Foods_Files_(DR1IFF_I_and_DR2IFF_I)_by_Position) shows the variables in the Individual Foods Files (DR1IFF_I and DR2IFF_I).
+
+![](Screenshots_for_Tutorial/NHANES load clean/Load_Scenario B-1 Appendix 2.jpg){width=60%}
+
+<br>
+
+However, we need food category information as well, similar to ASA24. Food category variables (Food Patterns Equivalents Database per 100 grams of FNDDS) can be found in the [FPED page](https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/food-surveys-research-group/docs/fped-databases/). Select the same years of FPED as your NHANES release you are using. The variable labels  <span style="text-decoration:underline">(F_CITMLB through A_DRINKS, for FPED 2015-2016)</span> are the food category variables you need.
+
+The first few lines of FPED_1516.xls
+
+![](Screenshots_for_Tutorial/NHANES load clean/Load_ Scenario B-1 FPED_1516.jpg){width=80%}
+<br>
+
+Those two sets of variables need to come one after another vertically, so that they will form a long list of variables, for which we would like to calculate totals from the food data. 
+
+Lastly, we need to have “FoodCode” and “FoodID” columns in order to build a food tree from our food data. So, add “FoodCode” and “FoodID” one per line, after the nutrients and food category variables in the lists of variables for Day 1 and Day 2 you have created.
+
+If you are analyzing NHANES 2015-2016, this tutorial provides you with <span style="text-decoration:underline">NHANES_Food_VarNames_FC_Day1.txt</span> and <span style="text-decoration:underline">NHANES_Food_VarNames_FC_Day2.txt</span> files in the “Food_VarNames” folder. These two .txt files were generated following the steps described above and have the necessary variable names. If you are analyzing other releases of NHANES, create a spreadsheet workbook, and copy and paste the variables from the Appendix of the documentation of the selected version of NHANES and food category variables from the appropriate version of FPED. Remember to add “FoodCode” and “FoodID” at the end of them, too.
+
+<br>
+
+The first few lines of NHANES_Food_VarNames_FC_Day1.txt looks like as follows:
+
+![](Screenshots_for_Tutorial/NHANES load clean/Load_Scenario B-1 NHANES food var names.jpg){width=15%}
 
 <br>
 

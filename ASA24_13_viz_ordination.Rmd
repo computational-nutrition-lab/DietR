@@ -77,8 +77,6 @@ setwd(main_wd)
 
 # Load ordination results - whether weighted or unweighted Unifrac distance results
 
-In the ordination section, biplots were generated with the users color-coded by their Diet. However, they can also be color-coded individually. In addition, specific users can be highlighted with a thicker outline if desired. All of these can be done by loading the saved ordination results - Axis values and metadata combined, and the proportion of variance explained.
-
 Specify the directory where the data is.
 ```{r, eval = FALSE}
 SpecifyDataDirectory(directory.name= "eg_data/VVKAJ/Ordination/")

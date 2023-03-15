@@ -38,6 +38,8 @@ blockquote{
 
 <br>
 
+# Introduction
+
 We can view summary statistics of either the individual food data or the totals data. First, let us take a look at theitems data. This section is not intended to be a complete guide to analysis, but rather to give you some ideas for how to explore this data.
 
 <br>
@@ -117,6 +119,11 @@ Calculate the minimum, 1st quantile, median, mean, 3rd quantile, max, and standa
 SummaryStats(inputdf = items_f_id_s_m,
              outfn = "VVKAJ_Items_f_id_s_m_summ.txt")
 ```
+
+The .txt should contain data shown below. Non-numeric variables are indicated as “not-numeric”.
+
+![](Screenshots_for_Tutorial/ASA24_overview/summarystats.png){width=60%}
+
 
 > **[NOTE]** These are individual items, not by user or day.
 

@@ -89,7 +89,7 @@ knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ/Ordination/')
 # Weighted unifrac distance ordination results
 
 From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, and a table with correlation coefficients, p-values, and q-values with desired threshold between food items and axes that were saved in the ordination section.  
-Be careful about not to confuse WEIGHTED and UNweighted unifrac distances.  
+Be careful not to confuse WEIGHTED and UNweighted unifrac distances.  
 
 ```{r}
 CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt", 

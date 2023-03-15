@@ -289,6 +289,13 @@ PlotAxis1to4ByFactor(axis.meta.df    = meta_usersdf,
                      )
 ```
 
+<br>
+
+The function above saves 10 biplots in the PDF format.  Let us take a look at Axis 1 vs. Axis 2. 
+
+![](Screenshots_for_Tutorial/ASA24 Ordination/4Lv WEIGHTED ord.png){width=60%}
+
+It seems that Axis1 separated the Japanese diet group from the rest, and Axis2 separated the Keto diet group from the rest. 
 
 <br>
 

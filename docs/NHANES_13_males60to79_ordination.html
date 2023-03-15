@@ -432,7 +432,7 @@ div.tocify {
   </ul>
 </li>
 <li>
-  <a href="Links.html">Links</a>
+  <a href="Test_playwith.html">Links</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -719,7 +719,7 @@ table(loaded_glu_w$GLU_index)</code></pre>
 <pre class="r"><code>dispr_w &lt;- vegan::betadisper(d=dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index)</code></pre>
 <p>Show the centroids and dispersion of each group.</p>
 <pre class="r"><code>plot(dispr_w)</code></pre>
-<p><img src="NHANES_13_males60to79_ordination_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="NHANES_13_males60to79_ordination_files/figure-html/unnamed-chunk-42-1.png" width="70%" /></p>
 <p>Use dispr to do a permutation test for homogeneity of multivariate dispersion.</p>
 <pre class="r"><code>vegan::permutest(dispr_w, perm = 5000)</code></pre>
 <pre><code>## 
@@ -844,7 +844,7 @@ table(loaded_glu_w$GLU_index)</code></pre>
 <pre class="r"><code>dispr_u &lt;- vegan::betadisper(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_index)</code></pre>
 <p>Can show the centroids and dispersion of each group.</p>
 <pre class="r"><code>plot(dispr_u)</code></pre>
-<p><img src="NHANES_13_males60to79_ordination_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="NHANES_13_males60to79_ordination_files/figure-html/unnamed-chunk-57-1.png" width="70%" /></p>
 <p>Use dispr to do a permutation test for homogeneity of multivariate dispersion.</p>
 <pre class="r"><code>vegan::permutest(dispr_u)</code></pre>
 <pre><code>## 

@@ -350,7 +350,7 @@ dispr_w <- vegan::betadisper(d=dist_matrix_w, phyloseq::sample_data(phyfoods)$GL
 ```
 
 Show the centroids and dispersion of each group.
-```{r}
+```{r,out.width="70%"}
 plot(dispr_w)
 ```
 
@@ -467,7 +467,7 @@ dispr_u <- vegan::betadisper(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_
 ```
 
 Can show the centroids and dispersion of each group.
-```{r}
+```{r,out.width="70%"}
 plot(dispr_u)
 ```
 

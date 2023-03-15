@@ -45,6 +45,16 @@ We will need to calculate average dietary data per person across all days (if de
 
 <br>
 
+Part of descriptors of filenames for data type and processing pattern are defined as follows for each of the combination of two types of dietary data (nutrients or food categories) and two types of measurements (each day or average across days). 
+
+
+Data type | Nutrients (PROT - B12_ADD) | Food categories (F_TOTAL - A_DRINKS)
+-------- | -------- | --------
+As is (1 row = user/day) | Nut_asis | Cat_asis
+Averaged across days (1 row = user) | Nut_ave | Cat_ave
+
+<br>
+
 # Load functions and packages  
 
 Name the path to DietR directory where input files are pulled.

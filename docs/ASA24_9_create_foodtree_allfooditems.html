@@ -432,7 +432,7 @@ div.tocify {
   </ul>
 </li>
 <li>
-  <a href="Links.html">Links</a>
+  <a href="Test_playwith.html">Links</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -543,11 +543,24 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
 <pre class="r"><code>FormatFoods(input_fn= &quot;all.food.desc.txt&quot;, 
             output_fn=&quot;all.food.desc_formatted.txt&quot;)</code></pre>
 <p><br></p>
+<p>all.food.desc.txt</p>
+<p><img src="Screenshots_for_Tutorial/ASA24%20Foodtree/all.food.desc.png" style="width:45.0%" /></p>
+<p><br></p>
+<p>all.food.desc_formatted.txt</p>
+<p><img src="Screenshots_for_Tutorial/ASA24%20Foodtree/all.food.desc_formatted.png" style="width:80.0%" /></p>
+<p><br></p>
 <hr />
 <p>You can also create a list of FoodCode and Main.food.description of additional foods not in ASA24 that you would like to include in the analysis. As an example, Soylent_codes.txt has two columns: FoodCode and Main.food.description. You can generate food codes for the food items unique to your dataset. Be sure to use a nine-digit number that is not already in the all.food.desc.txt.</p>
+<p><br></p>
+<p>Soylent_codes.txt</p>
+<p><img src="Screenshots_for_Tutorial/ASA24%20Foodtree/soylent_codes.png" style="width:40.0%" /></p>
+<p><br></p>
 <p>Format this soylent_codes.txt for use - replace special characters with “_“. There are no special characters in this file, so Main.food.description will result in the same as Old.Main.food.description with this particular file.</p>
 <pre class="r"><code>FormatFoods(input_fn= &quot;Soylent_codes.txt&quot;, 
             output_fn=&quot;Soylent_codes_formatted.txt&quot;)</code></pre>
+<p><br></p>
+<p>Soylent_codes_formatted.txt</p>
+<p><img src="Screenshots_for_Tutorial/ASA24%20Foodtree/soylent_codes_formatted.png" style="width:70.0%" /></p>
 <p><br></p>
 </div>
 <div id="generate-a-food-tree-with-the-whole-asa24-food-database" class="section level1">
@@ -599,6 +612,12 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
 </tbody>
 </table>
 <p><br></p>
+<p>The nodes_fn argument specifies the food level (node) information for each food item. <span style="color: red;">NodeLabelsMCT.txt</span> has the classification level of each food items and its Main.food.description. The classification level will be the basis of hierarchical food tree generation.</p>
+<p><br></p>
+<p>NodeLabelsMCT.txt</p>
+<p><img src="Screenshots_for_Tutorial/ASA24%20Foodtree/NodeLabelsMCT.png" style="width:50.0%" /></p>
+<p><br></p>
+<hr />
 </div>
 <div id="visualize-your-food-tree" class="section level1">
 <h1>Visualize your food tree</h1>
@@ -622,8 +641,8 @@ Also defined by ‘tidytree’</p>
 <pre class="r"><code>PrepFoodTreePlots(input.tree=tree)</code></pre>
 <p><br></p>
 </div>
-<div id="create-a-color-coded-and-annotated-food-tree-with-9-l1-levels" class="section level2">
-<h2>Create a color-coded and annotated food tree with 9 L1 levels</h2>
+<div id="create-a-color-coded-and-annotated-food-tree-with-nine-l1-levels" class="section level2">
+<h2>Create a color-coded and annotated food tree with nine L1 levels</h2>
 <p>Choose either ‘circular’ or ‘radial’ for layout.<br />
 It is OK to see some warning messages about Coordinate system and scale for ‘y’ already being present.</p>
 <pre class="r"><code>VizFoodTree(input.tree=tree, layout=&quot;radial&quot;)</code></pre>

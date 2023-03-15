@@ -40,6 +40,7 @@ blockquote{
 
 # Introduction
 
+We will calculate the percentage of calories from each of the three macronutrients in the sum of calories from the three macronutrients. Thus, the percentage of calories from CARB, PROT, and TFAT will add up to 100.
 
 <br>
 

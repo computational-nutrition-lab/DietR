@@ -432,7 +432,7 @@ div.tocify {
   </ul>
 </li>
 <li>
-  <a href="Links.html">Links</a>
+  <a href="Test_playwith.html">Links</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -481,6 +481,29 @@ blockquote{
 <h1>Introduction</h1>
 <p>Here, we will prepare ASA24 totals data for PCA and clustering analyses.<br />
 We will need to calculate average dietary data per person across all days (if desired), remove variables that have zero variance, and collapse variables by correlation (i.e. remove redundancy of variables that are highly correlated).</p>
+<p><br></p>
+<p>Part of descriptors of filenames for data type and processing pattern are defined as follows for each of the combination of two types of dietary data (nutrients or food categories) and two types of measurements (each day or average across days).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Data type</th>
+<th>Nutrients (PROT - B12_ADD)</th>
+<th>Food categories (F_TOTAL - A_DRINKS)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>As is (1 row = user/day)</td>
+<td>Nut_asis</td>
+<td>Cat_asis</td>
+</tr>
+<tr class="even">
+<td>Averaged across days (1 row = user)</td>
+<td>Nut_ave</td>
+<td>Cat_ave</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="load-functions-and-packages" class="section level1">
