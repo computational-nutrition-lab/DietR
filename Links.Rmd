@@ -1,16 +1,64 @@
 ---
 title: "Resources"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+# code_folding: hide
 ---
 
-### R and R-Studio
+<style type="text/css">
+h1.title {
+  font-size: 38px;
+  font-family: "Tahoma", sans-serif;
+  color: DarkSlateGray;
+}
+h1 { /* Header 1 */
+  font-size: 28px;
+  color: MidNightBlue;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: MidNightBlue;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  color: MidNightBlue;
+}
+body{ /* Normal  */
+  background-color: rgb(251, 251, 251);
+  }
+blockquote{ 
+  font-size: 14px;
+}
+</style>
+
+<br>
+
+# R and R-Studio
 
 1. [R](http://www.r-project.org) 
 2. [R-studio](http://www.rstudio.com)
 
-### Other R resources
+# Other R resources
 
 1. [Stackoverflow](https://stackoverflow.com) 
 1. [The R Graph Gallery](https://r-graph-gallery.com) 
+1. [RStudio Cheatsheets](https://support--rstudio-com.netlify.app/resources/cheatsheets/) 
 
-## other text
+<br>
+
+# Dietary data analysis
+
+## ASA24
+
+1. [ASA24 Resources](https://epi.grants.cancer.gov/asa24/resources/) 
+1. [Reviewing and clearning ASA24 data](https://epi.grants.cancer.gov/asa24/resources/cleaning.html)
+
+## NHANES
+
+1. [NHANES Top Page](https://www.cdc.gov/nchs/nhanes/index.htm) 
+1. [NHANES Data & Documentation](https://wwwn.cdc.gov/nchs/nhanes/Default.aspx) 

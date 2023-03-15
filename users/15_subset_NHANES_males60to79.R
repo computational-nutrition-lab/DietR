@@ -112,10 +112,11 @@
 # Run ANOVA
   myanova <- aov(BMXBMI ~ GLU_index, data=df)
   summary(myanova)
-  
+
 # The ANOVA results indicate that the groups are different (p<0.05).
   
 # But first, test the assumptions for ANOVA.
+
   ## Create a new dataset of residuals of the model.
   res1 <- residuals(myanova)
   
@@ -124,14 +125,19 @@
   qqnorm(res1, plot.it=TRUE)
   qqline(res1)
   
-  ## check equal variance of residuals with a side-by-side boxplots of the residuals.
+  ## The histogram and QQplot indicate the residuals have an approximately normal distribution. 
+  
+  ## Check equal variance of residuals with a side-by-side boxplots of the residuals.
   boxplot(res1 ~ df$GLU_index)
   
+  ## This boxplot also indicates the variance of the residuals are approximately equal across the factor levels.
+  
   ##  Create a new variable of squared residuals.
+  ## If Pr>0.05, the residuals of the groups have equal variance.
   res1sq <- res1*res1
   ## Levene's test -- Run ANOVA for the squared residuals as the response.
   anova(lm(res1sq ~ df$GLU_index))
-  ## If Pr>0.05, the residuals of the groups have equal variance.
+  ## The p-value (Pr) of the Levene's test also supported equal variance.
   
   ## When the assumptions are satisfied, then you can run ANOVA.
   summary(aov(BMXBMI ~ GLU_index, data=df))

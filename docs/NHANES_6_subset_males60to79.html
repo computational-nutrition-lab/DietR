@@ -598,7 +598,8 @@ summary(myanova)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The ANOVA results indicate that the groups are different (p&lt;0.05).</p>
-<p>But first, test the assumptions for ANOVA. Create a new dataset of residuals of the model.</p>
+<p>But first, test the assumptions for ANOVA.</p>
+<p>Create a new dataset of residuals of the model.</p>
 <pre class="r"><code>res1 &lt;- residuals(myanova)</code></pre>
 <p>Check the normality assumption.</p>
 <pre class="r"><code>hist(res1)</code></pre>
@@ -606,9 +607,11 @@ summary(myanova)</code></pre>
 <pre class="r"><code>qqnorm(res1, plot.it=TRUE)
 qqline(res1)</code></pre>
 <p><img src="NHANES_6_subset_males60to79_files/figure-html/unnamed-chunk-27-1.png" width="60%" /></p>
+<p>The histogram and QQplot indicate the residuals have an approximately normal distribution.</p>
 <p>check equal variance of residuals with a side-by-side boxplots of the residuals.</p>
 <pre class="r"><code>boxplot(res1 ~ df$GLU_index)</code></pre>
 <p><img src="NHANES_6_subset_males60to79_files/figure-html/unnamed-chunk-28-1.png" width="60%" /></p>
+<p>This boxplot also indicates the variance of the residuals are approximately equal across the factor levels.</p>
 <p>Create a new variable of squared residuals.</p>
 <pre class="r"><code>res1sq &lt;- res1*res1</code></pre>
 <p>Levene’s test – Run ANOVA for the squared residuals as the response.<br />
@@ -620,6 +623,7 @@ If Pr&gt;0.05, the residuals of the groups have equal variance.</p>
 ##               Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## df$GLU_index   2     45   22.26  0.0086 0.9915
 ## Residuals    231 599161 2593.77</code></pre>
+<p>The p-value (Pr) of the Levene’s test also supported equal variance.</p>
 <p>When the assumptions are satisfied, then you can run ANOVA.</p>
 <pre class="r"><code>summary(aov(BMXBMI ~ GLU_index, data=df))</code></pre>
 <pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    

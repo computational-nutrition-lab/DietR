@@ -17,6 +17,7 @@ Session --> Set working directory --> Choose directory.
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R") 
   source("lib/data_overview.R") 
+  source("lib/anova_assumptionI_plots.R") 
   source("lib/add_gender_and_age.R") # to use AddGenderAgeGroups function.  
 
 # Specify the directory where the data is.
@@ -29,7 +30,7 @@ Session --> Set working directory --> Choose directory.
   totals_c_hdd <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_Div_cholesterol.txt")
                               
   dim(totals_c_hdd)
-  # should be 1776 rows, after removing .
+  # should be 1776 rows, after removing rows with missing data.
   
 # Ensure there is no  missing data.
   library(naniar)
@@ -164,12 +165,20 @@ Session --> Set working directory --> Choose directory.
   #add a horizontal line at 0 
   abline(0,0)
   title("Fitted vs. Res1 plot")
+  # Revert to one-plot-per-field 
+  par(mfrow = c(1, 1))
   
   # Create a new variable of squared residuals.
   res1sq <- res1*res1
   # Run Levene's test (ANOVA for the squared residuals as the response).
   Levenes_test <- anova(lm(res1sq ~ df$DivGroup))
   Levenes_test
+  
+  # Or do it with the ANOVA_assumption function.
+  ANOVA_assumption(input.anova = myanova,
+                   input.factor = "DivGroup",
+                   df=df)
+  # Great!!
   
   p <- modelsummary
   # p[[1]][1]
