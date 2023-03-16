@@ -40,7 +40,7 @@ blockquote{
 
 # Introduction
 
-In this section, we will take the phylogeny of food items into account in clustering individuals according to their dietary data. In order to do so, we will use [the phyloseq package](https://joey711.github.io/phyloseq/index.html), which uses phylogeny of microbes and their abundance. We will replace microbes with food items consumed by our dietary study participants.
+In this script, we will take the phylogeny of food items into account in clustering individuals according to their dietary data. In order to do so, we will use [the phyloseq package](https://joey711.github.io/phyloseq/index.html), which uses phylogeny of microbes and their abundance. We will replace microbes with food items consumed by our dietary study participants.
 
 <br>
 

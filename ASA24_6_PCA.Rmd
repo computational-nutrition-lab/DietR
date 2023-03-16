@@ -208,7 +208,7 @@ Nut_asis_PC12_diet <-
   scale_fill_manual(values= distinct100colors) 
 ```
 
-```{r,out.width="60%"}
+```{r,out.width="80%"}
 Nut_asis_PC12_diet
 ```
 
@@ -303,7 +303,7 @@ Nut_ave_PC12_diet <-
     scale_fill_manual( values= distinct100colors) 
 ```
 
-```{r,out.width="60%"}
+```{r,out.width="80%"}
 Nut_ave_PC12_diet
 ```
 
@@ -390,7 +390,7 @@ Cat_asis_PC12_diet <-
     scale_fill_manual( values= distinct100colors) 
 ```
 
-```{r,out.width="60%"}
+```{r,out.width="80%"}
 Cat_asis_PC12_diet
 ```
 
@@ -480,7 +480,7 @@ Cat_ave_PC12_diet <-
     scale_fill_manual( values= distinct100colors) 
 ```
 
-```{r,out.width="60%"}
+```{r,out.width="80%"}
 Cat_ave_PC12_diet
 ```
 

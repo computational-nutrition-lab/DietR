@@ -38,6 +38,12 @@ blockquote{
 
 <br>
 
+# Introduction
+
+We added GLU_index to the QC-ed totals in the previous script. In this script, we will analyze some of the body measurements and KCAL intake by GLU_index groups using the QC-ed totals data.  These examples are not intended to be a complete guide to analysis, but rather to give you some ideas for how to explore this data.
+
+<br>
+
 # Load functions and packages
 
 Name the path to DietR directory where input files are pulled.

@@ -38,6 +38,12 @@ blockquote{
 
 <br>
 
+# Introduction
+
+In this script, we will add participants’ metadata, and GLU_index variable based on their blood glucose levels.
+
+<br>
+
 # Load functions and packages
 
 Name the path to DietR directory where input files are pulled.

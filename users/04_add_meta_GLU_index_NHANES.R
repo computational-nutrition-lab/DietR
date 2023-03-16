@@ -4,6 +4,8 @@
 # Created on 11/21/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# In this script, we will add participants’ metadata, and GLU_index variable based on their blood glucose level. 
+
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR/")

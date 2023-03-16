@@ -4,6 +4,11 @@
 # Created on 11/30/2022 by Rie Sadohara
 # ===============================================================================================================
 
+# We added GLU_index to the QC-ed totals in the previous script. In this script, we will analyze some of the 
+# body measurements and KCAL intake by GLU_index groups using the QC-ed totals data.  These examples are not 
+# intended to be a complete guide to analysis, but rather to give you some ideas for how to explore this data.
+
+
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR/")

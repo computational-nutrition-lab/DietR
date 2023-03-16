@@ -4,7 +4,7 @@
 # Created on 10/28/2022 by Rie Sadohara
 # ===============================================================================================================
 
-# In the previous procedure, we identified males in their 60s and older seem to be an appropriate subsample to 
+# In the previous script, we identified males in their 60s and older seem to be an appropriate subsample to 
 # analyze their diabetic statuses and diet. We will remove people who are 80 years old or potentially above 
 # from our analyses because they may be using meal assistance and thus may not be eating freely.
 
