@@ -8,52 +8,52 @@ navbar:
   - text: ASA24
     menu:
     - text: "Load and clean ASA24 data"
-      href: ASA24_1_load_and_clean.html
+      href: ASA24_01_load_and_clean.html
     - text: "Calculate totals by occasion"
-      href: ASA24_2_calc_totals_by_occasion.html
+      href: ASA24_02_calc_totals_by_occasion.html
     - text: "Data overview"
-      href: ASA24_3_data_overview.html
+      href: ASA24_03_data_overview.html
     - text: "Percent kcal of CARB, PROT, TFAT"
-      href: ASA24_4_percent_kcal.html
+      href: ASA24_04_percent_kcal.html
     - text: "---------"
     - text: "Prepare for clustering"
-      href: ASA24_5_prep_clustering.html
+      href: ASA24_05_prep_clustering.html
     - text: "PCA"
-      href: ASA24_6_PCA.html
+      href: ASA24_06_PCA.html
     - text: "k-means"
-      href: ASA24_8_k-means.html
+      href: ASA24_07_k-means.html
     - text: "---------"
     - text: "Foodtrees with all food items"
-      href: ASA24_9_create_foodtree_allfooditems.html
+      href: ASA24_08_create_foodtree_allfooditems.html
     - text: "Foodtrees with your own data"
-      href: ASA24_10_create_foodtree_ownitems.html
+      href: ASA24_09_create_foodtree_ownitems.html
     - text: "Visualize foodtrees"
-      href: ASA24_11_viz_food_tree.html
+      href: ASA24_10_viz_food_tree.html
     - text: "Ordination"
-      href: ASA24_12_ordination.html
+      href: ASA24_11_ordination.html
     - text: "Visualize ordination"
-      href: ASA24_13_viz_ordination.html
+      href: ASA24_12_viz_ordination.html
     - text: "Correlation between axes and foods"
       href: ASA24_14_corr_axes_foods.html
   - text: NHANES
     menu:
     - text: "Load and clean NHANES data - 1"
-      href: NHANES_1_load_and_clean_1.html
+      href: NHANES_01_load_and_clean_1.html
     - text: "Load and clean NHANES data - 2"
-      href: NHANES_2_load_and_clean_2.html
+      href: NHANES_02_load_and_clean_2.html
     - text: "Add metadata and GLU-index"
-      href: NHANES_3_add_meta_GLU_index.html
+      href: NHANES_03_add_meta_GLU_index.html
     - text: "Data overview"
-      href: NHANES_4_overview_GLU_index.html
+      href: NHANES_04_overview_GLU_index.html
     - text: "GLU-index by age and gender"
-      href: NHANES_5_GLU_index_by_age_gender.html
+      href: NHANES_05_GLU_index_by_age_gender.html
     - text: "Subset males 60-79 years old"
-      href: NHANES_6_subset_males60to79.html
+      href: NHANES_06_subset_males60to79.html
     - text: "Percent kcal of CARB, PROT, TFAT"
-      href: NHANES_7_males60to79_percent_kcal.html
+      href: NHANES_07_males60to79_percent_kcal.html
     - text: "---------"
     - text: "Prepare for clustering"
-      href: NHANES_8_males60to79_prep_for_clustering.html
+      href: NHANES_08_males60to79_prep_for_clustering.html
     - text: "PCA"
       href: NHANES_09_males60to79_PCA.html
     - text: "k-means"
