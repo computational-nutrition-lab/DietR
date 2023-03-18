@@ -132,7 +132,7 @@ Session --> Set working directory --> Choose directory.
   # [1] 132959    153
   
   SEQN90993 <- food[ which(food$SEQN == 90993 ), ]
-  dim(SEQN90993$)
+  dim(SEQN90993)
   SEQN90993[, c('V_TOTAL', "PF_TOTAL", "PF_SOY", "PF_LEGUMES","FoodCode")]
   
   foodnames <- read.delim("../FPED/FPED_1516_FoodNames_forR.txt")
