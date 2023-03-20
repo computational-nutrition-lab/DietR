@@ -72,6 +72,10 @@ Session --> Set working directory --> Choose directory.
 # Get basic summary statistics for all the variabless.
   SummaryStats(inputdf=totals_c, outfn="Waist/SummaryStats_totals_c_Waist_BMI.txt")
 
+# Load in.
+  summary <- read.delim("Waist/SummaryStats_totals_c_Waist_BMI.txt")
+  head(summary)
+  
 # ===============================================================================================================
 # Look for outliers.
 # ===============================================================================================================
@@ -87,9 +91,8 @@ Session --> Set working directory --> Choose directory.
   boxplot(totals_c$FIBE)  
   hist(totals_c$FIBE)  # The outlier cannot be seen, but the X axis extends beyond 200. 
   max(totals_c$FIBE)  
-  Q3 <- summary(totals_c$FIBE)[5]
-  Q3
-  # Borderline value for outlier. 
+
+  # Borderline value for upper outlier. 
   upper <- Q3 + IQR(totals_c$FIBE) *1.5  
   upper
   # How many rows are there that have values above upper outlier threshold?
@@ -98,7 +101,8 @@ Session --> Set working directory --> Choose directory.
   
   # Look at the dietary data of the two outliers.
   totals_c[which (totals_c$FIBE > 80 ), ]
-  # These people ate  alot of soy, nuts products and legume products. does not seem to be outliers... 
+  # SEQN: 85955, 90993
+  # These people ate  a lot of soy, nuts products and legume products. does not seem to be outliers... 
   # I will keep them for now.
   
 # ---------------------------------------------------------------------------------------------------------------
@@ -115,13 +119,70 @@ Session --> Set working directory --> Choose directory.
   nrow( subset(totals_c, PF_LEGUMES > upper)  ) # 411 wow.
   
   head(totals_c[order(totals_c$PF_LEGUMES,decreasing = T), c("SEQN", "PF_LEGUMES", "FIBE")])
-  # max = 16.35919 oz. 
-  # 16.35919 oz.x 28.35 = 463.783 g. 463g of legume consumption.. possible if cooked, maybe?  
+  # max = 16.35919 oz. of SEQN 90993. 
+  # 16.35919 oz.x 28.35 = 463.783 g. 463 g of legume consumption.. possible if cooked, maybe?  
   # SEQN=90993 is the one that has outlier in FIBE too. 
   
   # 2nd highest = 12.241609 oz.
   # 12.241609 * 28.35 = 347.0496 g. hmmm 
+# ---------------------------------------------------------------------------------------------------------------
+# Look at these SEQN
+  food <- read.delim("../Food_D12_FC_QC_demo.txt") 
+  dim(food)
+  # [1] 132959    153
   
+  SEQN90993 <- food[ which(food$SEQN == 90993 ), ]
+  dim(SEQN90993)
+  SEQN90993[, c('V_TOTAL', "PF_TOTAL", "PF_SOY", "PF_LEGUMES","FoodCode")]
+  
+  foodnames <- read.delim("../FPED/FPED_1516_FoodNames_forR.txt")
+  head(foodnames)
+  colnames(foodnames)[1] <- "FoodCode"
+  
+  SEQN90993_fdnm <- merge(SEQN90993, foodnames, all.x = T, by="FoodCode")
+  head(SEQN90993_fdnm)
+
+# let's look at this person's diet..  
+  SEQN90993_fdnm[, c('V_TOTAL', "PF_TOTAL", "PF_SOY", "PF_LEGUMES","FoodCode", "DESCRIPTION_f")]
+  
+  # DESCRIPTION_f
+  # 1                                                                                 Milk_fat_free_(skim)
+  # 2                                                                               Cheese_cottage_low_fat
+  # 3                                                                               Cheese_cottage_low_fat
+  # 4                                                                     Lentils_dry_cooked_made_with_oil
+  # 5                                                                     Lentils_dry_cooked_made_with_oil
+  # 6                                                                     Lentils_dry_cooked_made_with_oil
+  # 7                                                                                             Soy_nuts
+  # 8                                                                                       Cookie_fig_bar
+  # 9                                                                                 Crackers_woven_wheat
+  # 10                                                                    Crackers_woven_wheat_reduced_fat
+  # 11                                                          Rice_white_cooked_fat_not_added_in_cooking
+  # 12                                                          Rice_white_cooked_fat_not_added_in_cooking
+  # 13                                                          Rice_white_cooked_fat_not_added_in_cooking
+  # 14                                                           Cereal_(General_Mills_Cheerios_Honey_Nut)
+  # 15                                                                                           Apple_raw
+  # 16                                                                                           Apple_raw
+  # 17                                                                   Potato_home_fries_with_vegetables
+  # 18                                                                  Cabbage_green_cooked_made_with_oil
+  # 19                                                         Cauliflower_cooked_from_fresh_made_with_oil
+  # 20                                                                       Eggplant_cooked_made_with_oil
+  # 21 Vegetable_combination_excluding_carrots_broccoli_and_dark-green_leafy_cooked_no_sauce_made_with_oil
+  # 22  Vegetable_combinations_including_carrots_broccoli_and_or_dark-green_leafy_cooked_with_tomato_sauce
+  # 23  Vegetable_combinations_including_carrots_broccoli_and_or_dark-green_leafy_cooked_with_tomato_sauce
+  # 24                                                                        Coffee_instant_reconstituted
+  # 25                                                                        Coffee_instant_reconstituted
+  # 26                                                                                           Water_tap
+  # 27                                                                                           Water_tap
+  #   
+# Note that this is the average of 2 days.
+# male, 59 years old. he says he is not following specific diet, but he eats plant-based foods only.
+# Meal occasion info...?
+# If the three lentil meals are breakfast, lunch, and dinner, then it's more believable. Otherwise,
+# it could be duplication.
+  
+  
+
+    
 # ---------------------------------------------------------------------------------------------------------------
 # Let's keep them for now...
   write.table("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup_waistBMI.txt", x=totals_c,

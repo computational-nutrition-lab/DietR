@@ -56,11 +56,12 @@ ANOVA_assumption <- function(input.anova, input.factor, df){
 }
 
 # Example.
+# source("~/GitHub/R_Toolbox/anova_assumption_plots.R")
 # data(iris)
 # myanova <- aov(Sepal.Length ~ Species, data=iris)
 # ANOVA_assumption(input.anova=myanova, 
-#                  input.factor="Species", 
-#                  df= iris)
+#                 input.factor="Species", 
+#                 df= iris)
 
 # ---------------------------------------------------------------------------------------------------------------
 # # Sepal.Length in iris by hand

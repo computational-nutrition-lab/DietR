@@ -34,7 +34,7 @@ navbar:
     - text: "Visualize ordination"
       href: ASA24_12_viz_ordination.html
     - text: "Correlation between axes and foods"
-      href: ASA24_14_corr_axes_foods.html
+      href: ASA24_13_corr_axes_foods.html
   - text: NHANES
     menu:
     - text: "Load and clean NHANES data - 1"
