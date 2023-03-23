@@ -26,6 +26,7 @@ Session --> Set working directory --> Choose directory.
 # Load the prepared data with LegGroup variable and DivGroup variable.
 # ===============================================================================================================
   
+# Load the data saved in . 
   totals_c_wa <- read.delim("../Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup_waistBMI.txt")
                               
   dim(totals_c_wa)
@@ -65,6 +66,7 @@ Session --> Set working directory --> Choose directory.
   table(df$DivGroup, df$Gender)
 
   plot(as.factor(df$Gender_Age), df$KCAL)  
+  plot(as.factor(df$Gender_Age), df$BMXWAIST)  
   
 # Also from boxplot, it is clear that the waist.cir is decreasing.   
   plot(df$DivGroup, df$BMXWAIST) 
@@ -79,27 +81,42 @@ Session --> Set working directory --> Choose directory.
 
 # ---------------------------------------------------------------------------------------------------------------
 # Correlation matrix
-  x <- df[, c("BMXWAIST", "BMXBMI","RIAGENDR", "RIDAGEYR", "FIBE", "PF_TOTAL_LEG", "PF_LEGUMES", "KCAL")]
-  x <- df[, c("BMXWAIST", "RIAGENDR", "RIDAGEYR", "FIBE", "PF_LEGUMES", "KCAL")]
-  x <- df[, c("KCAL", "RIAGENDR", "RIDAGEYR", "FIBE", "PF_LEGUMES")]
+  # x <- df[, c("BMXWAIST", "BMXBMI","RIAGENDR", "RIDAGEYR", "FIBE", "PF_TOTAL_LEG", "PF_LEGUMES", "KCAL")]
+  # x <- df[, c("BMXWAIST", "RIAGENDR", "RIDAGEYR", "FIBE", "PF_LEGUMES", "KCAL")]
+  # x <- df[, c("KCAL", "RIAGENDR", "RIDAGEYR", "FIBE", "PF_LEGUMES")]
   x <- df[, c("BMXBMI", "RIAGENDR", "RIDAGEYR",  "KCAL", "FIBE", "PF_LEGUMES", "BMXWAIST")]
   str(x)  
+  
 # Get correlation coeff R and p-values for them.
   rp <- Hmisc::rcorr(x= as.matrix(x), type ="pearson")
   rp
-  write.table(rp[[1]], 'clipboard', sep="\t", row.names=T, quote=F)
-  write.table(rp[[3]], 'clipboard', sep="\t", row.names=T, quote=F)
+  write.table(rp[[1]], 'clipboard', sep="\t", row.names=T, quote=F) # R
+  write.table(rp[[3]], 'clipboard', sep="\t", row.names=T, quote=F) # p-values
 
-# Age vs waist. p=0.0000. But so scattered.
+# Age vs waist. R= 0.22. p=0.0000. But so scattered.
   plot(df$RIDAGEYR, df$BMXWAIST)
-  plot(df$FIBE, df$KCAL)
+  plot(df$FIBE, df$KCAL) # R=0.52, p=0.0000. looks like. 
   plot(df$FIBE, df$BMXBMI)
+  # BMI and Waist are very highly correlated (R=0.91, p=0.0000).
   
 # PF_TOTAL_LEG vs waist. 
   plot(df$PF_TOTAL_LEG, df$BMXWAIST)  
 # No correlation. 
 # low p-value for R does not necessarily mean a meaningful correlation because n is just so huge.  
   
+  
+# ===============================================================================================================
+# ancova - BMXWAIST ~ DivGroup + Age + Gender
+# ===============================================================================================================
+  
+  lm.ag <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender , data=df)
+  anova(lm.ag)
+  summary((lm.ag))
+  car::Anova(lm.ag, type="III")
+  # all terms are significant.
+  emmeans::emmeans(lm.ag, pairwise ~ DivGroup )
+  # DivNA - Div2= 5.792 cm, p<.0001. Should I add KCAL or FIBE?
+    
 
 # ===============================================================================================================
 # ancova - BMXWAIST ~ DivGroup + Age + Gender + FIBE.
@@ -110,19 +127,13 @@ Session --> Set working directory --> Choose directory.
   car::Anova(lm.agf, type="III")
   # FIBE does not have effect.  
   
-  emmeans::emmeans(lm.agf, pairwise ~ DivGroup )
+  # emmeans::emmeans(lm.agf, pairwise ~ DivGroup )
   # DivNA - Div2    5.297 cm,  p<.0001.
   
   # Try KCAL instead of FIBE. KCAL and FIBE are both weakly correlated (|R|=0.04) with WAIST, and 
   # they are highly correlated with each other (R=0.52), so, only one of them is needed, I think. 
   
-  # with no fiber
-  lm.ag <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender , data=df)
-  car::Anova(lm.ag, type="III")
-  # all terms are significant.
-  emmeans::emmeans(lm.ag, pairwise ~ DivGroup )
-  # DivNA - Div2= 5.792 cm, p<.0001. But can I add KCAL instead of FIBE?
-  
+
 # ===============================================================================================================
 # ancova - BMXWAIST ~ DivGroup + Age + Gender + KCAL.
 # ===============================================================================================================
@@ -132,14 +143,29 @@ Session --> Set working directory --> Choose directory.
   # KCAL has an effect (p=0.0001382). OK.. interesting. So I can just have KCAL in the model, then.
   
   emmeans::emmeans(lm.agk, pairwise ~ DivGroup )
-  # DivNA-Div2= 6.22 cm, p<.0001
+  # DivNA-Div2= 6.22 cm, p<.0001 - used for abstract.
   
   # compare lm.agk and lm.ag.
   anova(lm.agk, lm.ag)
   # p=0.0001382, so it is meaningful to have KCAL in the model.
   
 # ===============================================================================================================
+# ancova - KCAL ~ DivGroup + Age + Gender
+# ===============================================================================================================
+  lm.kcal.ag <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender, data=df)
+  
+  car::Anova(lm.kcal.ag, type="III")
+  # all terms are significant.
+  
+  emmeans::emmeans(lm.kcal.ag, pairwise ~ DivGroup )
+  # DivNA-Div2= -287. p<.0001 
+  
+  # emmeans are closer to plain means. DivNA-Div2 = 1947-2192 = -245.  
+  aggregate(df$KCAL, list(df$DivGroup), FUN=mean)
+  
+# ===============================================================================================================
 # ancova - KCAL ~ DivGroup + Age + Gender + FIBE.
+# Cannot use this model because the emmeans of DivNA has the highest KCAL. Trend reversed for some reason.
 # ===============================================================================================================
 # According to eg_data\NHANES\PF\Covariate selection.xlsx
   
@@ -150,7 +176,12 @@ Session --> Set working directory --> Choose directory.
   # Residuals are normally distributed, and their variances are equal among levels of DivGroup. Good.
   
   emmeans::emmeans(lm.kcal.agf, pairwise ~ DivGroup )
-  # DivNA-Div2= 250.8. p<.0001
+  # DivNA-Div2= 250.8. p<.0001 
+  # When FIBE is included, DivNA has the highest KCAL, this is the opposite of plain means.
+  
+  aggregate(df$FIBE, list(df$DivGroup), FUN=mean)
+  aggregate(df$KCAL, list(df$DivGroup), FUN=mean)
+  
   
 # ===============================================================================================================
 # ancova - BMI ~ DivGroup + Age + Gender + FIBE.
@@ -182,8 +213,12 @@ Session --> Set working directory --> Choose directory.
   anova(lm.BMI.agf, lm.BMI.ag)            # returns the same results as above line.
   # It is not significant(p=0.08529, same as the effect size of FIBE.) 
   # So, it doesn't hurt to remove FIBE from the model, and I can use the emmeans with just adjustment by
-  # Age and Gender.
+  # Age and Gender, for BMI.
   
+  emmeans::emmeans(lm.BMI.ag, pairwise ~ DivGroup )
+  # DivNA - Div2 = 2.288 cm, p:<0.0001
+  
+  aggregate(df$BMXBMI, list(df$DivGroup), FUN=mean) 
   
   
 # ===============================================================================================================

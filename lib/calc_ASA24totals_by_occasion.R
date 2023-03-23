@@ -1,6 +1,6 @@
 # ========================================================================================
 # Calculate totals by occasion, user, and day. 
-# userful for analyzing dietary intake per occasion (breakfast, lunch, etc..).
+# useful for analyzing dietary intake per occasion (breakfast, lunch, etc..).
 # Version 1
 # Created on 03/16/2022 by Rie Sadohara
 # ========================================================================================

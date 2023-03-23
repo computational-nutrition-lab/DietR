@@ -98,7 +98,7 @@
   dim(food)
   length(unique(food$SEQN)) # 4207 people.
   
-  # pick up only the rows that contains food with its foodcode starting from 4. 
+  # pick up only the rows that contain food with its foodcode starting from 4. 
   str(food)
   summary(food$Food_code)
   
@@ -158,9 +158,9 @@
   # You can come back to the main directory by:
   setwd(main_wd)   
   
-  # ===============================================================================================================
-  # Load and prep data for generating food trees 
-  # ===============================================================================================================
+# ===============================================================================================================
+# Load and prep data for generating food trees 
+# ===============================================================================================================
   
   # Specify where the data is.
   SpecifyDataDirectory("eg_data/NHANES/PF")
@@ -191,7 +191,7 @@
   # OTU done!
   
 # ===============================================================================================================
-# calcualte diversity of 4xxxxxxxs for each SEQN
+# calcualate diversity of 4xxxxxxxs for each SEQN
 # ===============================================================================================================
   
 # Take out the foodID (description) and taxonomy from otu.
@@ -259,13 +259,17 @@
   head(SEQNdiv)  
   table(is.na(SEQNdiv))  # no NAs. Good.
   summary(SEQNdiv$Shannon)
+  nrow( subset(SEQNdiv, Shannon==0 ))
   summary(SEQNdiv$Simpson)
+  nrow( subset(SEQNdiv, Simpson==0 ))
   summary(SEQNdiv$Invsimpson)
+  nrow( subset(SEQNdiv, Invsimpson==1 ))
   
   par(mfrow = c(2, 2))
   hist(SEQNdiv$Shannon, main="Shannon diversity", xlab="", breaks=10)
   hist(SEQNdiv$Simpson, main="Simpson diversity", xlab="", breaks=10)
   hist(SEQNdiv$Invsimpson, main="Invsimpson diversity", xlab="", breaks=10)
+  par(mfrow = c(1, 1))
   # some have 0 diversity?? --> If a row has only one non-zero values, then diversity will be zero. e.g. c(20,0,0,0,0,0,0) 
   # None of them are normally distributed because of a lot of zero diversity values.
 

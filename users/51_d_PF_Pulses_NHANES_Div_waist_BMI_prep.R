@@ -61,6 +61,7 @@ Session --> Set working directory --> Choose directory.
   
   # Some checking
   summary(totals_c$BMXBMI)  
+  table(totals_c$DivGroup)  
   plot( totals_c$DivGroup, totals_c$BMXWAIST) 
   plot( totals_c$DivGroup, totals_c$BMXBMI) 
   plot( totals_c$DivGroup, totals_c$FIBE) 
@@ -177,12 +178,28 @@ Session --> Set working directory --> Choose directory.
 # Note that this is the average of 2 days.
 # male, 59 years old. he says he is not following specific diet, but he eats plant-based foods only.
 # Meal occasion info...?
-# If the three lentil meals are breakfast, lunch, and dinner, then it's more believable. Otherwise,
-# it could be duplication.
+# If the three lentil meals are different meal occasations, like breakfast, lunch, and dinner, then 
+# it's more believable. Otherwise, it could be duplication.
   
-  
+# Use SumByOccasion function to calculate totals by meal occasions.
+# No   SumByOccasion for ASA24...
 
-    
+# Just look at this person's items data. SEQN=90993
+  QCeditems <- read.delim('../../NHANES/Food_D12_FC_QC_demo_QCed.txt')
+
+  QCeditems90993 <- subset(QCeditems, SEQN=="90993")
+  
+  # Meal occasion and food description. 
+  # The original Occastion variable is DR1_030Z, DR2_030Z, according to the food data documentation, but the "DR1" and "DR2"
+  # were removed in the processing, so just 030Z remained. R added 'X' in front of each variable when loading it again. 
+  # So, the occasion variable is "X_030Z" in the items data. 
+  mof <- QCeditems90993[, c("SEQN", "Main.food.description" , "Day", "X_030Z")]
+  mof[order(mof$Day,  mof$X_030Z), ]
+      
+#  SEQN90993 did have lentils and rice meals at different meal occasions on both days, and they are not duplicates. 
+# So, these records are unlikely to be errors. Let's keep them, then... 
+  
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Let's keep them for now...
   write.table("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup_waistBMI.txt", x=totals_c,
