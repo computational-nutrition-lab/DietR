@@ -59,7 +59,12 @@ Session --> Set working directory --> Choose directory.
   hist(df$RIDAGEYR)
   summary(df$RIDAGEYR)
   plot(as.factor(df$DivGroup), df$RIDAGEYR) 
-
+  agediv <- anova(lm(RIDAGEYR ~ DivGroup, df))
+  # Age is different among DivGroups(p=0.00022). hmm.
+  agedivmeans <- emmeans::emmeans(lm(RIDAGEYR ~ DivGroup, df), pairwise ~ DivGroup )
+  agedivmeans[1]
+  agedivmeans[2] # NA is different from the rest. Div0,1,2 are not different.
+  
 # Gender
   table(df$Gender, useNA = "ifany")
   table(df$RIAGENDR, useNA = "ifany") # 1 is male.
@@ -133,13 +138,16 @@ Session --> Set working directory --> Choose directory.
 # ===============================================================================================================
   
   lm.ag <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender , data=df)
+  car::Anova(lm.ag, type="III")
   anova(lm.ag)
   summary((lm.ag))
-  car::Anova(lm.ag, type="III")
   # all terms are significant.
-  emmeans::emmeans(lm.ag, pairwise ~ DivGroup )
+  lm.agemmeans <- emmeans::emmeans(lm.ag, pairwise ~ DivGroup )
+  lm.agemmeans
   # DivNA - Div2= 5.792 cm, p<.0001. Should I add KCAL?
-    
+  write.table(lm.agemmeans[1], "clipboard", sep="\t", row.names = F)  
+  write.table(lm.agemmeans[2], "clipboard", sep="\t", row.names = F)  
+  
 # ===============================================================================================================
 # BMXWAIST ~ DivGroup + Age + Gender + KCAL.
 # ===============================================================================================================
@@ -148,14 +156,14 @@ Session --> Set working directory --> Choose directory.
   car::Anova(lm.agk, type="III")
   # KCAL has an effect (p=0.0001382). 
   
-  emmeans::emmeans(lm.agk, pairwise ~ DivGroup )
+  lm.agkemmeans <- emmeans::emmeans(lm.agk, pairwise ~ DivGroup )
   
   # DivNA-Div2= 6.22 cm, p<.0001 - used for ASN2023 abstract.
   # Makes sense that it is a positive value, as DivNA > Div2. 
-  
-  # compare lm.agk and lm.ag.
-  anova(lm.agk, lm.ag)
-  # p=0.0001382, so it is meaningful to have KCAL in the model.
+
+  write.table(lm.agkemmeans, "clipboard", sep="\t", row.names = F)  
+  write.table(lm.agkemmeans[1], "clipboard", sep="\t", row.names = F)  
+  write.table(lm.agkemmeans[2], "clipboard", sep="\t", row.names = F)  
 
 # ===============================================================================================================
 # Just to try - BMXWAIST ~ DivGroup + Age + Gender + FIBE.
@@ -165,19 +173,43 @@ Session --> Set working directory --> Choose directory.
   car::Anova(lm.agf, type="III")
   # FIBE does not have effect!  
   
-  # emmeans::emmeans(lm.agf, pairwise ~ DivGroup )
+  lm.agfemmeans <- emmeans::emmeans(lm.agf, pairwise ~ DivGroup )
+  lm.agfemmeans
   # DivNA - Div2    5.297 cm,  p<.0001.
   
+  write.table(lm.agfemmeans, "clipboard", sep="\t", row.names = F)  
+  write.table(lm.agfemmeans[1], "clipboard", sep="\t", row.names = F)  
+  write.table(lm.agfemmeans[2], "clipboard", sep="\t", row.names = F)  
+
+# ===============================================================================================================
+# Just to try - BMXWAIST ~ DivGroup + Age + Gender + PF_TOTAL_LEG.
+# ===============================================================================================================
+  
+  lm.agtl <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
+  car::Anova(lm.agtl, type="III")
+  # All terms are significant.  
+  
+  lm.agtlemmeans <- emmeans::emmeans(lm.agtl, pairwise ~ DivGroup )
+  lm.agtlemmeans
+  # DivNA - Div2    6.72 cm,  p<.0001.
+  
+  write.table(lm.agtlemmeans, "clipboard", sep="\t", row.names = F)  
+  write.table(lm.agtlemmeans[1], "clipboard", sep="\t", row.names = F)  
+  write.table(lm.agtlemmeans[2], "clipboard", sep="\t", row.names = F)  
+  
+    
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # KCAL  as a response.
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  aggregate(df$KCAL, list(df$DivGroup), FUN=mean)
+  kcalmeans = aggregate(df$KCAL, list(df$DivGroup), FUN=mean)
+  kcalmeans 
   #   Group.1        x
   # 1   DivNA 1946.907
   # 2    Div0 2020.370
   # 3    Div1 2117.652
   # 4    Div2 2192.276
   # DivNA - Div2 = -245.  will be a negative value.
+  write.table(kcalmeans, "clipboard", sep="\t", row.names = F)
   
 # ===============================================================================================================
 # KCAL ~ DivGroup + Age + Gender
@@ -187,9 +219,12 @@ Session --> Set working directory --> Choose directory.
   car::Anova(lm.kcal.ag, type="III")
   # all terms are significant.
   
-  emmeans::emmeans(lm.kcal.ag, pairwise ~ DivGroup )
+  lm.kcal.agemmeans <- emmeans::emmeans(lm.kcal.ag, pairwise ~ DivGroup )
+  lm.kcal.agemmeans
   # DivNA - Div2= -287. p<.0001 
   # emmeans are closer to plain means, of which difference is DivNA-Div2 = 1947-2192 = -245.  
+  write.table(lm.kcal.agemmeans, "clipboard", sep="\t", row.names = F)
+  
 
 # ===============================================================================================================
 # KCAL ~ DivGroup + Age + Gender + FIBE.
@@ -198,6 +233,7 @@ Session --> Set working directory --> Choose directory.
 
   plot(df$FIBE, df$KCAL)      # The more FIBE, the more KCAL. Isn't it the opposite? Usually?  
   cor.test(df$FIBE, df$KCAL)  # R=0.52. The more FIBE, the more KCAL. 
+  boxplot(FIBE ~ DivGroup , data=df)
   
   lm.kcal.agf <- lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE, data=df)
 
@@ -205,13 +241,15 @@ Session --> Set working directory --> Choose directory.
   # All terms are significant.
   # Residuals are normally distributed, and their variances are equal among levels of DivGroup. Good.
   
-  emmeans::emmeans(lm.kcal.agf, pairwise ~ DivGroup )
+  lm.kcal.agfemmeans <- emmeans::emmeans(lm.kcal.agf, pairwise ~ DivGroup )
+  lm.kcal.agfemmeans
   # $emmeans
   # DivGroup emmean   SE   df lower.CL upper.CL
   # DivNA      2088 13.2 4031     2062     2114
   # Div0       2004 16.1 4031     1973     2036
   # Div1       1900 29.6 4031     1842     1958
   # Div2       1837 30.5 4031     1777     1897
+  write.table(lm.kcal.agfemmeans, "clipboard", sep="\t", row.names = F)
   
   # DivNA-Div2= 250.8. p<.0001 
   # When FIBE is included, Div2 has the lowest kcal, adjusted by FIBE. This means per FIBE intake, Div2 group 
@@ -232,13 +270,15 @@ Session --> Set working directory --> Choose directory.
   
   plot(df$FIBE, df$KCAL)      # The more FIBE, the more KCAL. Isn't it the opposite? Usually?  
   cor.test(df$PF_TOTAL_LEG, df$KCAL)  # R=0.52. The more FIBE, the more KCAL. 
+  boxplot(PF_TOTAL_LEG ~ DivGroup , data=df)
   
   lm.kcal.agtl <- lm( KCAL ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
   car::Anova(lm.kcal.agtl, type="III")
   # DivGroup is not significant. This means the KCAL intake is the same when adjusted for the total protein intake? 
   # Do we want to adjust kcal by protein intake (g)?
 
-  emmeans::emmeans(lm.kcal.agtl, pairwise ~ DivGroup )
+  lm.kcal.agtlemmeans <- emmeans::emmeans(lm.kcal.agtl, pairwise ~ DivGroup )
+  lm.kcal.agtlemmeans
   # DivNA 
   # $emmeans
   # DivGroup emmean   SE   df lower.CL upper.CL
@@ -246,6 +286,7 @@ Session --> Set working directory --> Choose directory.
   # Div0       2007 16.7 4031     1975     2040
   # Div1       2010 30.1 4031     1951     2069
   # Div2       2037 30.2 4031     1978     2096
+  write.table(lm.kcal.agtlemmeans, "clipboard", sep="\t", row.names = F)
   
   aggregate(df$PF_TOTAL_LEG, list(df$DivGroup), FUN=mean) # A bit higher in Div2.
   anova(lm(PF_TOTAL_LEG ~ DivGroup, df)) # PF_TOTAL_LEG is significantly different between DivGroups (p< 2.2e-16 ***)
@@ -271,8 +312,10 @@ Session --> Set working directory --> Choose directory.
   car::Anova(lm.BMI.ag, type="III")
   # all terms are significant.
   
-  emmeans::emmeans(lm.BMI.ag, pairwise ~ DivGroup )
+  lm.BMI.agemmeans <- emmeans::emmeans(lm.BMI.ag, pairwise ~ DivGroup )
+  lm.BMI.agemmeans
   # DivNA-Div2= 2.288, p<.0001. The difference is slightly larger than plain means.
+  write.table(lm.BMI.agemmeans, "clipboard", sep="\t", row.names = F)
   
 # ===============================================================================================================
 # I should NOT have FIBE in the model as in the KCAL section, but just try.
@@ -284,7 +327,26 @@ Session --> Set working directory --> Choose directory.
   car::Anova(lm.BMI.agf, type="III")
   # FIBE doesn't have effect (p=0.08529).
   
-    
+  lm.BMI.agfmmeans <- emmeans::emmeans(lm.BMI.agf, pairwise ~ DivGroup )
+  lm.BMI.agfmmeans
+  # DivNA-Div2= 2.288, p<.0001. The difference is slightly larger than plain means.
+  write.table(lm.BMI.agfmmeans, "clipboard", sep="\t", row.names = F)
+
+# ===============================================================================================================
+# BMI ~ DivGroup + Age + Gender + PF_TOTAL_LEG.
+# ===============================================================================================================
+  
+  lm.BMI.agtl <-    lm( BMXBMI ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
+  
+  car::Anova(lm.BMI.agtl, type="III")
+  # All terms including PF_ToTAL_LEG have an effect.
+  
+  lm.BMI.agtlmmeans <- emmeans::emmeans(lm.BMI.agtl, pairwise ~ DivGroup )
+  lm.BMI.agtlmmeans
+  # DivNA-Div2= 2.288, p<.0001. The difference is slightly larger than plain means.
+  write.table(lm.BMI.agtlmmeans, "clipboard", sep="\t", row.names = F)
+  
+      
 # ===============================================================================================================
 # Just curious...
 # BMI and waist are highly correlated (R=0.91). What happens if I add waist as a covariate?

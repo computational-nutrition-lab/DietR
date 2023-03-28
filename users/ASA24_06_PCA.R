@@ -88,7 +88,7 @@
     scale_fill_manual(values= distinct100colors) 
   Nut_asis_PC12_diet
   
-  ggsave("PCA_NUt_asis/VVKAJ_Nut_asis_PC12_diet.pdf", 
+  ggsave("PCA_NUt_asis/VVKAJ_Nut_asis_PC12_diet5.pdf", 
          Nut_asis_PC12_diet, device="pdf", width=7, height=6.5)  
   
 # You can do this operation for the other three datasets: Nut_ave, Cat_asis, Cat_ave, by
@@ -197,12 +197,12 @@
   Cat_asis_PC12_diet <- 
     autoplot(scaled_pca, x=1, y=2,    
              loadings=T, loadings.label=T, loadings.colour = 'grey50',  # loadings.label=T if want to see it
-             data = Cat_asis_c,  size= 3 ) +     
+             data = Cat_asis_c,  size= 3) +     
       geom_point(size = 3, alpha = 1, na.rm = T, shape = 21, aes(fill= Diet)) +
-      theme_bw(base_size = 12) + theme(aspect.ratio = 1) +  
+      theme_bw(base_size = 12.5) + theme(aspect.ratio = 1) +  
       no_grid + space_axes +
       scale_fill_manual( values= distinct100colors) 
-  Cat_asis_PC12_diet
+  Cat_asis_PC12_diet 
   
   ggsave("PCA_Cat_asis/VVKAJ_Cat_asis_PC12_diet.pdf", 
          Cat_asis_PC12_diet, device="pdf", width=7, height=6.5)  
