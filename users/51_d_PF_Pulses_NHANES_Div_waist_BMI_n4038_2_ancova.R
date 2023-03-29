@@ -12,7 +12,7 @@ Session --> Set working directory --> Choose directory.
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
-  library(SASxport)
+  # library(SASxport)
 
   source("lib/specify_data_dir.R")
   source("lib/ggplot2themes.R") 
@@ -60,6 +60,7 @@ Session --> Set working directory --> Choose directory.
   summary(df$RIDAGEYR)
   plot(as.factor(df$DivGroup), df$RIDAGEYR) 
   agediv <- anova(lm(RIDAGEYR ~ DivGroup, df))
+  agediv
   # Age is different among DivGroups(p=0.00022). hmm.
   agedivmeans <- emmeans::emmeans(lm(RIDAGEYR ~ DivGroup, df), pairwise ~ DivGroup )
   agedivmeans[1]
@@ -69,8 +70,7 @@ Session --> Set working directory --> Choose directory.
   table(df$Gender, useNA = "ifany")
   table(df$RIAGENDR, useNA = "ifany") # 1 is male.
   table(df$DivGroup, df$Gender)
-
-  plot(as.factor(df$Gender_Age), df$KCAL)  
+    plot(as.factor(df$Gender_Age), df$KCAL)  
   plot(as.factor(df$Gender_Age), df$BMXWAIST)  
   
 # Also from boxplot, it is clear that the waist.cir is decreasing.   
@@ -114,8 +114,7 @@ Session --> Set working directory --> Choose directory.
 # PF_TOTAL_LEG vs waist. 
   plot(df$PF_TOTAL_LEG, df$BMXWAIST)  
 # No correlation. 
-# low p-value for R does not necessarily mean a meaningful correlation because n is just so huge.  
-
+# low p-value for R does not necessarily mean a meaningful correlation because n is just so huge.
   anova(lm(RIDAGEYR ~ DivGroup, df))
   boxplot(RIDAGEYR ~ DivGroup, df)
   plot(df$RIDAGEYR, df$PF_LEGUMES)
@@ -132,6 +131,21 @@ Session --> Set working directory --> Choose directory.
   # 3    Div1  98.91059
   # 4    Div2  95.78931
   # DivNA-Div2 = 101.07003-95.78931 = 5.28072 cm. A positive value.
+
+# ===============================================================================================================
+# anova BMXWAIST ~ DivGroup
+# ===============================================================================================================
+
+  lm.div <-    lm( BMXWAIST ~ DivGroup , data=df)
+  # car::Anova(lm.div, type="III")
+  anova(lm.div)
+  
+  lm.divmmeans <- emmeans::emmeans(lm.div, pairwise ~ DivGroup )
+  lm.divmmeans
+  # DivNA - Div2= 5.281 cm, p<.0001.
+  write.table(lm.divmmeans,    "clipboard", sep="\t", row.names = F)  
+  write.table(lm.divmmeans[1], "clipboard", sep="\t", row.names = F)  
+  write.table(lm.divmmeans[2], "clipboard", sep="\t", row.names = F)  
   
 # ===============================================================================================================
 # ancova - BMXWAIST ~ DivGroup + Age + Gender
@@ -139,7 +153,6 @@ Session --> Set working directory --> Choose directory.
   
   lm.ag <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender , data=df)
   car::Anova(lm.ag, type="III")
-  anova(lm.ag)
   summary((lm.ag))
   # all terms are significant.
   lm.agemmeans <- emmeans::emmeans(lm.ag, pairwise ~ DivGroup )
@@ -210,6 +223,20 @@ Session --> Set working directory --> Choose directory.
   # 4    Div2 2192.276
   # DivNA - Div2 = -245.  will be a negative value.
   write.table(kcalmeans, "clipboard", sep="\t", row.names = F)
+ 
+# ===============================================================================================================
+# KCAL ~ DivGroup 
+# ===============================================================================================================
+  lm.kcal.div <-    lm( KCAL ~ DivGroup , data=df)
+  anova(lm.kcal.div)
+  # DivGroup has an effect (p=9.7x10-11)
+  
+  lm.kcal.divemmeans <- emmeans::emmeans(lm.kcal.div, pairwise ~ DivGroup )
+  lm.kcal.divemmeans
+  
+  write.table(lm.kcal.divemmeans, "clipboard", sep="\t", row.names = F)  
+  write.table(lm.kcal.divemmeans[1], "clipboard", sep="\t", row.names = F)  
+  write.table(lm.kcal.divemmeans[2], "clipboard", sep="\t", row.names = F)  
   
 # ===============================================================================================================
 # KCAL ~ DivGroup + Age + Gender
@@ -224,6 +251,7 @@ Session --> Set working directory --> Choose directory.
   # DivNA - Div2= -287. p<.0001 
   # emmeans are closer to plain means, of which difference is DivNA-Div2 = 1947-2192 = -245.  
   write.table(lm.kcal.agemmeans, "clipboard", sep="\t", row.names = F)
+  write.table(lm.kcal.agemmeans[2], "clipboard", sep="\t", row.names = F)  
   
 
 # ===============================================================================================================
@@ -250,6 +278,7 @@ Session --> Set working directory --> Choose directory.
   # Div1       1900 29.6 4031     1842     1958
   # Div2       1837 30.5 4031     1777     1897
   write.table(lm.kcal.agfemmeans, "clipboard", sep="\t", row.names = F)
+  write.table(lm.kcal.agfemmeans[2], "clipboard", sep="\t", row.names = F)  
   
   # DivNA-Div2= 250.8. p<.0001 
   # When FIBE is included, Div2 has the lowest kcal, adjusted by FIBE. This means per FIBE intake, Div2 group 
@@ -287,9 +316,10 @@ Session --> Set working directory --> Choose directory.
   # Div1       2010 30.1 4031     1951     2069
   # Div2       2037 30.2 4031     1978     2096
   write.table(lm.kcal.agtlemmeans, "clipboard", sep="\t", row.names = F)
+  write.table(lm.kcal.agtlemmeans[2], "clipboard", sep="\t", row.names = F)
   
   aggregate(df$PF_TOTAL_LEG, list(df$DivGroup), FUN=mean) # A bit higher in Div2.
-  anova(lm(PF_TOTAL_LEG ~ DivGroup, df)) # PF_TOTAL_LEG is significantly different between DivGroups (p< 2.2e-16 ***)
+  anova(lm(PF_TOTAL_LEG ~ DivGroup, df)) # PF_TOTAL_LEG is different between DivGroups (p< 2.2e-16 ***)
   boxplot(PF_TOTAL_LEG ~ DivGroup, df)
   
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -303,7 +333,21 @@ Session --> Set working directory --> Choose directory.
   # 4    Div2 27.68015
   
   # DivNA - Div2 = 29.84662 - 27.68015 = 2.16647. A positive value.
+
+# ===============================================================================================================
+# BMI ~ DivGroup 
+# ===============================================================================================================
+  lm.BMI.div <-    lm( BMXBMI ~ DivGroup , data=df)
+  anova(lm.BMI.div)
+  # DivGroup has an effect (p=9.5x10-8)
   
+  lm.BMI.divemmeans <- emmeans::emmeans(lm.BMI.div, pairwise ~ DivGroup )
+  lm.BMI.divemmeans
+  
+  write.table(lm.BMI.divemmeans,    "clipboard", sep="\t", row.names = F)  
+  write.table(lm.BMI.divemmeans[1], "clipboard", sep="\t", row.names = F)  
+  write.table(lm.BMI.divemmeans[2], "clipboard", sep="\t", row.names = F)    
+    
 # ===============================================================================================================
 # BMI ~ DivGroup + Age + Gender
 # ===============================================================================================================
@@ -316,6 +360,8 @@ Session --> Set working directory --> Choose directory.
   lm.BMI.agemmeans
   # DivNA-Div2= 2.288, p<.0001. The difference is slightly larger than plain means.
   write.table(lm.BMI.agemmeans, "clipboard", sep="\t", row.names = F)
+  write.table(lm.BMI.agemmeans[1], "clipboard", sep="\t", row.names = F)
+  write.table(lm.BMI.agemmeans[2], "clipboard", sep="\t", row.names = F)
   
 # ===============================================================================================================
 # I should NOT have FIBE in the model as in the KCAL section, but just try.
@@ -331,11 +377,12 @@ Session --> Set working directory --> Choose directory.
   lm.BMI.agfmmeans
   # DivNA-Div2= 2.288, p<.0001. The difference is slightly larger than plain means.
   write.table(lm.BMI.agfmmeans, "clipboard", sep="\t", row.names = F)
+  write.table(lm.BMI.agfmmeans[1], "clipboard", sep="\t", row.names = F)
+  write.table(lm.BMI.agfmmeans[2], "clipboard", sep="\t", row.names = F)
 
 # ===============================================================================================================
 # BMI ~ DivGroup + Age + Gender + PF_TOTAL_LEG.
 # ===============================================================================================================
-  
   lm.BMI.agtl <-    lm( BMXBMI ~ DivGroup + RIDAGEYR + Gender + PF_TOTAL_LEG, data=df)
   
   car::Anova(lm.BMI.agtl, type="III")
@@ -344,7 +391,9 @@ Session --> Set working directory --> Choose directory.
   lm.BMI.agtlmmeans <- emmeans::emmeans(lm.BMI.agtl, pairwise ~ DivGroup )
   lm.BMI.agtlmmeans
   # DivNA-Div2= 2.288, p<.0001. The difference is slightly larger than plain means.
-  write.table(lm.BMI.agtlmmeans, "clipboard", sep="\t", row.names = F)
+  write.table(lm.BMI.agtlmmeans,    "clipboard", sep="\t", row.names = F)
+  write.table(lm.BMI.agtlmmeans[1], "clipboard", sep="\t", row.names = F)
+  write.table(lm.BMI.agtlmmeans[2], "clipboard", sep="\t", row.names = F)
   
       
 # ===============================================================================================================

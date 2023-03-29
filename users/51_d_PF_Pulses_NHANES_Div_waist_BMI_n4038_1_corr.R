@@ -19,7 +19,7 @@
 # ===============================================================================================================
 
 # Diagonal correlation table.  Useful for lots of datasets with multiple variables.
-library(lattice)
+  library(lattice)
 
 # Correlation after removing NAs.  Choose spearman or pearson.
 # Corr coeff in the lower panel ---------------------------------------------
