@@ -69,7 +69,7 @@ source("lib/ggplot2themes.R")
   colnames(fkcal)[2] <- "Female"
 
   KCAL_Gen <- full_join(mkcal, fkcal, by="DivGroup")
-  
+  KCAL_Gen
   # DivGroup  Male Female
   # 1 DivNA    2199.  1699.
   # 2 Div0     2300.  1783.
@@ -97,17 +97,18 @@ source("lib/ggplot2themes.R")
                   "H"))
   table(df$protg, useNA = "ifany")  
 
+# Mean
 # prot low 
   protlkcal <- df %>% filter(protg == "L") %>% group_by(DivGroup) %>% summarise(MeanKCAL = mean(KCAL))   
-  colnames(protlkcal)[2] <- "Low_0_5"
+  colnames(protlkcal)[2] <- "PF_Low"
   
 # prot middle 
   protmkcal <- df %>% filter(protg == "M") %>% group_by(DivGroup) %>% summarise(MeanKCAL = mean(KCAL))   
-  colnames(protmkcal)[2] <- "Mid_5_10"
+  colnames(protmkcal)[2] <- "PF_Mid"
   
 # prot high 
   prothkcal <- df %>% filter(protg == "H") %>% group_by(DivGroup) %>% summarise(MeanKCAL = mean(KCAL))   
-  colnames(prothkcal)[2] <- "High_10"
+  colnames(prothkcal)[2] <- "PF_High"
 
   KCAL_protg <- full_join(protlkcal, protmkcal, by="DivGroup")
   KCAL_protg <- full_join(KCAL_protg, prothkcal, by="DivGroup")
@@ -121,6 +122,45 @@ source("lib/ggplot2themes.R")
   
   write.table(KCAL_protg, "clipboard", sep="\t", row.names = F, quote=F)
   
+# SD  
+  # prot low 
+  protlkcal <- df %>% filter(protg == "L") %>% group_by(DivGroup) %>% summarise(SDKCAL = sd(KCAL))   
+  colnames(protlkcal)[2] <- "PF_Low"
+  
+  # prot middle 
+  protmkcal <- df %>% filter(protg == "M") %>% group_by(DivGroup) %>% summarise(SDKCAL = sd(KCAL))   
+  colnames(protmkcal)[2] <- "PF_Mid"
+  
+  # prot high 
+  prothkcal <- df %>% filter(protg == "H") %>% group_by(DivGroup) %>% summarise(SDKCAL = sd(KCAL))   
+  colnames(prothkcal)[2] <- "PF_High"
+  
+  KCAL_protg <- full_join(protlkcal, protmkcal, by="DivGroup")
+  KCAL_protg <- full_join(KCAL_protg, prothkcal, by="DivGroup")
+  KCAL_protg
+  write.table(KCAL_protg, "clipboard", sep="\t", row.names = F, quote=F)
+
+# n
+  # prot low 
+  protlkcal <- df %>% filter(protg == "L") %>% group_by(DivGroup) %>% summarise(nKCAL = n())   
+  colnames(protlkcal)[2] <- "PF_Low"
+  
+  # prot middle 
+  protmkcal <- df %>% filter(protg == "M") %>% group_by(DivGroup) %>% summarise(nKCAL = n())   
+  colnames(protmkcal)[2] <- "PF_Mid"
+  
+  # prot high 
+  prothkcal <- df %>% filter(protg == "H") %>% group_by(DivGroup) %>% summarise(nKCAL = n())   
+  colnames(prothkcal)[2] <- "PF_High"
+  
+  KCAL_protg <- full_join(protlkcal, protmkcal, by="DivGroup")
+  KCAL_protg <- full_join(KCAL_protg, prothkcal, by="DivGroup")
+  KCAL_protg
+  write.table(KCAL_protg, "clipboard", sep="\t", row.names = F, quote=F)
+  
+  
+  
+# ---------------------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------
   
 # Cross tables of FIBE and KCAL.    
@@ -162,4 +202,47 @@ source("lib/ggplot2themes.R")
   # 4 Div2        1447.     1766.   2382.
   
   write.table(KCAL_fibeg, "clipboard", sep="\t", row.names = F, quote=F)
+  
+# SD  
+  # fibe low 
+  fibelkcal <- df %>% filter(fibeg == "L") %>% group_by(DivGroup) %>% summarise(SDKCAL = sd(KCAL))   
+  colnames(fibelkcal)[2] <- "FIBE_Low"
+  
+  # fibe middle 
+  fibemkcal <- df %>% filter(fibeg == "M") %>% group_by(DivGroup) %>% summarise(SDKCAL = sd(KCAL))   
+  colnames(fibemkcal)[2] <- "FIBE_Mid"
+  
+  # fibe high 
+  fibehkcal <- df %>% filter(fibeg == "H") %>% group_by(DivGroup) %>% summarise(SDKCAL = sd(KCAL))   
+  colnames(fibehkcal)[2] <- "FIBE_High"
+  
+  KCAL_fibeg <- full_join(fibelkcal, fibemkcal, by="DivGroup")
+  KCAL_fibeg <- full_join(KCAL_fibeg, fibehkcal, by="DivGroup")
+  KCAL_fibeg
+    # DivGroup FIBE_Low FIBE_Mid FIBE_High
+    # 1 DivNA        547.     632.      745.
+    # 2 Div0         425.     579.      711.
+    # 3 Div1         467.     549.      683.
+    # 4 Div2         435.     495.      742.
+  
+  write.table(KCAL_fibeg, "clipboard", sep="\t", row.names = F, quote=F)
+  
+# n
+  # fibe low 
+  fibelkcal <- df %>% filter(fibeg == "L") %>% group_by(DivGroup) %>% summarise(nKCAL = n())   
+  colnames(fibelkcal)[2] <- "FIBE_Low"
+  
+  # fibe middle 
+  fibemkcal <- df %>% filter(fibeg == "M") %>% group_by(DivGroup) %>% summarise(nKCAL = n())   
+  colnames(fibemkcal)[2] <- "FIBE_Mid"
+  
+  # fibe high 
+  fibehkcal <- df %>% filter(fibeg == "H") %>% group_by(DivGroup) %>% summarise(nKCAL = n())   
+  colnames(fibehkcal)[2] <- "FIBE_High"
+  
+  KCAL_fibeg <- full_join(fibelkcal, fibemkcal, by="DivGroup")
+  KCAL_fibeg <- full_join(KCAL_fibeg, fibehkcal, by="DivGroup")
+  KCAL_fibeg
+  write.table(KCAL_fibeg, "clipboard", sep="\t", row.names = F, quote=F)
+  
   
