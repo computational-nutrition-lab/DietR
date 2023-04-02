@@ -75,7 +75,7 @@ plot(df$KCAL, df$BMXWAIST)
 # Select covariates. 
 # Covariates are variables that are correlated with the outcome,
 # variables that are uncorrelated with each other (to avoid multi-colinearity).
-# as few covariables as possible.
+# as few covariables as possible. --> Not necessarily.  Covariates can be correlated with one another.
 
 # Covariates are included to "adjust" or "cancel out" their effects on the outcomes.  
 # BMI is highly correlated with Waist, but we don't want to include it as a covariate because
