@@ -71,7 +71,13 @@
   summary(df$FIBE1000kcal)  
   hist(df$FIBE)  
   hist(df$KCAL)  
-  
+
+# The higher the diversity, the higher FIBE consumption. and the higher FIBE/1000KCAL. 
+  boxplot(FIBE ~ DivGroup, data=df)
+  boxplot(FIBE1000kcal ~ DivGroup, data=df)
+  plot(df$FIBE, df$FIBE1000kcal)
+  plot(df$KCAL, df$FIBE)
+    
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # WAIST as response.
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -125,7 +131,7 @@
   
 # ===============================================================================================================
 # Since KCAL was not significant, remove KCAL and only have FIBE/1000kcal.
-#  BMXWAIST ~ DivGroup + Age + Gender + FIBE/1000kcal + PF_TOTAL_LEG.
+# BMXWAIST ~ DivGroup + Age + Gender + FIBE/1000kcal + PF_TOTAL_LEG.
 # ===============================================================================================================
   
   lm.agf1000p <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender  + FIBE1000kcal + PF_TOTAL_LEG, data=df)
