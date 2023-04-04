@@ -1,5 +1,5 @@
 # ===============================================================================================================
-# Build ancova model after meeting with Mark and David.
+# Build ancova models after meeting with Mark and David.
 # Version 1
 # Created on 04/02/2023 by Rie Sadohara
 # ===============================================================================================================
@@ -39,6 +39,9 @@
 # totals_c_wa$Gender <- factor(totals_c_wa$Gender, 
 # levels = c('F', 'M'))
 
+# change PF_TOTAL_LEG to PF_ALL.
+  colnames(totals_c_wa)[ which ( names(totals_c_wa) == "PF_TOTAL_LEG")] <- "PF_ALL"
+
 # Let's look at the Groups
   table(totals_c_wa$DivGroup, useNA = "ifany")
 
@@ -77,7 +80,14 @@
   boxplot(FIBE1000kcal ~ DivGroup, data=df)
   plot(df$FIBE, df$FIBE1000kcal)
   plot(df$KCAL, df$FIBE)
-    
+
+  # boxplot(PF_ALL ~ DivGroup, data=df)
+  # boxplot(PROT ~ DivGroup, data=df)
+  # plot(df$PROT, df$PF_ALL)
+  # cor.test(df$PROT, df$PF_ALL)
+  # cor.test(df$PROT, df$FIBE)
+  # df[1:10, c("SEQN", "PROT", "PF_ALL", "PF_TOTAL", "PF_LEGUMES")]
+  
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # WAIST as response.
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -90,10 +100,10 @@
   # DivNA-Div2 = 101.07003-95.78931 = 5.28072 cm. A positive value.  
   
 # ===============================================================================================================
-# BMXWAIST ~ DivGroup + Age + Gender + KCAL + FIBE + PF_TOTAL_LEG.
+# BMXWAIST ~ DivGroup + Age + Gender + KCAL + FIBE + PF_ALL.
 # ===============================================================================================================
 
-  lm.agkfp <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + KCAL + FIBE + PF_TOTAL_LEG, data=df)
+  lm.agkfp <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + KCAL + FIBE + PF_ALL, data=df)
   typeiii <-  car::Anova(lm.agkfp, type="III")
   typeiii
   # All the terms have an effect.
@@ -110,10 +120,10 @@
   
 # ===============================================================================================================
 # Use FIBE/1000kcal instead.
-#  BMXWAIST ~ DivGroup + Age + Gender + KCAL + FIBE/1000kcal + PF_TOTAL_LEG.
+#  BMXWAIST ~ DivGroup + Age + Gender + KCAL + FIBE/1000kcal + PF_ALL.
 # ===============================================================================================================
   
-  lm.agkf1000p <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + KCAL + FIBE1000kcal + PF_TOTAL_LEG, data=df)
+  lm.agkf1000p <- lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender + KCAL + FIBE1000kcal + PF_ALL, data=df)
   typeiii <-  car::Anova(lm.agkf1000p, type="III")
   typeiii
   # KCAL does not have an effect. hmm.
@@ -131,10 +141,10 @@
   
 # ===============================================================================================================
 # Since KCAL was not significant, remove KCAL and only have FIBE/1000kcal.
-# BMXWAIST ~ DivGroup + Age + Gender + FIBE/1000kcal + PF_TOTAL_LEG.
+# BMXWAIST ~ DivGroup + Age + Gender + FIBE/1000kcal + PF_ALL.
 # ===============================================================================================================
   
-  lm.agf1000p <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender  + FIBE1000kcal + PF_TOTAL_LEG, data=df)
+  lm.agf1000p <-    lm( BMXWAIST ~ DivGroup + RIDAGEYR + Gender  + FIBE1000kcal + PF_ALL, data=df)
   typeiii <-  car::Anova(lm.agf1000p, type="III")
   typeiii
   
@@ -154,10 +164,10 @@
 # KCAL as the response.
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # ===============================================================================================================
-# KCAL ~ DivGroup + Age + Gender + FIBE + PF_TOTAL_LEG.
+# KCAL ~ DivGroup + Age + Gender + FIBE + PF_ALL.
 # ===============================================================================================================
 
-  lm.kcal.agfp <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE + PF_TOTAL_LEG, data=df)
+  lm.kcal.agfp <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE + PF_ALL, data=df)
   typeiii <-  car::Anova(lm.kcal.agfp, type="III")
   typeiii
   # All the terms have an effect.
@@ -170,11 +180,11 @@
   
 # ===============================================================================================================
 # Add FIBE/1000kcal
-# KCAL ~ DivGroup + Age + Gender + FIBE/1000kcal + PF_TOTAL_LEG.
+# KCAL ~ DivGroup + Age + Gender + FIBE/1000kcal + PF_ALL.
 # ===============================================================================================================
 
   
-  lm.kcal.ag1000fp <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE1000kcal + PF_TOTAL_LEG, data=df)
+  lm.kcal.ag1000fp <-    lm( KCAL ~ DivGroup + RIDAGEYR + Gender + FIBE1000kcal + PF_ALL, data=df)
   
   typeiii <-  car::Anova(lm.kcal.ag1000fp, type="III")
   typeiii
@@ -191,10 +201,10 @@
 # BMI as the response.
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # ===============================================================================================================
-# BMI ~ DivGroup + Age + Gender + KCAL + FIBE + PF_TOTAL_LEG.
+# BMI ~ DivGroup + Age + Gender + KCAL + FIBE + PF_ALL.
 # ===============================================================================================================
   
-  lm.BMI.agkfp <-    lm( BMXBMI ~ DivGroup + RIDAGEYR + Gender + KCAL + FIBE + PF_TOTAL_LEG, data=df)
+  lm.BMI.agkfp <-    lm( BMXBMI ~ DivGroup + RIDAGEYR + Gender + KCAL + FIBE + PF_ALL, data=df)
   typeiii <-  car::Anova(lm.BMI.agkfp, type="III")
   typeiii
   # All the terms have an effect.
@@ -206,10 +216,10 @@
   write.table(lm.BMI.agkfpemmeans[2], "clipboard", sep="\t", row.names = F)  
   
 # ===============================================================================================================
-# BMI ~ DivGroup + Age + Gender + KCAL + FIBE/1000kcal + PF_TOTAL_LEG.
+# BMI ~ DivGroup + Age + Gender + KCAL + FIBE/1000kcal + PF_ALL.
 # ===============================================================================================================
   
-  lm.BMI.agkf1000kcalp <-    lm( BMXBMI ~ DivGroup + RIDAGEYR + Gender + KCAL + FIBE1000kcal + PF_TOTAL_LEG, data=df)
+  lm.BMI.agkf1000kcalp <-    lm( BMXBMI ~ DivGroup + RIDAGEYR + Gender + KCAL + FIBE1000kcal + PF_ALL, data=df)
   typeiii <-  car::Anova(lm.BMI.agkf1000kcalp, type="III")
   typeiii
   # KCAL is not significant.
@@ -222,10 +232,10 @@
   
 # ===============================================================================================================
 # Since KCAL was not significant, remove KCAL and only have FIBE/1000kcal.
-#  BMI ~ DivGroup + Age + Gender + FIBE/1000kcal + PF_TOTAL_LEG.
+#  BMI ~ DivGroup + Age + Gender + FIBE/1000kcal + PF_ALL.
 # ===============================================================================================================
   
-  lm.BMI.agf1000p <-  lm( BMXBMI ~ DivGroup + RIDAGEYR + Gender + FIBE1000kcal + PF_TOTAL_LEG, data=df)
+  lm.BMI.agf1000p <-  lm( BMXBMI ~ DivGroup + RIDAGEYR + Gender + FIBE1000kcal + PF_ALL, data=df)
   typeiii <-  car::Anova(lm.BMI.agf1000p, type="III")
   typeiii
   
