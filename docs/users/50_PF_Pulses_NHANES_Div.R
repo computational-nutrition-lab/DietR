@@ -42,49 +42,49 @@
 #   # 1    2 
 #   # 674 3533 
 #   
-# # ---------------------------------------------------------------------------------------------------------------
-# # Take a look at the columns that starts with "PF" (protein foods)
-# 
-#   # df[, grepl(x=names(df), pattern="^x")]
-#   PF <- totals[, grepl(x=names(totals), pattern="^PF_")]
-#   dim(PF)  
-#   colnames(PF)  
-#   write.table(head(PF, 10), "clipboard", sep="\t", row.names=F, quote=F)  
-# # PF_TOTAL is the sum of all the PF_XXX foods EXCEPT PF_LEGUMES!!!
-# # Probably because legumes could be counted as Veg or protein foods, but not both.
-# # So it's giving researchers choices whether to include legumes as veg or protein, probably.
-# 
-# # 'PF_MPS_TOTAL' is the sum of Meat, Poultry, Seafood.. 
-#   diet_mps <- totals[, c("DRQSDIET", "PF_MPS_TOTAL")]
-#   boxplot(x=diet_mps$DRQSDIET, diet_mps$PF_MPS_TOTAL)
-#   # Those folloing special diets have very low 'PF_MPS_TOTAL'.
-#   
-#   summary(PF$PF_LEGUMES*28.3495)
-#   hist(PF$PF_LEGUMES)   # 0-15. PF_Legumes are oz. equivalent.
-#   hist(PF$PF_LEGUMES*28.3495)   # 1 oz. = 28.3495 grams.
-#   summary(PF$PF_MPS_TOTAL)       # 0-31 oz.
-#   hist(PF$PF_MPS_TOTAL*28.3495) 
-#   
-# # ---------------------------------------------------------------------------------------------------------------
-# # PF_TOTAL_LEG <- PF_TOTAL + PF_LEGUME
-#   totals$PF_TOTAL_LEG <- totals$PF_TOTAL + totals$PF_LEGUME
-# # PF_LEG_perTOTAL is the percentage of legumes in all the protein foods.   
-#   totals$PF_LEG_perTOTAL <- totals$PF_LEGUME / totals$PF_TOTAL_LEG *100 
-#   
-#   hist(totals$PF_LEG_perTOTAL)
-#   
-#   plot(totals$PF_LEGUMES, totals$PF_LEG_perTOTAL)
-#   cor.test(totals$PF_LEGUMES, totals$PF_LEG_perTOTAL)
-#   
-#   hist(totals$PF_TOTAL_LEG)  
-#   summary(totals$PF_LEG_perTOTAL)  
-#   # There is 1 NA...
-#   totals[ is.na(totals$PF_LEG_perTOTAL), ] 
-#   # No protein intake, that is why. (But this person consumed dairy foods.)
-# 
-# # Compare those who are following special diets and who are not.  
-#   boxplot(x= totals$DRQSDIET, totals$PF_LEG_perTOTAL)
-# # Those who are following a diet (DRQSDIET=1) have low PF_LEG_perTOTAL... hmmm   
+# ---------------------------------------------------------------------------------------------------------------
+# Take a look at the columns that starts with "PF" (protein foods)
+
+  # df[, grepl(x=names(df), pattern="^x")]
+  PF <- totals[, grepl(x=names(totals), pattern="^PF_")]
+  dim(PF)
+  colnames(PF)
+  write.table(head(PF, 10), "clipboard", sep="\t", row.names=F, quote=F)
+# PF_TOTAL is the sum of all the PF_XXX foods EXCEPT PF_LEGUMES!!!
+# Probably because legumes could be counted as Veg or protein foods, but not both.
+# So it's giving researchers choices whether to include legumes as veg or protein, probably.
+
+# 'PF_MPS_TOTAL' is the sum of Meat, Poultry, Seafood..
+  diet_mps <- totals[, c("DRQSDIET", "PF_MPS_TOTAL")]
+  boxplot(x=diet_mps$DRQSDIET, diet_mps$PF_MPS_TOTAL)
+  # Those folloing special diets have very low 'PF_MPS_TOTAL'.
+
+  hist(PF$PF_LEGUMES)   # 0-15. PF_Legumes are oz. equivalent.
+  summary(PF$PF_LEGUMES*28.3495) # convert from oz. to grams
+  hist(PF$PF_LEGUMES*28.3495)   # 1 oz. = 28.3495 grams.
+  summary(PF$PF_MPS_TOTAL)       # 0-31 oz.
+  hist(PF$PF_MPS_TOTAL*28.3495)
+
+# ---------------------------------------------------------------------------------------------------------------
+# PF_TOTAL_LEG <- PF_TOTAL + PF_LEGUME
+  totals$PF_TOTAL_LEG <- totals$PF_TOTAL + totals$PF_LEGUME
+# PF_LEG_perTOTAL is the percentage of legumes in all the protein foods.
+  totals$PF_LEG_perTOTAL <- totals$PF_LEGUME / totals$PF_TOTAL_LEG *100
+
+  hist(totals$PF_LEG_perTOTAL)
+
+  plot(totals$PF_LEGUMES, totals$PF_LEG_perTOTAL)
+  cor.test(totals$PF_LEGUMES, totals$PF_LEG_perTOTAL)
+
+  hist(totals$PF_TOTAL_LEG)
+  summary(totals$PF_LEG_perTOTAL)
+  # There is 1 NA...
+  totals[ is.na(totals$PF_LEG_perTOTAL), ]
+  # No protein intake, that is why. (But this person consumed dairy foods. ?)
+
+# Compare those who are following special diets and who are not.
+  boxplot(x= totals$DRQSDIET, totals$PF_LEG_perTOTAL)
+# Those who are following a diet (DRQSDIET=1) have low PF_LEG_perTOTAL... hmmm
   
 # ---------------------------------------------------------------------------------------------------------------
 # Measure the diet diversity of each individual.
@@ -98,18 +98,20 @@
   dim(food)
   length(unique(food$SEQN)) # 4207 people.
   
-  # pick up only the rows that contains food with its foodcode starting from 4. 
-  str(food)
+  # pick up only the rows that contain food with its foodcode starting from 4. 
   summary(food$Food_code)
-  
   food4s <- subset(food, Food_code > 39999999 & Food_code < 50000000)
+  
   summary(food4s$Food_code) # OK, only contains 4xxxxxxxs.
+  nrow(food4s)  # 3963 food items with duplicates. 
+  head(food4s,1) 
   length(unique(food4s$Food_code)) # only 243 unique food items!
   length(unique(food4s$SEQN))      # 2108 people.
   
   # How much duplicates are there? 
   fourtable <- as.data.frame(table(food4s$Food_code))
-  head(fourtable[ order(fourtable$Freq, decreasing = T), ], 10)
+  fourtable10 <- head(fourtable[ order(fourtable$Freq, decreasing = T), ], 10)
+  fourtable10
       # Var1 Freq
   # 42202000  323
   # 41420300  191
@@ -121,6 +123,27 @@
   # 43104000   72
   # 42111200   67
   # 42111100   64
+  colnames(fourtable10)[1] <- "Food_code"
+  
+  # Unique food items and food descriptions 
+  codedesc = data.frame(unique(food[, c('Food_code', 'Main.food.description')])  )
+  head(codedesc)
+  
+  # Add descriptions to fourtable10 and see which food is most consumed. 
+  fourtable10_des <- merge(fourtable10, codedesc, all.x=T, by= "Food_code") 
+  fourtable10_des[order(fourtable10_des$Freq, decreasing = T ), ]
+  # Food_code Freq                                                 Main.food.description
+  # 9   42202000  323                                                         Peanut_butter
+  # 4   41420300  191                                                             Soy_sauce
+  # 5   42101130  121                                                      Almonds_unsalted
+  # 2   41104020  111 Pinto_calico_or_red_Mexican_beans_dry_cooked_fat_not_added_in_cooking
+  # 1   41104011   97            Pinto_calico_or_red_Mexican_beans_dry_cooked_made_with_oil
+  # 8   42116050   83                                                               Walnuts
+  # 3   41201020   77                                                Baked_beans_vegetarian
+  # 10  43104000   72                                                            Flax_seeds
+  # 7   42111200   67                                            Peanuts_dry_roasted_salted
+  # 6   42111100   64                                                Peanuts_roasted_salted
+  # Peanut butter... makes sense.  Pinto beans are 4th and 5th.  
   
   # Some foods are consumed so many times!!
   hist(fourtable$Freq)
@@ -148,7 +171,7 @@
   
   source("lib/Food_tree_scripts/newick.tree.r")
   # source("lib/Food_tree_scripts/check.db.r")
-  source("lib/Food_tree_scripts/format.foods.r")
+  # source("lib/Food_tree_scripts/format.foods.r")
   # source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
   source("lib/Food_tree_scripts/make.food.tree.r")
   source("lib/Food_tree_scripts/make.food.otu.r")
@@ -158,9 +181,9 @@
   # You can come back to the main directory by:
   setwd(main_wd)   
   
-  # ===============================================================================================================
-  # Load and prep data for generating food trees 
-  # ===============================================================================================================
+# ===============================================================================================================
+# Load and prep data for generating food trees 
+# ===============================================================================================================
   
   # Specify where the data is.
   SpecifyDataDirectory("eg_data/NHANES/PF")
@@ -173,8 +196,8 @@
                output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.tax.txt"
   )
   
-  # --------------------------------------------------------------------------------------------------------------
-  # Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.
+# --------------------------------------------------------------------------------------------------------------
+# Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.
   # It is OK to see the following warning message:
   # In write.table(fiber.otu, output_fn, sep = "\t", quote = F, append = TRUE) :
   # appending column names to file.
@@ -191,12 +214,12 @@
   # OTU done!
   
 # ===============================================================================================================
-# calcualte diversity of 4xxxxxxxs for each SEQN
+# calcualate diversity of 4xxxxxxxs for each SEQN
 # ===============================================================================================================
   
 # Take out the foodID (description) and taxonomy from otu.
   otu2 <- otu[, 2: (ncol(otu)-1) ]
-  head(colnames(otu2)) # no FoodID, OK.
+  head(colnames(otu2)) 
   tail(colnames(otu2)) # no taxonomy, OK.
   otu2[1:2,1:2]
 
@@ -259,14 +282,19 @@
   head(SEQNdiv)  
   table(is.na(SEQNdiv))  # no NAs. Good.
   summary(SEQNdiv$Shannon)
+  nrow( subset(SEQNdiv, Shannon==0 ))
   summary(SEQNdiv$Simpson)
+  nrow( subset(SEQNdiv, Simpson==0 ))
   summary(SEQNdiv$Invsimpson)
+  nrow( subset(SEQNdiv, Invsimpson==1 ))
   
   par(mfrow = c(2, 2))
   hist(SEQNdiv$Shannon, main="Shannon diversity", xlab="", breaks=10)
   hist(SEQNdiv$Simpson, main="Simpson diversity", xlab="", breaks=10)
   hist(SEQNdiv$Invsimpson, main="Invsimpson diversity", xlab="", breaks=10)
+  par(mfrow = c(1, 1))
   # some have 0 diversity?? --> If a row has only one non-zero values, then diversity will be zero. e.g. c(20,0,0,0,0,0,0) 
+  # i.e., those only consumed one nuts/seeds/legumes food have diversity of zero.
   # None of them are normally distributed because of a lot of zero diversity values.
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -291,7 +319,7 @@
 # ---------------------------------------------------------------------------------------------------------------
 # dplyr has quantile function... 
   library(tidyverse)
-  # temp <- temp %>% mutate(quartile = ntile(value, 4))
+  # temp_Q4 <- temp %>% mutate(quartile = ntile(value, 4))
   totals_div_2 <-  totals_div %>% mutate(quartile = ntile(Shannon, 4)) # percentage
   # quartile column is added. 
   head(totals_div_2)
@@ -307,9 +335,9 @@
 # ---------------------------------------------------------------------------------------------------------------
 # Select only those who have diversity > 0 first.
   totals_div_3 <- subset(totals_div_2, Shannon > 0)
-  
+  nrow(totals_div_3)
   nrow(totals_div_3) /  nrow(totals_div_2)  * 100
-  # 39% of the individuals have diversity > 0.
+  # 39% of the 2108 individuals consumed more than one nus/seeds/legumes and have diversity > 0.
   
   # Split the nonzero diversity group into 2-tiles.
   # totals_leg <-  totals_leg %>% mutate(leg_tritile = ntile(PF_LEG_perTOTAL, 3))
@@ -384,8 +412,7 @@
   totals_divgroup$DivGroup_f <- factor(totals_divgroup$DivGroup, 
                                        levels = c('DivNA', 'Div0', 'Div1', 'Div2') )
   
-  plot(totals_divgroup$DivGroup_f, totals_divgroup$PF_LEG_perTOTAL)
-  plot(totals_divgroup$DivGroup_f, totals_divgroup$PF_LEGUMES)
+  boxplot(PF_LEGUMES ~ DivGroup , totals_divgroup)
   # as expected. Good. 
   
 # So up to here, the individuals in totals were grouped into 4 groups depending on their consumption of 
@@ -397,8 +424,21 @@
   write.table(totals_divgroup, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup.txt",
               sep="\t", row.names=F, quote=F)
   
-
 # ---------------------------------------------------------------------------------------------------------------
+# Method of this script. (This is before taking complete cases for BMI etc.)
+  
+# Food items with foodcode 40000000 - 49999999, which are nuts, seeds, and legumes, were selected from the 
+# QCed food items. There were 3,963 food items with duplicates that met the criterion, which contained 243 unique 
+# food items. Out of the 4,207 individuals, 50.1% (n=2,108) consumed at least one nuts/seeds/legumes food items
+# in the two days. Food OTU table was generated, and Shannon's diversity index was calculated for each 
+# participant based on their diversity in nuts/seeds/legumes consumption. The diversity index ranged from 0 to 1.95. 
+# 
+# Those who consumed no nuts/seeds/legumes foods in the two days (n=2,099) were grouped as DivNA. For those who 
+# consumed only one nuts/seeds/legumes food (n=1,295), their diversity index was 0, and they were grouped as Div0.
+# For those who consumed more than one nuts/seeds/legumes food (n=813), their diversity index was > 0. Those who
+# had the diversity index > 0 were split into the lower and upper halves, which were named as Div1 and Div2, 
+# respectively. Div1 group's diversity index ranged from 0.027 to 0.66, and Div2 group's diversity index ranged 
+# from 0.66 to 1.95. 
   
 #  
   

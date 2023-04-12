@@ -9,7 +9,7 @@
 Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
 
-# Name your main directory for future use. 
+  # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
   library(SASxport)
@@ -50,8 +50,8 @@ Session --> Set working directory --> Choose directory.
 # ---------------------------------------------------------------------------------------------------------------
 # Take complete cases only. 
   totals_c <- totals[complete.cases(totals[, c("SEQN", "BMXWAIST", "BMXBMI",
-                                               "FIBE", "PF_TOTAL_LEG", "PF_LEGUMES", "KCAL", 
-                                               "Gender", "RIDAGEYR")]), ]
+                                               "FIBE", "PF_LEGUMES", "PF_TOTAL_LEG", "KCAL", 
+                                               "RIAGENDR", "RIDAGEYR")]), ]
 
   dim(totals_c)
   # 4038. 
@@ -61,13 +61,41 @@ Session --> Set working directory --> Choose directory.
   
   # Some checking
   summary(totals_c$BMXBMI)  
+  table(totals_c$DivGroup)  
   plot( totals_c$DivGroup, totals_c$BMXWAIST) 
   plot( totals_c$DivGroup, totals_c$BMXBMI) 
   plot( totals_c$DivGroup, totals_c$FIBE) 
   plot( totals_c$DivGroup, totals_c$PF_TOTAL_LEG) 
   plot( totals_c$DivGroup, totals_c$PF_LEGUMES) 
   plot( totals_c$DivGroup, totals_c$KCAL)
-
+  
+  # Need to know the range of diversity index.
+  # SEQNdiv_2 was made in script: 50_PF_Pulses_NHANES_Div.R.
+  head(SEQNdiv_2)
+  # SEQN   Shannon   Simpson Invsimpson  XSEQN
+  # 1 84804 0.4885588 0.3097996   1.448854 X84804
+  # 2 86670 0.9144513 0.5555141   2.249790 X86670
+  # 3 88668 0.3179368 0.1748179   1.211854 X88668
+  # 4 90694 0.6534051 0.4607873   1.854556 X90694
+  # 5 92090 0.5459573 0.3601875   1.562958 X92090
+  # 6 92397 0.5929170 0.4031662   1.675508 X92397
+  
+  Div1s <-  subset(totals_c, DivGroup == "Div1")["SEQN"] # save as a dataframe.
+  nrow(Div1s)
+  head(Div1s)
+  Div1s_sha <- merge(Div1s, SEQNdiv_2[, c("SEQN", "Shannon")], all.x=T)
+  head(Div1s_sha)
+  summary(Div1s_sha)
+  # Shannon: min 0.02739, max 0.65866.
+  
+  Div2s <-  subset(totals_c, DivGroup == "Div2")["SEQN"]
+  nrow(Div2s)
+  Div2s_sha <- merge(Div2s, SEQNdiv_2[, c("SEQN", "Shannon")], all.x=T)
+  head(Div2s_sha)
+  summary(Div2s_sha)
+  # Shannon: min 0.6590, max 1.9508.
+  
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Get basic summary statistics for all the variabless.
   SummaryStats(inputdf=totals_c, outfn="Waist/SummaryStats_totals_c_Waist_BMI.txt")
@@ -177,15 +205,32 @@ Session --> Set working directory --> Choose directory.
 # Note that this is the average of 2 days.
 # male, 59 years old. he says he is not following specific diet, but he eats plant-based foods only.
 # Meal occasion info...?
-# If the three lentil meals are breakfast, lunch, and dinner, then it's more believable. Otherwise,
-# it could be duplication.
+# If the three lentil meals are different meal occasations, like breakfast, lunch, and dinner, then 
+# it's more believable. Otherwise, it could be duplication.
   
-  
+# Wanted to use SumByOccasion function to calculate totals by meal occasions, but there is no
+# SumByOccasion for NHANES....
 
-    
+# Just look at this person's items data. SEQN=90993
+  QCeditems <- read.delim('../../NHANES/Food_D12_FC_QC_demo_QCed.txt')
+
+  QCeditems90993 <- subset(QCeditems, SEQN=="90993")
+  
+  # Meal occasion and food description. 
+  # The original Occasion variable is DR1_030Z, DR2_030Z, according to the food data documentation, but the "DR1" and "DR2"
+  # were removed in the processing, so just 030Z remained. R added 'X' in front of each variable when loading it again. 
+  # So, the occasion variable is "X_030Z" in the items data. 
+  mof <- QCeditems90993[, c("SEQN", "Main.food.description" , "Day", "X_030Z")]
+  mof[order(mof$Day,  mof$X_030Z), ]
+      
+# SEQN90993 did have lentils and rice meals at different meal occasions on both days, and they are not duplicates. 
+# So, these records are unlikely to be errors. Let's keep them, then... 
+  
+  
 # ---------------------------------------------------------------------------------------------------------------
 # Let's keep them for now...
-  write.table("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup_waistBMI.txt", x=totals_c,
+  write.table("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup_waistBMI.txt", 
+              x=totals_c,
               sep="\t", row.names = F, quote=F)
   
   
