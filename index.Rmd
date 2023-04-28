@@ -1,5 +1,5 @@
 ---
-title: "MyLabJournal_test_Rmarkdown3"
+title: "DietR_toppage"
 output: html_document
 ---
 
@@ -7,6 +7,21 @@ output: html_document
 .title {
   display: none;
 }
+h1 { /* Header 1 */
+  font-size: 28px;
+  color: #1F3600;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: #1F3600;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  color: #1F3600;
+}
+body{ /* Normal  */
+  background-color: rgb(251, 251, 251);
+  }
 
 #getting-started img {
   margin-right: 10px;
@@ -21,7 +36,7 @@ output: html_document
 
 This tutorial shows how to analyze ASA24 and NHANES data.
 
-### Get started
+## Get started
 
 1. Download the [whole repository of DietR](https://github.com/computational-nutrition-lab/DietR). It contains files and scripts used in this tutorial.
 
@@ -32,7 +47,7 @@ This tutorial shows how to analyze ASA24 and NHANES data.
 </div>
 <div class="col-sm-6">
 
-### [Computational Nutrition Lab](https://abbyj6.wixsite.com/website)
+## [Computational Nutrition Lab](https://abbyj6.wixsite.com/website)
 
 <a href = "https://crumplab.github.io">
 ![](images/DietR_Logo.png)

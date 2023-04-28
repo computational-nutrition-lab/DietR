@@ -356,13 +356,7 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="ASA24_08_create_foodtree_allfooditems.html">Foodtrees with all food items</a>
-    </li>
-    <li>
       <a href="ASA24_09_create_foodtree_ownitems.html">Foodtrees with your own data</a>
-    </li>
-    <li>
-      <a href="ASA24_10_viz_food_tree.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="ASA24_11_ordination.html">Ordination</a>
@@ -418,9 +412,6 @@ div.tocify {
       <a href="NHANES_11_males60to79_generate_foodtrees.html">Generate foodtrees</a>
     </li>
     <li>
-      <a href="NHANES_12_males60to79_viz_foodtrees.html">Visualize foodtrees</a>
-    </li>
-    <li>
       <a href="NHANES_13_males60to79_ordination.html">Ordination</a>
     </li>
     <li>
@@ -459,25 +450,28 @@ div.tocify {
 h1.title {
   font-size: 38px;
   font-family: "Tahoma", sans-serif;
-  color: DarkSlateGray;
+  color: #1F3600; /* darkgreen from DietR logo */
 }
 h1 { /* Header 1 */
   font-size: 28px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 h2 { /* Header 2 */
     font-size: 22px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 h3 { /* Header 3 */
   font-size: 18px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 body{ /* Normal  */
   background-color: rgb(251, 251, 251);
   }
 blockquote{ 
   font-size: 14px;
+}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #1F3600;
 }
 </style>
 <p><br></p>
@@ -560,12 +554,12 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
   scale_fill_manual(values= c(&quot;aquamarine2&quot;, &quot;lightgoldenrod1&quot;, &quot;lightpink1&quot;) ) +
   labs(x=&quot;BMI&quot;, y=&quot;Density&quot;)</code></pre>
 <pre class="r"><code>males60to79_BMIfreq</code></pre>
-<pre><code>## Warning: Removed 3 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite values (`stat_density()`).</code></pre>
 <p><img src="NHANES_06_subset_males60to79_files/figure-html/unnamed-chunk-18-1.png" width="60%" /></p>
 <p>Save the chart as .pdf.</p>
 <pre class="r"><code>ggsave(&quot;males60to79_BMI_by_GLU_index.pdf&quot;, 
        males60to79_BMIfreq, device=&quot;pdf&quot;, width=5.3, height=4.5)</code></pre>
-<pre><code>## Warning: Removed 3 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite values (`stat_density()`).</code></pre>
 <p><br></p>
 <hr />
 </div>
@@ -577,13 +571,13 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
   scale_fill_manual(values= c(&quot;aquamarine2&quot;, &quot;lightgoldenrod1&quot;, &quot;lightpink1&quot;) ) +
   geom_jitter(width=0.3)</code></pre>
 <pre class="r"><code>males60to79_BMIbox</code></pre>
-<pre><code>## Warning: Removed 3 rows containing non-finite values (stat_boxplot).</code></pre>
-<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (`geom_point()`).</code></pre>
 <p><img src="NHANES_06_subset_males60to79_files/figure-html/unnamed-chunk-21-1.png" width="60%" /></p>
 <pre class="r"><code>ggsave(&quot;males60to79_BMI_by_GLU_index_box.pdf&quot;, 
        males60to79_BMIbox, device=&quot;pdf&quot;, width=5.3, height=4.5)</code></pre>
-<pre><code>## Warning: Removed 3 rows containing non-finite values (stat_boxplot).</code></pre>
-<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (`geom_point()`).</code></pre>
 <p><br></p>
 <hr />
 </div>

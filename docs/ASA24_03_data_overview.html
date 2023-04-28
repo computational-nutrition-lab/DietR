@@ -356,13 +356,7 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="ASA24_08_create_foodtree_allfooditems.html">Foodtrees with all food items</a>
-    </li>
-    <li>
       <a href="ASA24_09_create_foodtree_ownitems.html">Foodtrees with your own data</a>
-    </li>
-    <li>
-      <a href="ASA24_10_viz_food_tree.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="ASA24_11_ordination.html">Ordination</a>
@@ -418,9 +412,6 @@ div.tocify {
       <a href="NHANES_11_males60to79_generate_foodtrees.html">Generate foodtrees</a>
     </li>
     <li>
-      <a href="NHANES_12_males60to79_viz_foodtrees.html">Visualize foodtrees</a>
-    </li>
-    <li>
       <a href="NHANES_13_males60to79_ordination.html">Ordination</a>
     </li>
     <li>
@@ -459,25 +450,28 @@ div.tocify {
 h1.title {
   font-size: 38px;
   font-family: "Tahoma", sans-serif;
-  color: DarkSlateGray;
+  color: #1F3600; /* darkgreen from DietR logo */
 }
 h1 { /* Header 1 */
   font-size: 28px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 h2 { /* Header 2 */
     font-size: 22px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 h3 { /* Header 3 */
   font-size: 18px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 body{ /* Normal  */
   background-color: rgb(251, 251, 251);
   }
 blockquote{ 
   font-size: 14px;
+}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #1F3600;
 }
 </style>
 <p><br></p>
@@ -494,6 +488,7 @@ blockquote{
 <pre class="r"><code>source(&quot;lib/specify_data_dir.R&quot;)
 source(&quot;lib/data_overview.R&quot;)
 source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.1.3</code></pre>
 <p>Call color palette. <code>distinct100colors.rda</code> is an R data file that contains 100 distinct colors, and most of them are color-blind friendly.</p>
 <pre class="r"><code>distinct100colors &lt;- readRDS(&quot;lib/distinct100colors.rda&quot;)</code></pre>
 <p>Make a vector of colors for each factor of Diet so that plots will have consistent colors.</p>

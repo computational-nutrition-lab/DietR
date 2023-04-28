@@ -356,13 +356,7 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="ASA24_08_create_foodtree_allfooditems.html">Foodtrees with all food items</a>
-    </li>
-    <li>
       <a href="ASA24_09_create_foodtree_ownitems.html">Foodtrees with your own data</a>
-    </li>
-    <li>
-      <a href="ASA24_10_viz_food_tree.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="ASA24_11_ordination.html">Ordination</a>
@@ -418,9 +412,6 @@ div.tocify {
       <a href="NHANES_11_males60to79_generate_foodtrees.html">Generate foodtrees</a>
     </li>
     <li>
-      <a href="NHANES_12_males60to79_viz_foodtrees.html">Visualize foodtrees</a>
-    </li>
-    <li>
       <a href="NHANES_13_males60to79_ordination.html">Ordination</a>
     </li>
     <li>
@@ -459,25 +450,28 @@ div.tocify {
 h1.title {
   font-size: 38px;
   font-family: "Tahoma", sans-serif;
-  color: DarkSlateGray;
+  color: #1F3600; /* darkgreen from DietR logo */
 }
 h1 { /* Header 1 */
   font-size: 28px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 h2 { /* Header 2 */
     font-size: 22px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 h3 { /* Header 3 */
   font-size: 18px;
-  color: MidNightBlue;
+  color: #1F3600;
 }
 body{ /* Normal  */
   background-color: rgb(251, 251, 251);
   }
 blockquote{ 
   font-size: 14px;
+}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #1F3600;
 }
 </style>
 <p><br></p>
@@ -526,12 +520,12 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
   labs(x=&quot;BMI&quot;, y=&quot;Density&quot;)</code></pre>
 <p>Print out the chart. &gt; If there are missing data, it will give a Warning message: &gt; “Removed 14 rows containing non-finite values (stat_density).”</p>
 <pre class="r"><code>BMIfreq</code></pre>
-<pre><code>## Warning: Removed 14 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values (`stat_density()`).</code></pre>
 <p><img src="NHANES_04_overview_GLU_index_files/figure-html/unnamed-chunk-10-1.png" width="60%" /></p>
 <p>Save the chart as .pdf. It is helpful to make note of the number of datapoints: n = 1625 - 14 missing = 1611.</p>
 <pre class="r"><code>ggsave(&quot;QCtotal_d_ga_body_meta_glu_comp_2_n1611_BMI_by_GLU_index.pdf&quot;,
        BMIfreq, device=&quot;pdf&quot;, width=5.3, height=4.5)</code></pre>
-<pre><code>## Warning: Removed 14 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values (`stat_density()`).</code></pre>
 <p>The diabetic population seems to have higher BMI than the prediabetic, and the lowest BMI was the normal population.</p>
 <p><br></p>
 </div>
@@ -552,12 +546,12 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
   scale_fill_manual(values= c(&quot;steelblue3&quot;, &quot;yellow&quot;, &quot;hotpink&quot;)) +
   labs(x=&quot;Body weight (kg)&quot;, y=&quot;Density&quot;)</code></pre>
 <pre class="r"><code>weightfreq</code></pre>
-<pre><code>## Warning: Removed 12 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>## Warning: Removed 12 rows containing non-finite values (`stat_density()`).</code></pre>
 <p><img src="NHANES_04_overview_GLU_index_files/figure-html/unnamed-chunk-15-1.png" width="60%" /></p>
 <p>Save the chart as .pdf. n = 1625 - 12 missing = 1613.</p>
 <pre class="r"><code>ggsave(&quot;QCtotal_d_ga_body_meta_glu_comp_2_n1613_weight_by_GLU_index.pdf&quot;,
        weightfreq, device=&quot;pdf&quot;, width=5.3, height=4.5)</code></pre>
-<pre><code>## Warning: Removed 12 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>## Warning: Removed 12 rows containing non-finite values (`stat_density()`).</code></pre>
 <p><br></p>
 </div>
 <div id="kcal-frequency-of-each-group" class="section level1">
@@ -573,6 +567,11 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
   scale_color_manual(values= c(&quot;steelblue3&quot;, &quot;gold3&quot;, &quot;hotpink&quot;) ) +
   labs(x=&quot;KCAL&quot;, y=&quot;Density&quot;) +
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE))</code></pre>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <pre class="r"><code>KCALfreq</code></pre>
 <p><img src="NHANES_04_overview_GLU_index_files/figure-html/unnamed-chunk-19-1.png" width="60%" /></p>
 <p>Save the chart as .pdf.</p>
