@@ -1,7 +1,7 @@
 # ===============================================================================================================
-# Make a demographics table for each of the DivGroups.
+# Make food/nutrient intake table for each of the DivGroups.
 # Version 1
-# Created on 05/05/2023 by Rie Sadohara
+# Created on 05/08/2023 by Rie Sadohara
 # ===============================================================================================================
 
   setwd("~/GitHub/DietR")
@@ -49,7 +49,41 @@
   df <- totals_c_wa
 
 # ---------------------------------------------------------------------------------------------------------------
+  BMXWT (body weight)
   
+# ===============================================================================================================
+# KCAL intake
+# ===============================================================================================================
+# Missing data? -- No.  
+  summary(df$KCAL)
+  summary(df$BMXBMI)
+
+# Create a density plot of BMI by DivGroup.
+  BMIbox <- ggplot(data=df, aes(x=DivGroup, y=BMXBMI, fill=DivGroup)) +
+    geom_boxplot( outlier.shape=16, outlier.alpha=0.5  ) + space_axes + no_grid +
+    # scale_fill_manual(values= c("steelblue3", "yellow", "hotpink") ) +
+    labs(y="BMI", x=NULL)  
+  BMIbox
+  
+  myanova <- aov(BMXBMI ~ DivGroup, data=df)
+  summary(myanova)
+  
+  source("~/GitHub/R_Toolbox/anova_assumption_plots.R")
+  ANOVA_assumption(input.anova = myanova, input.factor = "DivGroup", df=df)
+  
+  # Levene's test OK, but normality...? 
+  shapiro.test(df$BMXBMI)
+  
+  hist(df$BMXBMI)
+  
+  pairwise.t.test(df$BMXBMI, df$DivGroup, p.adjust.method = "holm") 
+  
+  
+  
+  # log 
+  
+  
+    
 # ===============================================================================================================
 # Demographics table
 # ===============================================================================================================
