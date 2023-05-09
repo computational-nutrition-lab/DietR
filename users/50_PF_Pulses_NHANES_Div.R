@@ -86,8 +86,10 @@
   boxplot(x= totals$DRQSDIET, totals$PF_LEG_perTOTAL)
 # Those who are following a diet (DRQSDIET=1) have low PF_LEG_perTOTAL... hmmm
   
-# ---------------------------------------------------------------------------------------------------------------
+# ===============================================================================================================
 # Measure the diet diversity of each individual.
+# ===============================================================================================================
+# ---------------------------------------------------------------------------------------------------------------
 # Tutorial: https://www.programmingr.com/shannon-diversity-index-the-diversity-function-in-r/
   library(vegan)
   # vegan::diversity calculates Shannon's diversity index one by one.
@@ -214,7 +216,7 @@
   # OTU done!
   
 # ===============================================================================================================
-# calcualate diversity of 4xxxxxxxs for each SEQN
+# calculate diversity of 4xxxxxxxs for each SEQN
 # ===============================================================================================================
   
 # Take out the foodID (description) and taxonomy from otu.
@@ -232,7 +234,7 @@
  colnames(otu2t) <- otu$X.FOODID
  head(otu2t,2)  
  
- head(rowSums(otu2t))    # total consumption by SEQN.
+ head(   rowSums(otu2t))    # total consumption by SEQN.
  summary(rowSums(otu2t)) # consumption by SEQN. no zero values, OK.
  # Each row of otu2t is SEQN. So, diversity needs to be calculated per each row.
 

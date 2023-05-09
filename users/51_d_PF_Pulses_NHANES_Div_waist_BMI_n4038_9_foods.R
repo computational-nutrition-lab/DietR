@@ -32,8 +32,8 @@
                                    "Gender", "RIDAGEYR")])
 
 # Make the DivGroup as a factor.
-  totals_c_wa$DivGroup <- factor(totals_c_wa$DivGroup, 
-                                 levels = c('DivNA', 'Div0', 'Div1', 'Div2'))
+  totals_c_wa$DivGroup <- factor(totals_c_wa$DivGroup, levels=c('DivNA', 'Div0', 'Div1', 'Div2'))
+
 # Make Gender as a factor.
   table(totals_c_wa$Gender)
 # totals_c_wa$Gender <- factor(totals_c_wa$Gender, 
@@ -49,7 +49,6 @@
   df <- totals_c_wa
 
 # ---------------------------------------------------------------------------------------------------------------
-  BMXWT (body weight)
   
 # ===============================================================================================================
 # KCAL intake
@@ -58,13 +57,171 @@
   summary(df$KCAL)
   summary(df$BMXBMI)
 
-# Create a density plot of BMI by DivGroup.
-  BMIbox <- ggplot(data=df, aes(x=DivGroup, y=BMXBMI, fill=DivGroup)) +
+# Create a density plot of KCAL by DivGroup.
+  box <- ggplot(data=df, aes(x=DivGroup, y=A_DRINKS, fill=DivGroup)) +
+    geom_boxplot( outlier.shape=16, outlier.alpha=0.5 ) + space_axes + no_grid +
+    # scale_fill_manual(values= c("steelblue3", "yellow", "hotpink") ) +
+    labs(y="Alcohol (No. of drinks)", x=NULL)  
+  box
+  df$PF_TOTAL_LEG
+  means <-  df[1:10, c('PF_TOTAL', 'PF_LEGUMES', 'PF_TOTAL_LEG', 'PF_LEG_perTOTAL')]
+  write.table(means, "clipboard", sep="\t", quote=F, row.names = F)
+  
+  df$total_MPFAT <- df$MFAT + df$PFAT
+  
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(KCAL))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(PF_TOTAL))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(PF_LEGUMES))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(PF_TOTAL_LEG))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(PF_LEG_perTOTAL))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(CARB))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(FIBE))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(PROT))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(TFAT))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(SFAT)) # total saturated FA
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(MFAT)) # total monounsaturated FA
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(PFAT)) # total polyunsaturated FA
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(total_MPFAT)) # total unsaturated FA
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(NoOfItems))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(V_TOTAL))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(FOLA))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(ALCO))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(ADD_SUGARS))
+  means <- df %>% group_by(DivGroup) %>% summarise(means= mean(F_TOTAL)) # total fruit
+  plot(df$V_LEGUMES, df$PF_LEGUMES)
+  
+  write.table(t(means), "clipboard", sep="\t", quote=F, row.names = F)
+  #
+
+# ---------------------------------------------------------------------------------------------------------------
+# Make a funciton to test p-values of anova for all the variables specified.
+  
+# Copy from Excel column.
+  variablesdf <- read.table('clipboard', sep="\t", header=F)
+  variables <- variablesdf$V1
+# Or type.
+  variables <- c("PF_TOTAL","PF_LEGUMES","PF_TOTAL_LEG","PF_LEG_perTOTAL", "F_TOTAL")
+  variables
+  # column number of DivGroup
+  # divn <- which(colnames(df)=="DivGroup")
+  # ith <- which(colnames(df)=="SFAT")
+  # subset <- df[, c(divn, ith)]
+  # head(subset)
+  
+# make a dataframe to save p-values for ANOVA.
+  ptable <- data.frame(matrix(nrow=length(variables), ncol=2))
+  colnames(ptable) <- c('var', 'p_val') 
+  ptable
+  
+# Get p-values of ANOVA for each element in the 'variables' vector.
+  for(i in 1:length(variables)){
+    print( paste("n=", i))
+    # Look for column number for the ith variable
+    coln <- which(colnames(df) == variables[i])
+    print(coln)
+    # subset SEQN and the ith variable.
+    subset <- df[, c(divn, coln)]
+    # # Standardize the column names.
+    colnames(subset) <- c("DivGroup", "i_variable")
+    # run anova.
+    myanova <- aov(i_variable ~ DivGroup, data=subset)
+    ss <- summary(myanova)
+    # Take out the p-value.
+    pval <- as.data.frame(ss[[1]])[1,5]
+    
+    ptable[i, 1] <- variables[i]
+    ptable[i, 2] <- pval
+  }
+  
+  ptable
+  write.table(ptable[,2], 'clipboard', sep="\t", row.names = F, quote=F)
+  
+  
+  
+    
+# For my information ---------------------------------------------------------------------------------------------------------------
+# Nuts/seeds/legumes (4xxxxxxx) consumption
+
+  foods <- read.delim("../Food_D12_FC_QC_demo_QCed_4s.txt")
+  dim(foods) # 3963 x 177 
+  head(colnames(foods)) # X.FOODID, X87496, X88725, ...
+  tail(colnames(foods)) # X92316, ..., taxonomy.
+  head(foods)
+  foods[1:4, 1:4]
+  head(foods$SEQN)
+
+  plot(foods$Day)
+  foods %>% filter(SEQN == 83734) %>% group_by(Day) %>% summarise(sum = sum(FoodAmt))
+  foods %>% filter(SEQN == 83752) %>% group_by(Day) %>% summarise(sum = sum(FoodAmt))
+  foods %>% filter(SEQN == 83767) %>% group_by(Day) %>% summarise(sum = sum(FoodAmt))
+  83767 has 2 days.
+  # So, OTU is calculated with day 1 AND day 2 data, combined.
+  # i.e. DivGroup is based on the 4xxxxxxxx foods consumed in the 2 days.
+  # I should divide it by 2 to get 2-day average of nuts/seeds/legumes consumption amount.
+
+# ---------------------------------------------------------------------------------------------------------------
+# colSums of the OTU table to get the total consumption amount for each SEQN.  
+  
+  otu <- read.delim("~/GitHub/DietR/eg_data/NHANES/Div/Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.otu.txt")
+  dim(otu) # 243 x 2110 
+  
+  otu[, c('X83767','X.FOODID')]  
+  
+  head(colnames(otu)) # X.FOODID, X87496, X88725, ...
+  tail(colnames(otu)) # X92316, ..., taxonomy.
+  otu[1:4, 1:4]
+  colsum <- colSums(otu[, 2: (ncol(otu)-1) ] , na.rm=T) # exclude the food description and taxonomy columns.
+  colsumdf <- data.frame(SEQN=names(colsum), amt = colsum)
+  row.names(colsumdf) <- NULL
+  head(colsumdf)
+  
+# Calculate the sum of 4xxxxxxx foods for each SEQN. This is the sum of two days.
+  colsum_s <- colsumdf[order(colsumdf$amt, decreasing=T), ]
+  colsum_s$amt_ave <- colsum_s$amt/2 # divide by 2 and it will be average amount (g)/ day.
+  head(colsum_s)
+  colnames(colsum_s)[1] <- "XSEQN" # Change SEQN to XSEQN.
+  
+  colsum_s %>% filter(amt==0) %>% nrow() # 2108 (all of the people) have some consumption, OK!
+
+# Load SEQN & DivGroup assignment, and merge them.
+  totaldiv <- read.delim("~/GitHub/DietR/eg_data/NHANES/PF/Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup.txt")
+  head(totaldiv)
+
+  div <- totaldiv[, c('SEQN', 'DivGroup')]  
+  div$XSEQN <- paste("X", div$SEQN, sep="")
+  head(div)
+  table(div$DivGroup)
+  colsum_s_div <- merge(x=colsum_s, y=div, all.x=T, by="XSEQN")
+  colsum_s_div[10:30,]
+  
+# Calc the means of nuts/seeds/legume consumption by DivGroup.
+  nlsmeans <- colsum_s_div %>% group_by(DivGroup) %>% summarise(nsl= mean(amt_ave))
+  nlsmeans
+  write.table(t(nlsmeans), "clipboard", sep="\t", row.names = F, quote=F)
+# This is the average of 2 days for each DivGroup. 
+  
+  box <- ggplot(data=colsum_s_div, aes(x=DivGroup, y= amt_ave, fill=DivGroup)) +
     geom_boxplot( outlier.shape=16, outlier.alpha=0.5  ) + space_axes + no_grid +
     # scale_fill_manual(values= c("steelblue3", "yellow", "hotpink") ) +
-    labs(y="BMI", x=NULL)  
-  BMIbox
+    labs(y="Nuts/seeds/legumes (g/day)", x=NULL)  
+  box
+  ggsave("Waist/nuts_seeds_legumes_amt_ave_DivGroup.png", box,
+         device="png", width=5.2, height=4.2, units="in")
   
+# ---------------------------------------------------------------------------------------------------------------
+# ANOVA with amt_ave and DivGroup.
+  myanova <- aov(amt_ave ~ DivGroup, data= colsum_s_div)
+  summary(myanova)
+# p-value
+  summary(myanova)[[1]][1,5]
+  
+  
+
+# ---------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------
+  BMXWT (body weight)
+
+# ANOVA
   myanova <- aov(BMXBMI ~ DivGroup, data=df)
   summary(myanova)
   
@@ -81,158 +238,4 @@
   
   
   # log 
-  
-  
-    
-# ===============================================================================================================
-# Demographics table
-# ===============================================================================================================
-  gender, age, race/ethnicity, Family IPR, Education
-
-# ---------------------------------------------------------------------------------------------------------------
-# Gender    
-  gen <- table(df$RIAGENDR,df$`DivGroup` , useNA = "ifany")
-  write.table(gen, "clipboard", sep="\t", row.names=F, quote=F)
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Age    
-  age <- table(df$AgeGroup,df$`DivGroup` , useNA = "ifany")
-  write.table(age, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
-  
-# OR group into 3 groups: 18-39, 40-59, 60-80+
-  summary(df$RIDAGEYR)
-  
-  df$age_3 <- NA
-  for(i in 1:nrow(df)){
-    
-    if(df$RIDAGEYR[i] <= 39 ){
-      df$age_3[i] <- "18-39"
-    }else if(df$RIDAGEYR[i] <= 59){
-      df$age_3[i] <- "40-59"
-    }else{
-      df$age_3[i] <- "60+"
-    }
-  }
-  # Check.
-  table(df$AgeGroup, df$`age_3` , useNA = "ifany")
-  
-  age <- table(df$age_3,df$`DivGroup` , useNA = "ifany")
-  write.table(age, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
-  
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Race/Ethnicity. RIDRETH3
-  # Code or Value	| Value Description	| Count	| Cumulative	
-  # 1	Mexican American	1921	1921	
-  # 2	Other Hispanic	1308	3229	
-  # 3	Non-Hispanic White	3066	6295	
-  # 4	Non-Hispanic Black	2129	8424	
-  # 6	Non-Hispanic Asian	1042	9466	
-  # 7	Other Race - Including Multi-Racial	505	9971
-  # .	Missing	0	9971
-  eth <- table(df$RIDRETH3,df$`DivGroup` , useNA = "ifany")
-  write.table(eth, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
-  
-  eth <- data.frame(table(df$RIDRETH3, df$`DivGroup` , useNA = "ifany")) # Make a long table.
-  is(eth)
-  colnames(eth) <- c("Ethnicity", "DivGroup", "value")
-
-  ggplot(eth, aes(fill=Ethnicity, y=value, x=DivGroup)) + 
-    geom_bar(position="fill", stat="identity")  + 
-    # scale_fill_viridis_d() +
-    scale_fill_viridis_d(labels = c("Mex Am", "Other Hispanic", "NH White", "NH Black", "NH Asian", "Other")) 
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Family IPR
-# Need to know the number of family members, family income.
-# https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines/prior-hhs-poverty-guidelines-federal-register-references
-# Poverty guideline in 2015: $11770 for first person, and $4160 for additional person.
-# INDFMIN2 - Annual family income
-# DMDFMSIZ - Total number of people in the Family
-#   household: all individuals in the same address.
-#   family:    all individuals in a household who are related by blood, marriage, or adoption.
-
-# INDFMPIR - Ratio of family income to poverty
-# 77 = Refused, 99= Don't know. So, we need to remove them. 
-  df %>% filter(INDFMPIR == 77 | INDFMPIR == 99) %>% count() 
-  summary(df$INDFMPIR)
-  # No need, all values are 1-5. Need to remove 361 missing datapoints, though.
-  
-#  <1.85 , 1.85-2.99, >=3.00
-  df$FIPL <-   # Family income poverty line
-    ifelse(df$INDFMPIR < 1.85, 
-         '<1.85',
-         ifelse(df$INDFMPIR < 3.00,
-                '1.85-2.99', 
-                '>= 3.00')
-         )
-  # Check the ranges are correct.
-  df %>% group_by(FIPL) %>% summarise(min=min(INDFMPIR), max=max(INDFMPIR))
-  
-  povertyline <- table(df$FIPL, df$`DivGroup` , useNA = "ifany")
-  write.table(povertyline, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
-
-# ---------------------------------------------------------------------------------------------------------------
-# Education
-  # DMDEDUC3 - Education level - Children/Youth 6-19
-  # 0-12:  < HS, 
-  # 13-15, 55, 66:  HS some college 
-  # DMDEDUC2 - Education level - adults (20 or older)
-  # < HS,
-  # HS or some collage or
-  # Collage graduate or above
-
-  df$edu <- NA
-  
-  table(df$DMDEDUC2)  # there is no missing data
-  table(df$DMDEDUC3)  # there is no missing data
-  summary(df$RIDAGEYR)  # there is no missing data in age.
-  
-  for( i in 1:nrow(df) ){
-    
-    if(df$RIDAGEYR[i] <= 19 ){
-      # for 18-19 yo.
-      
-      if(df$DMDEDUC3[i] <=12){
-         df$edu[i] <-  "< HS" 
-      }else if(df$DMDEDUC3[i] <=15 |df$DMDEDUC3[i] ==55 | df$DMDEDUC3[i] ==66 ){
-         df$edu[i] <-  "HS grad or some collage" # "More than HS" is included in this category, for simplicity... 
-      }else{
-         df$edu[i] <-  NA  # refused, missing, or don't know.
-      }
-    
-    }else{  # adults: DMDEDUC2 
-      
-      if(df$DMDEDUC2 [i] <= 2){
-         df$edu[i] <-  "< HS" 
-      }else if(df$DMDEDUC2[i] <= 4 ){
-         df$edu[i] <-  "HS grad or some collage" 
-      }else if(df$DMDEDUC2[i] == 5){
-         df$edu[i] <- "Collage grad or above" 
-      }else{
-         df$edu[i] <-  NA  # refused, missing, or don't know.
-      }
-    }  
-  }
-  
-# Check.
-  table(df$edu) # there is no missing data in age.
-  df[10:100, c('DMDEDUC2','DMDEDUC3', 'edu')] 
-  
-  educ <- table(df$edu, df$`DivGroup` , useNA = "ifany")
-  write.table(educ, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
-  
-    
-
-  
-    
-# ---------------------------------------------------------------------------------------------------------------
-# Download other questionnairs  
-  download.file("https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/PAQ_I.XPT", 
-                destfile = "../../Raw_data/Physical_PAQ_I.XPT", mode="wb")
-  
-
-  
-  
-  
   
