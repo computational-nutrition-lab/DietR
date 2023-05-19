@@ -40,7 +40,7 @@
 # levels = c('F', 'M'))
 
 # Let's look at the Groups
-  table(totals_c_wa$DivGroup, useNA = "ifany")
+  table(totals_c_wa$DivGroup, useNA="ifany")
 
 # DivNA  Div0  Div1  Div2 
 # 2012  1246   387   393 
@@ -48,8 +48,6 @@
 # Distribution of each group
   df <- totals_c_wa
 
-# ---------------------------------------------------------------------------------------------------------------
-  
 # ===============================================================================================================
 # Demographics table
 # ===============================================================================================================
@@ -110,7 +108,6 @@
   
 # ---------------------------------------------------------------------------------------------------------------
 # Family IPR
-# Need to know the number of family members, family income.
 # https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines/prior-hhs-poverty-guidelines-federal-register-references
 # Poverty guideline in 2015: $11770 for first person, and $4160 for additional person.
 # INDFMIN2 - Annual family income

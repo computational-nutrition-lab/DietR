@@ -1,4 +1,5 @@
 # ===============================================================================================================
+# Continuation from "~Div_Waist_prep.R".
 # Analyze n=4046 individuals that have no missing data in 
 # waist circum, KCAL etc...
 # Version 1

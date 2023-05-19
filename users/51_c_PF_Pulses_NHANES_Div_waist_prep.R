@@ -3,6 +3,7 @@
 # to analyze grouping by "DivGroup" variable.
 # Version 1
 # Created on 02/22/2023 by Rie Sadohara
+# Added outlier removal. on 05/19/2023.
 # ===============================================================================================================
 
 # Set your working directory to the main directory.
@@ -48,7 +49,7 @@ Session --> Set working directory --> Choose directory.
   # 674 3533 
   
 # ---------------------------------------------------------------------------------------------------------------
-# Take complete cases only. 
+# Take complete cases only.
   totals_c <- totals[complete.cases(totals[, c("SEQN", "BMXWAIST",
                                                "FIBE", "PF_TOTAL_LEG", "PF_LEGUMES", "KCAL", 
                                                "Gender", "RIDAGEYR")]), ]
@@ -111,7 +112,7 @@ Session --> Set working directory --> Choose directory.
   # How many rows are there that have PF_LEGUMES value of above upper outlier threshold?
   nrow( subset(totals_c, PF_LEGUMES > upper)  ) # 411 wow.
   
-  head(totals_c[order(totals_c$PF_LEGUMES,decreasing = T), c("SEQN", "PF_LEGUMES", "FIBE")])
+  head(totals_c[order(totals_c$PF_LEGUMES,decreasing=T), c("SEQN", "PF_LEGUMES", "FIBE")])
   # max = 16.35919 oz. 
   # 16.35919 oz.x 28.35 = 463.783 g. 463g of legume consumption.. possible if cooked, maybe?  
   # SEQN=90993 is the one that has outlier in FIBE too. 
