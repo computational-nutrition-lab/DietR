@@ -38,11 +38,10 @@
   PrepFoodTreePlots(input.tree = tree)
 
 # Create a color-coded and annotated food tree with 9 L1 levels.
-# Choose either 'circular' or 'radial' for layout.
 # It is OK to see some warning messages that say: 
   # Coordinate system already present. Adding new coordinate system, which will replace the existing one.
   # Scale for 'y' is already present. Adding another scale for 'y', which will replace the existing scale.
-  VizFoodTree(input.tree=tree, layout="radial")  
+  VizFoodTree(input.tree=tree)  
 
 # Take a look at the tree.
   annotated_tree

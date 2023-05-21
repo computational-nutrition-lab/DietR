@@ -20,12 +20,12 @@
 # Install the BiocManager package necessary for installing the phyloseq package. 
   if (!require("BiocManager",    quietly = TRUE))install.packages("BiocManager")
 # Install the phyloseq package if you have not done so.
-  BiocManager::install("phyloseq")
+  # BiocManager::install("phyloseq")
   
 # Install the devtools package necessary for installing the pairwiseAdonis package. 
   if (!require("devtools",    quietly = TRUE))install.packages("devtools")
 # install pairwise adonis function from Github. (https://github.com/pmartinezarbizu/pairwiseAdonis)
-  devtools::install_github("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
+  # devtools::install_github("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
   
 # ---------------------------------------------------------------------------------------------------------------
 # load the necessary packages and the source code.

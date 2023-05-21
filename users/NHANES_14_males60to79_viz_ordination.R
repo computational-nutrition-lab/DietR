@@ -76,8 +76,8 @@
   
   highlighted
   
-  ggsave("Viz_Ordination/Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_Axis12_highlighted.png", 
-         highlighted, device="png", width=7, height=5.5, unit="in", dpi=300)
+  ggsave("Viz_Ordination/Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_Axis12_highlighted.pdf", 
+         highlighted, device="pdf", width=7, height=5.5, unit="in", dpi=300)
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.

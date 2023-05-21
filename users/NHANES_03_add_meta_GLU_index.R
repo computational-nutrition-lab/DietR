@@ -4,7 +4,7 @@
 # Created on 11/21/2022 by Rie Sadohara
 # ===============================================================================================================
 
-# In this script, we will add participants’ metadata, and GLU_index variable based on their blood glucose level. 
+# In this script, we will add participants' metadata, and GLU_index variable based on their blood glucose level. 
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
@@ -179,9 +179,9 @@
   table(QCtotal_d_ga_body_meta_glu_comp$GLU_index, useNA="always")
   
   
-  # ===============================================================================================================
-  # Exclude individuals who are following special diets
-  # ===============================================================================================================
+# ===============================================================================================================
+# Exclude individuals who are following special diets
+# ===============================================================================================================
   
   # There may be some participants following special diets such as low-sodium or gluten-free. Detailed explanation 
   # about the special diet question can be found on the documentation
