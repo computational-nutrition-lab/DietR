@@ -1,0 +1,59 @@
+colSums(x)
+Beans dry cooked NS as to type fat added in cooking	417.31
+Beans dry cooked NS as to type fat not added in cooking	742.5
+Beans canned drained NS as to type fat added in cooking	180
+White beans dry cooked fat not added in cooking	3121.43
+Black brown or Bayo beans dry cooked fat added in cooking NS as to type of fat	90
+Black brown or Bayo beans dry cooked fat not added in cooking	5932.68
+Black brown or Bayo beans canned drained fat not added in cooking	679.23
+Black brown or Bayo beans canned drained low sodium fat added in cooking	284.99
+Fava beans dry cooked fat added in cooking	405
+Pink beans dry cooked fat added in cooking	101.25
+Pinto calico or red Mexican beans dry cooked fat added in cooking NS as to type of fat	405
+Pinto calico or red Mexican beans dry cooked fat not added in cooking	13977.68
+Pinto calico or red Mexican beans canned drained fat added in cooking NS as to type of fat	67.5
+Pinto calico or red Mexican beans canned drained fat not added in cooking	2966.82
+Red kidney beans dry cooked fat not added in cooking	4199.99
+Red kidney beans canned drained fat not added in cooking	733.13
+Soybeans dry cooked fat added in cooking	157.5
+Baked beans NFS	1802.63
+Baked beans vegetarian	12161.8
+Beans and tomatoes fat not added in cooking	2011.65
+Beans and tomatoes fat added in cooking	3704.03
+Refried beans fat added in cooking NS as to type of fat	932.99
+Refried beans from restaurant	4525.5
+Refried beans canned low sodium	404.25
+Bean dip made with refried beans	1324.99
+Hummus plain	3113.85
+Hummus flavored	3333.34
+Pork and beans	8546.27
+Beans dry cooked with pork	272.56
+Falafel	86.7
+Chickpeas dry cooked fat not added in cooking	402.19
+Chickpeas canned drained fat not added in cooking	67.5
+Chickpeas canned drained low sodium fat added in cooking	180
+Lentils dry cooked fat not added in cooking	1710.93
+Bean chips	104.85
+Papad grilled or broiled	18
+Edamame cooked	930.37
+Miso	17.19
+Cake or pancake made with rice flour and or dried beans	243.65
+Long rice noodles made from mung beans cooked	187.03
+Burrito with beans meatless	8443.69
+Soft taco with beans	10642.5
+Soft taco with beans and sour cream	712
+Taco or tostada with beans	1922
+Taco or tostada with beans and sour cream	902
+Chimichanga meatless	256
+Rice with beans	24088.54
+Red beans and rice	10528.98
+Rice white with lentils NS as to fat added in cooking	155.25
+Rice white with lentils fat added in cooking	1170.85
+Rice white with lentils fat not added in cooking	210.38
+Rice brown with beans	3840.29
+Dosa Indian with filling	1201.5
+Vada fried dumpling	116
+Vegetables dipped in chick pea flour batter fried Pakora	84
+Bean paste sweetened	417.5
+Nuts carob coated	14
+Ladoo round ball Asian Indian dessert	390.6

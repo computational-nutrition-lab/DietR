@@ -72,8 +72,8 @@
 # ---------------------------------------------------------------------------------------------------------------
 # highlight and annotate L1s using the nodenumbers. 
   
-  VizFoodTree <- function(input.tree=tree, layout= c("radial", "circular")){
-    tree_an_hi <- ggtree(input.tree, ladderize=F, layout = layout) +
+  VizFoodTree <- function(input.tree=tree){
+    tree_an_hi <- ggtree(input.tree, ladderize=F, layout = "circular") + # layout="radial" used to work, but not anymore... :( 
       # geom_text(aes(label=node), hjust= -0.3) +
       geom_hilight(   node=L1nodenum[1],  fill=L1hilightcolors[1]) +  # Milk products
       geom_cladelabel(node=L1nodenum[1], color=  L1labelcolors[1], label=L1nodelabels[1], offset=0.5, geom="label", fill='white', hjust=0.5) + 

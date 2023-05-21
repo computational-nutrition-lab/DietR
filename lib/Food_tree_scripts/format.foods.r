@@ -1,6 +1,5 @@
 # deduplicates database file, replaces special chars with _ and creates a new FoodID out of foodcode and modcode
 # leaves all other columns intact
-FormatFoods <- function(input_fn, output_fn, dedupe=T)
 {
     fdata <- read.table(input_fn, header = TRUE, sep="\t", colClasses="character", quote="", strip.white=T)
 
