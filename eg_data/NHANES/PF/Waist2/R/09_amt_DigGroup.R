@@ -6,12 +6,12 @@
 # ===============================================================================================================
   library(ggplot2)
 
-  source("lib/specify_data_dir.R")
-  source("lib/ggplot2themes.R")
-
 # Set your working directory to the main directory.
 # Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
+
+  source("lib/specify_data_dir.R")
+  source("lib/ggplot2themes.R")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
@@ -35,10 +35,12 @@
   
 # Check.
   table(colsum_s_2_div$DivGroup, useNA = "ifany")
+  head(colsum_s_2_div$amt_ave)
   
 # ---------------------------------------------------------------------------------------------------------------
 # Plot the amount by DivGroup.  
-  box <- ggplot(data= colsum_s_2_div, aes(x=DivGroup, y= amt_ave, fill=DivGroup)) +
+  box <- 
+  ggplot(data= colsum_s_2_div, aes(x=DivGroup, y= amt_ave, fill=DivGroup)) +
     geom_boxplot( outlier.shape=16, outlier.alpha=0.5  ) + space_axes + no_grid +
     # scale_fill_manual(values= c("steelblue3", "yellow", "hotpink") ) +
     labs(y="Nuts/seeds/legumes (g/day)", x=NULL)
