@@ -8,26 +8,24 @@
 # Load data.
 # ===============================================================================================================
  
-
-setwd("~/GitHub/DietR")
+  setwd("~/GitHub/DietR")
 
 # Name your main directory for future use. 
-main_wd <- file.path(getwd())
-library(SASxport)
-library(dplyr)
-source("lib/specify_data_dir.R")
-source("lib/ggplot2themes.R") 
+  main_wd <- file.path(getwd())
+  library(SASxport)
+  library(dplyr)
+  source("lib/specify_data_dir.R")
+  source("lib/ggplot2themes.R") 
 # source("lib/data_overview.R") 
 
 # Specify the directory where the data is.
-SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist/")  
+  SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist2/")  
 
 # ===============================================================================================================
 # Load the prepared data with the DivGroup variable.
 # ===============================================================================================================
 
 # Load the data.
-  # totals_c_wa <- read.delim("../Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup_waistBMI.txt")
   totals_c_wa <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup.txt")
 
   dim(totals_c_wa)
@@ -41,7 +39,7 @@ SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist/")
   totals_c_wa$DivGroup <- factor(totals_c_wa$DivGroup, 
                                levels = c('DivNA', 'Div0', 'Div1', 'Div2'))
 # Make Gender as a factor.
-  table(totals_c_wa$Gender)
+  table(totals_c_wa$Gender, useNA="ifany")
 # totals_c_wa$Gender <- factor(totals_c_wa$Gender, 
 # levels = c('F', 'M'))
 
@@ -57,7 +55,7 @@ SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist/")
 # ===============================================================================================================
 # Demographics table
 # ===============================================================================================================
-  gender, age, race/ethnicity, Family IPR, Education
+  # gender, age, race/ethnicity, Family IPR, Education
 
 # ---------------------------------------------------------------------------------------------------------------
 # Gender    
@@ -100,17 +98,45 @@ SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist/")
 # 6	Non-Hispanic Asian	1042	9466	
 # 7	Other Race - Including Multi-Racial	505	9971
 # .	Missing	0	9971
-  eth <- table(df$RIDRETH3,df$`DivGroup` , useNA = "ifany")
-  write.table(eth, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
+  eth <- table(df$RIDRETH3, df$`DivGroup` , useNA = "ifany")
+  eth
+  
+# Want to combine 1.Mexican American and 2.Other Hispanic.
+  df$eth_5 <- NA
+  for(i in 1:nrow(df)){
+    
+    if(df$RIDRETH3[i] <= 2 ){
+      df$eth_5[i] <- "1or2"
+    }else{
+      df$eth_5[i] <- df$RIDRETH3[i]
+    }
+  }
+  
+  # Check.
+  table(df$RIDRETH3, df$`eth_5` , useNA = "ifany")
+  
+  # Make freqtable again.
+  eth2 <- table(df$eth_5, df$`DivGroup` , useNA = "ifany")
+  eth2
+  # DivNA Div0 Div1 Div2
+  # 1or2   500  384   91  117
+  # 3      666  397  135  130
+  # 4      478  195   46   34
+  # 6      115   95   79   74
+  # 7       81   43   10    6
+  
+  write.table(eth2, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
 
-  eth <- data.frame(table(df$RIDRETH3, df$`DivGroup` , useNA = "ifany")) # Make a long table.
-  is(eth)
-  colnames(eth) <- c("Ethnicity", "DivGroup", "value")
+# ---------------------------------------------------------------------------------------------------------------
+# stacked barchart
+  eth3 <- data.frame(table(df$eth_5, df$`DivGroup` , useNA = "ifany")) # Make a long table.
+  is(eth3)
+  colnames(eth3) <- c("Ethnicity", "DivGroup", "value")
 
-  ggplot(eth, aes(fill=Ethnicity, y=value, x=DivGroup)) + 
+  ggplot(eth3, aes(fill=Ethnicity, y=value, x=DivGroup)) + 
     geom_bar(position="fill", stat="identity")  + 
-    # scale_fill_viridis_d() +
-    scale_fill_viridis_d(labels = c("Mex Am", "Other Hispanic", "NH White", "NH Black", "NH Asian", "Other")) 
+    # scale_fill_viridis_d() 
+    scale_fill_viridis_d(labels = c("Mex Am, Hispanic", "NH White", "NH Black", "NH Asian", "Other"))
 
 # ---------------------------------------------------------------------------------------------------------------
 # Family IPR
@@ -151,52 +177,58 @@ SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist/")
 # < HS,
 # HS or some collage or
 # Collage graduate or above
+ 
+  df$edu <- NA
 
-df$edu <- NA
+  table(df$DMDEDUC2, useNA = "ifany")  # missing data in adults' edu level is because they are kids.
+  table(df$DMDEDUC3, useNA = "ifany")  # missing data in kids' edu level is because they are adults.
+  summary(df$RIDAGEYR)  # there is no missing data in age.
 
-table(df$DMDEDUC2, useNA = "ifany")  # missing data in adults' edu level is because they are kids.
-table(df$DMDEDUC3, useNA = "ifany")  # missing data in kids' edu level is because they are adults.
-summary(df$RIDAGEYR)  # there is no missing data in age.
-
-for( i in 1:nrow(df) ){
-  
-  if(df$RIDAGEYR[i] <= 19 ){
-    # for 18-19 yo.
+  for( i in 1:nrow(df) ){
     
-    if(df$DMDEDUC3[i] <=12){
-      df$edu[i] <-  "< HS" 
-    }else if(df$DMDEDUC3[i] <=15 | df$DMDEDUC3[i] ==55 | df$DMDEDUC3[i] ==66 ){
-      df$edu[i] <-  "HS grad or some collage" # "More than HS" is included in this category, for simplicity... 
-    }else{
-      df$edu[i] <-  NA  # refused, missing, or don't know.
-    }
-    
-  }else{  # adults: DMDEDUC2 
-    
-    if(df$DMDEDUC2 [i] <= 2){
-      df$edu[i] <-  "< HS" 
-    }else if(df$DMDEDUC2[i] <= 4 ){
-      df$edu[i] <-  "HS grad or some collage" 
-    }else if(df$DMDEDUC2[i] == 5){
-      df$edu[i] <- "Collage grad or above" 
-    }else{
-      df$edu[i] <-  NA  # refused, missing, or don't know.
-    }
-  }  
-}
+    if(df$RIDAGEYR[i] <= 19 ){
+      # for 18-19 yo.
+      
+      if(df$DMDEDUC3[i] <=12){
+        df$edu[i] <-  "< HS" 
+      }else if(df$DMDEDUC3[i] <=15 | df$DMDEDUC3[i] ==55 | df$DMDEDUC3[i] ==66 ){
+        df$edu[i] <-  "HS grad or some collage" # "More than HS" is included in this category, for simplicity... 
+      }else{
+        df$edu[i] <-  NA  # refused, missing, or don't know.
+      }
+      
+    }else{  # adults: DMDEDUC2 
+      
+      if(df$DMDEDUC2 [i] <= 2){
+        df$edu[i] <-  "< HS" 
+      }else if(df$DMDEDUC2[i] <= 4 ){
+        df$edu[i] <-  "HS grad or some collage" 
+      }else if(df$DMDEDUC2[i] == 5){
+        df$edu[i] <- "Collage grad or above" 
+      }else{
+        df$edu[i] <-  NA  # refused, missing, or don't know.
+      }
+    }  
+  }
 
 # Check.
 table(df$edu, useNA = 'ifany') # there is no missing data in age.
-df[10:100, c('DMDEDUC2','DMDEDUC3', 'edu')] 
+  df[10:100, c('DMDEDUC2','DMDEDUC3', 'edu')] 
 
-educ <- table(df$edu, df$`DivGroup` , useNA = "ifany")
-write.table(educ[c(1,3,2), ], "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
-
-
-
-
-
-
+  educ <- table(df$edu, df$`DivGroup` , useNA = "ifany")
+  educ
+  write.table(educ[c(1,3,2), ], "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
 
 
 # ---------------------------------------------------------------------------------------------------------------
+# Now, df has new categorical variables such as "age_3", "eth_5", "FIPL", and "edu".
+# Save this as a new total.
+  tail( colnames(df))
+  dim( df)
+  # 3676 x 267
+  write.table(df, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup_DemoCat.txt", 
+              sep="\t", row.names=F, quote=F)
+  
+
+
+

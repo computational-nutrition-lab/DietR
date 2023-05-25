@@ -5,17 +5,18 @@
 # Created on 05/19/2023 by Rie Sadohara
 # ===============================================================================================================
 
-  source("lib/specify_data_dir.R")
   
   # Set your working directory to the main directory.
   # Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
+  source("lib/specify_data_dir.R")
+  source("lib/diversity_nth_tile.R")
   
   # Name your main directory for future use. 
   main_wd <- file.path(getwd())
   
   # Specify the directory where the data is.
-  SpecifyDataDirectory(directory.name = "eg_data/NHANESPF/Waist2")  
+  SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist2")  
 
   library(vegan)
 
@@ -159,7 +160,9 @@
 # Save the totals with DivGroup.
   write.table(totals_divgroup, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup.txt",
               sep="\t", row.names=F, quote=F)
+
   
+    
 # Health outcomes and demographic data could be explored by DivGroup. 
   
 
