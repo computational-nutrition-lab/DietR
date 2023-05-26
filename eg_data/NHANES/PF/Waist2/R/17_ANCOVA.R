@@ -159,9 +159,10 @@
 # ---------------------------------------------------------------------------------------------------------------
 # Run ANCOVA without FIPL and KCAL.
   lm_5 <-  lm( BMXWAIST ~ DivGroup + age_3 + RIAGENDR + eth_5 + edu , data=df)
-  
+  summary(lm_5)
   typeiii5 <-  car::Anova(lm_5, type="III")
   typeiii5
+  
   write.table(typeiii5, "clipboard", sep="\t", row.names = T)  
   
   lm.emmeans <- emmeans::emmeans(lm_5, pairwise ~ DivGroup )
@@ -190,4 +191,10 @@
   
   write.table(lm.emmeans,    "clipboard", sep="\t", row.names = F)  
   write.table(lm.emmeans[2], "clipboard", sep="\t", row.names = F)  
+  
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# kcal as response.
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  
+  
   

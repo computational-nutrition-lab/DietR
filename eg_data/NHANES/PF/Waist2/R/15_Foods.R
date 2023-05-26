@@ -48,7 +48,43 @@
     # labs(y="Alcohol (No. of drinks)", x=NULL)
   dens
   
-
+# KCAL - different
+  mylm1 <- lm(KCAL ~ DivGroup, data= df)
+  summary(mylm1)  # p-value: 4.03e-11
+  ggplot(data=df, aes(x=DivGroup, y=KCAL)) +
+    geom_boxplot( ) 
+  ggplot(data=df, aes(x=DivGroup, y=KCAL)) +
+    geom_boxplot( outlier.shape = NA) + geom_jitter()
+  
+# ALCO were not different among DivGroups.
+  mylm2 <- lm(ALCO ~ DivGroup, data= df) 
+  summary(mylm2)
+  ggplot(data=df, aes(x=DivGroup, y=ALCO)) +
+    geom_boxplot( ) 
+  ggplot(data=df, aes(x=DivGroup, y=ALCO)) +
+    geom_boxplot( outlier.shape = NA) + geom_jitter()
+  
+# SFAT were not different among the DivGroups.
+  mylm3 <- lm(SFAT ~ DivGroup, data= df) 
+  summary(mylm3) #  p-value: 0.3245.
+  lm3p <- summary(mylm3)
+  ggplot(data=df, aes(x=DivGroup, y=SFAT)) +
+    geom_boxplot( ) 
+  ggplot(data=df, aes(x=DivGroup, y=SFAT)) +
+    geom_boxplot( outlier.shape = NA) + geom_jitter()
+  
+# Define a function to calculate p-value for the F-test again. It's doing an F test with the parameters in the model.
+  overall_p <- function(my_model) {
+    f <- summary(my_model)$fstatistic
+    p <- pf(f[1],f[2],f[3],lower.tail=F)
+    attributes(p) <- NULL
+    return(p)
+  }
+  
+  overall_p(mylm1)
+  overall_p(mylm2)
+  overall_p(mylm3)
+    
 # ===============================================================================================================
 # Calculate the means, SD, and p-values for anova between DivGroups without adjusting by KCAL.
 # ===============================================================================================================
@@ -148,10 +184,10 @@
   # variables <- c("PF_LEGUMES","PF_TOTAL_LEG","PF_LEG_perTOTAL", "F_TOTAL")
   # df$
   
-  # make a dataframe to save means, SD, and p-values for ANOVA.
-  rtable <- data.frame(matrix(nrow= length(variables), ncol=10))
+  # make a dataframe to save means, SD, and p-values for ANOVA and p-values for trend.
+  rtable <- data.frame(matrix(nrow= length(variables), ncol=11))
   colnames(rtable) <- c('var', 'm_DivNA',	'm_Div0',	'm_Div1',	'm_Div2',
-                        'sd_DivNA',	'sd_Div0',	'sd_Div1',	'sd_Div2',  'p_val') 
+                        'sd_DivNA',	'sd_Div0',	'sd_Div1',	'sd_Div2',  'p_aov', 'p_trend') 
   rtable 
   
   # Adjust by KCAL, calc mean and SD, and get p-values of ANOVA for each element in the 'variables' vector.
@@ -174,14 +210,21 @@
     subset$i_variable <- subset$i_variable / subset$KCAL * 2000
     ##################################
     
+    rtable[i, 1] <- variables[i]
+    
     # run anova.
     myanova <- aov(i_variable ~ DivGroup, data=subset)
     ss <- summary(myanova)
     # Take out the p-value.
     pval <- as.data.frame(ss[[1]])[1,5]
-    
-    rtable[i, 1] <- variables[i]
     rtable[i, 10] <- pval
+    
+    # Run regression 
+    mylm <- lm(i_variable ~ DivGroup, data=subset)
+    print(summary(mylm))  
+    
+    # Save the p-value for the overall significance of the regression model.
+    rtable[i, 11] <- overall_p(mylm)
     
     # Calculate means for each DivGroup
     meantabl <- subset %>% group_by(DivGroup) %>% summarise(means=mean(i_variable))
@@ -202,6 +245,10 @@
   adjusted <- rtable
   adjusted
 
+  # The p-values for ANOVA and the p-values for the regression were exactly the same.
+  # Makes sense, becuase DivGroup is a categorical variable. Running a regression with a categorical
+  # variable doesn't really make sense, and it ended up doing the same thing with anova. 
+  
   # Safety check with PROT  
   df$PROT_adj <- df$PROT / df$KCAL *2000
   # df[1:10, c("PROT", "PROT_adj", "KCAL")]

@@ -230,5 +230,54 @@ table(df$edu, useNA = 'ifany') # there is no missing data in age.
               sep="\t", row.names=F, quote=F)
   
 
+# ---------------------------------------------------------------------------------------------------------------
+# Read data
+  df <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup_DemoCat.txt")
+  dim(df)
 
+# Make DivGroup as a factor.
+  df$DivGroup <- factor(df$DivGroup, 
+                        levels = c('DivNA', 'Div0', 'Div1', 'Div2'))
+  
+  tail(colnames(df))
 
+# Chi-square test for DivGroup and categorical variable levels...
+  table(df$age_3)
+
+  
+# Gender
+  chisq.test(df$RIAGENDR, df$DivGroup)
+  # p-value = 0.08418
+  
+# Age group  
+  chisq.test(df$age_3, df$DivGroup)
+  # p-value = 0.008202
+      
+# Ethnicity group  
+  chisq.test(df$eth_5, df$DivGroup)
+  # p-value = 2.2e-16
+  
+# FIPL group  
+  chisq.test(df$FIPL, df$DivGroup)
+  # p-value = 2.2e-16
+  
+# edu group  
+  chisq.test(df$edu, df$DivGroup)
+  # p-value = 2.2e-16
+       
+   
+# P-trend
+  subsetted <- subset(df, age_3== "18-39")
+  table(subsetted$age_3)
+  table(subsetted$age_3, subsetted$DivGroup)
+
+  subsetted[1:10, c('age_3', 'DivGroup')]
+  
+# p-difference
+# e.g. Within DivNA, the proportion of ethnicity is different or not?
+  subsetted <- subset(df, eth_5 == "1or2")
+  table(subsetted$DivGroup)
+  table(subsetted$eth_5, subsetted$DivGroup)
+  
+  
+  
