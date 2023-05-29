@@ -4,17 +4,17 @@
 # Version 1
 # Created on 05/19/2023 by Rie Sadohara
 # ===============================================================================================================
-  source("lib/specify_data_dir.R")
 
 # Set your working directory to the main directory.
 # Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
 
+  source("lib/specify_data_dir.R")
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
 # Specify the directory where the data is.
-  SpecifyDataDirectory(directory.name = "eg_data/NHANESPF/Waist2")  
+  SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist2")  
 
 
 # ===============================================================================================================
@@ -37,11 +37,14 @@
 # exclude the food description and taxonomy columns.
   colsum <- colSums(otu[, 2: (ncol(otu)-1) ] , na.rm=T) 
   head(colsum) # This is a named vector.
-  
+  length(colsum)  # 1837 unique items
+  min(colsum)  
+    
 # Create a dataframe with SEQN and amount (2 days).
   colsumdf <- data.frame(SEQN=names(colsum), amt = colsum)
   row.names(colsumdf) <- NULL
   head(colsumdf)
+  length(unique(colsumdf$SEQN))
   
 # Safety check.
   colsumdf %>% filter(SEQN=="X83767") # 13.92. Correct!
@@ -66,17 +69,17 @@
   # Wow... 
   # Was it consumed on both days or just on 1 day?
   
-# Load food data.
+# Load the all food data.
   food <- read.delim("../../Food_D12_FC_QC_demo_QCed.txt", sep= "\t", header=T)
 
-# Take out X92254.  
-  subsetted <- subset(food, SEQN=="92254")
-  subsetted[ order(subsetted$FoodAmt, decreasing = T),  c("Day", "FoodAmt", "Main.food.description")]
+# Take out X92254 and have a look.  
+  subsetted92254 <- subset(food, SEQN=="92254")
+  subsetted92254[ order(subsetted92254$FoodAmt, decreasing = T),  c("Day", "FoodAmt", "Main.food.description")]
   
   # 35 g salted almonds only on day 1, and 12 g of salted almonds and 1502 g of bean soup for lunch and 
   # exactly the same 1502 g of bean soup for dinner on day 2. hmm...
   # Even though it's soup, 1.5 kg for 1 meal is extreme. I will exclude this..
-  
+
 # Filter out "X92254" who ate 3 kg of nuts/seeds/legumes over 2 days.
   colsum_s_2 <- colsum_s %>% filter(amt_ave < 1000) 
   max(colsum_s_2$amt_ave)
@@ -99,10 +102,11 @@
   # Define the col number. 
   coln <- which(colnames(otu) == "X92254")
   
-  # Exclude the column.
+  # Exclude the column of the outlier.
   otu2 <- otu[, -coln] 
   
   otu2$X92254 # NULL.
+
   
 # Save the OTU table without the outlier.. n=3676.
   write.table(otu2, "Foodtree/Food_D12_FC_QC_demo_QCed_n3676_4s_3Lv.food.otu.txt",
@@ -118,5 +122,29 @@
   
   write.table(totals2, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676.txt",
               sep="\t", row.names = F, quote=F)
+  
+# ---------------------------------------------------------------------------------------------------------------
+# Read in the food data with 4s only. n3677, which means the outlier IS included, and needs to be removed.
+  food4s <- read.delim("Food_D12_FC_QC_demo_QCed_n3677_4s.txt")   
+  
+# Exclude this outlier individual 92254 from the food data, and count the number of foods.
+  food4s_woOutlier <- subset(food4s, SEQN !="92254")
+  tail(food4s_woOutlier,1)
+  length(unique(food4s_woOutlier$Food_code)) # 237 unique foods, OK.
+  length(unique(food4s_woOutlier$Main.food.description))  # 237 unique foods, OK.
+  
+  # Count how many foods were reported by n=3676 (without the outlier) including duplicates?
+  length(food4s_woOutlier$Food_code)
+  # 3485 4xxxxxxxx foods were reported.   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   

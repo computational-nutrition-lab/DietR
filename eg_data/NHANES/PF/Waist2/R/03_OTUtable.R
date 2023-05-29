@@ -72,6 +72,7 @@
         nrow(food4s), "food items with duplicates.", 
         "There are", length(unique(food4s$Food_code)), "unique food items.")
   # "1837 people consumed 3489 food items with duplicates. There are 237 unique food items."
+  # But for paper, I need to do this AFTER removing an outlier...
   
   # Save as a txt file.
   write.table(food4s, "Food_D12_FC_QC_demo_QCed_n3677_4s.txt", sep= "\t", row.names=F,quote=F)

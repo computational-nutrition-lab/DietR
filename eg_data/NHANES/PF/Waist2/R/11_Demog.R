@@ -243,7 +243,6 @@ table(df$edu, useNA = 'ifany') # there is no missing data in age.
 
 # Chi-square test for DivGroup and categorical variable levels...
   table(df$age_3)
-
   
 # Gender
   chisq.test(df$RIAGENDR, df$DivGroup)
@@ -275,6 +274,7 @@ table(df$edu, useNA = 'ifany') # there is no missing data in age.
   
 # p-difference
 # e.g. Within DivNA, the proportion of ethnicity is different or not?
+# But I cannot test it because this is just counts and there is no SD... 
   subsetted <- subset(df, eth_5 == "1or2")
   table(subsetted$DivGroup)
   table(subsetted$eth_5, subsetted$DivGroup)
