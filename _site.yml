@@ -23,12 +23,12 @@ navbar:
     - text: "k-means"
       href: ASA24_07_k-means.html
     - text: "---------"
-    # - text: "Foodtrees with all food items"
-    # href: ASA24_08_create_foodtree_allfooditems.html
+    - text: "Foodtrees with all food items"
+      href: ASA24_08_create_foodtree_allfooditems.html
     - text: "Foodtrees with your own data"
       href: ASA24_09_create_foodtree_ownitems.html
-    # - text: "Visualize foodtrees"
-      # href: ASA24_10_viz_food_tree.html
+    - text: "Visualize foodtrees"
+      href: ASA24_10_viz_food_tree.html
     - text: "Ordination"
       href: ASA24_11_ordination.html
     - text: "Visualize ordination"
@@ -61,8 +61,8 @@ navbar:
     - text: "---------"
     - text: "Generate foodtrees"
       href: NHANES_11_males60to79_generate_foodtrees.html
-    # - text: "Visualize foodtrees"
-      # href: NHANES_12_males60to79_viz_foodtrees.html
+    - text: "Visualize foodtrees"
+      href: NHANES_12_males60to79_viz_foodtrees.html
     - text: "Ordination"
       href: NHANES_13_males60to79_ordination.html
     - text: "Visualize ordination"

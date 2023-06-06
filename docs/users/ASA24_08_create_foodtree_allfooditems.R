@@ -32,7 +32,8 @@ Session --> Set working directory --> Choose directory.
 
 # ---------------------------------------------------------------------------------------------------------------
 # Load the packages/scripts necessary for tree building.
-  
+  if (!require("reshape2", quietly = TRUE))install.packages("reshape2")
+
 # Load the data.tree package necessary for newick.tree.r, and if it is not installed, install it. 
   if (!require("data.tree", quietly = TRUE))install.packages("data.tree")
 
@@ -42,7 +43,7 @@ Session --> Set working directory --> Choose directory.
   source("lib/Food_tree_scripts/check.db.r")
   source("lib/Food_tree_scripts/format.foods_2.r")
   source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
-  source("lib/Food_tree_scripts/make.food.tree.r")
+  source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
   source("lib/Food_tree_scripts/make.food.otu.r")
   source("lib/Food_tree_scripts/make.fiber.otu.r")
   source("lib/Food_tree_scripts/make.dhydrt.otu.r")
@@ -58,6 +59,7 @@ Session --> Set working directory --> Choose directory.
   BiocManager::install("ggtree")
   
 # Load the functions necessary to visualize foodtrees.
+  library(ggtree)
   source("lib/viz_food_tree.r")
   
 # You can come back to the main directory by:
@@ -102,7 +104,7 @@ Session --> Set working directory --> Choose directory.
 # NodeLabelsMCT.txt has the full classification level of each food items and its Main.food.description.  
 # The classification level (num.levels) will be the basis of hierarchical food tree generation. 
 
-  MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
+    MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
                food_database_fn= "all.food.desc_formatted.txt", 
                addl_foods_fn=    "Soylent_codes_formatted.txt", 
                num.levels= 4,
@@ -134,7 +136,7 @@ Session --> Set working directory --> Choose directory.
 # Create a color-coded and annotated food tree with nine L1 levels.
 # Choose either 'circular' or 'radial' for layout.
 # It is OK to see some warning messages about Coordinate system and scale for 'y' already being present.
-  VizFoodTree(input.tree=tree, layout="radial")
+  VizFoodTree(input.tree=tree, layout="circular")
 
 #####
   input.tree=tree

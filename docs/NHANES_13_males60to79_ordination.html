@@ -356,7 +356,13 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="ASA24_08_create_foodtree_allfooditems.html">Foodtrees with all food items</a>
+    </li>
+    <li>
       <a href="ASA24_09_create_foodtree_ownitems.html">Foodtrees with your own data</a>
+    </li>
+    <li>
+      <a href="ASA24_10_viz_food_tree.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="ASA24_11_ordination.html">Ordination</a>
@@ -410,6 +416,9 @@ div.tocify {
     <li class="divider"></li>
     <li>
       <a href="NHANES_11_males60to79_generate_foodtrees.html">Generate foodtrees</a>
+    </li>
+    <li>
+      <a href="NHANES_12_males60to79_viz_foodtrees.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="NHANES_13_males60to79_ordination.html">Ordination</a>
@@ -598,14 +607,6 @@ Also defined by ‘tidytree’”</p>
 <div id="create-a-phyloseq-object-with-otu-tax-samples-and-tree" class="section level2">
 <h2>Create a phyloseq object with OTU, TAX, SAMPLES, and TREE</h2>
 <pre class="r"><code>phyfoods &lt;- phyloseq(OTU, TAX, SAMPLES, TREE)</code></pre>
-<pre><code>## Found more than one class &quot;phylo&quot; in cache; using the first, from namespace &#39;phyloseq&#39;</code></pre>
-<pre><code>## Also defined by &#39;tidytree&#39;</code></pre>
-<pre><code>## Found more than one class &quot;phylo&quot; in cache; using the first, from namespace &#39;phyloseq&#39;</code></pre>
-<pre><code>## Also defined by &#39;tidytree&#39;</code></pre>
-<pre><code>## Found more than one class &quot;phylo&quot; in cache; using the first, from namespace &#39;phyloseq&#39;</code></pre>
-<pre><code>## Also defined by &#39;tidytree&#39;</code></pre>
-<pre><code>## Found more than one class &quot;phylo&quot; in cache; using the first, from namespace &#39;phyloseq&#39;</code></pre>
-<pre><code>## Also defined by &#39;tidytree&#39;</code></pre>
 <p>It is OK to see the same message as the previous line. They may appear multiple times.</p>
 <p>Check your metadata by using the functions in the phyloseq package. Show the sample names. Change n to adjust the number of rows to show.</p>
 <pre class="r"><code>head(sample_names(phyfoods), n=6)  </code></pre>

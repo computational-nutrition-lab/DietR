@@ -72,6 +72,11 @@ main_wd <- "~/GitHub/DietR"
 <br>
 
 ## Load the packages/scripts necessary for tree building
+
+Load the reshape2 package necessary for tree building, and if it is not installed, install it.
+```{r}
+if (!require("reshape2", quietly = TRUE))install.packages("reshape2")
+```
   
 Load the data.tree package necessary for newick.tree.r, and if it is not installed, install it.
 ```{r}
@@ -82,7 +87,7 @@ Load functions necessary for foodtree building.
 ```{r}
 source("lib/specify_data_dir.R")
 source("lib/Food_tree_scripts/newick.tree.r")
-source("lib/Food_tree_scripts/make.food.tree.r")
+source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
 source("lib/Food_tree_scripts/make.food.otu.r")
 source("lib/Food_tree_scripts/make.fiber.otu.r")
 source("lib/Food_tree_scripts/make.dhydrt.otu.r")

@@ -356,7 +356,13 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="ASA24_08_create_foodtree_allfooditems.html">Foodtrees with all food items</a>
+    </li>
+    <li>
       <a href="ASA24_09_create_foodtree_ownitems.html">Foodtrees with your own data</a>
+    </li>
+    <li>
+      <a href="ASA24_10_viz_food_tree.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="ASA24_11_ordination.html">Ordination</a>
@@ -410,6 +416,9 @@ div.tocify {
     <li class="divider"></li>
     <li>
       <a href="NHANES_11_males60to79_generate_foodtrees.html">Generate foodtrees</a>
+    </li>
+    <li>
+      <a href="NHANES_12_males60to79_viz_foodtrees.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="NHANES_13_males60to79_ordination.html">Ordination</a>
@@ -502,7 +511,7 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
 <h1>Weighted unifrac distance ordination results</h1>
 <p>From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, and a table with correlation coefficients, p-values, and q-values with a desired threshold between food items and Axes that were saved in the ordination section. This function will print out the food items’ names while calculating the correlation measures.</p>
 <p>Be careful not to confuse WEIGHTED and UNweighted unifrac distances as you name the files.</p>
-<pre class="r"><code>CorrAxesFood(food.otu_soted = &quot;../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sortedbysample.txt&quot;, 
+<pre class="r"><code>CorrAxesFood(food.otu_soted = &quot;../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sorted.txt&quot;, 
              AmountSums.out.fn =          &quot;Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt&quot;,
              qval.threshold = 0.05,
              meta.users =            &quot;Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_meta_users.txt&quot;,
@@ -735,7 +744,7 @@ head(dat_4[order(dat_4$qval), ], 10)</code></pre>
 <div id="unweighted-unifrac-distance-ordination-results" class="section level1">
 <h1>Unweighted unifrac distance ordination results</h1>
 <p>xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.</p>
-<pre class="r"><code>CorrAxesFood(food.otu_soted = &quot;../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sortedbysample.txt&quot;,
+<pre class="r"><code>CorrAxesFood(food.otu_soted = &quot;../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sorted.txt&quot;,
              AmountSums.out.fn = &quot;Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt&quot;,
              qval.threshold = 0.05,
              meta.users =            &quot;Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_meta_users.txt&quot;,

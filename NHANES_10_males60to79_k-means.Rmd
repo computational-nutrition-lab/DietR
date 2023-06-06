@@ -59,11 +59,17 @@ main_wd <- "~/GitHub/DietR"
 Load necessary packages.
 ```{r}
 library(ggplot2)
+library(ggfortify)
+library(cluster)
 library(factoextra)
-library(gridExtra)
 ```
 
-Load the necessary functions.
+Set your ggplot2 theme.
+```{r}
+theme_set(theme_bw(base_size = 14))
+```
+
+Import source code to run the analyses to follow.Load the necessary functions.
 ```{r}
 source("lib/specify_data_dir.R")
 source("lib/k-means.R")

@@ -43,12 +43,10 @@
 # ---------------------------------------------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------------------------------------------
-# Find the ideal k: the Silhouette method
+# Find the ideal k: the Silhouette method # need the cluster package
  
  SilhouetteMethod <- function(k.values = 2:15){
-   # need the cluster package
-     library(cluster)
-
+   
    # Define avg_sil function first.
      avg_sil <- function(number){
        km.res <- kmeans(kmeans_input, centers=number, nstart=25)
@@ -81,12 +79,11 @@
 # ---------------------------------------------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------------------------------------------
-# Find the ideal k: Gap statistic method
+# Find the ideal k: Gap statistic method. use the cluster package.
 
   GapMethod <- function(k.values=1:15){
 
     # Calculate the gap statistic.
-    library(cluster)
     gap_stat <- clusGap(kmeans_input, FUN = kmeans, nstart = 25,
                         K.max = k.values[length(k.values)], 
                         B=50) # B is the number of bootstrapping
@@ -99,7 +96,6 @@
     gap_stat_df$NumberofK <- k.values 
     
     # Plot the gap statistic with ggplot2
-    require(ggplot2)
     ggplot(gap_stat_df, aes(x=NumberofK, y=Tab.gap)) + 
       geom_line() + 
       geom_point() +
@@ -122,7 +118,7 @@
   
   FactoextraGapMethod <- function(k.values = 1:15){
     
-    library(cluster)
+  
     # Calculate Gap statistics first.
     gap_stat <- clusGap(kmeans_input, FUN = kmeans, nstart = 25,
                         K.max = k.values[length(k.values)], 
@@ -141,11 +137,7 @@
 # ========================================================================================
   
   ChooseK <- function(out.dir= res_dir, out.prefix= res_prefix){
-    
-    # Set your ggplot2 theme.
-    require(ggplot2)
-    theme_set(theme_bw(base_size = 14))
-    
+ 
     # Set seed for consistent results.
     set.seed(123)
     
@@ -167,8 +159,7 @@
 
     # ---------------------------------------------------------------------------------------------------------------
     # Use the Silhouette method to find the ideal K. This uses the cluster and factoextra package.
-    require(factoextra)
-    
+ 
     silhouettechart <- factoextra::fviz_nbclust(kmeans_input, kmeans, k.max= maxK-1, method="silhouette")
 
     # Save the silhouette method graphic as a pdf.
@@ -245,9 +236,7 @@
           theme(panel.grid.minor = element_blank()) 
       }
     
-    # Install the gridExtra package if needed.
-    if(!require("gridExtra"))install.packages("gridExtra")
-    
+
     # Arrange the plots in the same panel.
     if(length(myKs)==2){
       panel <- gridExtra::grid.arrange(plots[[1]], plots[[2]], nrow = round(length(myKs)/2))

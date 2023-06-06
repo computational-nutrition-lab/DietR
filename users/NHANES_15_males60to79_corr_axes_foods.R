@@ -40,7 +40,7 @@ Session --> Set working directory --> Choose directory.
 # names while calculating the correlation measures.
 # Be careful not to confuse WEIGHTED and UNweighted unifrac distances as you name the files.
   
-  CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sortedbysample.txt", 
+  CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sorted.txt", 
                AmountSums.out.fn =          "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
                qval.threshold = 0.05,
                meta.users =            "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_meta_users.txt",
@@ -88,7 +88,7 @@ Session --> Set working directory --> Choose directory.
 # xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method
 # (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
   
-  CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sortedbysample.txt",
+  CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sorted.txt",
                AmountSums.out.fn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
                qval.threshold = 0.05,
                meta.users =            "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_meta_users.txt",

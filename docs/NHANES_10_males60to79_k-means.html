@@ -356,7 +356,13 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="ASA24_08_create_foodtree_allfooditems.html">Foodtrees with all food items</a>
+    </li>
+    <li>
       <a href="ASA24_09_create_foodtree_ownitems.html">Foodtrees with your own data</a>
+    </li>
+    <li>
+      <a href="ASA24_10_viz_food_tree.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="ASA24_11_ordination.html">Ordination</a>
@@ -410,6 +416,9 @@ div.tocify {
     <li class="divider"></li>
     <li>
       <a href="NHANES_11_males60to79_generate_foodtrees.html">Generate foodtrees</a>
+    </li>
+    <li>
+      <a href="NHANES_12_males60to79_viz_foodtrees.html">Visualize foodtrees</a>
     </li>
     <li>
       <a href="NHANES_13_males60to79_ordination.html">Ordination</a>
@@ -487,9 +496,12 @@ blockquote{
 <pre class="r"><code>main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
 <p>Load necessary packages.</p>
 <pre class="r"><code>library(ggplot2)
-library(factoextra)
-library(gridExtra)</code></pre>
-<p>Load the necessary functions.</p>
+library(ggfortify)
+library(cluster)
+library(factoextra)</code></pre>
+<p>Set your ggplot2 theme.</p>
+<pre class="r"><code>theme_set(theme_bw(base_size = 14))</code></pre>
+<p>Import source code to run the analyses to follow.Load the necessary functions.</p>
 <pre class="r"><code>source(&quot;lib/specify_data_dir.R&quot;)
 source(&quot;lib/k-means.R&quot;)</code></pre>
 <p>You can come back to the main directory by:</p>
@@ -584,13 +596,13 @@ source(&quot;lib/k-means.R&quot;)</code></pre>
 <p>With specific K values in mind, perform k-means analysis with one specified K. Also, change the file name to be saved as a PDF. This uses the factoextra package.</p>
 <pre class="r"><code>OneK(myK= 2, out.dir= res_dir_nut, out.fn = &quot;males60to79_Nut_K2&quot;)</code></pre>
 <pre class="r"><code>oneKplot</code></pre>
-<p><img src="NHANES_10_males60to79_k-means_files/figure-html/unnamed-chunk-13-1.png" width="70%" /></p>
+<p><img src="NHANES_10_males60to79_k-means_files/figure-html/unnamed-chunk-14-1.png" width="70%" /></p>
 <p><br></p>
 <hr />
 <p>Or try multiple Ks and print respective biplots in one panel.</p>
 <p>Likewise, change the file name to be saved as a PDF as necessary. This uses the factoextra and gridExtra packages.</p>
 <pre class="r"><code>MultipleK(myKs = c(2,3,4,5), out.dir = res_dir_nut, out.fn = &quot;males60to79_Nut_K2-5&quot;)</code></pre>
-<p><img src="NHANES_10_males60to79_k-means_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="NHANES_10_males60to79_k-means_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="food-category-data-processed-for-clustering-analyses" class="section level1">
@@ -646,11 +658,11 @@ source(&quot;lib/k-means.R&quot;)</code></pre>
 <p>With specific K values in mind, perform k-means analysis with one specified K. Also, change the file name to be saved as a PDF.</p>
 <pre class="r"><code>OneK(myK= 3, out.dir= res_dir_cat, out.fn = &quot;males60to79_Cat_K3&quot;)</code></pre>
 <pre class="r"><code>oneKplot</code></pre>
-<p><img src="NHANES_10_males60to79_k-means_files/figure-html/unnamed-chunk-22-1.png" width="70%" /></p>
+<p><img src="NHANES_10_males60to79_k-means_files/figure-html/unnamed-chunk-23-1.png" width="70%" /></p>
 <p>Or try multiple Ks and print respective biplots in one panel.</p>
 <p>Likewise, change the file name to be saved as a PDF as necessary. This uses the factoextra and gridExtra packages.</p>
 <pre class="r"><code>MultipleK(myKs = c(2,3,4,5), out.dir = res_dir_cat, out.fn = &quot;males60to79_Cat_K2-5&quot;)</code></pre>
-<p><img src="NHANES_10_males60to79_k-means_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="NHANES_10_males60to79_k-means_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <hr />
 <p>Come back to the main directory.</p>
 <pre class="r"><code>setwd(main_wd)</code></pre>
