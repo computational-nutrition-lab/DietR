@@ -35,13 +35,15 @@
   main_wd <- file.path(getwd())
   
 # ---------------------------------------------------------------------------------------------------------------
+# Load the packages/scripts necessary for tree building.
+  if (!require("reshape2", quietly = TRUE))install.packages("reshape2")
 # Load the data.tree package necessary for newick.tree.r, and if it is not installed, install it. 
   if (!require("data.tree", quietly = TRUE))install.packages("data.tree")
   
 # Load source scripts
   source("lib/specify_data_dir.R")
   source("lib/Food_tree_scripts/newick.tree.r")
-  source("lib/Food_tree_scripts/make.food.tree.r")
+  source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
   source("lib/Food_tree_scripts/make.food.otu.r")
   source("lib/Food_tree_scripts/make.fiber.otu.r")
   source("lib/Food_tree_scripts/make.dhydrt.otu.r")
@@ -49,7 +51,7 @@
 # You can come back to the main directory by:
   setwd(main_wd)   
 
-  
+
 # ===============================================================================================================
 # Generate a foodtree from food items reported in your study.
 # ===============================================================================================================

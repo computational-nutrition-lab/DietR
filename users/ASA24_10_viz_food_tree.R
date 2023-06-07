@@ -17,7 +17,7 @@
   if (!require("BiocManager", quietly = TRUE))install.packages("BiocManager")
   
 # Then, use BiocManager to install the "ggtree" package.
-  # BiocManager::install("ggtree")
+  BiocManager::install("ggtree")
 
 # Load the functions necessary to set directories.
   library(ggtree)
@@ -42,7 +42,7 @@
   
 # Create a color-coded and annotated food tree with nine L1 levels.
   # It is OK to see some warning messages about Coordinate system and scale for 'y' already being present.
-  VizFoodTree(input.tree=tree)
+  VizFoodTree(input.tree=tree, layout="circular")
   
 # Look at the color-coded and annotated food tree, saved as annotated_tree.
   annotated_tree

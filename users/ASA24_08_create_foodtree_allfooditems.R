@@ -24,7 +24,7 @@
 # It is helpful to know the assumptions which the functions you are going to use were built on.
 
 # Set your working directory as the main directory (dietary_patterns)
-  Session --> Set working directory --> Choose directory.
+Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
 
 # Name your main directory for future use. 
@@ -32,7 +32,8 @@
 
 # ---------------------------------------------------------------------------------------------------------------
 # Load the packages/scripts necessary for tree building.
-  
+  if (!require("reshape2", quietly = TRUE))install.packages("reshape2")
+
 # Load the data.tree package necessary for newick.tree.r, and if it is not installed, install it. 
   if (!require("data.tree", quietly = TRUE))install.packages("data.tree")
 
@@ -42,7 +43,7 @@
   source("lib/Food_tree_scripts/check.db.r")
   source("lib/Food_tree_scripts/format.foods_2.r")
   source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
-  source("lib/Food_tree_scripts/make.food.tree.r")
+  source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
   source("lib/Food_tree_scripts/make.food.otu.r")
   source("lib/Food_tree_scripts/make.fiber.otu.r")
   source("lib/Food_tree_scripts/make.dhydrt.otu.r")
@@ -55,9 +56,10 @@
   if (!require("BiocManager", quietly = TRUE))install.packages("BiocManager")
   
 # Then, use BiocManager to install the "ggtree" package.
-# BiocManager::install("ggtree")
+  BiocManager::install("ggtree")
   
 # Load the functions necessary to visualize foodtrees.
+  library(ggtree)
   source("lib/viz_food_tree.r")
   
 # You can come back to the main directory by:
@@ -102,7 +104,7 @@
 # NodeLabelsMCT.txt has the full classification level of each food items and its Main.food.description.  
 # The classification level (num.levels) will be the basis of hierarchical food tree generation. 
 
-  MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
+    MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
                food_database_fn= "all.food.desc_formatted.txt", 
                addl_foods_fn=    "Soylent_codes_formatted.txt", 
                num.levels= 4,
@@ -134,14 +136,50 @@
 # Create a color-coded and annotated food tree with nine L1 levels.
 # Choose either 'circular' or 'radial' for layout.
 # It is OK to see some warning messages about Coordinate system and scale for 'y' already being present.
-  VizFoodTree(input.tree=tree)
+  VizFoodTree(input.tree=tree, layout="circular")
 
+#####
+  input.tree=tree
+  layout = "radial"
+  ggtree()
+    ggtree(input.tree, ladderize=F, layout = layout) 
+      # geom_text(aes(label=node), hjust= -0.3) +
+      geom_hilight(   node=L1nodenum[1],  fill=L1hilightcolors[1]) +  # Milk products
+      geom_cladelabel(node=L1nodenum[1], color=  L1labelcolors[1], label=L1nodelabels[1], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[2],  fill=L1hilightcolors[2]) +  # Meat & fish
+      geom_cladelabel(node=L1nodenum[2], color=  L1labelcolors[2], label=L1nodelabels[2], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[3],  fill=L1hilightcolors[3]) +  # Eggs
+      geom_cladelabel(node=L1nodenum[3], color=  L1labelcolors[3], label=L1nodelabels[3], offset=0.5, geom="label", fill='white', hjust=0.5) +  
+      geom_hilight(   node=L1nodenum[4],  fill=L1hilightcolors[4]) +  # Legumes, nuts & seeds
+      geom_cladelabel(node=L1nodenum[4], color=  L1labelcolors[4], label=L1nodelabels[4], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[5],  fill=L1hilightcolors[5]) +  # Grain products
+      geom_cladelabel(node=L1nodenum[5], color=  L1labelcolors[5], label=L1nodelabels[5], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[6],  fill=L1hilightcolors[6]) +  # Fruits
+      geom_cladelabel(node=L1nodenum[6], color=  L1labelcolors[6], label=L1nodelabels[6], offset=0.5, geom="label", fill='white', hjust=0.5) +
+      geom_hilight(   node=L1nodenum[7],  fill=L1hilightcolors[7]) +  # Vegetables
+      geom_cladelabel(node=L1nodenum[7], color=  L1labelcolors[7], label=L1nodelabels[7], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[8],  fill=L1hilightcolors[8]) +  # Fats & oils
+      geom_cladelabel(node=L1nodenum[8], color=  L1labelcolors[8], label=L1nodelabels[8], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[9],  fill=L1hilightcolors[9]) +  # Sweets & beverages
+      geom_cladelabel(node=L1nodenum[9], color=  L1labelcolors[9], label=L1nodelabels[9], offset=0.5, geom="label", fill='white', hjust=0.5) 
+    
+    # Widen the opening of the tree  
+    tree_an_hi_o <- open_tree(tree_an_hi, 10)
+    
+    # Rotate the tree so that the root (break) will come to the bottom
+    tree_an_hi_o_rt <- rotate_tree(tree_an_hi_o, 275) # 270 + 10*0.5 
+    
+    # Rename the tree with a better name.
+    annotated_tree <<- tree_an_hi_o_rt
+  
+#####
+    
 # Look at the color-coded and annotated food tree, saved as annotated_tree.
   annotated_tree
   
 # Save the tree as a PDF file. 
   ggsave("Food_tree_all_ASA24/ASA24_4Lv.tree.pdf",
-         annotated_tree, device="pdf", width=6, height=6, units="in", dpi=300)
+         annotated_tree, device="png", width=6, height=6, units="in", dpi=300)
   
 # ---------------------------------------------------------------------------------------------------------------
 # You can come back to the main directory by:

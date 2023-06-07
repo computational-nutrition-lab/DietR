@@ -12,7 +12,7 @@
 # To find without internal nodes, look at RecursiveNewickWrite2 below
 
 # Add data.tree
-require("data.tree")
+# require("data.tree")
 
 # Based on Input node, recursively generate Newick Tree
 RecursiveNewickWrite <- function(node)

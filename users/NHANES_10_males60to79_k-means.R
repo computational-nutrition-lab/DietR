@@ -20,7 +20,12 @@
   library(ggplot2)
   library(factoextra)
   library(gridExtra)
-  
+  library(cluster)
+
+# Set your ggplot2 theme.
+  theme_set(theme_bw(base_size = 14))
+
+# Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")
   source("lib/k-means.R")
 

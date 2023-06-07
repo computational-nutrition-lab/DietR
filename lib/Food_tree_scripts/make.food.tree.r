@@ -7,10 +7,9 @@
 
 # 02/25/2022 Added a semicolon in line 61 so that the output_tree_fn will be loaded correctly.
 # 03/31/2022 dplyr::select fucntion was replaced by a base R equivalent.
-
-library(data.tree)
-library(reshape2)
-source('lib/Food_tree_scripts/newick.tree.r')
+# library(data.tree)
+# library(reshape2)
+# source('lib/Food_tree_scripts/newick.tree.r')
 
 MakeFoodTree <- function(nodes_fn, food_database_fn, addl_foods_fn=NULL, output_tree_fn, output_taxonomy_fn, num.levels=5)
 {
