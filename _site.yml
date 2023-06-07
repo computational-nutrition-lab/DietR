@@ -73,5 +73,7 @@ navbar:
     - text: "Assign DivGroups by dietary diversity"
       href: NHANES_16_Div.html
   - text: Links
-    href: Links.html 
+    href: Links.html
+plugins:
+  - search
 output_dir: "docs"
