@@ -293,7 +293,7 @@ write.table(Food_D2_FC, "Food_D2_FC_cc.txt", sep="\t", row.names=F, quote=F)
 
 ## Replace special characters with "_" using FormatFoods.
   
-`FotmatFoods()` function adds "Main.Food.Description" where special characters are removed/replaced, the previous Main.Food.Description as Old.Main.Food.Description, ModCode, and FoodID. $FoodID is a cha vector, but has .0 at the end. 
+`FotmatFoods()` function adds "Main.Food.Description" where special characters are removed/replaced, the previous Main.Food.Description as Old.Main.Food.Description, ModCode, and FoodID. $FoodID is a character vector, but has .0 at the end. 
 ```{r}
 FormatFoods(input_fn="Food_D1_FC_cc.txt", output_fn= "Food_D1_FC_cc_f.txt", dedupe=F)
 ```

@@ -272,7 +272,7 @@ annotated_tree
 Save the tree as a PDF file.
 ```{r message=FALSE, warning=FALSE}
 ggsave("Food_tree_all_ASA24/ASA24_4Lv.tree.pdf",
-       annotated_tree, device="png", width=6, height=6, units="in", dpi=300)
+       annotated_tree, device="pdf", width=6, height=6, units="in", dpi=300)
 ```
 
 

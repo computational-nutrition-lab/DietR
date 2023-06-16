@@ -17,6 +17,8 @@
   main_wd <- file.path(getwd())
   
   library(vegan)
+  library(reshape2)
+  library(data.tree)
   
   source("lib/specify_data_dir.R")
   source("lib/diversity_nth_tile.R") 

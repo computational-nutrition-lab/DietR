@@ -756,7 +756,7 @@ end_col_num_c &lt;- match(&quot;DRD370V&quot;  , names(metadata_raw))</code></pr
 </div>
 <div id="exclude-individuals-who-are-following-special-diets" class="section level1">
 <h1>Exclude individuals who are following special diets</h1>
-<p>There may be some participants following special diets such as low-sodium or gluten-free. Detailed explanation about the special diet question can be found on the <a href="https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Dietary&amp;Cycle=2017-2018">documentation</a>.</p>
+<p>There may be some participants following special diets such as low-sodium or gluten-free. Detailed explanation about the special diet question can be found on the <a href="https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Dietary&amp;Cycle=2015-2016">documentation</a>.</p>
 <p>For this demonstration, we will select only those who are eating freely without following any diet.</p>
 <p>Check the number of individuals who are following any specific diet (DRQSDIET==1).</p>
 <pre class="r"><code>table(QCtotal_d_ga_body_meta_glu_comp$DRQSDIET, useNA=&quot;always&quot;)</code></pre>

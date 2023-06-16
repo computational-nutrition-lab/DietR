@@ -494,7 +494,9 @@ blockquote{
 <p>Name the path to DietR directory where input files are pulled.</p>
 <pre class="r"><code>main_wd &lt;- &quot;~/GitHub/DietR&quot;</code></pre>
 <p>Load necessary packages.</p>
-<pre class="r"><code>library(vegan)</code></pre>
+<pre class="r"><code>library(vegan)
+library(reshape2)
+library(data.tree)</code></pre>
 <p>Load necessary functions.</p>
 <pre class="r"><code>source(&quot;lib/specify_data_dir.R&quot;)
 source(&quot;lib/diversity_nth_tile.R&quot;)
@@ -632,32 +634,33 @@ par(mfrow = c(1, 1))</code></pre>
 <h1>Divide NHANES participants into four groups based on their diversity in nuts/seeds/legumes consumption</h1>
 <p>Our goal is to mark samples as:</p>
 <table>
-<colgroup>
-<col width="22%" />
-<col width="77%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>DivGroup</th>
 <th>Description</th>
+<th>Shannon’s diversity</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>DivNA</td>
-<td>Did not report any foods with Food ID of 4xxxxxxxx. Shannon’s diversity = NA.</td>
+<td>Did not report any foods with Food ID of 4xxxxxxxx.</td>
+<td>NA</td>
 </tr>
 <tr class="even">
 <td>Div0</td>
-<td>Reported 1 food with Food ID of 4xxxxxxx. Shannon’s diversity = 0.</td>
+<td>Reported 1 food with Food ID of 4xxxxxxx.</td>
+<td>0</td>
 </tr>
 <tr class="odd">
 <td>Div1</td>
-<td>Reported &gt;1 foods with Food ID of 4xxxxxxx. lower. Shannon’s diversity &gt; 1.</td>
+<td>Reported &gt;1 foods with Food ID of 4xxxxxxx. lower.</td>
+<td>&gt; 0</td>
 </tr>
 <tr class="even">
 <td>Div2</td>
-<td>Reported &gt;1 foods with Food ID of 4xxxxxxx. upper. Shannon’s diversity &gt; 1.</td>
+<td>Reported &gt;1 foods with Food ID of 4xxxxxxx. upper.</td>
+<td>&gt; 0</td>
 </tr>
 </tbody>
 </table>

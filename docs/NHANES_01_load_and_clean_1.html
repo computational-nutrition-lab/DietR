@@ -681,7 +681,7 @@ If it returns “character(0)”, no colname matched the specified characters, w
 </div>
 <div id="replace-special-characters-with-_-using-formatfoods." class="section level2">
 <h2>Replace special characters with “_” using FormatFoods.</h2>
-<p><code>FotmatFoods()</code> function adds “Main.Food.Description” where special characters are removed/replaced, the previous Main.Food.Description as Old.Main.Food.Description, ModCode, and FoodID. $FoodID is a cha vector, but has .0 at the end.</p>
+<p><code>FotmatFoods()</code> function adds “Main.Food.Description” where special characters are removed/replaced, the previous Main.Food.Description as Old.Main.Food.Description, ModCode, and FoodID. $FoodID is a character vector, but has .0 at the end.</p>
 <pre class="r"><code>FormatFoods(input_fn=&quot;Food_D1_FC_cc.txt&quot;, output_fn= &quot;Food_D1_FC_cc_f.txt&quot;, dedupe=F)</code></pre>
 <pre class="r"><code>FormatFoods(input_fn=&quot;Food_D2_FC_cc.txt&quot;, output_fn= &quot;Food_D2_FC_cc_f.txt&quot;, dedupe=F)</code></pre>
 <p><br></p>

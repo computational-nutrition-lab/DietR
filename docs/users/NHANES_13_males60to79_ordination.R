@@ -210,13 +210,22 @@
 # Show the centroids and dispersion of each group. 
   plot(dispr_w)
  
-# Use dispr to do a permutation test for homogeneity of multivariate dispersion
-# If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
+# Use dispr to do a permutation test for homogeneity of multivariate dispersion.
+# The set.seed function ensuresthe same permutation results will be obtained every time; 
+# otherwise, the p-values will slightly differ each run,as it is a permutation test.
+  set.seed(123)
   vegan::permutest(dispr_w, perm = 5000)
+# If p>0.05, which is true in this case, the dispersion of each group are not different, and the assumption 
+# for adonis is met.
   
 # Use adonis to test whether there is a difference between groups' composition. 
   # i.e., composition among groups (food they consumed) is similar or not.
   vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permutations = 5000)
+  
+# The results indicate that the overall sdonis is not significant (p>0.05). If overall adonis is significant, 
+# you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis 
+# for demonstration purposes here, but we do not expect to find significant pairwise differences.
+  
 
 # If overall adonis is significant, you can run pairwise adonis to see which group pairs are different.
   pairwise.adonis(dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,

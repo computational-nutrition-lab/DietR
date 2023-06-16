@@ -709,8 +709,9 @@ as.vector(unique(L1s))</code></pre>
 <p>Show the centroids and dispersion of each group.</p>
 <pre class="r"><code>plot(dispr)</code></pre>
 <p><img src="ASA24_11_ordination_files/figure-html/unnamed-chunk-35-1.png" width="70%" /></p>
-<p>Use dispr to do a permutation test for homogeneity of multivariate dispersion</p>
-<pre class="r"><code>vegan::permutest(dispr, perm=5000)</code></pre>
+<p>Use dispr to do a permutation test for homogeneity of multivariate dispersion. The set.seed function ensures the same permutation results will be obtained every time; otherwise, the p-values will slightly differ each run, as it is a permutation test.</p>
+<pre class="r"><code>set.seed(123)
+vegan::permutest(dispr, perm=5000)</code></pre>
 <pre><code>## 
 ## Permutation test for homogeneity of multivariate dispersions
 ## Permutation: free
@@ -722,7 +723,7 @@ as.vector(unique(L1s))</code></pre>
 ## Residuals 40 0.081785 0.0020446                        
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>If p&gt;0.05, the dispersion of each group are not different, and the assumption for adonis is met. Note that the p-values will slightly differ each run, as it is a permutation test. The results here indicate that the dispersion of each group may be different, so we should consider this information in discussion. Nevertheless, we will proceed for demonstration purposes.</p>
+<p>If p&gt;0.05, the dispersion of each group are not different, and the assumption for adonis is met. The results here indicate that the dispersion of each group may be different, so we should consider this information in discussion. Nevertheless, we will proceed for demonstration purposes.</p>
 <p>Use adonis to test whether there is a difference between groups’ composition. i.e., composition among groups (food they consumed) is similar or not.</p>
 <pre class="r"><code>vegan::adonis(dist_matrix ~ phyloseq::sample_data(phyfoods)$Diet, permutations = 5000)</code></pre>
 <pre><code>## 
@@ -748,7 +749,7 @@ as.vector(unique(L1s))</code></pre>
 <pre class="r"><code>pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
                 p.adjust.m = &quot;none&quot;)    </code></pre>
 <pre><code>##                     pairs Df  SumsOfSqs  F.Model         R2    p.value
-## 1     Vegetarian vs Vegan  1 0.07557735 1.178911 0.06862547 0.20755849
+## 1     Vegetarian vs Vegan  1 0.07557735 1.178911 0.06862547 0.20675865
 ## 2      Vegetarian vs Keto  1 0.13097005 1.888662 0.10557872 0.00419916
 ## 3  Vegetarian vs American  1 0.15189915 2.540675 0.13703252 0.00019996
 ## 4  Vegetarian vs Japanese  1 0.31482162 5.654587 0.26112652 0.00019996
@@ -759,7 +760,7 @@ as.vector(unique(L1s))</code></pre>
 ## 9        Keto vs Japanese  1 0.32249324 4.391284 0.21535104 0.00039992
 ## 10   American vs Japanese  1 0.40135753 6.282904 0.28196075 0.00039992
 ##    p.adjusted sig
-## 1  0.20755849    
+## 1  0.20675865    
 ## 2  0.00419916   *
 ## 3  0.00019996  **
 ## 4  0.00019996  **
@@ -769,6 +770,8 @@ as.vector(unique(L1s))</code></pre>
 ## 8  0.00039992  **
 ## 9  0.00039992  **
 ## 10 0.00039992  **</code></pre>
+<p><br></p>
+<p>This table indicates all the combination of the five diets are significantly different (p&lt;0.05) except Vegetarian vs. Vegan. We expect Vegetarian and Vegan diets to be similar, so this makes sense.</p>
 <p><br></p>
 <hr />
 </div>
@@ -845,7 +848,7 @@ vegan::betadisper computes centeroids and distance of each datapoint from it.</p
 <p>Show the centroids and dispersion of each group.</p>
 <pre class="r"><code>plot(dispr)</code></pre>
 <p><img src="ASA24_11_ordination_files/figure-html/unnamed-chunk-50-1.png" width="70%" /></p>
-<p>Use dispr to do a permutation test for homogeneity of multivariate dispersion</p>
+<p>Use dispr to do a permutation test for homogeneity of multivariate dispersion.</p>
 <pre class="r"><code>vegan::permutest(dispr, perm=5000)</code></pre>
 <pre><code>## 
 ## Permutation test for homogeneity of multivariate dispersions
@@ -858,7 +861,7 @@ vegan::betadisper computes centeroids and distance of each datapoint from it.</p
 ## Residuals 40 0.043525 0.0010881                        
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>If p&gt;0.05, the dispersion of each group are not different, and the assumption for adonis is met. Note that the p-values will slightly differ each run, as it is a permutation test. The results here indicate that the dispersion of each group may be different, so we should consider this information in discussion. Nevertheless, we will proceed for demonstration purposes.</p>
+<p>If p&gt;0.05, the dispersion of each group are not different, and the assumption for adonis is met. The results here indicate that the dispersion of each group may be different, so we should consider this information in discussion. Nevertheless, we will proceed for demonstration purposes.</p>
 <p>Use adonis to test whether there is a difference between groups’ composition. i.e., composition among groups (food they consumed) is similar or not.</p>
 <pre class="r"><code>vegan::adonis(dist_matrix ~ phyloseq::sample_data(phyfoods)$Diet, permutations = 5000)</code></pre>
 <pre><code>## 
@@ -884,7 +887,7 @@ vegan::betadisper computes centeroids and distance of each datapoint from it.</p
 <pre class="r"><code>pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
                 p.adjust.m = &quot;none&quot;)    </code></pre>
 <pre><code>##                     pairs Df SumsOfSqs   F.Model         R2    p.value
-## 1     Vegetarian vs Vegan  1 0.4374127 0.9882078 0.05817022 0.51189762
+## 1     Vegetarian vs Vegan  1 0.4374127 0.9882078 0.05817022 0.50989802
 ## 2      Vegetarian vs Keto  1 0.6542830 1.5148347 0.08648867 0.00039992
 ## 3  Vegetarian vs American  1 0.7838799 1.7984651 0.10104608 0.00019996
 ## 4  Vegetarian vs Japanese  1 1.1927048 3.1013470 0.16236274 0.00019996
@@ -895,7 +898,7 @@ vegan::betadisper computes centeroids and distance of each datapoint from it.</p
 ## 9        Keto vs Japanese  1 1.1584619 3.0666706 0.16083933 0.00019996
 ## 10   American vs Japanese  1 1.3304323 3.4855237 0.17887760 0.00019996
 ##    p.adjusted sig
-## 1  0.51189762    
+## 1  0.50989802    
 ## 2  0.00039992  **
 ## 3  0.00019996  **
 ## 4  0.00019996  **
@@ -905,6 +908,7 @@ vegan::betadisper computes centeroids and distance of each datapoint from it.</p
 ## 8  0.00019996  **
 ## 9  0.00019996  **
 ## 10 0.00019996  **</code></pre>
+<p>Similarly to the results with weighted unifrac distances, this table also indicates all the combination of the five diets are significantly different (p&lt;0.05) except Vegetarian vs. Vegan. We expect Vegetarian and Vegan diets to be similar, so this makes sense.</p>
 <p><br></p>
 <hr />
 </div>

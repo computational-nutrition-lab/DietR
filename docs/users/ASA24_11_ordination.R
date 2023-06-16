@@ -181,12 +181,15 @@
 # Show the centroids and dispersion of each group. 
   plot(dispr)
   
-# Use dispr to do a permutation test for homogeneity of multivariate dispersion
+# Use dispr to do a permutation test for homogeneity of multivariate dispersion.  
+# The set.seed function ensures the same permutation results will be obtained every time; 
+# otherwise, the p-values will slightly differ each run, as it is a permutation test.
+
+  set.seed(123)
   vegan::permutest(dispr, perm=5000)
   # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
-  # Note that the p-values will slightly differ each run, as it is a permutation test. The results here 
-  # indicate that the dispersion of each group may be different, so we should consider this information in 
-  # discussion. Nevertheless, we will proceed for demonstration purposes. 
+  # The results here indicate that the dispersion of each group may be different, so we should consider 
+  # this information in discussion. Nevertheless, we will proceed for demonstration purposes. 
   
 # Use adonis to test whether there is a difference between groups' composition. 
 # i.e., composition among groups (food they consumed) is similar or not.
@@ -270,10 +273,15 @@
   # Show the centroids and dispersion of each group. 
   plot(dispr)
   
-  # Use dispr to do a permutation test for homogeneity of multivariate dispersion
+  # Use dispr to do a permutation test for homogeneity of multivariate dispersion.
+  # The set.seed function ensures the same permutation results will be obtained every time; 
+  # otherwise, the p-values will slightly differ each run, as it is a permutation test.
+  set.seed(123)
   vegan::permutest(dispr, perm=5000)
+
   # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
-  # Note that the p-values will slightly differ each run, as it is a permutation test.
+  # The results here indicate that the dispersion of each group may be different, so we should consider 
+  # this information in discussion. Nevertheless, we will proceed for demonstration purposes. 
   
   # Use adonis to test whether there is a difference between groups' composition. 
   # i.e., composition among groups (food they consumed) is similar or not.

@@ -57,6 +57,8 @@ main_wd <- "~/GitHub/DietR"
 Load necessary packages.
 ```{r}
 library(vegan)
+library(reshape2)
+library(data.tree)
 ```
 
 Load necessary functions.
@@ -267,12 +269,12 @@ Some have 0 diversity &rarr; If a row has only one non-zero values, then diversi
 
 Our goal is to mark samples as:
 
-DivGroup | Description
----------- | -----------------------------------
-DivNA | Did not report any foods with Food ID of 4xxxxxxxx. Shannon's diversity = NA.
-Div0 | Reported 1 food with Food ID of 4xxxxxxx. Shannon's diversity = 0. 
-Div1 | Reported >1 foods with Food ID of 4xxxxxxx. lower. Shannon's diversity > 1. 
-Div2 | Reported >1 foods with Food ID of 4xxxxxxx. upper. Shannon's diversity > 1. 
+DivGroup | Description | Shannon's diversity
+---------- | -----------------| ------------------  
+DivNA | Did not report any foods with Food ID of 4xxxxxxxx. | NA
+Div0 | Reported 1 food with Food ID of 4xxxxxxx. | 0 
+Div1 | Reported >1 foods with Food ID of 4xxxxxxx. lower. | > 0 
+Div2 | Reported >1 foods with Food ID of 4xxxxxxx. upper. | > 0 
   
 Remove the "X" in the SEQNdiv$SEQN for merging.
 ```{r}

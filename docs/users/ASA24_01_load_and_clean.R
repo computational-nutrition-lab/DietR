@@ -111,6 +111,9 @@
 # ===============================================================================================================
 # Use individuals_to_remove.txt to filter out users marked as Remove = yes.  
 # ===============================================================================================================
+# Optionally, if you know a certain user(s) should be removed, you can supply a metadata with two columns: 
+# UserName and "Remove", where the user(s) to be removed are marked "yes". 
+  
 # Load your metadata that has information about which UserName(s) to remove. 
   ind_to_rm <- read.delim("individuals_to_remove.txt")
 

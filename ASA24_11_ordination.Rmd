@@ -325,12 +325,13 @@ Show the centroids and dispersion of each group.
 plot(dispr)
 ```
 
-Use dispr to do a permutation test for homogeneity of multivariate dispersion
+Use dispr to do a permutation test for homogeneity of multivariate dispersion. The set.seed function ensures the same permutation results will be obtained every time; otherwise, the p-values will slightly differ each run, as it is a permutation test.
 ```{r}
+set.seed(123)
 vegan::permutest(dispr, perm=5000)
 ```
 
-If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met. Note that the p-values will slightly differ each run, as it is a permutation test. The results here indicate that the dispersion of each group may be different, so we should consider this information in discussion. Nevertheless, we will proceed for demonstration purposes. 
+If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met. The results here indicate that the dispersion of each group may be different, so we should consider this information in discussion. Nevertheless, we will proceed for demonstration purposes. 
 
 Use adonis to test whether there is a difference between groups' composition. i.e., composition among groups (food they consumed) is similar or not.
 ```{r}
@@ -342,6 +343,10 @@ If overall adonis is significant, which is true in this case, you can run pairwi
 pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
                 p.adjust.m = "none")    
 ```
+
+<br>
+
+This table indicates all the combination of the five diets are significantly different (p<0.05) except Vegetarian vs. Vegan. We expect Vegetarian and Vegan diets to be similar, so this makes sense.
 
 <br>
 
@@ -450,12 +455,12 @@ Show the centroids and dispersion of each group.
 plot(dispr)
 ```
 
-Use dispr to do a permutation test for homogeneity of multivariate dispersion
+Use dispr to do a permutation test for homogeneity of multivariate dispersion.
 ```{r}
 vegan::permutest(dispr, perm=5000)
 ```
 
-If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met. Note that the p-values will slightly differ each run, as it is a permutation test. The results here indicate that the dispersion of each group may be different, so we should consider this information in discussion. Nevertheless, we will proceed for demonstration purposes.
+If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met. The results here indicate that the dispersion of each group may be different, so we should consider this information in discussion. Nevertheless, we will proceed for demonstration purposes.
 
 Use adonis to test whether there is a difference between groups' composition. i.e., composition among groups (food they consumed) is similar or not.
 ```{r}
@@ -467,6 +472,9 @@ If overall adonis is significant, which is true in this case, you can run pairwi
 pairwise.adonis(dist_matrix, phyloseq::sample_data(phyfoods)$Diet, perm = 5000,
                 p.adjust.m = "none")    
 ```
+
+Similarly to the results with weighted unifrac distances, this table also indicates all the combination of the five diets are significantly different (p<0.05) except Vegetarian vs. Vegan. We expect Vegetarian and Vegan diets to be similar, so this makes sense.
+
 
 <br>
 

@@ -159,7 +159,7 @@ This code will generate several output files all at once in the res_dir:
 
 Output file postfix	       | File content
 -------------------        | -----------------------------------
-_biplotdots.pdf	PCA        | biplot with the datapoints as dots and with the variables shown as arrows
+_biplotdots.pdf	           | PCA biplot with the datapoints as dots and with the variables shown as arrows
 _biplotlabeled.pdf	       | PCA biplot with the datapoints labed with numbers and with the variables shown as arrows
 _biplotlabeledwoarrows.pdf | 	The datapoints labed with numbers; variables are hidden
 _directions.pdf	           | Variables shown as arrows only; the datapoints are hidden
