@@ -185,7 +185,7 @@
   
   # There may be some participants following special diets such as low-sodium or gluten-free. Detailed explanation 
   # about the special diet question can be found on the documentation
-  # [https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Dietary&Cycle=2017-2018].
+  # [https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Dietary&Cycle=2015-2016].
   # For this demonstration, we will select only those who are eating freely without following any diet.  
   
   # Check the number of individuals who are following any specific diet (DRQSDIET==1).

@@ -13,7 +13,7 @@
     food2 <- data[, !colnames(data) == "taxonomy"] 
     
     # transform to matrix, then a phyloseq object
-    food_mat <<- as.matrix(food2)
+    food_mat <- as.matrix(food2)
     OTU <<- phyloseq::otu_table(food_mat, taxa_are_rows = TRUE)
   } 
   
@@ -26,14 +26,14 @@
     row.names(data) <- data$Main.food.description 
     
     # remove the FoodID column
-    woFoodID <<- data[, !colnames(data) == "FoodID"]
+    woFoodID <- data[, !colnames(data) == "FoodID"]
 
     # Split taxonomy L1, L2, L3 etc. by a semicolon, in lieu of tidyr::separate
-    splittax <<- strsplit(as.character(tax$taxonomy), split=";")
+    splittax <- strsplit(as.character(tax$taxonomy), split=";")
     # How many levels were created after splitting? 
-    max_n_levels <<- max(lengths(splittax))
+    max_n_levels <- max(lengths(splittax))
     
-    tax1 <<- woFoodID
+    tax1 <- woFoodID
     n <- 1
     
     if(max_n_levels==1){
@@ -97,10 +97,10 @@
     }
         
     # remove Main.food.description column, because it's already made into row names.
-    woFoodID2 <<- tax1[, !colnames(tax1) == "Main.food.description"]   
+    woFoodID2 <- tax1[, !colnames(tax1) == "Main.food.description"]   
 
     # Transform to matrix, then to a tax_table object.
-    tax_mat <<- as.matrix(woFoodID2)
+    tax_mat <- as.matrix(woFoodID2)
     TAX <<- phyloseq::tax_table(tax_mat)
   }
   
@@ -114,7 +114,7 @@
 
     # subset metadata to the correct samples.
     # colnames(food) has users.  
-    meta2 <<- data[colnames(food), ]
+    meta2 <- data[colnames(food), ]
     
     # Transform meta2 to sample_data object.
     SAMPLES <<- phyloseq::sample_data(meta2)
@@ -126,7 +126,7 @@
 
     # subset metadata to the correct samples.
     # colnames(food) has users.  
-    meta2 <<- data[colnames(food), ]
+    meta2 <- data[colnames(food), ]
     
     # Transform meta2 to sample_data object.
     SAMPLES <<- phyloseq::sample_data(meta2)
@@ -159,19 +159,19 @@
   MergeAxesAndMetadata <- function(ord.object, number.of.axes, meta.data, output.fn){
     
     # extract all the Axis vectors
-    allvectors <<- as.data.frame(ord.object["vectors"])
+    allvectors <- as.data.frame(ord.object["vectors"])
     
     # Remove the suffix 'vectors.' in the column names of 'allvectors'
-    colnames(allvectors) <<- sub(pattern='vectors.', replacement='', x=colnames(allvectors))
+    colnames(allvectors) <- sub(pattern='vectors.', replacement='', x=colnames(allvectors))
     
     # Extract Axes 1 through the specified axis
-    vectors <<- allvectors[, 1:number.of.axes]
+    vectors <- allvectors[, 1:number.of.axes]
     
     # make SampleID as rownames of meta. (to use SampleID in rownames for merging)
     rownames(meta.data) <- meta.data[, "SampleID"]
     
     # merge by the rownames.
-    meta_usersdf <<- merge(x=meta.data, y=vectors, all.y=T, by="row.names", sort=FALSE)
+    meta_usersdf <- merge(x=meta.data, y=vectors, all.y=T, by="row.names", sort=FALSE)
     
     # Save as a txt file.
     write.table(x = meta_usersdf, file= output.fn, sep="\t", row.names= F)
@@ -183,16 +183,16 @@
   MergeAxesAndMetadata_NHANES <- function(ord.object, number.of.axes, meta.data, output.fn){
     
     # extract all the Axis vectors
-    allvectors <<- as.data.frame(ord.object["vectors"])
+    allvectors <- as.data.frame(ord.object["vectors"])
     
     # Remove the suffix 'vectors.' in the column names of 'allvectors'
-    colnames(allvectors) <<- sub(pattern='vectors.', replacement='', x=colnames(allvectors))
+    colnames(allvectors) <- sub(pattern='vectors.', replacement='', x=colnames(allvectors))
     
     # Extract Axes 1 through the specified axis
-    vectors <<- allvectors[, 1:number.of.axes]
+    vectors <- allvectors[, 1:number.of.axes]
     
     # Merge by the rownames (X89125 etc.).
-    meta_usersdf <<- merge(x=meta.data, y=vectors, all.y=T, by="row.names", sort=FALSE)
+    meta_usersdf <- merge(x=meta.data, y=vectors, all.y=T, by="row.names", sort=FALSE)
     
     # Save as a txt file.
     write.table(x = meta_usersdf, file= output.fn, sep="\t", row.names= F)

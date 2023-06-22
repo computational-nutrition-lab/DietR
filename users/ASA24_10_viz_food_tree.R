@@ -18,6 +18,10 @@
   
 # Then, use BiocManager to install the "ggtree" package.
   BiocManager::install("ggtree")
+  
+# The documentation for the ggtree package can be found in the developer’s GitHub page 
+# (https://guangchuangyu.github.io/software/ggtree/).
+  
 
 # Load the functions necessary to set directories.
   library(ggtree)
@@ -27,7 +31,9 @@
 # You can come back to the main directory by:
   setwd(main_wd)
   
-# ---------------------------------------------------------------------------------------------------------------
+# ===============================================================================================================
+  # Plot foodtrees
+# ===============================================================================================================
 # Go to the "Foodtree" directory where the tree files are saved. 
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Foodtree")
   

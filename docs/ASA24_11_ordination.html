@@ -788,7 +788,7 @@ vegan::permutest(dispr, perm=5000)</code></pre>
 <h1>Perform ordination with unweighted unifrac distance</h1>
 <p>You can perform Principal Coordinate Analysis (PCoA) with UNweighted unifrac distance of your food data.</p>
 <pre class="r"><code>ordinated_u = phyloseq::ordinate(phyfoods, method=&quot;PCoA&quot;, distance=&quot;unifrac&quot;, weighted=FALSE)  </code></pre>
-<p>Use the same code above for creating plots, but now with ordinated_2 for the ord.object argument, and change WEIGHTED to UNweighted, or an appropriate name for the method you selected.</p>
+<p>Use the same code above for creating plots, but now with ordinated_u for the ord.object argument, and change WEIGHTED to UNweighted, or an appropriate name for the method you selected.</p>
 <p>Save the percent variance explained as a txt file.</p>
 <pre class="r"><code>Eigen(eigen.input = ordinated_u$values$Relative_eig, 
       output.fn=&quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_eigen_percent.txt&quot;)</code></pre>

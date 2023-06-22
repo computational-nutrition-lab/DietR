@@ -4,10 +4,6 @@
 # Created on 01/19/2023 by Rie Sadohara
 # ===============================================================================================================
 
-# 11/04/2022 editing to calculate means across days of totals in the load_data section instead of here... 
-# mark edits with #~~~~~ EIDTS TO ADD TO TUTORIAL~~~~~~~~~
-# Tutorial updated on 01/19/2023 after changing to FormatFoods() function!
-
 # In this tutorial, we will use mock data from the VVKAJ dataset that was created with ASA24 
 # (https://epi.grants.cancer.gov/asa24/). VVKAJ stands for Vegetarian, Vegan, Keto, American, Japanese and 
 # was designed because these different eating patterns reflect differences that are often seen in real data. 
@@ -333,8 +329,6 @@
   write.table(items_f_id_s_m_QCed, "VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", quote=F, row.names=F)
   
     
-# ~~~~~ END OF EDITS TO ADD TO TUTORIAL -- ADDED, BUT YET TO BE ADDED TO THE WEBSITE ~~~~~~~~~
-  
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory before you start running another script.
   setwd(main_wd)

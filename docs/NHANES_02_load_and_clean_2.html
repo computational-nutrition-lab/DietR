@@ -533,7 +533,8 @@ Name the file and destination. mod=“wb” is needed for Windows OS. Other OS u
 <p>Load the formatted food data prepared in the previous section.</p>
 <pre class="r"><code>Food_D1_FC_cc_f &lt;- read.table(&quot;Food_D1_FC_cc_f.txt&quot;, sep=&quot;\t&quot;, header=T)
 Food_D2_FC_cc_f &lt;- read.table(&quot;Food_D2_FC_cc_f.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
-<p>Check the number of complete and incomplete data for each day. According to <a href="https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm">the documentation</a>, value 4 is incomplete, so 2,208 rows are marked incomplete for Day 1, and 1,902 rows for Day 2.</p>
+<p>Check the number of complete and incomplete data for each day. According to <a href="https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm">the documentation</a>, <code>DR1DRSTZ</code> = 1 is complete data and values other than 1 are incomplete for Day 1. Same goes with <code>DR2DRSTZ</code> for Day 2.</p>
+<p>Using the table function, we will find that 119,273 rows are complete for Day 1, and 98,778 rows for Day 2.</p>
 <pre class="r"><code>table(Food_D1_FC_cc_f$DR1DRSTZ)  # Day 1</code></pre>
 <pre><code>## 
 ##      1      4 

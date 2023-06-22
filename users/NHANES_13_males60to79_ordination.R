@@ -20,12 +20,12 @@
 # Install the BiocManager package necessary for installing the phyloseq package. 
   if (!require("BiocManager",    quietly = TRUE))install.packages("BiocManager")
 # Install the phyloseq package if you have not done so.
-  BiocManager::install("phyloseq")
+  # BiocManager::install("phyloseq")
   
 # Install the devtools package necessary for installing the pairwiseAdonis package. 
   if (!require("devtools",    quietly = TRUE))install.packages("devtools")
 # install pairwise adonis function from Github. (https://github.com/pmartinezarbizu/pairwiseAdonis)
-  devtools::install_github("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
+  # devtools::install_github("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
   
 # ---------------------------------------------------------------------------------------------------------------
 # load the necessary packages and the source code.
@@ -222,7 +222,7 @@
   # i.e., composition among groups (food they consumed) is similar or not.
   vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permutations = 5000)
   
-# The results indicate that the overall sdonis is not significant (p>0.05). If overall adonis is significant, 
+# The results indicate that the overall adonis is not significant (p>0.05). If overall adonis is significant, 
 # you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis 
 # for demonstration purposes here, but we do not expect to find significant pairwise differences.
   

@@ -373,7 +373,7 @@ ordinated_u = phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", we
 ```
 
 
-Use the same code above for creating plots, but now with ordinated_2 for the ord.object argument, and change WEIGHTED to UNweighted, or an appropriate name for the method you selected.
+Use the same code above for creating plots, but now with ordinated_u for the ord.object argument, and change WEIGHTED to UNweighted, or an appropriate name for the method you selected.
 
 Save the percent variance explained as a txt file.
 ```{r}

@@ -763,7 +763,7 @@ vegan::permutest(dispr_w, perm = 5000)</code></pre>
 ## Total                                              
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>The results indicate that the overall sdonis is not significant (p&gt;0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis for demonstration purposes here, but we do not expect to find significant pairwise differences.</p>
+<p>The results indicate that the overall adonis is not significant (p&gt;0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis for demonstration purposes here, but we do not expect to find significant pairwise differences.</p>
 <pre class="r"><code>pairwise.adonis(dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                 p.adjust.m = &quot;none&quot;)  </code></pre>
 <pre><code>##                     pairs Df  SumsOfSqs  F.Model          R2    p.value
@@ -888,7 +888,7 @@ vegan::permutest(dispr_w, perm = 5000)</code></pre>
 ## Total                                              
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>The results indicate that the overall sdonis is not significant (p&gt;0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis for demonstration purposes here, but we do not expect to find significant pairwise differences.</p>
+<p>The results indicate that the overall adonis is not significant (p&gt;0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis for demonstration purposes here, but we do not expect to find significant pairwise differences.</p>
 <pre class="r"><code>pairwise.adonis(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                 p.adjust.m = &quot;none&quot;)</code></pre>
 <pre><code>##                     pairs Df SumsOfSqs  F.Model          R2    p.value

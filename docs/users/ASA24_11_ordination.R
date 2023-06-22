@@ -215,7 +215,7 @@
 # You can perform Principal Coordinate Analysis (PCoA) with UNweighted unifrac distance of your food data.
   ordinated_u = phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", weighted=FALSE)  
   
-# Use the same code above for creating plots, but now with ordinated_2 for the ord.object argument, and 
+# Use the same code above for creating plots, but now with ordinated_u for the ord.object argument, and 
 # change WEIGHTED to UNweighted, or an appropriate name for the method you selected.
   
   # Save the percent variance explained as a txt file.
