@@ -17,6 +17,13 @@
 # Refer to the NHANES data and documentation (https://wwwn.cdc.gov/nchs/nhanes/Default.aspx) for more information 
 # about each release (version) of NHANES and the variables measured.
 
+# Sample weight is an important tool to use if you aim for population-level estimates because the composition of 
+# demographics of NHANES participants differ slightly from that of the actual US population (i.e., certain demographic
+# subgroups were oversampled). Weights are applied to adjust NHANES data to reflect the proportions of demographic 
+# subgroups in the actual population. However, this part is omitted in this tutorial as our main goal here is to 
+# demonstrate how to analyze NHANES data as is, not to make population-wise inferences.  For more detailed information,
+# please refer to the sample weight tutorial by NHANES (https://wwwn.cdc.gov/nchs/nhanes/tutorials/Weighting.aspx). 
+
 # Data from NHANES are in .XPT format, and you will need a specific R package, SASxport, to import it into R. 
 # We will download the example data files from the NHANES 2015-2016 page 
 # (https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=2015) 
