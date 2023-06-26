@@ -2,6 +2,7 @@
 # Create a phyloseq object out of dietary and tree data and run ordination.
 # Version 1
 # Created on 03/08/2022 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC".
 # ========================================================================================
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -14,7 +15,7 @@
     
     # transform to matrix, then a phyloseq object
     food_mat <- as.matrix(food2)
-    OTU <<- phyloseq::otu_table(food_mat, taxa_are_rows = TRUE)
+    IFC <<- phyloseq::otu_table(food_mat, taxa_are_rows = TRUE)
   } 
   
 # ---------------------------------------------------------------------------------------------------------------

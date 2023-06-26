@@ -5,6 +5,7 @@
 # separated to this script.
 # Version 1
 # Created on 01/18/2023 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC" by Rie Sadohara
 # ===============================================================================================================
 
 # This brief script is to serve as an example of formatting and generating food trees with your own dataset. 
@@ -44,9 +45,9 @@ Session --> Set working directory --> Choose directory.
   source("lib/Food_tree_scripts/format.foods_2.r")
   source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
   source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
-  source("lib/Food_tree_scripts/make.food.otu.r")
-  source("lib/Food_tree_scripts/make.fiber.otu.r")
-  source("lib/Food_tree_scripts/make.dhydrt.otu.r")
+  source("lib/Food_tree_scripts/make.food.ifc.r")
+  source("lib/Food_tree_scripts/make.fiber.ifc.r")
+  source("lib/Food_tree_scripts/make.dhydrt.ifc.r")
 
 # ---------------------------------------------------------------------------------------------------------------
 # Load the packages/scripts necessary for tree visualization.
@@ -56,7 +57,7 @@ Session --> Set working directory --> Choose directory.
   if (!require("BiocManager", quietly = TRUE))install.packages("BiocManager")
   
 # Then, use BiocManager to install the "ggtree" package.
-  BiocManager::install("ggtree")
+  # BiocManager::install("ggtree")
   
 # Load the functions necessary to visualize foodtrees.
   library(ggtree)
@@ -179,7 +180,7 @@ Session --> Set working directory --> Choose directory.
   
 # Save the tree as a PDF file. 
   ggsave("Food_tree_all_ASA24/ASA24_4Lv.tree.pdf",
-         annotated_tree, device="png", width=6, height=6, units="in", dpi=300)
+         annotated_tree, device="pdf", width=6, height=6, units="in", dpi=300)
   
 # ---------------------------------------------------------------------------------------------------------------
 # You can come back to the main directory by:
