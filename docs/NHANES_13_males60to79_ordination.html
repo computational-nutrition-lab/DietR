@@ -764,7 +764,7 @@ vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permuta
 ## Total                                              
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>The results indicate that the overall adonis is not significant (p&gt;0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis for demonstration purposes here, but we do not expect to find significant pairwise differences.</p>
+<p>The results indicate that the overall adonis is significant (p&lt;0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different.</p>
 <pre class="r"><code>pairwise.adonis(dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                 p.adjust.m = &quot;none&quot;)  </code></pre>
 <pre><code>##                     pairs Df  SumsOfSqs  F.Model          R2    p.value
@@ -795,6 +795,7 @@ vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permuta
 <p>Save the percent variance explained as a txt file.</p>
 <pre class="r"><code>Eigen(eigen.input = eigen_percent_u, 
       output.fn=&quot;Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_eigen.txt&quot;)</code></pre>
+<p><br></p>
 <div id="plot-your-ordination-results-1" class="section level2">
 <h2>Plot your ordination results</h2>
 <p>Merge the first n axes to the metadata and save it as a txt file. The merged dataframe, <code>meta_usersdf</code>, will be used for plotting.</p>
@@ -891,7 +892,7 @@ vegan::adonis(dist_matrix_u ~ phyloseq::sample_data(phyfoods)$GLU_index, permuta
 ## Total                                              
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>The results indicate that the overall adonis is not significant (p&gt;0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis for demonstration purposes here, but we do not expect to find significant pairwise differences.</p>
+<p>If overall adonis is significant, which is not true in this case, but we will run pairwise adonis for demonstration purposes.</p>
 <pre class="r"><code>pairwise.adonis(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                 p.adjust.m = &quot;none&quot;)</code></pre>
 <pre><code>##                     pairs Df SumsOfSqs  F.Model          R2    p.value

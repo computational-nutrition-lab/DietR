@@ -79,7 +79,7 @@
 # ===============================================================================================================
 # Generate standard, grams of fiber, and dehydrated grams per kcal IFC tables to be used later.
 # ===============================================================================================================
-# Make the standard food ifc table with data in gram weights of food.
+# Make the standard ifc table with data in gram weights of food.
 # For the food_records_fn argument, you need to supply the items data which contains 'FoodAmt' column.
 
 # It is OK to see see a warning message: 
@@ -95,13 +95,13 @@
     # food_taxonomy_fn: Taxonomy file produced by MakeFoodTree.
     # output_fn:        Name output ifc file.
   
-# Make a food ifc table with data in grams of fiber per food
+# Make an ifc table with data in grams of fiber per food
   MakeFiberIfc(food_records_fn=  "VVKAJ_Items_f_id_s_m_QCed.txt", 
                food_record_id=   "SampleID", 
                food_taxonomy_fn= "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.tax.txt", 
                output_fn=        "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.fiber.ifc.txt")
   
-# Make a food ifc table as dehydrated grams per kcal.
+# Make an ifc table as dehydrated grams per kcal.
   MakeDhydrtIfc(food_records_fn=  "VVKAJ_Items_f_id_s_m_QCed.txt", 
                 food_record_id =  "SampleID", 
                 food_taxonomy_fn= "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.tax.txt", 

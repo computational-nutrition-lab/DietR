@@ -376,7 +376,7 @@ set.seed(123)
 vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permutations = 5000)
 ```
 
-The results indicate that the overall adonis is not significant (p>0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis for demonstration purposes here, but we do not expect to find significant pairwise differences.
+The results indicate that the overall adonis is significant (p<0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different.
 ```{r}
 pairwise.adonis(dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                 p.adjust.m = "none")  
@@ -413,6 +413,8 @@ Save the percent variance explained as a txt file.
 Eigen(eigen.input = eigen_percent_u, 
       output.fn="Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_eigen.txt")
 ```
+
+<br>
 
 ## Plot your ordination results
 
@@ -494,7 +496,7 @@ set.seed(123)
 vegan::adonis(dist_matrix_u ~ phyloseq::sample_data(phyfoods)$GLU_index, permutations = 5000) 
 ```
 
-The results indicate that the overall adonis is not significant (p>0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis for demonstration purposes here, but we do not expect to find significant pairwise differences.
+If overall adonis is significant, which is not true in this case, but we will run pairwise adonis for demonstration purposes.
 
 ```{r}
 pairwise.adonis(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,

@@ -194,6 +194,7 @@
   
 # Use adonis to test whether there is a difference between groups' composition. 
 # i.e., composition among groups (food they consumed) is similar or not.
+  set.seed(123)
   vegan::adonis(dist_matrix ~ phyloseq::sample_data(phyfoods)$Diet, permutations = 5000)
   
 # If overall adonis is significant, which is true in this case,  
@@ -275,8 +276,6 @@
   plot(dispr)
   
   # Use dispr to do a permutation test for homogeneity of multivariate dispersion.
-  # The set.seed function ensures the same permutation results will be obtained every time; 
-  # otherwise, the p-values will slightly differ each run, as it is a permutation test.
   set.seed(123)
   vegan::permutest(dispr, perm=5000)
 
@@ -286,6 +285,7 @@
   
   # Use adonis to test whether there is a difference between groups' composition. 
   # i.e., composition among groups (food they consumed) is similar or not.
+  set.seed(123)
   vegan::adonis(dist_matrix ~ phyloseq::sample_data(phyfoods)$Diet, permutations = 5000)
   
   # If overall adonis is significant, which is true in this case,  

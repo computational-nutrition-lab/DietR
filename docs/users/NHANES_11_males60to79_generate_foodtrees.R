@@ -105,13 +105,13 @@
   # food_taxonomy_fn:  taxonomy file produced by MakeFoodTree.
   # output_fn:         Name output ifc file to be saved.
   
-# Make a food IFC table with data in grams of fiber per food.
+# Make a IFC table with data in grams of fiber per food.
   MakeFiberIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
                food_record_id=   "SEQN", 
                food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt", 
                output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.fiber.ifc.txt")
   
-# Make a food IFC table as dehydrated grams per kcal.
+# Make a IFC table as dehydrated grams per kcal.
   MakeDhydrtIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
                 food_record_id =  "SEQN", 
                 food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt", 

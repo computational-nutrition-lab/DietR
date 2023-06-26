@@ -212,7 +212,7 @@
   plot(dispr_w)
  
 # Use dispr to do a permutation test for homogeneity of multivariate dispersion.
-# The set.seed function ensuresthe same permutation results will be obtained every time; 
+# The set.seed function ensures the same permutation results will be obtained every time; 
 # otherwise, the p-values will slightly differ each run,as it is a permutation test.
   set.seed(123)
   vegan::permutest(dispr_w, perm = 5000)
@@ -221,13 +221,12 @@
   
 # Use adonis to test whether there is a difference between groups' composition. 
   # i.e., composition among groups (food they consumed) is similar or not.
+  set.seed(123)
   vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permutations = 5000)
-  
-# The results indicate that the overall adonis is not significant (p>0.05). If overall adonis is significant, 
-# you can run pairwise adonis to see which group pairs are different. However, we will run pariwise adonis 
-# for demonstration purposes here, but we do not expect to find significant pairwise differences.
-  
 
+# The results indicate that the overall adonis is significant (p<0.05). If overall adonis is significant, 
+# you can run pairwise adonis to see which group pairs are different.
+  
 # If overall adonis is significant, you can run pairwise adonis to see which group pairs are different.
   pairwise.adonis(dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                   p.adjust.m = "none")  
@@ -308,7 +307,8 @@
   plot(dispr_u)
   
 # Use dispr to do a permutation test for homogeneity of multivariate dispersion.
-  vegan::permutest(dispr_u)
+  set.seed(123)
+  vegan::permutest(dispr_u, perm = 5000)
   # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
   
 # Use adonis to test whether there is a difference between groups' composition. 
@@ -316,7 +316,8 @@
   set.seed(123)
   vegan::adonis(dist_matrix_u ~ phyloseq::sample_data(phyfoods)$GLU_index, permutations = 5000) 
   
-# If overall adonis is significant, you can run pairwise adonis to see which group pairs are different.
+# If overall adonis is significant, which is not true in this case, but we will run pairwise adonis 
+# for demonstration purposes.
   pairwise.adonis(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                   p.adjust.m = "none")
   
