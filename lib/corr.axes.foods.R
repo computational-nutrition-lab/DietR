@@ -4,7 +4,7 @@
 # ===============================================================================================================
 
 # ---------------------------------------------------------------------------------------------------------------
-# From sorted food OTU table, generate a table of total amount of food consumed by all the individuals,
+# From sorted food IFC table, generate a table of total amount of food consumed by all the individuals,
 # and a table with correlation coefficients, p-values, and q-values with desired threshold between
 # food items and Axes that were saved in the ordination section.
 # Be careful about not to confuse WEIGHTED and UNweighted unifrac distances
@@ -13,14 +13,14 @@
   source("lib/SubsetByFirstChaInCol.R") 
   source("lib/create_corr_frame.R") 
 
-CorrAxesFood <- function(food.otu_soted,
+CorrAxesFood <- function(food.ifc_soted,
                          AmountSums.out.fn,
                          meta.users,
                          qval.threshold = 0.05,
                          corr.axes.foods.outfn  ){
   
-  # Read in the food.otu_soted.
-  food1 <- read.delim(food.otu_soted)
+  # Read in the food.ifc_soted.
+  food1 <- read.delim(food.ifc_soted)
   
   # remove "taxonomy" column at the end of food1.
   food2 <- food1[, !colnames(food1) == "taxonomy"] 
@@ -52,7 +52,7 @@ CorrAxesFood <- function(food.otu_soted,
   # make sure the samples are the same.
   if( identical(rownames(x), rownames(y)) == F){
     
-    return("The columnnames of X and Y are different. Ensure your food.otu_soted and\n 
+    return("The columnnames of X and Y are different. Ensure your food.ifc_soted and\n 
                        meta.users have the same set of individuals.")
     
   }else{
@@ -81,17 +81,17 @@ CorrAxesFood <- function(food.otu_soted,
 # test
 #   SpecifyDataDirectory("eg_data/VVKAJ/Ordination/")
 #   
-# # From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, 
+# # From sorted food IFC table, generate a table of total amount of food consumed by all the individuals, 
 # # and a table with correlation coefficients, p-values, and q-values with desired threshold between 
 # # food items and Axes that were saved in the ordination section. 
 # # Be careful about not to confuse WEIGHTED and UNweighted unifrac distances   
-#   CorrAxesFood(food.otu_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt", 
+#   CorrAxesFood(food.ifc_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt", 
 #                AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
 #                qval.threshold = 0.05,
 #                meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt",
 #                corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
 # 
-#   # food.otu_soted:     xxx.food.otu.sorted.txt file, saved in the ordination section.
+#   # food.ifc_soted:     xxx.food.ifc.sorted.txt file, saved in the ordination section.
 #   # AmountSums.out.fn:  output filename to be saved which has the total consunption amount of each food.
 #   # qval.threshold:     q-value threshold to call a correlation significant.
 #   # meta.users:         xxx.meta_users.txt file, waved in the ordination section.

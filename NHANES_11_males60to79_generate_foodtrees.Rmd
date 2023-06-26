@@ -72,9 +72,9 @@ source("lib/specify_data_dir.R")
 
 source("lib/Food_tree_scripts/newick.tree.r")
 source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
-source("lib/Food_tree_scripts/make.food.otu.r")
-source("lib/Food_tree_scripts/make.fiber.otu.r")
-source("lib/Food_tree_scripts/make.dhydrt.otu.r")
+source("lib/Food_tree_scripts/make.food.ifc.r")
+source("lib/Food_tree_scripts/make.fiber.ifc.r")
+source("lib/Food_tree_scripts/make.dhydrt.ifc.r")
 ```
 
 You can come back to the main directory by:
@@ -154,26 +154,26 @@ addl_foods_fn | List of foods not present in the list can be added. NULL by defa
 output_tree_fn | Name output tree file with .nwk at the end
 output_taxonomy_fn | Name output taxonomy file
 
-The xxx.nwk is the foodtree, and xxx.tax.txt is the taxonomy file that is to be used to OTU tables next.
+The xxx.nwk is the foodtree, and xxx.tax.txt is the taxonomy file that is to be used to IFC tables next.
 
 <br>
 
-# Generate OTU tables for downstream analyses.
+# Generate IFC tables for downstream analyses.
 
 Note that this may take some time.
 
-Make the standard food otu table with data in gram weights of food.
+Make the standard food ifc table with data in gram weights of food.
 For the food_records_fn argument, you need to supply `sel.food.records` file that have FoodAmt column.
 
 It is OK to see see a warning message: 
-"In write.table(dhydrt.otu, output_fn, sep = "\t", quote = F, append = TRUE) :  
+"In write.table(dhydrt.ifc, output_fn, sep = "\t", quote = F, append = TRUE) :  
  appending column names to file"
 
 ```{r}
-MakeFoodOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt",   
+MakeFoodIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt",   
             food_record_id =  "SEQN",                              
             food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt",       
-            output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu.txt")  
+            output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc.txt")  
 ```
 
 Arguments | Description
@@ -181,26 +181,26 @@ Arguments | Description
 food_records_fn | Same as food_records_fn in MakeFoodTree
 food_record_id |  The colunmname of your participants' ID
 food_taxonomy_fn | Taxonomy file produced by MakeFoodTree
-output_fn | Name output otu file
+output_fn | Name output ifc file
 
 <br>
 
-Make a food otu table with data in grams of fiber per food.
+Make a food ifc table with data in grams of fiber per food.
 ```{r}
-MakeFiberOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
+MakeFiberIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
              food_record_id=   "SEQN", 
              food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt", 
-             output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.fiber.otu.txt")
+             output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.fiber.ifc.txt")
 ```
 
 <br>
 
-Make a food otu table as dehydrated grams per kcal.
+Make a food ifc table as dehydrated grams per kcal.
 ```{r}
-MakeDhydrtOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
+MakeDhydrtIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
               food_record_id =  "SEQN", 
               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt", 
-              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.dhydrt.otu.txt")  
+              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.dhydrt.ifc.txt")  
 ```
 
 

@@ -510,9 +510,9 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
 </div>
 <div id="weighted-unifrac-distance-ordination-results" class="section level1">
 <h1>Weighted unifrac distance ordination results</h1>
-<p>From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, and a table with correlation coefficients, p-values, and q-values with desired threshold between food items and axes that were saved in the ordination section.<br />
+<p>From sorted IFC table, generate a table of total amount of food consumed by all the individuals, and a table with correlation coefficients, p-values, and q-values with desired threshold between food items and axes that were saved in the ordination section.<br />
 Be careful not to confuse WEIGHTED and UNweighted unifrac distances.</p>
-<pre class="r"><code>CorrAxesFood(food.otu_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt&quot;, 
+<pre class="r"><code>CorrAxesFood(food.ifc_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt&quot;, 
              AmountSums.out.fn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt&quot;,
              qval.threshold = 0.05,
              meta.users =            &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt&quot;,
@@ -530,8 +530,8 @@ Be careful not to confuse WEIGHTED and UNweighted unifrac distances.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>food.otu_soted</td>
-<td>xxx.food.otu.sorted.txt file, saved in the ordination section</td>
+<td>food.ifc_soted</td>
+<td>xxx.food.ifc.sorted.txt file, saved in the ordination section</td>
 </tr>
 <tr class="even">
 <td>AmountSums.out.fn</td>
@@ -687,8 +687,8 @@ head(dat_4[order(dat_4$qval), ], 10)</code></pre>
 </div>
 <div id="unweighted-unifrac-distance-ordination-results" class="section level1">
 <h1>Unweighted unifrac distance ordination results</h1>
-<p>xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.</p>
-<pre class="r"><code>CorrAxesFood(food.otu_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt&quot;,
+<p>xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method (weighted or unweighted unifrac or else) was used, as long as the food.ifc_sorted is the same.</p>
+<pre class="r"><code>CorrAxesFood(food.ifc_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt&quot;,
              AmountSums.out.fn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt&quot;,
              qval.threshold = 0.05,
              meta.users =            &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt&quot;,

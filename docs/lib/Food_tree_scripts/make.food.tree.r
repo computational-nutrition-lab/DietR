@@ -7,6 +7,7 @@
 
 # 02/25/2022 Added a semicolon in line 61 so that the output_tree_fn will be loaded correctly.
 # 03/31/2022 dplyr::select fucntion was replaced by a base R equivalent.
+# 06/26/2023 replaced "OTU" with "IFC".
 # library(data.tree)
 # library(reshape2)
 # source('lib/Food_tree_scripts/newick.tree.r')
@@ -51,7 +52,7 @@ MakeFoodTree <- function(nodes_fn, food_database_fn, addl_foods_fn=NULL, output_
     # create a proper taxonomy string for QIIME
     taxonomy <- apply(main.join, 1, function(xx) paste(xx[-1], collapse=";"))
 
-    final.table <<- data.frame(main.join, newickstring, taxonomy, stringsAsFactors=F)
+    final.table <- data.frame(main.join, newickstring, taxonomy, stringsAsFactors=F)
 
     #### Make and export the tree ####
     foodTree <- as.Node(final.table, pathName = "newickstring")

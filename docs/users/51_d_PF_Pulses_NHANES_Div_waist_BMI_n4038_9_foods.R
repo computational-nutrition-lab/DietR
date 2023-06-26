@@ -63,6 +63,17 @@
     # scale_fill_manual(values= c("steelblue3", "yellow", "hotpink") ) +
     labs(y="Alcohol (No. of drinks)", x=NULL)  
   box
+# histogram
+  ggplot(data=df, aes(x=A_DRINKS, group=DivGroup, fill=DivGroup)) +
+    geom_density(adjust=1.5, alpha=.4) + space_axes + no_grid +
+    # scale_fill_manual(values= c("steelblue3", "yellow", "hotpink")) +
+    labs(x="No. of drinks (ct)", y="Density")
+# There are some small number of people who drink A LOT (more than 10 drinks/day!)
+  summary(df$A_DRINKS)
+  df[order(df$A_DRINKS, decreasing = T)[1:10], "A_DRINKS"]
+    df %>% group_by(DivGroup) %>% summarise(aaa=mean(A_DRINKS)) # No. of drinks.
+    df %>% group_by(DivGroup) %>% summarise(aaa=mean(ALCO)) # grams of alcohol!
+  
   df$PF_TOTAL_LEG
   means <-  df[1:10, c('PF_TOTAL', 'PF_LEGUMES', 'PF_TOTAL_LEG', 'PF_LEG_perTOTAL')]
   write.table(means, "clipboard", sep="\t", quote=F, row.names = F)

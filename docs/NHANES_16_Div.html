@@ -501,13 +501,13 @@ library(data.tree)</code></pre>
 <pre class="r"><code>source(&quot;lib/specify_data_dir.R&quot;)
 source(&quot;lib/diversity_nth_tile.R&quot;)
 
-# Load source scripts to build foodtrees and OTU tables.
+# Load source scripts to build foodtrees and IFC tables.
 source(&quot;lib/specify_data_dir.R&quot;)
 source(&quot;lib/Food_tree_scripts/newick.tree.r&quot;)
 source(&quot;lib/Food_tree_scripts/make.food.tree.r&quot;)
-source(&quot;lib/Food_tree_scripts/make.food.otu.r&quot;)
-source(&quot;lib/Food_tree_scripts/make.fiber.otu.r&quot;)
-source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
+source(&quot;lib/Food_tree_scripts/make.food.ifc.r&quot;)
+source(&quot;lib/Food_tree_scripts/make.fiber.ifc.r&quot;)
+source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <p>You can come back to the main directory by:</p>
 <pre class="r"><code>setwd(main_wd)</code></pre>
 <p>Specify the directory where the data is.</p>
@@ -525,7 +525,7 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
 <hr />
 <p>Shannon’s diversity is one of the measures to evaluate ecological diversity. We will use it to evaluate diet diversity of each individual in the NHANES data.</p>
 <p>vegan::diversity calculates Shannon’s diversity index one by one.</p>
-<p>As an input, we need to have a table with SEQN as rows and food items as columns. So, we will create a food OTU table first.</p>
+<p>As an input, we need to have a table with SEQN as rows and food items as columns. So, we will create an IFC table first.</p>
 <p>Load the food items data where QC-ed individuals were removed based on their totals data.</p>
 <pre class="r"><code>food &lt;- read.delim(&quot;Food_D12_FC_QC_demo_QCed.txt&quot;, sep= &quot;\t&quot;, header=T)</code></pre>
 <p>Count the number of unique SEQNs. There should be 4207 people.</p>
@@ -546,9 +546,9 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
 <pre class="r"><code>write.table(food4s, &quot;Div/Food_D12_FC_QC_demo_QCed_4s.txt&quot;, sep= &quot;\t&quot;, row.names=F,quote=F)</code></pre>
 <p><br></p>
 </div>
-<div id="generate-a-food-otu-table" class="section level1">
-<h1>Generate a food OTU table</h1>
-<p>To calculate diversity of 4xxxxxxxs for each SEQN, we need to create a food OTU table.</p>
+<div id="generate-an-ifc-table" class="section level1">
+<h1>Generate an IFC table</h1>
+<p>To calculate diversity of 4xxxxxxxs for each SEQN, we need to create an IFC table.</p>
 <p>Specify where the data is.</p>
 <pre class="r"><code>SpecifyDataDirectory(&quot;eg_data/NHANES/Div&quot;)</code></pre>
 <pre class="r"><code>MakeFoodTree(nodes_fn=&quot;../../Food_tree_eg/NodeLabelsMCT.txt&quot;,
@@ -560,21 +560,21 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
 )</code></pre>
 <p><br></p>
 <hr />
-<p>Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.</p>
-<p>It is OK to see the following warning message: In write.table(fiber.otu, output_fn, sep = “, quote = F, append = TRUE) : appending column names to file.</p>
-<pre class="r"><code>MakeFoodOtu(food_records_fn=  &quot;Food_D12_FC_QC_demo_QCed_4s.txt&quot;,
+<p>Generate IFC tables for downstream analyses; IT MAY TAKE SOME TIME.</p>
+<p>It is OK to see the following warning message: In write.table(fiber.ifc, output_fn, sep = “, quote = F, append = TRUE) : appending column names to file.</p>
+<pre class="r"><code>MakeFoodIfc(food_records_fn=  &quot;Food_D12_FC_QC_demo_QCed_4s.txt&quot;,
             food_record_id =  &quot;SEQN&quot;,                              # The ID of your participants
             food_taxonomy_fn= &quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.tax.txt&quot;,       # Your taxonomy file produced by MakeFoodTree.
-            output_fn =       &quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.otu.txt&quot;)  # Output otu file to be saved.</code></pre>
-<pre><code>## Warning in write.table(food.otu, output_fn, sep = &quot;\t&quot;, quote = F, append =
+            output_fn =       &quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt&quot;)  # Output ifc file to be saved.</code></pre>
+<pre><code>## Warning in write.table(food.ifc, output_fn, sep = &quot;\t&quot;, quote = F, append =
 ## TRUE): appending column names to file</code></pre>
-<p>Load the generated OTU table.</p>
-<pre class="r"><code>otu &lt;- read.delim(&quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.otu.txt&quot;)</code></pre>
+<p>Load the generated IFC table.</p>
+<pre class="r"><code>ifc &lt;- read.delim(&quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt&quot;)</code></pre>
 <p>It should have the dimension of number of unique foods x (1 food column + number of people + 1 taxonomy column). 243 x 2110, in this case.</p>
-<pre class="r"><code>dim(otu)</code></pre>
+<pre class="r"><code>dim(ifc)</code></pre>
 <pre><code>## [1]  243 2110</code></pre>
 <p>The column names have “X.” at the beginning. We will take care of it later.</p>
-<pre class="r"><code>otu[1:4, 1:4]</code></pre>
+<pre class="r"><code>ifc[1:4, 1:4]</code></pre>
 <pre><code>##                                                        X.FOODID X84804 X86670
 ## 1 Beans dry cooked NS as to type and as to fat added in cooking   67.5     90
 ## 2           Beans dry cooked NS as to type fat added in cooking    0.0      0
@@ -589,22 +589,22 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
 </div>
 <div id="calculate-diversity-of-4xxxxxxxs-for-each-seqn" class="section level1">
 <h1>Calculate diversity of 4xxxxxxxs for each SEQN</h1>
-<p>Take out the foodID (description) and taxonomy from otu.</p>
-<pre class="r"><code>otu2 &lt;- otu[, 2: (ncol(otu)-1) ]</code></pre>
+<p>Take out the foodID (description) and taxonomy from ifc.</p>
+<pre class="r"><code>ifc2 &lt;- ifc[, 2: (ncol(ifc)-1) ]</code></pre>
 <p>transpose so that the SEQN will come to rows.</p>
-<pre class="r"><code>otu2t &lt;- as.data.frame(t(otu2))</code></pre>
-<p>Add taxonomy as the column names of otu2t.</p>
-<pre class="r"><code>colnames(otu2t) &lt;- otu$X.FOODID</code></pre>
-<p>Each row of otu2t is SEQN. So, diversity needs to be calculated per each row.</p>
+<pre class="r"><code>ifc2t &lt;- as.data.frame(t(ifc2))</code></pre>
+<p>Add taxonomy as the column names of ifc2t.</p>
+<pre class="r"><code>colnames(ifc2t) &lt;- ifc$X.FOODID</code></pre>
+<p>Each row of ifc2t is SEQN. So, diversity needs to be calculated per each row.</p>
 <p>Make a table to save results.</p>
-<pre class="r"><code>SEQNdiv &lt;- as.data.frame(matrix(nrow = nrow(otu2t) , ncol = 4))
+<pre class="r"><code>SEQNdiv &lt;- as.data.frame(matrix(nrow = nrow(ifc2t) , ncol = 4))
 colnames(SEQNdiv) &lt;- c(&quot;SEQN&quot;, &quot;Shannon&quot;, &quot;Simpson&quot;, &quot;Invsimpson&quot;)</code></pre>
 <p>Do a loop to calculate Shannon’s, Simpson, and inverse-Simpson diversity for all SEQNs (in rows). This may take a few minutes.</p>
-<pre class="r"><code>for( i in 1: nrow(otu2t) ){
-  SEQNdiv[i, 1] &lt;- rownames(otu2t)[i]
-  SEQNdiv[i, 2] &lt;- diversity(otu2t[i, ], &#39;shannon&#39;)
-  SEQNdiv[i, 3] &lt;- diversity(otu2t[i, ], &#39;simpson&#39;)
-  SEQNdiv[i, 4] &lt;- diversity(otu2t[i, ], &#39;invsimpson&#39;)
+<pre class="r"><code>for( i in 1: nrow(ifc2t) ){
+  SEQNdiv[i, 1] &lt;- rownames(ifc2t)[i]
+  SEQNdiv[i, 2] &lt;- diversity(ifc2t[i, ], &#39;shannon&#39;)
+  SEQNdiv[i, 3] &lt;- diversity(ifc2t[i, ], &#39;simpson&#39;)
+  SEQNdiv[i, 4] &lt;- diversity(ifc2t[i, ], &#39;invsimpson&#39;)
 }
 
 head(SEQNdiv)</code></pre>

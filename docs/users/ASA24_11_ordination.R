@@ -4,6 +4,7 @@
 # After running formatfoods first and keeping ".0" in FoodIDs. 
 # Version 2 
 # Created on 02/16/2022 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC".
 # ===============================================================================================================
 
 # In this section, we will take the phylogeny of food items into account in clustering individuals according to 
@@ -42,7 +43,7 @@
   source("lib/specify_data_dir.R")
   source("lib/ordination.R")
   source("lib/ggplot2themes.R")
-  source("lib/sort_OTU_by_ID.R")
+  source("lib/sort_IFC_by_ID.R")
   source("lib/plot.axis.1to4.by.factor.R")
 
 # Load the distinct 100 colors for use.   
@@ -61,16 +62,16 @@
 # Load the necessary files for creating a phyloseq object.  
   
 # Food
-# Load food OTU table, and sort the columnnames (userID), leaving the last column (taxonomy) intact.
+# Load IFC table, and sort the columnnames (userID), leaving the last column (taxonomy) intact.
 # This dataframe will be saved as "food".
 # Also, save "food" as a .txt file to be used in the "correlation between Axes and foods" section.  
-  SortOTUByID(otu.input =           "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt",
-              outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt")
+  SortIFCByID(ifc.input =           "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc.txt",
+              outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt")
   
   # "food" is a matrix of Food descriptions (rows) x SampleID (columns).
   head(food)[1:6, 1:4]
   
-  # Format the food object and create an otu_table called OTU.
+  # Format the food object and create an ifc_table called IFC.
   PrepFood(data= food)
   
 # Taxonomy (tax)
@@ -96,8 +97,8 @@
   # Again, it is OK to see the same message as the previous line. 
 
 # ---------------------------------------------------------------------------------------------------------------
-# Make a phyloseq object with OTU, TAX, SAMPLES, and TREE.
-  phyfoods <- phyloseq(OTU, TAX, SAMPLES, TREE)
+# Make a phyloseq object with IFC, TAX, SAMPLES, and TREE.
+  phyfoods <- phyloseq(IFC, TAX, SAMPLES, TREE)
   # It is OK to see a message (or multiple of them) saying that
     # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
     # Also defined by 'tidytree'.

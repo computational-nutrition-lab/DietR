@@ -2,6 +2,7 @@
 # Generate a heatmap of correlation between food categories and ordination Axes.  
 # Version 2
 # Created on 02/16/2023 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC".
 # The create_corr_frame function credit: Mo Hutti. 
 # ===============================================================================================================
 
@@ -34,19 +35,19 @@ Session --> Set working directory --> Choose directory.
 # WEIGHTED unifrac distance ordination results 
 # ===============================================================================================================
   
-# From sorted food OTU table, generate a table of total amount of food consumed by all the individuals, 
+# From sorted IFC table, generate a table of total amount of food consumed by all the individuals, 
 # and a table with correlation coefficients, p-values, and q-values with a desired threshold between 
 # food items and Axes that were saved in the ordination section. This function will print out the food items' 
 # names while calculating the correlation measures.
 # Be careful not to confuse WEIGHTED and UNweighted unifrac distances as you name the files.
   
-  CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sorted.txt", 
+  CorrAxesFood(food.ifc_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc_sorted.txt", 
                AmountSums.out.fn =          "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
                qval.threshold = 0.05,
                meta.users =            "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_meta_users.txt",
                corr.axes.foods.outfn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
   
-  # food.otu_soted:     xxx.food.otu.sorted.txt file, saved in the ordination section.
+  # food.ifc_soted:     xxx.food.ifc.sorted.txt file, saved in the ordination section.
   # AmountSums.out.fn:  output filename to be saved which has the total consumption amount of each food.
   # qval.threshold:     q-value threshold to call a correlation significant.
   # meta.users:         xxx.meta_users.txt file, waved in the ordination section.
@@ -86,9 +87,9 @@ Session --> Set working directory --> Choose directory.
 # ===============================================================================================================
   
 # xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method
-# (weighted or unweighted unifrac or else) was used, as long as the food.otu_sorted is the same.
+# (weighted or unweighted unifrac or else) was used, as long as the food.ifc_sorted is the same.
   
-  CorrAxesFood(food.otu_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu_sorted.txt",
+  CorrAxesFood(food.ifc_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc_sorted.txt",
                AmountSums.out.fn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
                qval.threshold = 0.05,
                meta.users =            "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_meta_users.txt",

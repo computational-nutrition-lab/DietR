@@ -96,9 +96,9 @@ source("lib/Food_tree_scripts/check.db.r")
 source("lib/Food_tree_scripts/format.foods_2.r")
 source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
 source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
-source("lib/Food_tree_scripts/make.food.otu.r")
-source("lib/Food_tree_scripts/make.fiber.otu.r")
-source("lib/Food_tree_scripts/make.dhydrt.otu.r")
+source("lib/Food_tree_scripts/make.food.ifc.r")
+source("lib/Food_tree_scripts/make.fiber.ifc.r")
+source("lib/Food_tree_scripts/make.dhydrt.ifc.r")
 ```
 
 <br>

@@ -95,7 +95,7 @@ Load necessary functions and ggplot formatting themes.
 source("lib/specify_data_dir.R")
 source("lib/ordination.R")
 source("lib/ggplot2themes.R")
-source("lib/sort_OTU_by_ID.R")
+source("lib/sort_IFC_by_ID.R")
 source("lib/plot.axis.1to4.by.factor.R")
 ```
 
@@ -130,10 +130,10 @@ knitr::opts_knit$set(root.dir = 'eg_data/VVKAJ/')
 
 ### Food
 
-Load food OTU table, and sort the columnnames (userID), leaving the last column (taxonomy) intact. This dataframe will be saved as `food`. Also, save `food` as a .txt file to be used in the "correlation between Axes and foods" section.
+Load IFC table, and sort the columnnames (userID), leaving the last column (taxonomy) intact. This dataframe will be saved as `food`. Also, save `food` as a .txt file to be used in the "correlation between Axes and foods" section.
 ```{r}
-SortOTUByID(otu.input =           "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt",
-            outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt")
+SortIFCByID(ifc.input =           "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc.txt",
+            outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt")
 ```
 
 `food` is a matrix of Food descriptions (rows) x SampleID (columns).
@@ -141,7 +141,7 @@ SortOTUByID(otu.input =           "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.o
 head(food)[1:6, 1:4]
 ```
 
-Format the food object and create an otu_table called `OTU`.
+Format the food object and create an ifc_table called `IFC`.
 ```{r}
 PrepFood(data= food)
 ```
@@ -189,10 +189,10 @@ Again, it is OK to see the same message as the previous line.
 
 ---
 
-## Create a phyloseq object with OTU, TAX, SAMPLES, and TREE
+## Create a phyloseq object with IFC, TAX, SAMPLES, and TREE
 
 ```{r}
-phyfoods <- phyloseq(OTU, TAX, SAMPLES, TREE)
+phyfoods <- phyloseq(IFC, TAX, SAMPLES, TREE)
 ```
 
 It is OK to see a message (or multiple of them) saying that  
@@ -335,6 +335,7 @@ If p>0.05, the dispersion of each group are not different, and the assumption fo
 
 Use adonis to test whether there is a difference between groups' composition. i.e., composition among groups (food they consumed) is similar or not.
 ```{r}
+set.seed(123)
 vegan::adonis(dist_matrix ~ phyloseq::sample_data(phyfoods)$Diet, permutations = 5000)
 ```
 
@@ -457,6 +458,7 @@ plot(dispr)
 
 Use dispr to do a permutation test for homogeneity of multivariate dispersion.
 ```{r}
+set.seed(123)
 vegan::permutest(dispr, perm=5000)
 ```
 
@@ -464,6 +466,7 @@ If p>0.05, the dispersion of each group are not different, and the assumption fo
 
 Use adonis to test whether there is a difference between groups' composition. i.e., composition among groups (food they consumed) is similar or not.
 ```{r}
+set.seed(123)
 vegan::adonis(dist_matrix ~ phyloseq::sample_data(phyfoods)$Diet, permutations = 5000)
 ```
 

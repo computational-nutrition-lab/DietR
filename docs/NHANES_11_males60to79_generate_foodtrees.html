@@ -503,9 +503,9 @@ blockquote{
 
 source(&quot;lib/Food_tree_scripts/newick.tree.r&quot;)
 source(&quot;lib/Food_tree_scripts/make.food.tree.r&quot;) # This needs &#39;newick.tree.r&#39; already loaded.
-source(&quot;lib/Food_tree_scripts/make.food.otu.r&quot;)
-source(&quot;lib/Food_tree_scripts/make.fiber.otu.r&quot;)
-source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
+source(&quot;lib/Food_tree_scripts/make.food.ifc.r&quot;)
+source(&quot;lib/Food_tree_scripts/make.fiber.ifc.r&quot;)
+source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <p>You can come back to the main directory by:</p>
 <pre class="r"><code>setwd(main_wd)</code></pre>
 <p><br></p>
@@ -572,20 +572,20 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.otu.r&quot;)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The xxx.nwk is the foodtree, and xxx.tax.txt is the taxonomy file that is to be used to OTU tables next.</p>
+<p>The xxx.nwk is the foodtree, and xxx.tax.txt is the taxonomy file that is to be used to IFC tables next.</p>
 <p><br></p>
 </div>
-<div id="generate-otu-tables-for-downstream-analyses." class="section level1">
-<h1>Generate OTU tables for downstream analyses.</h1>
+<div id="generate-ifc-tables-for-downstream-analyses." class="section level1">
+<h1>Generate IFC tables for downstream analyses.</h1>
 <p>Note that this may take some time.</p>
-<p>Make the standard food otu table with data in gram weights of food. For the food_records_fn argument, you need to supply <code>sel.food.records</code> file that have FoodAmt column.</p>
-<p>It is OK to see see a warning message: “In write.table(dhydrt.otu, output_fn, sep =”, quote = F, append = TRUE) :<br />
+<p>Make the standard food ifc table with data in gram weights of food. For the food_records_fn argument, you need to supply <code>sel.food.records</code> file that have FoodAmt column.</p>
+<p>It is OK to see see a warning message: “In write.table(dhydrt.ifc, output_fn, sep =”, quote = F, append = TRUE) :<br />
 appending column names to file”</p>
-<pre class="r"><code>MakeFoodOtu(food_records_fn=  &quot;Food_D12_FC_QC_demo_QCed_males60to79.txt&quot;,   
+<pre class="r"><code>MakeFoodIfc(food_records_fn=  &quot;Food_D12_FC_QC_demo_QCed_males60to79.txt&quot;,   
             food_record_id =  &quot;SEQN&quot;,                              
             food_taxonomy_fn= &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt&quot;,       
-            output_fn =       &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu.txt&quot;)  </code></pre>
-<pre><code>## Warning in write.table(food.otu, output_fn, sep = &quot;\t&quot;, quote = F, append =
+            output_fn =       &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc.txt&quot;)  </code></pre>
+<pre><code>## Warning in write.table(food.ifc, output_fn, sep = &quot;\t&quot;, quote = F, append =
 ## TRUE): appending column names to file</code></pre>
 <table>
 <thead>
@@ -609,25 +609,25 @@ appending column names to file”</p>
 </tr>
 <tr class="even">
 <td>output_fn</td>
-<td>Name output otu file</td>
+<td>Name output ifc file</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
-<p>Make a food otu table with data in grams of fiber per food.</p>
-<pre class="r"><code>MakeFiberOtu(food_records_fn=  &quot;Food_D12_FC_QC_demo_QCed_males60to79.txt&quot;, 
+<p>Make a food ifc table with data in grams of fiber per food.</p>
+<pre class="r"><code>MakeFiberIfc(food_records_fn=  &quot;Food_D12_FC_QC_demo_QCed_males60to79.txt&quot;, 
              food_record_id=   &quot;SEQN&quot;, 
              food_taxonomy_fn= &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt&quot;, 
-             output_fn=        &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.fiber.otu.txt&quot;)</code></pre>
-<pre><code>## Warning in write.table(fiber.otu, output_fn, sep = &quot;\t&quot;, quote = F, append =
+             output_fn=        &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.fiber.ifc.txt&quot;)</code></pre>
+<pre><code>## Warning in write.table(fiber.ifc, output_fn, sep = &quot;\t&quot;, quote = F, append =
 ## TRUE): appending column names to file</code></pre>
 <p><br></p>
-<p>Make a food otu table as dehydrated grams per kcal.</p>
-<pre class="r"><code>MakeDhydrtOtu(food_records_fn=  &quot;Food_D12_FC_QC_demo_QCed_males60to79.txt&quot;, 
+<p>Make a food ifc table as dehydrated grams per kcal.</p>
+<pre class="r"><code>MakeDhydrtIfc(food_records_fn=  &quot;Food_D12_FC_QC_demo_QCed_males60to79.txt&quot;, 
               food_record_id =  &quot;SEQN&quot;, 
               food_taxonomy_fn= &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt&quot;, 
-              output_fn =       &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.dhydrt.otu.txt&quot;)  </code></pre>
-<pre><code>## Warning in write.table(dhydrt.otu, output_fn, sep = &quot;\t&quot;, quote = F, append =
+              output_fn =       &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.dhydrt.ifc.txt&quot;)  </code></pre>
+<pre><code>## Warning in write.table(dhydrt.ifc, output_fn, sep = &quot;\t&quot;, quote = F, append =
 ## TRUE): appending column names to file</code></pre>
 <p><br></p>
 <hr />
