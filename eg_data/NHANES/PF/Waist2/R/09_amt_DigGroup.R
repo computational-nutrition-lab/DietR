@@ -3,6 +3,8 @@
 # Draw a boxplot of nuts/seeds/legumes amount and DivGroup 
 # Version 1
 # Created on 05/19/2023 by Rie Sadohara
+# Replaced "n3676" with "n3641" o on 06/28/2023 by Rie Sadohara
+# Output as comments were updated. 
 # ===============================================================================================================
   library(ggplot2)
 
@@ -23,10 +25,10 @@
 # Load the amt table and totals with DivGroup 
 # ===============================================================================================================
 
-  colsum_s_2 <- read.delim("n3676_SEQN_4xxxxxx_amt.txt")
+  colsum_s_2 <- read.delim("n3641_SEQN_4xxxxxx_amt.txt")
   head(colsum_s_2)
  
-  totalsDiv <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup.txt")
+  totalsDiv <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641_DivGroup.txt")
   totalsDiv[1:4, 1:4]
   totalsDiv$XSEQN <- paste("X", totalsDiv$SEQN, sep="")
   
@@ -46,7 +48,7 @@
     labs(y="Nuts/seeds/legumes (g/day)", x=NULL)
   box
   
-  ggsave("n3676_SEQN_4xxxxxx_amt_ave_DivGroup.png", box,
+  ggsave("n3641_SEQN_4xxxxxx_amt_ave_DivGroup.png", box,
          device="png", width=5.2, height=4.2, units="in")
   #   
   

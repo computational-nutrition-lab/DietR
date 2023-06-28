@@ -3,7 +3,7 @@
 # to analyze grouping by "DivGroup" variable.
 # Version 1
 # Created on 02/22/2023 by Rie Sadohara
-# Added outlier removal. on 05/19/2023.
+# Added outlier removal on 05/19/2023.
 # ===============================================================================================================
 
 # Set your working directory to the main directory.

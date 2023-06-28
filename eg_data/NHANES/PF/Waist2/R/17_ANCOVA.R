@@ -3,6 +3,8 @@
 # Perform ANCOVA with demographic variables as covariates.
 # Version 1
 # Created on 05/25/2023 by Rie Sadohara
+# Replaced "n3676" with "n3641" o on 06/28/2023 by Rie Sadohara
+# Output as comments were updated. 
 # ===============================================================================================================
 
 # ===============================================================================================================
@@ -27,7 +29,7 @@
 
 # ---------------------------------------------------------------------------------------------------------------
 # Load data.
-  df <- read.delim('Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup_DemoCat_Amt_Var.txt')  
+  df <- read.delim('Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641_DivGroup_DemoCat_Amt_Var.txt')  
 
 # DO NOT FORGET TO DEFINE DivGroup as a factor!
   df$DivGroup <- factor(df$DivGroup, 
@@ -35,7 +37,13 @@
   table(df$DivGroup, useNA = 'ifany')
   
   # DivNA  Div0  Div1  Div2 
-  # 1840  1114   361   361 
+  # 1819  1105   360   357 
+  
+# Also define FIPL as a factor to change the level order.
+  df$FIPL <- factor(df$FIPL, 
+                    levels = c('<1.85', '1.85-2.99', '>= 3.00'))  
+  table(df$FIPL, useNA = 'ifany')
+  
 
 # ===============================================================================================================
 # Run ANCOVA with age_3, Gender, FIPL (income), eth_5, edu, and KCAL.
@@ -47,12 +55,12 @@
 # Plain means.
   plainmeans <- aggregate(df$BMXBMI, list(df$DivGroup), FUN=mean)  
   write.table(plainmeans, "clipboard", sep="\t", row.names = F, quote=F)
-  # Group.1        x
-  # 1   DivNA 29.90511
-  # 2    Div0 29.84354
-  # 3    Div1 28.88199
-  # 4    Div2 27.71911
-
+  # Group.1	x
+  # DivNA	29.90016493
+  # Div0	29.81909502
+  # Div1	28.99916667
+  # Div2	27.59327731
+  
     table(df$age_3, useNA="ifany")
   boxplot(BMXBMI ~ age_3, data=df)    
     table(df$RIAGENDR, useNA="ifany")
@@ -108,8 +116,6 @@
   write.table(typeiii72, "clipboard", sep="\t", row.names = T)  
   # FIPL and KCAL do not have an effect..  
   
-  write.table(typeiii72, "clipboard", sep="\t", row.names = T)  
-  
   lm.emmeans <- emmeans::emmeans(lm_72, pairwise ~ DivGroup )
   lm.emmeans
   
@@ -122,11 +128,11 @@
 # Plain means.
   plainmeans <- aggregate(df$BMXWAIST, list(df$DivGroup), FUN=mean)  
   write.table(plainmeans, "clipboard", sep="\t", row.names = F, quote=F)
-  # Group.1         x
-  # 1   DivNA 101.19842
-  # 2    Div0 100.79004
-  # 3    Div1  98.92410
-  # 4    Div2  95.77008
+  #   Group.1         x
+  # 1   DivNA 101.17240
+  # 2    Div0 100.75457
+  # 3    Div1  99.19333
+  # 4    Div2  95.53221
   
   table(df$age_3, useNA="ifany")
   boxplot(BMXWAIST ~ age_3, data=df)    
@@ -176,7 +182,7 @@
   df2 <- subset(df, eth_5 != 6)
   boxplot(BMXWAIST ~ eth_5, df2)
   table(df2$DivGroup)
-  
+
   lm_72 <-  lm( BMXWAIST ~ DivGroup + age_3 + RIAGENDR + eth_5 + FIPL + edu + KCAL, data=df2)
   
   typeiii72 <-  car::Anova(lm_72, type="III")

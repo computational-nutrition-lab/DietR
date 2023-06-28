@@ -124,7 +124,7 @@
 # Take out the foodID (description) and taxonomy from ifc.
   ifc2 <- ifc[, 2: (ncol(ifc)-1) ]
 
-# transpose so that the SEQN will come to rows.   
+# Transpose so that the SEQN will come to rows.   
  ifc2t <- as.data.frame(t(ifc2)) 
  
 # Add taxonomy as the column names of ifc2t. 

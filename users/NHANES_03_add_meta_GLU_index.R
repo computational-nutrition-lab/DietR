@@ -4,7 +4,7 @@
 # Created on 11/21/2022 by Rie Sadohara
 # ===============================================================================================================
 
-# In this script, we will add participants’ metadata, and GLU_index variable based on their blood glucose level. 
+# In this script, we will add participants' metadata, and GLU_index variable based on their blood glucose level. 
 
 # Set your working directory to the main directory.
   Session --> Set working directory --> Choose directory.
@@ -32,7 +32,8 @@
 # ===============================================================================================================
  
 # Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4207 people.
-  QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_demo.txt", sep="\t", header=T)
+  QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_demo_MF.txt", sep="\t", header=T)
+  head(QCtotal_d$SEQN)
                            
 # Check the number of participants in the QCtotals - should be 4,207 people.
   length(unique(QCtotal_d$SEQN))

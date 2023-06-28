@@ -31,7 +31,6 @@
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")  
   source("lib/load_clean_ASA24.R")
-  # source("lib/format.file.R")
   source("lib/average.by.R") 
   source("lib/QCOutliers.R")
   source("lib/Food_tree_scripts/format.foods_2.r")

@@ -3,6 +3,8 @@
 # Check missing data in the response and demographic variables, then remove them. 
 # Version 1
 # Created on 05/19/2023 by Rie Sadohara
+# Replaced "OTU" with "IFC" and "n3677" with "n3642" on 06/28/2023 by Rie Sadohara
+# Output as comments were updated. 
 # ===============================================================================================================
   source("lib/specify_data_dir.R")
 
@@ -27,7 +29,7 @@
 # metadata. From line 118 in 04_add_meta_GLU_index_NHANES.R.
   totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta.txt")
 
-# This should have 4,207 people.    
+# This should have 4,164 people.    
   nrow(totals)   
 
 # Variables of interest ... 
@@ -35,24 +37,25 @@
   
 # ---------------------------------------------------------------------------------------------------------------
 # BMI
-  summary(totals$BMXBMI) # 44 missing data.
+  library(dplyr)
+  summary(totals$BMXBMI) # 43 missing data.
   totals %>% filter(BMXBMI == ".") %>% nrow()  # No ".".
   
-  # Remove the 44 rows that have missing BMI.
+  # Remove the 43 rows that have missing BMI.
   totals <- totals[!is.na(totals$BMXBMI), ]
-  nrow(totals) # 4163.
+  nrow(totals) # 4121.
   
   hist(totals$BMXBMI)
   head(totals[order(totals$BMXBMI, decreasing = T), "BMXBMI"])
   
 # ---------------------------------------------------------------------------------------------------------------
 # Waist
-  summary(totals$BMXWAIST) # 125 missing data.
+  summary(totals$BMXWAIST) # 123 missing data.
   totals %>% filter(BMXWAIST == ".") %>% nrow()  # No ".".
   
   # Remove the 125 rows that have missing waist.
   totals <- totals[!is.na(totals$BMXWAIST), ]
-  nrow(totals) # 4038.
+  nrow(totals) # 3998.
 
   hist(totals$BMXWAIST)
   head(totals[order(totals$BMXWAIST, decreasing = T), "BMXWAIST"])
@@ -101,11 +104,11 @@
   # "." is missing.
   totals %>% filter(INDFMPIR == ".") %>% nrow()  # no ".", BUT!!
   totals %>% filter( is.na(INDFMPIR)) %>% nrow() # some NAs!
-  summary(totals$INDFMPIR) # There are 361 NAs.
+  summary(totals$INDFMPIR) # There are 356 NAs.
 
-  # Remove the 361 rows that have missing data.
+  # Remove the 356 rows that have missing data.
   totals <- totals[!is.na(totals$INDFMPIR), ]
-  nrow(totals) # 3677.
+  nrow(totals) # 3642.
   
   summary(totals$INDFMPIR)
   hist(totals$INDFMPIR)
@@ -144,15 +147,17 @@
   hist(totals$KCAL)
   head(totals[order(totals$KCAL, decreasing = T), "KCAL"])
   
-  nrow(totals) # Should be 3677.
+  nrow(totals) # Should be 3642.
   
   naniar::vis_miss(totals[, vars])
 
 # Looks good....  
-# This new totals has 3677 rows and has  no missing data in the response and demographics variables of interest.     
-  write.table(totals, "PF/Waist2/Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3677.txt", sep="\t", row.names = F, quote=F)
+# This new totals has 3642 rows and has  no missing data in the response and demographics variables of interest.     
+  write.table(totals, "PF/Waist2/Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3642.txt", sep="\t", row.names = F, quote=F) 
+  # n=3642 is after QC-ing with males and females separately.  
   
 # DONE! 5/19.
+# DONE! 6/28 after QC-ing males females separately.
   
   
 # ---------------------------------------------------------------------------------------------------------------
