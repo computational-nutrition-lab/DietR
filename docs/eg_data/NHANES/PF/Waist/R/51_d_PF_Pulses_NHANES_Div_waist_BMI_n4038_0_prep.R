@@ -1,8 +1,11 @@
 # ===============================================================================================================
-# Subset waist variable and related covariates in totals and BMI, and take complete cases only 
+# Subset waist variable and related covariates in totals and BMI, and take complete cases only.
+# Generate PF_TOTAL_LEG and PF_LEG_perTOTAL.
+# QC some of important variables.
 # to analyze grouping by "DivGroup" variable.
 # Version 1
 # Created on 02/27/2023 by Rie Sadohara
+# Edited after QC-ing males and females separately, 06/27/2023. 
 # ===============================================================================================================
 
 # Set your working directory to the main directory.
@@ -23,7 +26,7 @@ Session --> Set working directory --> Choose directory.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF")  
 
 # ===============================================================================================================
-# Load data with LegGroup variable.
+# Load data with DivGroup variable.
 # ===============================================================================================================
 
 # Load the totals with DivGroup and 4207 people. 
@@ -48,20 +51,43 @@ Session --> Set working directory --> Choose directory.
   # 674 3533 
   
 # ---------------------------------------------------------------------------------------------------------------
+# Generate some additional PF-related variables.  
+  
+  # PF_TOTAL_LEG <- PF_TOTAL + PF_LEGUME
+  totals$PF_TOTAL_LEG <- totals$PF_TOTAL + totals$PF_LEGUME
+  # PF_LEG_perTOTAL is the percentage of legumes in all the protein foods.
+  totals$PF_LEG_perTOTAL <- totals$PF_LEGUME / totals$PF_TOTAL_LEG *100
+  
+  hist(totals$PF_LEG_perTOTAL)
+  plot(totals$PF_LEGUMES, totals$PF_LEG_perTOTAL)
+  cor.test(totals$PF_LEGUMES, totals$PF_LEG_perTOTAL)
+  
+  hist(totals$PF_TOTAL_LEG)
+  summary(totals$PF_LEG_perTOTAL)
+  # There is 1 NA...
+  totals[ is.na(totals$PF_LEG_perTOTAL), ]
+  # No protein intake, that is why. (But this person consumed dairy foods. That means dairy foods are not 
+  # considered as protein foods here.)
+  
+  # Compare those who are following special diets and who are not.
+  boxplot(x= totals$DRQSDIET, totals$PF_LEG_perTOTAL)
+  # Those who are following a diet (DRQSDIET=1) have low PF_LEG_perTOTAL..  
+  
+  
+# ---------------------------------------------------------------------------------------------------------------
 # Take complete cases only. 
   totals_c <- totals[complete.cases(totals[, c("SEQN", "BMXWAIST", "BMXBMI",
                                                "FIBE", "PF_LEGUMES", "PF_TOTAL_LEG", "KCAL", 
                                                "RIAGENDR", "RIDAGEYR")]), ]
-
   dim(totals_c)
-  # 4038. 
+  # 4038. # Now 3998. 
   
   naniar::vis_miss(totals_c[, c("SEQN", "BMXWAIST","BMXBMI", "FIBE", "PF_TOTAL_LEG", "PF_LEGUMES", "KCAL", 
                                 "Gender", "RIDAGEYR")])
   
   # Some checking
   summary(totals_c$BMXBMI)  
-  table(totals_c$DivGroup)  
+  table(totals_c$DivGroup, useNA = "ifany")  
   plot( totals_c$DivGroup, totals_c$BMXWAIST) 
   plot( totals_c$DivGroup, totals_c$BMXBMI) 
   plot( totals_c$DivGroup, totals_c$FIBE) 
@@ -117,15 +143,16 @@ Session --> Set working directory --> Choose directory.
   
 # Fiber (gr) seems to have two outliers...?
   boxplot(totals_c$FIBE)  
-  hist(totals_c$FIBE)  # The outlier cannot be seen, but the X axis extends beyond 200. 
+  hist(totals_c$FIBE)  # The outlier cannot be seen, but the X axis extends beyond 200. # That is not true anymore.
   max(totals_c$FIBE)  
 
+  Q3 <- summary(totals_c$FIBE)[5]
   # Borderline value for upper outlier. 
   upper <- Q3 + IQR(totals_c$FIBE) *1.5  
   upper
   # How many rows are there that have values above upper outlier threshold?
   nrow( subset(totals_c, FIBE > upper)  )
-  # 121! hmmm... the rule of thumb for outlier Q3 + IQRx1.5 seem to regard too many as an outlier.   
+  # 119! hmmm... the rule of thumb for outlier Q3 + IQRx1.5 seem to regard too many as an outlier.   
   
   # Look at the dietary data of the two outliers.
   totals_c[which (totals_c$FIBE > 80 ), ]
@@ -144,12 +171,12 @@ Session --> Set working directory --> Choose directory.
   upper <- Q3 + IQR(totals_c$PF_LEGUMES) *1.5  
   upper
   # How many rows are there that have PF_LEGUMES value of above upper outlier threshold?
-  nrow( subset(totals_c, PF_LEGUMES > upper)  ) # 411 wow.
+  nrow( subset(totals_c, PF_LEGUMES > upper)  ) # 406 wow.
   
   head(totals_c[order(totals_c$PF_LEGUMES,decreasing = T), c("SEQN", "PF_LEGUMES", "FIBE")])
   # max = 16.35919 oz. of SEQN 90993. 
   # 16.35919 oz.x 28.35 = 463.783 g. 463 g of legume consumption.. possible if cooked, maybe?  
-  # SEQN=90993 is the one that has outlier in FIBE too. 
+  # SEQN=90993 is the one that has an outlier in FIBE too. 
   
   # 2nd highest = 12.241609 oz.
   # 12.241609 * 28.35 = 347.0496 g. hmmm 
@@ -161,7 +188,7 @@ Session --> Set working directory --> Choose directory.
   
   SEQN90993 <- food[ which(food$SEQN == 90993 ), ]
   dim(SEQN90993)
-  SEQN90993[, c('V_TOTAL', "PF_TOTAL", "PF_SOY", "PF_LEGUMES","FoodCode")]
+  SEQN90993[, c('V_TOTAL', "PF_TOTAL", "PF_SOY", "PF_LEGUMES", "FoodCode")]
   
   foodnames <- read.delim("../FPED/FPED_1516_FoodNames_forR.txt")
   head(foodnames)
@@ -205,7 +232,7 @@ Session --> Set working directory --> Choose directory.
 # Note that this is the average of 2 days.
 # male, 59 years old. he says he is not following specific diet, but he eats plant-based foods only.
 # Meal occasion info...?
-# If the three lentil meals are different meal occasations, like breakfast, lunch, and dinner, then 
+# If the three lentil meals are different meal occasions, like breakfast, lunch, and dinner, then 
 # it's more believable. Otherwise, it could be duplication.
   
 # Wanted to use SumByOccasion function to calculate totals by meal occasions, but there is no
@@ -219,9 +246,17 @@ Session --> Set working directory --> Choose directory.
   # Meal occasion and food description. 
   # The original Occasion variable is DR1_030Z, DR2_030Z, according to the food data documentation, but the "DR1" and "DR2"
   # were removed in the processing, so just 030Z remained. R added 'X' in front of each variable when loading it again. 
-  # So, the occasion variable is "X_030Z" in the items data. 
+  # So, the occasion variable is "X_030Z" in the items data.
+    # 1	Breakfast
+    # 2	Lunch
+    # 3	Dinner
+    # 4	Supper
+    # 5	Brunch
+    # 6	Snack
+    # 7	Beverage/Drink
   mof <- QCeditems90993[, c("SEQN", "Main.food.description" , "Day", "X_030Z")]
   mof[order(mof$Day,  mof$X_030Z), ]
+  mof[order(mof$Main.food.description,  mof$X_030Z), ]
       
 # SEQN90993 did have lentils and rice meals at different meal occasions on both days, and they are not duplicates. 
 # So, these records are unlikely to be errors. Let's keep them, then... 

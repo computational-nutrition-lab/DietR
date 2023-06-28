@@ -4,6 +4,16 @@
 # Created on 03/24/2023 by Rie Sadohara
 # ===============================================================================================================
 
+# Set your working directory to the main directory.
+Session --> Set working directory --> Choose directory.
+  setwd("~/GitHub/DietR")
+
+# Name your main directory for future use. 
+  main_wd <- file.path(getwd())
+  source("lib/specify_data_dir.R")
+
+# Specify the directory where the data is.
+  SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF")  
 # ===============================================================================================================
 # Load data with no missing data in BMI and waist circumference.
 # ===============================================================================================================
@@ -64,7 +74,7 @@
         upper.panel = upper.panel)
 
 # Export as .png or something...
-  
+# C:\Users\sadoh\OneDrive\Documents\GitHub\DietR\eg_data\NHANES\PF\Waist2\Corr
 
 
 

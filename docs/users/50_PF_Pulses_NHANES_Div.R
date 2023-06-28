@@ -1,5 +1,7 @@
 # ===============================================================================================================
 # Quartiles of pulse consumers, depending on the diversity (Shannons?) of their legume consumption patterns.
+# Generate additional PF-related variables, QC records, and calculate diversity measures by hand.
+# Prototype script of 51_d_PF_Pulses_NHANES_Div_waist_BMI_n4038_0_prep.R. 
 # Version 1
 # Created on 02/09/2023 by Rie Sadohara
 # ===============================================================================================================
@@ -57,7 +59,7 @@
 # 'PF_MPS_TOTAL' is the sum of Meat, Poultry, Seafood..
   diet_mps <- totals[, c("DRQSDIET", "PF_MPS_TOTAL")]
   boxplot(x=diet_mps$DRQSDIET, diet_mps$PF_MPS_TOTAL)
-  # Those folloing special diets have very low 'PF_MPS_TOTAL'.
+  # Those following special diets have very low 'PF_MPS_TOTAL'.
 
   hist(PF$PF_LEGUMES)   # 0-15. PF_Legumes are oz. equivalent.
   summary(PF$PF_LEGUMES*28.3495) # convert from oz. to grams

@@ -2,6 +2,8 @@
 # Demographic info of the DivGroups.
 # Version 1
 # Created on 05/24/2023 by Rie Sadohara
+# Replaced "n3676" with "n3641" o on 06/28/2023 by Rie Sadohara
+# Output as comments were updated.
 # ===============================================================================================================
 
 # ===============================================================================================================
@@ -20,16 +22,19 @@
 
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES/PF/Waist2/")  
+  
+# Demographic data variables expalanation: 
+  # https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm#DMDEDUC2
 
 # ===============================================================================================================
 # Load the prepared data with the DivGroup variable.
 # ===============================================================================================================
 
 # Load the data.
-  totals_c_wa <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup.txt")
+  totals_c_wa <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641_DivGroup.txt")
 
   dim(totals_c_wa)
-# should be 3676 rows, after removing rows containing missing data.
+# should be 3641 rows, after removing rows containing missing data.
 
 # Ensure there is no missing data.
   naniar::vis_miss(totals_c_wa[, c("SEQN","BMXWAIST","BMXBMI","RIDAGEYR", "RIAGENDR", "RIDRETH3", "INDFMPIR", 
@@ -47,7 +52,7 @@
   table(totals_c_wa$DivGroup, useNA="ifany")
 
 # DivNA  Div0  Div1  Div2 
-#  1840  1114   361   361 
+#  1819  1105   360   357
 
 # Distribution of each group
   df <- totals_c_wa
@@ -60,6 +65,7 @@
 # ---------------------------------------------------------------------------------------------------------------
 # Gender    
   gen <- table(df$RIAGENDR, df$`DivGroup` , useNA = "ifany")
+  gen
   write.table(gen, "clipboard", sep="\t", row.names=F, quote=F)
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -119,11 +125,11 @@
   eth2 <- table(df$eth_5, df$`DivGroup` , useNA = "ifany")
   eth2
   # DivNA Div0 Div1 Div2
-  # 1or2   500  384   91  117
-  # 3      666  397  135  130
-  # 4      478  195   46   34
-  # 6      115   95   79   74
-  # 7       81   43   10    6
+  # 1or2   493  383   99  108
+  # 3      665  395  135  128
+  # 4      471  192   46   33
+  # 6      113   92   70   82
+  # 7       77   43   10    6
   
   write.table(eth2, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
 
@@ -152,7 +158,7 @@
   library(dplyr)
   df %>% filter(INDFMPIR == 77 | INDFMPIR == 99) %>% count() 
   summary(df$INDFMPIR)
-# No need, all values are 1-5. Need to remove 361 missing datapoints, though.
+# No need, all values are 1-5. 
 
 #  <1.85 , 1.85-2.99, >=3.00
   df$FIPL <-   # Family income poverty line
@@ -166,18 +172,30 @@
   df %>% group_by(FIPL) %>% summarise(min=min(INDFMPIR), max=max(INDFMPIR))
 
   povertyline <- table(df$FIPL, df$`DivGroup` , useNA = "ifany")
-  write.table(povertyline, "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
+  write.table(povertyline[c(1,3,2), ], "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
 
 # ---------------------------------------------------------------------------------------------------------------
 # Education
 # DMDEDUC3 - Education level - Children/Youth 6-19
 # 0-12:  < HS, 
 # 13-15, 55, 66:  HS some college 
+  
 # DMDEDUC2 - Education level - adults (20 or older)
-# < HS,
-# HS or some collage or
-# Collage graduate or above
- 
+#   1	Less than 9th grade	688	688	
+#   2	9-11th grade (Includes 12th grade with no diploma)	676	1364	
+#   3	High school graduate/GED or equivalent	1236	2600	
+#   4	Some college or AA degree	1692	4292	
+#   5	College graduate or above	1422	5714	
+#   7	Refused	0	5714	
+#   9	Don't Know	5	5719	
+# .	Missing	4252	9971
+
+# Let's group into: 
+# 1-2: < HS,
+# 3-4: HS or some collage or
+# 5: Collage graduate or above
+# 7,9,.: missing 
+  
   df$edu <- NA
 
   table(df$DMDEDUC2, useNA = "ifany")  # missing data in adults' edu level is because they are kids.
@@ -225,14 +243,14 @@ table(df$edu, useNA = 'ifany') # there is no missing data in age.
 # Save this as a new total.
   tail( colnames(df))
   dim( df)
-  # 3676 x 267
-  write.table(df, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup_DemoCat.txt", 
+  # 3641 x 267
+  write.table(df, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641_DivGroup_DemoCat.txt", 
               sep="\t", row.names=F, quote=F)
   
 
 # ---------------------------------------------------------------------------------------------------------------
 # Read data
-  df <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup_DemoCat.txt")
+  df <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641_DivGroup_DemoCat.txt")
   dim(df)
 
 # Make DivGroup as a factor.
@@ -242,15 +260,15 @@ table(df$edu, useNA = 'ifany') # there is no missing data in age.
   tail(colnames(df))
 
 # Chi-square test for DivGroup and categorical variable levels...
-  table(df$age_3)
+  table(df$age_3, useNA = 'ifany')
   
 # Gender
   chisq.test(df$RIAGENDR, df$DivGroup)
-  # p-value = 0.08418
+  # p-value = 0.2831  # This changed a lot before and after QC-ing males and females separately. 
   
 # Age group  
   chisq.test(df$age_3, df$DivGroup)
-  # p-value = 0.008202
+  # p-value = 0.008878
       
 # Ethnicity group  
   chisq.test(df$eth_5, df$DivGroup)
@@ -258,7 +276,7 @@ table(df$edu, useNA = 'ifany') # there is no missing data in age.
   
 # FIPL group  
   chisq.test(df$FIPL, df$DivGroup)
-  # p-value = 2.2e-16
+  # p-value = 5.456e-16
   
 # edu group  
   chisq.test(df$edu, df$DivGroup)

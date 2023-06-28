@@ -1,10 +1,11 @@
 # ===============================================================================================================
 # Waist 2
-# Compute DivGroups from the QC-ed OTU table.
+# Compute DivGroups from the QC-ed IFC table. n=3641.
 # Version 1
 # Created on 05/19/2023 by Rie Sadohara
+# Replaced "OTU" with "IFC" and "n3677" with "n3642" on 06/28/2023 by Rie Sadohara
+# Output as comments were updated. 
 # ===============================================================================================================
-
   
   # Set your working directory to the main directory.
   # Session --> Set working directory --> Choose directory.
@@ -21,41 +22,41 @@
   library(vegan)
 
 # ===============================================================================================================
-# Load QC-ed OTU table.
+# Load QC-ed IFC table.
 # ===============================================================================================================
 
-  otu_QCed <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_n3676_4s_3Lv.food.otu.txt")
+  ifc_QCed <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_n3641_4s_3Lv.food.ifc.txt")
 
-  otu_QCed[1:4, 1:4]
+  ifc_QCed[1:4, 1:4]
 
 # ===============================================================================================================
 # Code from users/NHANES_16_Div.R.
 # Calculate diversity of 4xxxxxxxs for each SEQN
 # ===============================================================================================================
   
-  # Take out the foodID (description) and taxonomy from otu.
-  otu2 <- otu_QCed[, 2: (ncol(otu_QCed)-1) ]
+  # Take out the foodID (description) and taxonomy from ifc.
+  ifc2 <- ifc_QCed[, 2: (ncol(ifc_QCed)-1) ]
   
   # transpose so that the SEQN will come to rows.   
-  otu2t <- as.data.frame(t(otu2)) 
+  ifc2t <- as.data.frame(t(ifc2)) 
   
-  # Add taxonomy as the column names of otu2t. 
-  colnames(otu2t) <- otu$X.FOODID
+  # Add taxonomy as the column names of ifc2t. 
+  colnames(ifc2t) <- ifc$X.FOODID
   
-  # Each row of otu2t is SEQN. So, diversity needs to be calculated per each row.
+  # Each row of ifc2t is SEQN. So, diversity needs to be calculated per each row.
   
   # Make a table to save results. 
-  SEQNdiv <- as.data.frame(matrix(nrow = nrow(otu2t) , ncol = 4))
+  SEQNdiv <- as.data.frame(matrix(nrow = nrow(ifc2t) , ncol = 4))
   colnames(SEQNdiv) <- c("SEQN", "Shannon", "Simpson", "Invsimpson")
   
 # Do a loop to calculate Shannon's, Simpson, and inverse-Simpson diversity  for all SEQNs (in rows).
 # This may take a few minutes.
   
-  for( i in 1: nrow(otu2t) ){
-    SEQNdiv[i, 1] <- rownames(otu2t)[i]
-    SEQNdiv[i, 2] <- diversity(otu2t[i, ], 'shannon')
-    SEQNdiv[i, 3] <- diversity(otu2t[i, ], 'simpson')
-    SEQNdiv[i, 4] <- diversity(otu2t[i, ], 'invsimpson')
+  for( i in 1: nrow(ifc2t) ){
+    SEQNdiv[i, 1] <- rownames(ifc2t)[i]
+    SEQNdiv[i, 2] <- diversity(ifc2t[i, ], 'shannon')
+    SEQNdiv[i, 3] <- diversity(ifc2t[i, ], 'simpson')
+    SEQNdiv[i, 4] <- diversity(ifc2t[i, ], 'invsimpson')
   } 
   
   head(SEQNdiv)
@@ -89,7 +90,7 @@
   SEQNdiv$SEQN <- gsub(SEQNdiv$SEQN, pattern = "X", replacement = "") 
   
 # Load totals without the outlier (SEQN==92254).
-  totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676.txt")
+  totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641.txt")
   
 # First, need to add the diversity values to totals. Only take the rows present in both datasets.
   totals_div <- merge(totals, SEQNdiv, by='SEQN')
@@ -125,7 +126,7 @@
   `%!in%` <- Negate(`%in%`)
   
   # Subset those that are not in SEQNdiv.
-  # those are the ones that did not consume nuts/seeds/legumes.
+  # Those are the ones that did not consume nuts/seeds/legumes.
   totals_not_in_SEQNdiv <- totals[totals$SEQN %!in% SEQNdiv$SEQN, ]  
   
   # Add DivGroup variable, and insert "DivNA".
@@ -143,6 +144,10 @@
   # Check that this should have the same number of rows as totals does. 
   identical(length(unique(SEQN_Div_NA_012$SEQN)), nrow(totals))
   
+  # Moreover, check that the ordered SEQN of SEQN_Div_NA_012 and totals are the same.
+  identical( unique(SEQN_Div_NA_012$SEQN)[order(unique(SEQN_Div_NA_012$SEQN))], 
+             unique(totals$SEQN)         [order(unique(totals$SEQN))])
+  
   # Merge DivGroups with the totals.
   totals_divgroup <- merge(totals, SEQN_Div_NA_012, all.x=T, by="SEQN")
   
@@ -155,10 +160,10 @@
   table(totals_divgroup$DivGroup, useNA = "ifany")
   
   # DivNA  Div0  Div1  Div2 
-  # 1840  1114   361   361 
+  # 1819  1105   360   357 with n=3641.
 
 # Save the totals with DivGroup.
-  write.table(totals_divgroup, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup.txt",
+  write.table(totals_divgroup, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641_DivGroup.txt",
               sep="\t", row.names=F, quote=F)
 
   

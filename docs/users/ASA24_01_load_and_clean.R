@@ -2,6 +2,7 @@
 # Load and clean ASA24 data. After FormatFoods has been fixed.
 # Version 1
 # Created on 01/19/2023 by Rie Sadohara
+# QC for males and females separately, 06/28/2023.
 # ===============================================================================================================
 
 # In this tutorial, we will use mock data from the VVKAJ dataset that was created with ASA24 
@@ -31,7 +32,6 @@
 # Import source code to run the analyses to follow.
   source("lib/specify_data_dir.R")  
   source("lib/load_clean_ASA24.R")
-  # source("lib/format.file.R")
   source("lib/average.by.R") 
   source("lib/QCOutliers.R")
   source("lib/Food_tree_scripts/format.foods_2.r")
@@ -266,12 +266,18 @@
 
 # Load your totals if necessary - to be used as input for QC.
   new_totals_mean_m <- read.table("VVKAJ_Tot_mean_m.txt", sep="\t", header=T)
-    
-# Define your totals dataset to be used as input.
-  QCtotals <- new_totals_mean_m  
 
-# Flag if KCAL is <600 or >5700 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 600, max = 5700)
+# Split your dataset to males and females because different thresholds apply for males and females.
+  new_totals_mean_m_M <- subset(new_totals_mean_m, Gender=="M")  
+  new_totals_mean_m_F <- subset(new_totals_mean_m, Gender=="F")  
+
+# ---------------------------------------------------------------------------------------------------------------  
+# QC for males  
+# Define your males totals dataset to be used as input.
+  QCtotals <- new_totals_mean_m_M  
+
+# Flag if KCAL is <650 or >5700 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 650, max = 5700)
 
 # This function will print out rows that fall outside the specified min-max range, and a dialogue box 
 # will appear outside the R Studio, asking whether to remove them. You should make sure to review these records 
@@ -280,26 +286,54 @@
 
 # If you find potential outlier(s) here, click "No", and view those 
 # total(s) with their other nutrient intake information by running the following;
-  KCAL_outliers <- subset(QCtotals, KCAL < 600 | KCAL > 5700)     
+  KCAL_outliers <- subset(QCtotals, KCAL < 650 | KCAL > 5700)     
   # Sort the rows by KCAL and show only the specified variables.
   KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
               c('UserName', 'KCAL', 'FoodAmt', 'PROT', 'TFAT', 'CARB')]  
 # If you think it is a true outlier, then run the QCOutliers command for KCAL again, and click "Yes" to 
 # remove the outlier. Here for this tutorial, we will remove this individual.
+  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 650, max = 5700)
 
 # Continue the QC process with other variables.
       
-# Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 10, max = 240)
+# Flag if PROT is <25 or >240 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 25, max = 240)
 
-# Flag if TFAT is <15 or >230 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "TFAT", min = 15, max = 230)
+# Flag if TFAT is <25 or >230 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, target.colname = "TFAT", min = 25, max = 230)
 
 # Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 400)
+
+# Name the males totals after QC. 
+  QCed_M <- QCtotals
+
+# ---------------------------------------------------------------------------------------------------------------  
+### QC for females  
+  # Define your females totals dataset to be used as input.
+  QCtotals <- new_totals_mean_m_F  
+  
+  # Flag if KCAL is <600 or >4400 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 600, max = 4400)
+  
+  # Flag if PROT is <10 or >180 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 10, max = 180)
+  
+  # Flag if TFAT is <15 or >185 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, target.colname = "TFAT", min = 15, max = 185)
+  
+  # Flag if VC (Vitamin C) is <5 or >350 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 350)
+  
+# Name the females totals after QC. 
+  QCed_F <- QCtotals
+  
+# ---------------------------------------------------------------------------------------------------------------  
+# Combine the rows of M and F. 
+  QCtotals_MF <- rbind(QCed_M, QCed_F)
   
 # Save as a .txt file.
-  write.table(QCtotals, "VVKAJ_Tot_mean_m_QCed.txt", sep="\t", quote=F, row.names=F)
+  write.table(QCtotals_MF, "VVKAJ_Tot_mean_m_QCed.txt", sep="\t", quote=F, row.names=F)
 
   
 # ===============================================================================================================
@@ -310,8 +344,8 @@
 # We will remove those individual(s) from the totals (before taking means of days), so that we will have
 # the same individuals in the mean_total and total. 
   
-# Among the individuals in new_totals_m, retain only those in QCtotals. 
-  new_totals_m_QCed <- new_totals_m[ new_totals_m$UserName %in% QCtotals$UserName, ]
+# Among the individuals in new_totals_m, retain only those in QCtotals_MF. 
+  new_totals_m_QCed <- new_totals_m[ new_totals_m$UserName %in% QCtotals_MF$UserName, ]
   
 # Save as a .txt file. This will be the total for each of the "QC-ed" individuals for each day, to be 
 # used for clustering analyses. 
@@ -321,13 +355,12 @@
 # Similarly, remove the QC-ed individual(s) from the items to be consistent with the QC-ed averaged totals
 # ===============================================================================================================
 
-# Among the individuals in new_totals_m, pick up only those in QCtotals. 
-  items_f_id_s_m_QCed <- items_f_id_s_m[ items_f_id_s_m$UserName %in% QCtotals$UserName, ]
+# Among the individuals in new_totals_m, pick up only those in QCtotals_MF. 
+  items_f_id_s_m_QCed <- items_f_id_s_m[ items_f_id_s_m$UserName %in% QCtotals_MF$UserName, ]
   
 # Save as a .txt file. This will be the items for each of the "QC-ed" individuals for each day, to be 
 # used for ordination etc. 
   write.table(items_f_id_s_m_QCed, "VVKAJ_Items_f_id_s_m_QCed.txt", sep="\t", quote=F, row.names=F)
-  
     
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory before you start running another script.

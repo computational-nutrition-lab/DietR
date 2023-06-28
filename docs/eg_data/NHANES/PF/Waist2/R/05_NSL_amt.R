@@ -3,13 +3,15 @@
 # Calculate nuts/seeds/legumes consumption amount, and remove outliers.
 # Version 1
 # Created on 05/19/2023 by Rie Sadohara
+# Replaced "OTU" with "IFC" and "n3677" with "n3642" on 06/28/2023 by Rie Sadohara
+# Output as comments were updated. 
 # ===============================================================================================================
 
 # Set your working directory to the main directory.
 # Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
-
   source("lib/specify_data_dir.R")
+
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
 
@@ -18,26 +20,26 @@
 
 
 # ===============================================================================================================
-# Load the OTU table and compute the nuts/seeds/legumes conumption.
+# Load the IFC table and compute the nuts/seeds/legumes consumption.
 # ===============================================================================================================
 
-  # colSums of the OTU table to get the total consumption amount for each SEQN.  
+  # colSums of the IFC table to get the total consumption amount for each SEQN.  
   
-  otu <- read.delim("~/GitHub/DietR/eg_data/NHANES/PF/Waist2/Foodtree/Food_D12_FC_QC_demo_QCed_n3677_4s_3Lv.food.otu.txt")
-  dim(otu) # 237 x 1839 
+  ifc <- read.delim("~/GitHub/DietR/eg_data/NHANES/PF/Waist2/Foodtree/Food_D12_FC_QC_demo_QCed_n3642_4s_3Lv.food.ifc.txt")
+  dim(ifc) # 237 x 1825 
   
-  otu[, c('X83767','X.FOODID')]  # 11 + 2.92 = 13.92 g. Has both Day 1 and Day 2. 
-  otu[, c('X92254','X.FOODID')]  # 3004.38  + 47.25 = 3051.63 g. 
+  ifc[, c('X83767','X.FOODID')]  # 11 + 2.92 = 13.92 g. Has both Day 1 and Day 2. 
+  ifc[, c('X92254','X.FOODID')]  # 3004.38  + 47.25 = 3051.63 g. 
   
   # Calculate the sum of 4xxxxxxx foods for each SEQN. This is the sum of two days.
-  head(colnames(otu)) # X.FOODID, X87496, X88725, ...
-  tail(colnames(otu)) # X92316, ..., taxonomy.
-  otu[1:4, 1:4]
+  head(colnames(ifc)) # X.FOODID, X87496, X88725, ...
+  tail(colnames(ifc)) # X92316, ..., taxonomy.
+  ifc[1:4, 1:4]
   
 # exclude the food description and taxonomy columns.
-  colsum <- colSums(otu[, 2: (ncol(otu)-1) ] , na.rm=T) 
+  colsum <- colSums(ifc[, 2: (ncol(ifc)-1) ] , na.rm=T) 
   head(colsum) # This is a named vector.
-  length(colsum)  # 1837 unique items
+  length(colsum)  # 1823 people
   min(colsum)  
     
 # Create a dataframe with SEQN and amount (2 days).
@@ -63,7 +65,7 @@
   colsum_s %>% filter(amt== max(colsum_s$amt)) # The max is 1525 g/day.. by X92254.
 
 # What did X92254 report eating?
-  otu[, c('X92254','X.FOODID')]   
+  ifc[, c('X92254','X.FOODID')]   
   # 3004.38 g Bean soup with macaroni home recipe canned or ready to serve
   # 47.25 g of Almonds unsalted
   # Wow... 
@@ -94,55 +96,52 @@
 # Looks alright now.
   
 # Save colsum_s_2.
-  write.table(colsum_s_2, "n3676_SEQN_4xxxxxx_amt.txt", sep="\t", row.names = F, quote=F)
+  write.table(colsum_s_2, "n3641_SEQN_4xxxxxx_amt.txt", sep="\t", row.names = F, quote=F)
   
   
-# Remove  SEQN=="92254" from the OTU table.
+# Remove SEQN=="92254" from the IFC table.
   
   # Define the col number. 
-  coln <- which(colnames(otu) == "X92254")
+  coln <- which(colnames(ifc) == "X92254")
   
   # Exclude the column of the outlier.
-  otu2 <- otu[, -coln] 
+  ifc2 <- ifc[, -coln] 
   
-  otu2$X92254 # NULL.
+  ifc2$X92254 # NULL.
 
   
-# Save the OTU table without the outlier.. n=3676.
-  write.table(otu2, "Foodtree/Food_D12_FC_QC_demo_QCed_n3676_4s_3Lv.food.otu.txt",
+# Save the IFC table without the outlier.. n=3676.
+  write.table(ifc2, "Foodtree/Food_D12_FC_QC_demo_QCed_n3641_4s_3Lv.food.ifc.txt",
               sep="\t", row.names = F, quote=F)
   
 # ---------------------------------------------------------------------------------------------------------------
 # To be consistent, save totals without the same outlier.
   
-  totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3677.txt")
+  totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3642.txt")
   totals2 <- filter(totals, SEQN != "92254")
-  nrow(totals)    
-  # This should have 3,676 people.    
+  nrow(totals2)    
+  # This should have 3,641 people.    
   
-  write.table(totals2, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676.txt",
+  write.table(totals2, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641.txt",
               sep="\t", row.names = F, quote=F)
   
 # ---------------------------------------------------------------------------------------------------------------
 # Read in the food data with 4s only. n3677, which means the outlier IS included, and needs to be removed.
-  food4s <- read.delim("Food_D12_FC_QC_demo_QCed_n3677_4s.txt")   
+  food4s <- read.delim("Food_D12_FC_QC_demo_QCed_n3642_4s.txt")   
   
 # Exclude this outlier individual 92254 from the food data, and count the number of foods.
   food4s_woOutlier <- subset(food4s, SEQN !="92254")
-  tail(food4s_woOutlier,1)
+  length(unique(food4s_woOutlier$SEQN)) # 1822, OK.
   length(unique(food4s_woOutlier$Food_code)) # 237 unique foods, OK.
   length(unique(food4s_woOutlier$Main.food.description))  # 237 unique foods, OK.
   
-  # Count how many foods were reported by n=3676 (without the outlier) including duplicates?
+  # Count how many foods were reported by n=3641 (without the outlier) including duplicates?
   length(food4s_woOutlier$Food_code)
-  # 3485 4xxxxxxxx foods were reported.   
+  # 3460 4xxxxxxxx foods were reported.   
   
-  
-  
-  
-  
-  
-  
+  # Save the food data of n=3641.
+  write.table(food4s_woOutlier, "Food_D12_FC_QC_demo_QCed_n3641_4s.txt",
+              sep="\t", row.names = F, quote=F)
   
   
   

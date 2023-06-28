@@ -2,6 +2,8 @@
 # Calculate foods/nutrients consumption by DivGroups.
 # Version 1
 # Created on 05/25/2023 by Rie Sadohara
+# Replaced "n3676" with "n3641" o on 06/28/2023 by Rie Sadohara
+# Output as comments were updated. 
 # ===============================================================================================================
 
 # ===============================================================================================================
@@ -26,7 +28,7 @@
 
 # ---------------------------------------------------------------------------------------------------------------
 # Load data.
-  df <- read.delim('Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3676_DivGroup_DemoCat_Amt_Var.txt')  
+  df <- read.delim('Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641_DivGroup_DemoCat_Amt_Var.txt')  
   
 # DO NOT FORGET TO DEFINE DivGroup as a factor!
   df$DivGroup <- factor(df$DivGroup, 
@@ -87,11 +89,12 @@
     
 # ===============================================================================================================
 # Calculate the means, SD, and p-values for anova between DivGroups without adjusting by KCAL.
+# For those variables that do not need to be adjusted by KCAL.
 # ===============================================================================================================
 # Define variaables.
   # Copy from Excel column.
-  variablesdf <- read.table('clipboard', sep="\t", header=F)
-  variables <- variablesdf$V1
+  # variablesdf <- read.table('clipboard', sep="\t", header=F)
+  # variables <- variablesdf$V1
   # Or type.
   variables <- c("PF_LEGUMES","PF_TOTAL_LEG","PF_LEG_perTOTAL", "F_TOTAL", "V_TOTAL", "amt_ave", "NoOfItems", "KCAL")
   # df$
@@ -141,20 +144,24 @@
     
   }
   
-  unadjusted <- rtable
-  unadjusted
-  # Safety check
-  mymeans <- df %>% group_by(DivGroup) %>% summarise(means = mean(NoOfItems))
-  mymeans
-  mysd <- df %>% group_by(DivGroup) %>% summarise(sds = sd(NoOfItems))
-  mysd
-  
+
 # ---------------------------------------------------------------------------------------------------------------
-# Need to test the difference in amt_ave between Div0, Div1, and Div2, excluding DivNA.
+# Need to test the difference in PF_LEG_perTOTAL between Div0, Div1, and Div2, excluding DivNA, which has NA in PF_LEG_perTOTAL.
   subset012 <- subset(df, DivGroup != "DivNA")
   table(df$DivGroup, useNA = 'ifany')
   table(subset012$DivGroup, useNA='ifany') # OK
   
+  myanova <- aov(PF_LEG_perTOTAL ~ DivGroup, data= subset012)
+  ss <- summary(myanova)
+  # Take out the p-value.
+  p_amt_ave <- as.data.frame(ss[[1]])[1, 5]
+  
+  # Overwrite the p-value of PF_LEG_perTOTAL that was tested with three levels: Div1,2,3.
+  rtable[ which(rtable$var=='PF_LEG_perTOTAL'), 'p_val'] <- p_amt_ave
+  rtable
+  
+  # ---------------------------------------------------------------------------------------------------------------
+  # Also need to test the difference in amt_ave between Div0, Div1, and Div2, excluding DivNA.
   myanova <- aov(amt_ave ~ DivGroup, data= subset012)
   ss <- summary(myanova)
   # Take out the p-value.
@@ -164,12 +171,23 @@
   rtable[ which(rtable$var=='amt_ave'), 'p_val'] <- p_amt_ave
   rtable
   
+  
+  unadjusted <- rtable
+  unadjusted
+  
+  # Safety check
+  mymeans <- df %>% group_by(DivGroup) %>% summarise(means = mean(PF_LEG_perTOTAL))
+  mymeans
+  mysd <- df %>% group_by(DivGroup) %>% summarise(sds = sd(PF_LEG_perTOTAL))
+  mysd
+  
   write.table(unadjusted, 'clipboard', sep="\t", row.names = T, quote=F, col.names = NA)
   
 # ===============================================================================================================
 # Calculate the means, SD, and p-values for anova between DivGroups WITH adjusting by KCAL.
+# For those variables that should be adjusted by KCAL.
 # ===============================================================================================================
-  
+  dim(df)
 # eg. adjustment by kcal - protian intake per 2000 kcal.
   df$PROT_adj <- df$PROT / df$KCAL *2000
   df[1:10, c("PROT", "PROT_adj", "KCAL")]
@@ -177,11 +195,11 @@
   df %>% group_by(DivGroup) %>% summarise(sds= sd(PROT_adj))
   
 # Define variables.
-  # Copy from Excel column.
+  # Copy from Excel column of "Foods.xlsx".
   variablesdf <- read.table('clipboard', sep="\t", header=F)
   variables <- variablesdf$V1
   # Or type.
-  # variables <- c("PF_LEGUMES","PF_TOTAL_LEG","PF_LEG_perTOTAL", "F_TOTAL")
+  # variables <- c("CARB", "PROT", "FIBE", "TFAT", "SFAT", "MFAT", "PFAT", "total_MPFAT", "ALCO", "ADD_SUGARS" )
   # df$
   
   # make a dataframe to save means, SD, and p-values for ANOVA and p-values for trend.

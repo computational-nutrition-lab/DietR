@@ -265,20 +265,12 @@
 
 # Load your totals if necessary - to be used as input for QC.
   new_totals_mean_m <- read.table("VVKAJ_Tot_mean_m.txt", sep="\t", header=T)
-
-#####
-  # Split your dataset to males and females because different thresholds apply for males and females.
-  new_totals_mean_m_M <- subset(new_totals_mean_m, Gender=="M")  
-  dim(new_totals_mean_m_M)
-  new_totals_mean_m_F <- subset(new_totals_mean_m, Gender=="F")  
-  dim(new_totals_mean_m_F)
-  
-### QC for males  
+    
 # Define your totals dataset to be used as input.
-  QCtotals <- new_totals_mean_m_M  
+  QCtotals <- new_totals_mean_m  
 
 # Flag if KCAL is <600 or >5700 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 650, max = 5700)
+  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 600, max = 5700)
 
 # This function will print out rows that fall outside the specified min-max range, and a dialogue box 
 # will appear outside the R Studio, asking whether to remove them. You should make sure to review these records 
@@ -287,7 +279,7 @@
 
 # If you find potential outlier(s) here, click "No", and view those 
 # total(s) with their other nutrient intake information by running the following;
-  KCAL_outliers <- subset(QCtotals, KCAL < 650 | KCAL > 5700)     
+  KCAL_outliers <- subset(QCtotals, KCAL < 600 | KCAL > 5700)     
   # Sort the rows by KCAL and show only the specified variables.
   KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
               c('UserName', 'KCAL', 'FoodAmt', 'PROT', 'TFAT', 'CARB')]  
@@ -297,66 +289,17 @@
 # Continue the QC process with other variables.
       
 # Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 25, max = 240)
+  QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 10, max = 240)
 
 # Flag if TFAT is <15 or >230 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "TFAT", min = 25, max = 230)
+  QCOutliers(input.data = QCtotals, target.colname = "TFAT", min = 15, max = 230)
 
 # Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
   QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 400)
-
-# Name the males totals after QC. 
-  QCed_M <- QCtotals
-  dim(QCed_M)
-
-### QC for females  
-  # Define your totals dataset to be used as input.
-  QCtotals <- new_totals_mean_m_F  
-  
-  # Flag if KCAL is <600 or >5700 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 600, max = 4400)
-  
-  # This function will print out rows that fall outside the specified min-max range, and a dialogue box 
-  # will appear outside the R Studio, asking whether to remove them. You should make sure to review these records 
-  # carefully to double-check if the removal is warranted. It is possible to have a valid record that could 
-  # meet the threshold for removal. Only you will know if you can trust the record when working with real data.
-  
-  # If you find potential outlier(s) here, click "No", and view those 
-  # total(s) with their other nutrient intake information by running the following;
-  KCAL_outliers <- subset(QCtotals, KCAL < 600 | KCAL > 4400)     
-  # Sort the rows by KCAL and show only the specified variables.
-  KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
-                c('UserName', 'KCAL', 'FoodAmt', 'PROT', 'TFAT', 'CARB')]  
-  # If you think it is a true outlier, then run the QCOutliers command for KCAL again, and click "Yes" to 
-  # remove the outlier. Here for this tutorial, we will remove this individual.
-  
-  # Continue the QC process with other variables.
-  
-  # Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 10, max = 180)
-  
-  # Flag if TFAT is <15 or >230 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "TFAT", min = 15, max = 185)
-  
-  # Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 350)
-  
-# Name the males totals after QC. 
-  QCed_F <- QCtotals
-  dim(QCed_F)
-  
-# Combine M and F. 
-  QCtotals_MF <- rbind(QCed_M, QCed_F)
   
 # Save as a .txt file.
-  write.table(QCtotals_MF, "VVKAJ_Tot_mean_m_QCed_MF.txt", sep="\t", quote=F, row.names=F)
+  write.table(QCtotals, "VVKAJ_Tot_mean_m_QCed.txt", sep="\t", quote=F, row.names=F)
 
-  Comb <- read.delim("VVKAJ_Tot_mean_m_QCed.txt")  
-  MF <- read.delim("VVKAJ_Tot_mean_m_QCed_MF.txt")  
-  head(Comb[, c("UserName", "Gender", "Diet", "Waist.Circumference")])
-  head(MF[, c("UserName", "Gender", "Diet", "Waist.Circumference")])
-  head(MF)
-  
   
 # ===============================================================================================================
 # Remove the QC-ed individual(s) from the totals to be consistent
