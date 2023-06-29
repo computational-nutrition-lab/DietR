@@ -309,7 +309,7 @@
   QCed_M <- QCtotals
 
 # ---------------------------------------------------------------------------------------------------------------  
-### QC for females  
+# QC for females  
   # Define your females totals dataset to be used as input.
   QCtotals <- new_totals_mean_m_F  
   

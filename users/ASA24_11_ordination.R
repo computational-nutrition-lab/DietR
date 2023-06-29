@@ -148,7 +148,11 @@
   
 # Read in the metadata and users' Axis values.
   meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt", header=T)    
-  
+
+# Change Diet to a factor so that factor levels will be displayed in order.
+  meta_usersdf$Diet <- factor(meta_usersdf$Diet,
+                              levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))  
+    
 # Take a look at meta_usersdf that has been loaded. 
   head(meta_usersdf, 3)
   
@@ -241,7 +245,11 @@
   
 # Read in the metadata and users' Axis values. 
   meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt", header=T)    
-  
+
+# Change Diet to a factor so that factor levels will be displayed in order.
+  meta_usersdf$Diet <- factor(meta_usersdf$Diet,
+                              levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))  
+    
 # Take a look at meta_usersdf that has been loaded. 
   head(meta_usersdf, 3)
   
