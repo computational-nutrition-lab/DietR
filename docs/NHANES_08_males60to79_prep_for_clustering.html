@@ -509,9 +509,9 @@ source(&quot;lib/prep_data_for_clustering.R&quot;)</code></pre>
 <p>Load the totals data that have males 60-79 years old.</p>
 <pre class="r"><code>totals_males60to79 &lt;- read.table(&quot;QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt&quot;, 
                                  sep=&quot;\t&quot;, header=T)</code></pre>
-<p>It should have 237 individuals (rows) and 266 variables (columns).</p>
+<p>It should have 236 individuals (rows) and 266 variables (columns).</p>
 <pre class="r"><code>dim(totals_males60to79)</code></pre>
-<pre><code>## [1] 237 266</code></pre>
+<pre><code>## [1] 236 266</code></pre>
 <p>There may be some variables that you would like to omit before performing PCA.</p>
 <p>Define which columns to drop.</p>
 <pre class="r"><code>drops &lt;- c(&quot;KCAL&quot;,&quot;GRMS&quot;, &quot;MOIS&quot;, &quot;NoOfItems&quot;)</code></pre>
@@ -547,15 +547,15 @@ end_col   &lt;- match(&quot;P226&quot;   , names(totals_males60to79_2)) </code><
                 complete_cases_fn=   &quot;QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut.txt&quot;,
                 clustering_input_fn= &quot;QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_rv.txt&quot;,
                 corr_matrix_fn=      &quot;QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Nut_corr_mat.txt&quot;)</code></pre>
-<pre><code>## user_BMI_nut has 237 rows and 65 variables.
+<pre><code>## user_BMI_nut has 236 rows and 65 variables.
 ## The following column(s) in user_BMI_nut have missing data shown below.
 ## Rows (samples) containing those missing data will be removed.
 ##  BMXBMI 
 ##      3 
 ## No columns had zero variance. 
-## The numeric data without ID has 234 rows and 64 variables.
+## The numeric data without ID has 233 rows and 64 variables.
 ## Clustering 64 features...getting means...choosing reps...collapsed from 64 to 38.
-## After removing correlated variables, 234 rows and 38 variables remained.</code></pre>
+## After removing correlated variables, 233 rows and 38 variables remained.</code></pre>
 <p><br></p>
 </div>
 <div id="cat-food-category-and-body-weight" class="section level1">
@@ -575,15 +575,15 @@ end_col   &lt;- match(&quot;A_DRINKS&quot; , names(totals_males60to79_2)) </code
                   complete_cases_fn=   &quot;QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat.txt&quot;,
                   clustering_input_fn= &quot;QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_rv.txt&quot;,
                   corr_matrix_fn=      &quot;QCtotal_d_ga_body_meta_glu_comp_2_males60to79_c_Cat_corr_mat.txt&quot;)</code></pre>
-<pre><code>## user_BMI_cat has 237 rows and 39 variables.
+<pre><code>## user_BMI_cat has 236 rows and 39 variables.
 ## The following column(s) in user_BMI_cat have missing data shown below.
 ## Rows (samples) containing those missing data will be removed.
 ##  BMXBMI 
 ##      3 
 ## No columns had zero variance. 
-## The numeric data without ID has 234 rows and 38 variables.
+## The numeric data without ID has 233 rows and 38 variables.
 ## Clustering 38 features...getting means...choosing reps...collapsed from 38 to 31.
-## After removing correlated variables, 234 rows and 31 variables remained.</code></pre>
+## After removing correlated variables, 233 rows and 31 variables remained.</code></pre>
 <p><br></p>
 <hr />
 <p>Come back to the main directory.</p>

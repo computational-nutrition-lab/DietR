@@ -532,10 +532,10 @@ source(&quot;lib/stacked_perc_two_var.R&quot;)   </code></pre>
 <h1>Build a stacked bar chart of diabetics by age and gender – FEMALE</h1>
 <p>Select females.</p>
 <pre class="r"><code>glu_2_females &lt;- subset(glu_2, Gender == &quot;F&quot;) </code></pre>
-<p>Check the dimension of the selected data - 851 rows.</p>
+<p>Check the dimension of the selected data - 845 rows.</p>
 <pre class="r"><code>nrow(glu_2_females)</code></pre>
-<pre><code>## [1] 851</code></pre>
-<p>Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart. The percentages of each level of var.y are saved in the dataframe ‘longtable_pr’.</p>
+<pre><code>## [1] 845</code></pre>
+<p>Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart. The percentages of each level of var.y are saved in the dataframe <code>longtable_pr</code>.</p>
 <pre class="r"><code>StackedPercTwoVar(input.df=glu_2_females, var.x=&quot;AgeGroup&quot;, var.y=&quot;GLU_index&quot;, by=&quot;SEQN&quot;)</code></pre>
 <pre><code>## Using By as value column: use value.var to override.</code></pre>
 <pre><code>## [1] &quot;There are 3 levels in var.y.&quot;</code></pre>
@@ -555,16 +555,17 @@ source(&quot;lib/stacked_perc_two_var.R&quot;)   </code></pre>
 <p>Save the plot.</p>
 <pre class="r"><code>ggsave(&quot;QCtotal_d_ga_body_meta_glu_comp_2_AgeGroup_GLU_index_female.pdf&quot;, 
        GLU_index_pr_F, device=&quot;pdf&quot;, width=7, height=4.5, unit=&quot;in&quot;, dpi=300)</code></pre>
+<p><br></p>
 </div>
 <div id="build-a-stacked-bar-chart-of-diabetics-by-age-and-gender---male" class="section level1">
 <h1>Build a stacked bar chart of diabetics by age and gender - MALE</h1>
 <p>Repeat the same operation and tables for females will be created.</p>
 <p>Select males</p>
 <pre class="r"><code>glu_2_males &lt;- subset(glu_2, Gender == &quot;M&quot;) </code></pre>
-<p>Check the number of rows of the selected data - 774 rows.</p>
+<p>Check the number of rows of the selected data - 765 rows.</p>
 <pre class="r"><code>nrow(glu_2_males)</code></pre>
-<pre><code>## [1] 774</code></pre>
-<p>Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart. The percentages of each level of var.y are saved in the dataframe ‘longtable_pr’.</p>
+<pre><code>## [1] 765</code></pre>
+<p>Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart. The percentages of each level of var.y are saved in the dataframe <code>longtable_pr</code>.</p>
 <pre class="r"><code>StackedPercTwoVar(input.df = glu_2_males, var.x = &quot;AgeGroup&quot;, var.y=&quot;GLU_index&quot;, by=&quot;SEQN&quot;)</code></pre>
 <pre><code>## Using By as value column: use value.var to override.</code></pre>
 <pre><code>## [1] &quot;There are 3 levels in var.y.&quot;</code></pre>

@@ -31,11 +31,10 @@
 # Load NHANES15-16totals with demographic data
 # ===============================================================================================================
  
-# Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4207 people.
-  QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_demo_MF.txt", sep="\t", header=T)
-  head(QCtotal_d$SEQN)
+# Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4,164 people.
+  QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_demo.txt", sep="\t", header=T)
                            
-# Check the number of participants in the QCtotals - should be 4,207 people.
+# Check the number of participants in the QCtotals - should be 4,614 people.
   length(unique(QCtotal_d$SEQN))
 
     
@@ -195,14 +194,14 @@
   # DRQSDIET==1 is following a special diet, so select only rows with DRQSDIET==2. 
   QCtotal_d_ga_body_meta_glu_comp_2 <- subset(QCtotal_d_ga_body_meta_glu_comp, DRQSDIET == 2)
   
-  # How many people remained? -- 1625 remained.
+  # How many people remained? -- 1610 remained.
   table(QCtotal_d_ga_body_meta_glu_comp_2$DRQSDIET)
   
   # Check the sample size of each category.
   table(QCtotal_d_ga_body_meta_glu_comp_2$GLU_index, useNA="always")
   
   # Diabetic      Normal Prediabetic        <NA> 
-  # 211         684         730           0 
+  #   208         679         723           0 
   
   # Save the dataset as a .txt file in the folder called "Laboratory_data".
   write.table(QCtotal_d_ga_body_meta_glu_comp_2, file="Laboratory_data/QCtotal_d_ga_body_meta_glu_comp_2.txt",

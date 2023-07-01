@@ -520,7 +520,7 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <pre class="r"><code>totals &lt;- read.delim(&quot;Total_D12_FC_QC_mean_QC_demo_ga_body_meta.txt&quot;)</code></pre>
 <p>This should have 4,207 people.</p>
 <pre class="r"><code>nrow(totals)</code></pre>
-<pre><code>## [1] 4207</code></pre>
+<pre><code>## [1] 4164</code></pre>
 <p><br></p>
 <hr />
 <p>Shannon’s diversity is one of the measures to evaluate ecological diversity. We will use it to evaluate diet diversity of each individual in the NHANES data.</p>
@@ -530,18 +530,18 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <pre class="r"><code>food &lt;- read.delim(&quot;Food_D12_FC_QC_demo_QCed.txt&quot;, sep= &quot;\t&quot;, header=T)</code></pre>
 <p>Count the number of unique SEQNs. There should be 4207 people.</p>
 <pre class="r"><code>length(unique(food$SEQN))</code></pre>
-<pre><code>## [1] 4207</code></pre>
+<pre><code>## [1] 4164</code></pre>
 <p>Here, we are interested in food items with their foodcode tarting from 4; nuts/seeds/legumes. Select only the rows that contain those food items.</p>
 <pre class="r"><code>food4s &lt;- subset(food, Food_code &gt; 39999999 &amp; Food_code &lt; 50000000)</code></pre>
 <p>Check that the subsetted data only contains 4xxxxxxxs.</p>
 <pre class="r"><code>summary(food4s$Food_code)</code></pre>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## 41101000 41205070 42101110 41821191 42202000 43108010</code></pre>
+## 41101000 41205070 42101110 41821482 42202000 43108010</code></pre>
 <p>Check the summary of the subset data.</p>
 <pre class="r"><code>paste(length(unique(food4s$SEQN)), &quot;people consumed&quot;,
       nrow(food4s), &quot;food items with duplicates.&quot;,
       &quot;There are&quot;, length(unique(food4s$Food_code)), &quot;unique food items.&quot;)</code></pre>
-<pre><code>## [1] &quot;2108 people consumed 3963 food items with duplicates. There are 243 unique food items.&quot;</code></pre>
+<pre><code>## [1] &quot;2090 people consumed 3931 food items with duplicates. There are 243 unique food items.&quot;</code></pre>
 <p>Save as a txt file.</p>
 <pre class="r"><code>write.table(food4s, &quot;Div/Food_D12_FC_QC_demo_QCed_4s.txt&quot;, sep= &quot;\t&quot;, row.names=F,quote=F)</code></pre>
 <p><br></p>
@@ -572,7 +572,7 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <pre class="r"><code>ifc &lt;- read.delim(&quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt&quot;)</code></pre>
 <p>It should have the dimension of number of unique foods x (1 food column + number of people + 1 taxonomy column). 243 x 2110, in this case.</p>
 <pre class="r"><code>dim(ifc)</code></pre>
-<pre><code>## [1]  243 2110</code></pre>
+<pre><code>## [1]  243 2092</code></pre>
 <p>The column names have “X.” at the beginning. We will take care of it later.</p>
 <pre class="r"><code>ifc[1:4, 1:4]</code></pre>
 <pre><code>##                                                        X.FOODID X84804 X86670
@@ -619,7 +619,7 @@ head(SEQNdiv)</code></pre>
 <pre class="r"><code>table(is.na(SEQNdiv), useNA=&quot;always&quot;)</code></pre>
 <pre><code>## 
 ## FALSE  &lt;NA&gt; 
-##  8432     0</code></pre>
+##  8360     0</code></pre>
 <p>Plot histograms of each of the diversity measures.</p>
 <pre class="r"><code>par(mfrow = c(2, 2))
 hist(SEQNdiv$Shannon, main=&quot;Shannon diversity&quot;, xlab=&quot;&quot;, breaks=10)
@@ -672,21 +672,21 @@ par(mfrow = c(1, 1))</code></pre>
 <p><br></p>
 <p>Select individuals whose diversity score is &gt; 0, and group them into groups lower and upper (2-tiles) based on their Shannon’s diversity measure.</p>
 <pre class="r"><code>DivNthTile(input= totals_div, div.var=&quot;Shannon&quot;, nth.tile=2)</code></pre>
-<pre><code>## [1] &quot;39% of the 2108 individuals have &gt; 0 in Shannon&quot;
+<pre><code>## [1] &quot;39% of the 2090 individuals have &gt; 0 in Shannon&quot;
 ##         0%        50%       100% 
-## 0.02738965 0.65865629 1.95075530 
+## 0.02738965 0.65897998 1.95075530 
 ## [1] &quot;Div has been grouped into 2 groups based on Shannon. Output is named as &#39;out&#39;.&quot;
 ## [1] &quot;Table of out$Div:&quot;
 ## 
 ##    1    2 &lt;NA&gt; 
-##  407  406    0 
+##  403  403    0 
 ## [1] &quot;Summary of each level of the Div groups is as follows:&quot;
 ## [1] 1
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-## 0.02739 0.32426 0.46673 0.44040 0.58703 0.65866 
+## 0.02739 0.32426 0.46815 0.44089 0.58795 0.65896 
 ## [1] 2
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  0.6590  0.6888  0.8014  0.8762  1.0124  1.9508</code></pre>
+##  0.6590  0.6890  0.8022  0.8768  1.0117  1.9508</code></pre>
 <p><br></p>
 <p>Define <strong>Div1</strong> and <strong>Div2</strong>.</p>
 <pre class="r"><code>out$DivGroup &lt;- 
@@ -733,7 +733,7 @@ Those are the ones that did not consume nuts/seeds/legumes.</p>
 <pre class="r"><code>table(totals_divgroup$DivGroup, useNA = &quot;ifany&quot;)</code></pre>
 <pre><code>## 
 ## DivNA  Div0  Div1  Div2 
-##  2099  1295   407   406</code></pre>
+##  2074  1284   403   403</code></pre>
 <p>Save the totals with DivGroup.</p>
 <pre class="r"><code>write.table(totals_divgroup, &quot;Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup.txt&quot;,
             sep=&quot;\t&quot;, row.names=F, quote=F)</code></pre>

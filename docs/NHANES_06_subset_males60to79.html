@@ -514,37 +514,37 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
 <pre class="r"><code>table(glu_2$GLU_index, useNA = &quot;always&quot;)</code></pre>
 <pre><code>## 
 ##      Normal Prediabetic    Diabetic        &lt;NA&gt; 
-##         684         730         211           0</code></pre>
+##         679         723         208           0</code></pre>
 <p>Age - no missing data, and spread pretty evenly.</p>
 <pre class="r"><code>summary(glu_2$RIDAGEYR)     </code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   18.00   34.00   50.00   49.31   64.00   80.00</code></pre>
+##   18.00   34.00   50.00   49.27   64.00   80.00</code></pre>
 <pre class="r"><code>hist(glu_2$RIDAGEYR)</code></pre>
 <p><img src="NHANES_06_subset_males60to79_files/figure-html/unnamed-chunk-10-1.png" width="60%" /></p>
 <p>Gender - no missing data. 1: male, 2: female.</p>
 <pre class="r"><code>table(glu_2$RIAGENDR, useNA=&quot;always&quot;)     </code></pre>
 <pre><code>## 
 ##    1    2 &lt;NA&gt; 
-##  774  851    0</code></pre>
+##  765  845    0</code></pre>
 <p><br></p>
 </div>
 <div id="select-only-males-60-79-years-old-so-that-our-samples-are-more-uniform" class="section level1">
 <h1>Select only males 60-79 years old, so that our samples are more uniform</h1>
 <p>Select those who are males and whose ages fall between 60-79.</p>
 <pre class="r"><code>glu_2_males60to79 &lt;- subset(glu_2, RIAGENDR == 1 &amp; RIDAGEYR &gt;= 60 &amp; RIDAGEYR &lt;= 79) </code></pre>
-<p>Check the dimension of the selected data - 237 rows.</p>
+<p>Check the dimension of the selected data - 236 rows.</p>
 <pre class="r"><code>dim(glu_2_males60to79)</code></pre>
-<pre><code>## [1] 237 266</code></pre>
+<pre><code>## [1] 236 266</code></pre>
 <p>Ensure the ages of the selected subpopulation are between 60-79.</p>
 <pre class="r"><code>table(glu_2_males60to79$RIDAGEYR)</code></pre>
 <pre><code>## 
 ## 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 
-## 17 22 14 12 13 17 14 11  8 13 15 11 11  9 12 11  9  7  6  5</code></pre>
+## 17 22 14 12 13 17 14 11  8 13 15 11 11  9 11 11  9  7  6  5</code></pre>
 <p>Look at the distribution of GLU_index among the selected subpopulation.</p>
 <pre class="r"><code>table(glu_2_males60to79$GLU_index, useNA=&quot;always&quot;)</code></pre>
 <pre><code>## 
 ##      Normal Prediabetic    Diabetic        &lt;NA&gt; 
-##          47         127          63           0</code></pre>
+##          47         127          62           0</code></pre>
 <p>Save the glu_2_males60to79 as a txt file.</p>
 <pre class="r"><code>write.table(glu_2_males60to79, &quot;QCtotal_d_ga_body_meta_glu_comp_2_males60to79.txt&quot;, 
             sep=&quot;\t&quot;, row.names = F, quote = F)</code></pre>
@@ -599,9 +599,9 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
 <p>Run ANOVA.</p>
 <pre class="r"><code>myanova &lt;- aov(BMXBMI ~ GLU_index, data=df)
 summary(myanova)</code></pre>
-<pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## GLU_index     2    449  224.36   7.898 0.000481 ***
-## Residuals   231   6563   28.41                     
+<pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## GLU_index     2    476  237.94   8.406  3e-04 ***
+## Residuals   230   6511   28.31                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The ANOVA results indicate that the groups are different (p&lt;0.05).</p>
@@ -628,14 +628,14 @@ If Pr&gt;0.05, the residuals of the groups have equal variance.</p>
 ## 
 ## Response: res1sq
 ##               Df Sum Sq Mean Sq F value Pr(&gt;F)
-## df$GLU_index   2     45   22.26  0.0086 0.9915
-## Residuals    231 599161 2593.77</code></pre>
+## df$GLU_index   2     67   33.27  0.0128 0.9873
+## Residuals    230 597290 2596.91</code></pre>
 <p>The p-value (Pr) of the Levene’s test also supported equal variance.</p>
 <p>When the assumptions are satisfied, then you can run ANOVA.</p>
 <pre class="r"><code>summary(aov(BMXBMI ~ GLU_index, data=df))</code></pre>
-<pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## GLU_index     2    449  224.36   7.898 0.000481 ***
-## Residuals   231   6563   28.41                     
+<pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## GLU_index     2    476  237.94   8.406  3e-04 ***
+## Residuals   230   6511   28.31                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>If ANOVA is significant, you can do a pairwise t-test.</p>
@@ -647,11 +647,11 @@ If Pr&gt;0.05, the residuals of the groups have equal variance.</p>
 ## data:  df$BMXBMI and df$GLU_index 
 ## 
 ##             Normal  Prediabetic
-## Prediabetic 0.12832 -          
-## Diabetic    0.00056 0.00499    
+## Prediabetic 0.12765 -          
+## Diabetic    0.00037 0.00324    
 ## 
 ## P value adjustment method: holm</code></pre>
-<p>Based on the p-values, Normal and Prediabetic have the same mean BMI (p=0.12832 &gt; 0.05). Normal and Diabetic have different mean BMI (p=0.00056 &lt; 0.05), as do Prediabetic and Diabetic (p=0.00499 &lt; 0.05).</p>
+<p>Based on the p-values, Normal and Prediabetic have the same mean BMI (p=0.12765 &gt; 0.05). Normal and Diabetic have different mean BMI (p=0.00037 &lt; 0.05), as do Prediabetic and Diabetic (p=0.00324 &lt; 0.05).</p>
 <p><br></p>
 <hr />
 </div>
@@ -662,7 +662,7 @@ If Pr&gt;0.05, the residuals of the groups have equal variance.</p>
 <h3>Look at the KCAL frequency of each group</h3>
 <pre class="r"><code>males60to79_KCALfreq &lt;- 
   ggplot(data=glu_2_males60to79, aes(x=KCAL, group=GLU_index, color=GLU_index)) +
-  geom_density(adjust=1.5, alpha=0.4, size=1.2, linetype=&quot;longdash&quot;) + space_axes + no_grid +
+  geom_density(adjust=1.5, alpha=0.4, linewidth=1.2, linetype=&quot;longdash&quot;) + space_axes + no_grid +
   scale_color_manual(values= c(&quot;aquamarine3&quot;, &quot;lightgoldenrod3&quot;, &quot;lightpink1&quot;)) +
   labs(x=&quot;KCAL&quot;, y=&quot;Density&quot;) +
   scale_y_continuous(labels= function(x) format(x, scientific = FALSE))</code></pre>
@@ -696,8 +696,8 @@ If Pr&gt;0.05, the residuals of the groups have equal variance.</p>
 <p>Run ANOVA.</p>
 <pre class="r"><code>summary(aov(KCAL ~ GLU_index, data=df))</code></pre>
 <pre><code>##              Df    Sum Sq Mean Sq F value Pr(&gt;F)
-## GLU_index     2    743644  371822   0.785  0.457
-## Residuals   234 110834569  473652</code></pre>
+## GLU_index     2    997260  498630   1.065  0.347
+## Residuals   233 109123888  468343</code></pre>
 <p>Based on the p-values for ANOVA, the energy intake in KCAL is not different between the GLU_index groups are not different.</p>
 <p><br></p>
 <hr />

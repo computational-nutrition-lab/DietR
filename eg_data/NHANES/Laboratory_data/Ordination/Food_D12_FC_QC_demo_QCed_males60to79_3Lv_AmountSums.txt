@@ -266,7 +266,7 @@ Chicken nuggets from frozen	208
 Chicken nuggets from other sources	96
 Chicken tenders or strips breaded from fast food	550
 Chicken tenders or strips breaded from restaurant	100
-Chicken tenders or strips breaded from frozen	102
+Chicken tenders or strips breaded from frozen	68
 Chicken tenders or strips breaded from other sources	350
 Turkey NFS	12.66
 Turkey light meat skin eaten	180
@@ -284,7 +284,7 @@ Frankfurter or hot dog turkey	210
 Beef sausage	250
 Beef sausage reduced fat	140
 Bratwurst	214.25
-Bologna NFS	298.67
+Bologna NFS	270.67
 Mortadella	170.1
 Pepperoni NFS	88
 Polish sausage	37.5
@@ -685,7 +685,7 @@ Bread whole wheat	1803.5
 Bread whole wheat toasted	1029
 Bread whole wheat made from home recipe or purchased at bakery	132
 Bread chappatti or roti wheat	398.48
-Bread wheat or cracked wheat	2375
+Bread wheat or cracked wheat	2319
 Bread wheat or cracked wheat toasted	678
 Bread wheat or cracked wheat made from home recipe or purchased at bakery	44
 Bread wheat or cracked wheat made from home recipe or purchased at bakery toasted	160
@@ -950,7 +950,7 @@ Cereal Post Great Grains Raisins Dates and Pecans 	54
 Cereal Post Honey Bunches of Oats Honey Roasted 	102.5
 Cereal Post Honey Bunches of Oats with Vanilla Bunches 	59.5
 Cereal Post Honey Bunches of Oats with Almonds 	90.03
-Cereal General Mills Cheerios Honey Nut 	548.04
+Cereal General Mills Cheerios Honey Nut 	499.48
 Cereal General Mills Lucky Charms 	47.25
 Cereal Malt O Meal Cinnamon Toasters 	40
 Cereal Malt O Meal Honey Nut Toasty O s 	28.5
@@ -987,7 +987,7 @@ Enchilada with chicken and beans green chile or enchilada sauce	132
 Enchilada with chicken red chile or enchilada sauce	369
 Taco or tostada with meat	230
 Taco or tostada with meat and sour cream	399
-Soft taco with meat	2725
+Soft taco with meat	2594
 Soft taco with chicken	220
 Soft taco with chicken and sour cream	318
 Soft taco with beans	2254
@@ -1283,7 +1283,7 @@ Sweet potato boiled fat not added in cooking	80
 Sweet potato candied	45
 Sweet potato casserole or mashed	250
 Sweet potato fries NS as to fresh or frozen	45
-Tomatoes raw	6585.5
+Tomatoes raw	6545.5
 Tomatoes cooked NS as to form NS as to method	240
 Tomatoes cooked from fresh NS as to method	120
 Tomatoes red NS as to form fried	360
@@ -1320,7 +1320,7 @@ Cilantro raw	0.63
 Corn raw	27.19
 Cucumber raw	1718.23
 Garlic raw	62.33
-Lettuce raw	3087.52
+Lettuce raw	3079.52
 Lettuce arugula raw	166.88
 Mixed salad greens raw	450.5
 Mushrooms raw	73.64
@@ -1480,7 +1480,7 @@ Thousand Island dressing	28.5
 Caesar dressing light	22.5
 Mayonnaise light	39.4
 Mayonnaise reduced fat with olive oil	13.75
-Mayonnaise type salad dressing light	82.16
+Mayonnaise type salad dressing light	77.33
 Italian dressing light	111.75
 Creamy dressing light	15
 Blue or roquefort cheese dressing fat free	33.2
@@ -1567,8 +1567,8 @@ Coffee cafe con leche	1402.44
 Coffee cafe con leche decaffeinated	403
 Frozen coffee drink	341
 Iced Coffee brewed	795
-Coffee instant reconstituted	15790.5
-Coffee brewed decaffeinated	7605
+Coffee instant reconstituted	15400.5
+Coffee brewed decaffeinated	7425
 Coffee instant decaffeinated reconstituted	5415.6
 Coffee instant pre lightened and pre sweetened with sugar reconstituted	666.5
 Coffee instant decaffeinated pre lightened and pre sweetened with sugar reconsitituted	449.5
@@ -1592,7 +1592,7 @@ Tea hot chamomile	720
 Tea iced instant black unsweetened dry	0.12
 Tea iced brewed black pre sweetened with sugar	16564.23
 Tea iced brewed black pre sweetened with low calorie sweetener	2940
-Tea iced brewed black unsweetened	18157.75
+Tea iced brewed black unsweetened	18065.75
 Tea iced brewed black decaffeinated pre sweetened with sugar	496
 Tea iced brewed black decaffeinated pre sweetened with low calorie sweetener	663
 Tea iced brewed black decaffeinated unsweetened	184
@@ -1641,7 +1641,7 @@ Cornmeal beverage	325.5
 Nonalcoholic malt beverage	525
 Fruit flavored drink powdered not reconstituted diet	2
 Beer	28620
-Beer light	41925
+Beer light	38445
 Beer low carb	2400
 Beer higher alcohol	660
 Cape Cod	225
@@ -1665,7 +1665,7 @@ Whiskey	925.16
 Gin	56
 Vodka	1113
 Water tap	244227.53
-Water bottled unsweetened	173686.46
+Water bottled unsweetened	173179.46
 Water bottled sweetened with low calorie sweetener	1200
 Nutritional drink or shake ready to drink Boost 	128
 Nutritional drink or shake ready to drink Ensure 	756

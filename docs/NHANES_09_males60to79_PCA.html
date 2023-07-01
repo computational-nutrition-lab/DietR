@@ -514,7 +514,7 @@ source(&quot;lib/PCA.R&quot;)</code></pre>
                         sep=&quot;\t&quot;, header=T)</code></pre>
 <p>Ensure your input file has the correct number of rows and columns.</p>
 <pre class="r"><code>dim(pca_input)</code></pre>
-<pre><code>## [1] 234  38</code></pre>
+<pre><code>## [1] 233  38</code></pre>
 <pre class="r"><code>colnames(pca_input)</code></pre>
 <pre><code>##  [1] &quot;BMXBMI&quot; &quot;SODI&quot;   &quot;CARB&quot;   &quot;FF&quot;     &quot;TFAT&quot;   &quot;PFAT&quot;   &quot;CHL&quot;    &quot;ATOC&quot;  
 ##  [9] &quot;ATOA&quot;   &quot;VARA&quot;   &quot;ACAR&quot;   &quot;BCAR&quot;   &quot;CRYP&quot;   &quot;LYCO&quot;   &quot;LZ&quot;     &quot;VB1&quot;   
@@ -627,7 +627,7 @@ source(&quot;lib/PCA.R&quot;)</code></pre>
                         sep=&quot;\t&quot;, header=T)</code></pre>
 <p>Ensure your input file has the correct number of rows and columns.</p>
 <pre class="r"><code>dim(pca_input)</code></pre>
-<pre><code>## [1] 234  31</code></pre>
+<pre><code>## [1] 233  31</code></pre>
 <p>Perform PCA with the subset data, scaled.</p>
 <pre class="r"><code>scaled_pca &lt;- prcomp(x= pca_input, scale= TRUE)   </code></pre>
 <p>Specify the directory (folder that you created in “Laboratory_data”) to save the results.</p>

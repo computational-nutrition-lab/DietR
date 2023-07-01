@@ -915,6 +915,8 @@ This has nutrient information, food categories, and day variable for each food i
                    outfn= &quot;Total_D12_FC_QC_mean.txt&quot;)  </code></pre>
 <p>Load the mean total.</p>
 <pre class="r"><code>meantotal12d &lt;- read.table(&quot;Total_D12_FC_QC_mean.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
+<p>Add demographic data to mean total. Merge QC-totals and demographics by SEQN.</p>
+<pre class="r"><code>meantotal12d_demo &lt;- merge(x= meantotal12d, y=demog, by=&quot;SEQN&quot;, all.x=TRUE)</code></pre>
 <p><br></p>
 </div>
 <div id="b-4-qc-the-mean-total-in-the-same-way-as-asa24" class="section level1">
@@ -930,15 +932,22 @@ Totals data may contain outliers due to errors in dietary reporting. These error
 <p>Run all these QC steps in this order. When asked, choose to remove the outliers that fall outside the specified range for each nutrient.</p>
 </blockquote>
 <p><br></p>
-<p>Define the input data. This dataframe will be modified after each filter.</p>
-<pre class="r"><code>QCtotals &lt;- meantotal12d</code></pre>
-<p>Flag if KCAL is &lt;600 or &gt;5700 → ask remove or not → if yes, remove those rows.</p>
+<p>Split your dataset to males and females because different thresholds apply for males and females.</p>
+<pre class="r"><code>meantotal12d_demo_M &lt;- subset(meantotal12d_demo, RIAGENDR==1)  
+meantotal12d_demo_F &lt;- subset(meantotal12d_demo, RIAGENDR==2)  </code></pre>
+<p><br></p>
+<hr />
+<div id="qc-for-males" class="section level2">
+<h2>QC for males</h2>
+<p>Define your males totals dataset to be used as input.</p>
+<pre class="r"><code>QCtotals &lt;- meantotal12d_demo_M</code></pre>
+<p>Flag if KCAL is &lt;650 or &gt;5700 → ask remove or not → if yes, remove those rows.</p>
 <pre class="r"><code>QCOutliers(input.data = QCtotals, 
-           target.colname = &quot;KCAL&quot;, min = 600, max = 5700)</code></pre>
+           target.colname = &quot;KCAL&quot;, min = 650, max = 5700)</code></pre>
 <p>This function will print out rows that fall outside the specified min-max range, and a dialogue box will appear outside the R Studio (shown below), asking whether to remove them. You should make sure to review these records carefully to double-check if the removal is warranted. It is possible to have a valid record that could meet the threshold for removal. Only you will know if you can trust the record when working with real data.</p>
 <p><img src="Screenshots_for_Tutorial/ASA24_load_clean/QC%20totals%20Dialogue%20box.png" /></p>
 <p>If you find potential outlier(s) here, click “No”, and view those total(s) with their other nutrient intake information by running the following;</p>
-<pre class="r"><code>KCAL_outliers &lt;- subset(QCtotals, KCAL &lt; 600 | KCAL &gt; 5700)     </code></pre>
+<pre class="r"><code>KCAL_outliers &lt;- subset(QCtotals, KCAL &lt; 650 | KCAL &gt; 5700)     </code></pre>
 <p>Sort the rows by KCAL and show only the specified variables.</p>
 <pre class="r"><code>KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
               c(&#39;SEQN&#39;, &#39;KCAL&#39;, &#39;GRMS&#39;, &#39;PROT&#39;, &#39;TFAT&#39;, &#39;CARB&#39;)]  </code></pre>
@@ -955,100 +964,107 @@ Click to expand output
 ## 1651 87422 5867.5  4568.280 161.715 263.075 746.130
 ## 1075 86100 5814.5  6231.715 211.370 287.185 541.640
 ## 187  84142 5781.0  4759.985 226.360 274.255 618.230
-## 84   83928  590.0  1912.980  21.750  22.165  76.370
-## 413  84665  579.5  2810.440  47.055  23.625  44.225
-## 1536 87156  574.0  1253.655  42.950  22.885  47.875
-## 1489 87049  572.0  1278.900  22.765  16.410  65.505
+## 2641 89721  622.5   693.175  18.525  16.100 102.970
+## 135  84030  604.0  1117.965  30.410  19.190  76.670
 ## 2670 89788  571.5  1128.650  17.845   8.095 111.245
-## 752  85408  568.5  3266.280  62.790  11.220  55.165
-## 2036 88367  565.0  2148.810  29.150  18.655  72.775
-## 2728 89919  560.0  2502.335  22.705  18.410  79.180
-## 421  84683  549.5  1470.520  18.115   6.610 109.525
-## 1727 87602  541.0  1607.345  21.405  19.085  71.350
-## 629  85152  537.0  1757.305  23.780  23.665  56.005
-## 333  84485  529.5  1836.910  33.910  14.895  65.760
 ## 79   83919  526.5  1564.250  15.820  29.545  49.240
-## 2828 90146  516.5  1087.645  10.485  11.370  95.540
 ## 4284 93441  512.0   975.250  25.215  16.265  66.575
-## 2191 88724  503.0  1123.080  19.480   6.820  93.980
 ## 1905 88064  496.0  4741.915  11.470  19.845  67.985
-## 2661 89762  486.5  1635.085  28.380  20.485  49.220
 ## 2892 90318  485.5  1840.470  27.125  23.185  41.555
-## 1192 86357  482.5  1153.750  16.145  15.645  71.215
-## 2039 88384  473.0  3835.125  15.865  10.900  79.595
 ## 903  85743  470.0   256.670  15.490  19.360  58.485
-## 3406 91490  464.5  1383.825  29.135   7.255  74.520
-## 617  85118  447.5  3304.920  11.885  21.910  53.340
-## 1006 85973  444.0  2312.425  39.385  12.040  44.590
 ## 109  83987  442.0   737.375  11.170  15.975  65.050
-## 3583 91849  439.0   586.075  14.855  14.055  63.875
-## 3117 90817  435.0  1312.930  13.745   5.915  39.820
-## 4251 93361  405.5  1466.995   7.250   9.335  79.955
-## 1019 86002  385.5  1786.840  17.675  12.420  51.750
-## 2185 88713  336.5  2401.320  12.950   6.875  34.915
-## 2054 88418  316.0  1972.845   8.065  17.340  33.400
-## 3956 92700  305.5   828.680  19.125   7.190  43.280
-## 3921 92624  227.5  2877.500   2.580  14.615  23.085</code></pre>
+## 3583 91849  439.0   586.075  14.855  14.055  63.875</code></pre>
 </details>
 <p><br></p>
-<p>If you think they are true outliers, then run the QCOutliers command for KCAL again, and click “Yes” to remove the outlier. Here for this tutorial, we will remove this individual.</p>
+<p>If you think they are true outlier(s), then run the QCOutliers command for KCAL again, and click “Yes” to remove the outlier. Here for this tutorial, we will remove this individual.</p>
 <pre class="r"><code>QCOutliers(input.data = QCtotals, 
-           target.colname = &quot;KCAL&quot;, min = 600, max = 5700)</code></pre>
-<pre><code>## There are 42 observations with &lt; 600 or &gt; 5700 . 
+           target.colname = &quot;KCAL&quot;, min = 650, max = 5700)</code></pre>
+<pre><code>## There are 18 observations with &lt; 650 or &gt; 5700 . 
 ## Remove? (Yes/no/cancel) 
 ## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
-##  4359 rows remained.</code></pre>
+##  2078 rows remained.</code></pre>
 <p>Continue the QC process with other variables.</p>
-<p>Flag if PROT is &lt;10 or &gt;240 → ask remove or not→ if yes, remove those rows.</p>
+<p>Flag if PROT is &lt;25 or &gt;240 → ask remove or not→ if yes, remove those rows.</p>
 <pre class="r"><code>QCOutliers(input.data = QCtotals, 
-           target.colname = &quot;PROT&quot;, min = 10, max = 240)</code></pre>
-<pre><code>## There are 8 observations with &lt; 10 or &gt; 240 . 
+           target.colname = &quot;PROT&quot;, min = 25, max = 240)</code></pre>
+<pre><code>## There are 12 observations with &lt; 25 or &gt; 240 . 
 ## Remove? (Yes/no/cancel) 
 ## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
-##  4351 rows remained.</code></pre>
-<p>Flag if TFAT is &lt;15 or &gt;230 → ask remove or not → if yes, remove those rows.</p>
+##  2066 rows remained.</code></pre>
+<p>Flag if TFAT is &lt;25 or &gt;230 → ask remove or not → if yes, remove those rows.</p>
 <pre class="r"><code>QCOutliers(input.data = QCtotals, 
-           target.colname = &quot;TFAT&quot;, min = 15, max = 230)</code></pre>
-<pre><code>## There are 26 observations with &lt; 15 or &gt; 230 . 
+           target.colname = &quot;TFAT&quot;, min = 25, max = 230)</code></pre>
+<pre><code>## There are 38 observations with &lt; 25 or &gt; 230 . 
 ## Remove? (Yes/no/cancel) 
 ## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
-##  4325 rows remained.</code></pre>
+##  2028 rows remained.</code></pre>
 <p>Flag if VC (Vitamin C) is &lt;5 or &gt;400 → ask remove or not → if yes, remove those rows.</p>
 <pre class="r"><code>QCOutliers(input.data = QCtotals,  
            target.colname = &quot;VC&quot;, min = 5, max = 400)</code></pre>
-<pre><code>## There are 118 observations with &lt; 5 or &gt; 400 . 
+<pre><code>## There are 64 observations with &lt; 5 or &gt; 400 . 
 ## Remove? (Yes/no/cancel) 
 ## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
-##  4207 rows remained.</code></pre>
-<p>Look at how many rows (observations) were kept after QC.<br />
-If you have removed all the detected outliers in the above order, there should be 4,207 rows.</p>
-<pre class="r"><code>nrow(QCtotals)</code></pre>
-<pre><code>## [1] 4207</code></pre>
+##  1964 rows remained.</code></pre>
+<p><br></p>
+<p>Name the males totals after QC.</p>
+<pre class="r"><code>QCed_M &lt;- QCtotals</code></pre>
 <p><br></p>
 <hr />
-<p>Add demographic data to the QC-ed total.</p>
-<p>Merge QC-totals and demographics by SEQN.</p>
-<pre class="r"><code>QCtotals_demo &lt;- merge(x= QCtotals, y=demog, by=&quot;SEQN&quot;, all.x=TRUE)</code></pre>
-<p>Save QCtotal_demo as a .txt file.</p>
-<pre class="r"><code>write.table(QCtotals_demo, &quot;Total_D12_FC_QC_mean_QC_demo.txt&quot;, sep=&quot;\t&quot;, quote=F, row.names=F)</code></pre>
+</div>
+<div id="qc-for-females" class="section level2">
+<h2>QC for females</h2>
+<p>Define your female totals dataset to be used as input.</p>
+<pre class="r"><code>QCtotals &lt;- meantotal12d_demo_F  </code></pre>
+<p>Flag if KCAL is &lt;600 or &gt;4400 → ask remove or not → if yes, remove those rows.</p>
+<pre class="r"><code>QCOutliers(input.data = QCtotals, target.colname = &quot;KCAL&quot;, min = 600, max = 4400)</code></pre>
+<pre><code>## There are 27 observations with &lt; 600 or &gt; 4400 . 
+## Remove? (Yes/no/cancel) 
+## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
+##  2278 rows remained.</code></pre>
+<p>Flag if PROT is &lt;10 or &gt;180 → ask remove or not → if yes, remove those rows</p>
+<pre class="r"><code>QCOutliers(input.data = QCtotals, target.colname = &quot;PROT&quot;, min = 10, max = 180)</code></pre>
+<pre><code>## There are 5 observations with &lt; 10 or &gt; 180 . 
+## Remove? (Yes/no/cancel) 
+## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
+##  2273 rows remained.</code></pre>
+<p>Flag if TFAT is &lt;15 or &gt;185 → ask remove or not → if yes, remove those rows</p>
+<pre class="r"><code>  QCOutliers(input.data = QCtotals, target.colname = &quot;TFAT&quot;, min = 15, max = 185)</code></pre>
+<pre><code>## There are 20 observations with &lt; 15 or &gt; 185 . 
+## Remove? (Yes/no/cancel) 
+## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
+##  2253 rows remained.</code></pre>
+<p>Flag if VC (Vitamin C) is &lt;5 or &gt;350 → ask remove or not → if yes, remove those rows.</p>
+<pre class="r"><code>QCOutliers(input.data = QCtotals, target.colname = &quot;VC&quot;, min = 5, max = 350)</code></pre>
+<pre><code>## There are 53 observations with &lt; 5 or &gt; 350 . 
+## Remove? (Yes/no/cancel) 
+## Outlier rows were removed; the cleaned data is saved as an object called &quot;QCtotals&quot;.
+##  2200 rows remained.</code></pre>
+<p><br></p>
+<p>Name the females totals after QC.</p>
+<pre class="r"><code>QCed_F &lt;- QCtotals</code></pre>
+<p><br></p>
+<hr />
+<p>Combine the rows of M and F.</p>
+<pre class="r"><code>QCtotals_MF &lt;- rbind(QCed_M, QCed_F)</code></pre>
 <p>Now, you have prepared formatted and QC-ed food items, totals for each day, and mean totals across two days for each participant.</p>
 <p><br></p>
+</div>
 </div>
 <div id="adjust-totals-and-items-after-qc" class="section level1">
 <h1>Adjust totals and items after QC</h1>
 <div id="remove-the-qc-ed-individuals-from-the-totals-each-day" class="section level2">
 <h2>Remove the QC-ed individual(s) from the totals each day</h2>
 <p>In the previous section, we have removed individual(s) that did not pass the QC from mean total data. We will remove those individual(s) from the totals (calculated in B-2, before taking means of days), so that we will have the same individuals in QC-ed mean_total and total for each day.</p>
-<p>Among the individuals in total12d_demo, select only those in QCtotals_demo.</p>
-<pre class="r"><code>total12d_demo_QCed &lt;- total12d_demo[total12d_demo$SEQN %in% QCtotals_demo$SEQN, ]</code></pre>
+<p>Among the individuals in total12d_demo, select only those in QCtotals_MF.</p>
+<pre class="r"><code>total12d_demo_QCed &lt;- total12d_demo[total12d_demo$SEQN %in% QCtotals_MF$SEQN, ]</code></pre>
 <p>Save as a .txt file. This will be the total for each of the “QC-ed” individuals for each day, if you would like to perform clustering analyses with Day 1 and Day 2 separately.</p>
 <pre class="r"><code>write.table(total12d_demo_QCed, &quot;Total_D12_FC_QC_eachday_demo_QCed.txt&quot;, sep=&quot;\t&quot;, quote=F, row.names=F)</code></pre>
 <p><br></p>
 </div>
 <div id="similarly-remove-the-qc-ed-individuals-from-the-food-items-to-be-consistent-with-the-qc-ed-averaged-totals" class="section level2">
 <h2>Similarly, remove the QC-ed individual(s) from the food items to be consistent with the QC-ed averaged totals</h2>
-<p>Among the individuals in food12f_demo (generated in Procedure A), select only those in QCtotals_demo.</p>
-<pre class="r"><code>food12f_demo_QCed &lt;- food12f_demo[ food12f_demo$SEQN %in% QCtotals_demo$SEQN, ]</code></pre>
+<p>Among the individuals in food12f_demo (generated in Procedure A), select only those in QCtotals_MF.</p>
+<pre class="r"><code>food12f_demo_QCed &lt;- food12f_demo[ food12f_demo$SEQN %in% QCtotals_MF$SEQN, ]</code></pre>
 <p>Save as a .txt file. This will be the items for each of the “QC-ed” individuals for each day, to be used for ordination etc.</p>
 <pre class="r"><code>write.table(food12f_demo_QCed, &quot;Food_D12_FC_QC_demo_QCed.txt&quot;, sep=&quot;\t&quot;, quote=F, row.names=F)</code></pre>
 <p><br></p>

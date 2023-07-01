@@ -121,13 +121,13 @@ Select females.
 glu_2_females <- subset(glu_2, Gender == "F") 
 ```
 
-Check the dimension of the selected data - 851 rows.
+Check the dimension of the selected data - 845 rows.
 ```{r}
 nrow(glu_2_females)
 ```
 
 Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart.
-The percentages of each level of var.y are saved in the dataframe 'longtable_pr'.
+The percentages of each level of var.y are saved in the dataframe `longtable_pr`.
 ```{r}
 StackedPercTwoVar(input.df=glu_2_females, var.x="AgeGroup", var.y="GLU_index", by="SEQN")
 ```
@@ -154,6 +154,8 @@ ggsave("QCtotal_d_ga_body_meta_glu_comp_2_AgeGroup_GLU_index_female.pdf",
        GLU_index_pr_F, device="pdf", width=7, height=4.5, unit="in", dpi=300)
 ```
 
+<br>
+
 # Build a stacked bar chart of diabetics by age and gender - MALE
 
 Repeat the same operation and tables for females will be created.
@@ -163,13 +165,13 @@ Select males
 glu_2_males <- subset(glu_2, Gender == "M") 
 ```
 
-Check the number of rows of the selected data - 774 rows.
+Check the number of rows of the selected data - 765 rows.
 ```{r}
 nrow(glu_2_males)
 ```
 
 Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart.
-The percentages of each level of var.y are saved in the dataframe 'longtable_pr'.
+The percentages of each level of var.y are saved in the dataframe `longtable_pr`.
 ```{r}
 StackedPercTwoVar(input.df = glu_2_males, var.x = "AgeGroup", var.y="GLU_index", by="SEQN")
 ```

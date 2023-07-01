@@ -699,7 +699,7 @@ data length [xxxx] is not a sub-multiple or multiple of the number of rows [xxxx
 table(loaded_glu_w$GLU_index)</code></pre>
 <pre><code>## 
 ##      Normal Prediabetic    Diabetic 
-##          47         127          63</code></pre>
+##          47         127          62</code></pre>
 <p>Load the eigenvalues as a vector.</p>
 <pre class="r"><code>eigen_loaded &lt;- read.table(&quot;Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_eigen.txt&quot;, header=T)</code></pre>
 <p>Make a vector that contains the variance explained.</p>
@@ -739,8 +739,8 @@ vegan::permutest(dispr_w, perm = 5000)</code></pre>
 ## 
 ## Response: Distances
 ##            Df   Sum Sq    Mean Sq      F N.Perm Pr(&gt;F)
-## Groups      2 0.000378 0.00018903 0.1923   5000 0.8216
-## Residuals 234 0.230057 0.00098315</code></pre>
+## Groups      2 0.000378 0.00018895 0.1913   5000 0.8326
+## Residuals 233 0.230160 0.00098781</code></pre>
 <p>If p&gt;0.05, which is true in this case, the dispersion of each group are not different, and the assumption for adonis is met.</p>
 <p>Use adonis to test whether there is a difference between groups’ composition. i.e., composition among groups (food they consumed) is similar or not.</p>
 <pre class="r"><code>set.seed(123)
@@ -754,26 +754,26 @@ vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permuta
 ## 
 ## Terms added sequentially (first to last)
 ## 
-##                                            Df SumsOfSqs  MeanSqs F.Model     R2
-## phyloseq::sample_data(phyfoods)$GLU_index   2    0.0941 0.047034  1.4089 0.0119
-## Residuals                                 234    7.8116 0.033383         0.9881
-## Total                                     236    7.9056                  1.0000
-##                                            Pr(&gt;F)  
-## phyloseq::sample_data(phyfoods)$GLU_index 0.04799 *
-## Residuals                                          
-## Total                                              
+##                                            Df SumsOfSqs  MeanSqs F.Model
+## phyloseq::sample_data(phyfoods)$GLU_index   2    0.0943 0.047128  1.4115
+## Residuals                                 233    7.7794 0.033388        
+## Total                                     235    7.8737                 
+##                                                R2  Pr(&gt;F)  
+## phyloseq::sample_data(phyfoods)$GLU_index 0.01197 0.04699 *
+## Residuals                                 0.98803          
+## Total                                     1.00000          
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The results indicate that the overall adonis is significant (p&lt;0.05). If overall adonis is significant, you can run pairwise adonis to see which group pairs are different.</p>
 <pre class="r"><code>pairwise.adonis(dist_matrix_w, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                 p.adjust.m = &quot;none&quot;)  </code></pre>
 <pre><code>##                     pairs Df  SumsOfSqs  F.Model          R2    p.value
-## 1 Diabetic vs Prediabetic  1 0.04751800 1.433878 0.007569277 0.08718256
-## 2      Diabetic vs Normal  1 0.03513549 1.037859 0.009518338 0.37952410
+## 1 Diabetic vs Prediabetic  1 0.04637781 1.399251 0.007427052 0.10237952
+## 2      Diabetic vs Normal  1 0.03741384 1.104643 0.010218274 0.28174365
 ## 3   Prediabetic vs Normal  1 0.05402857 1.619903 0.009330170 0.04159168
 ##   p.adjusted sig
-## 1 0.08718256    
-## 2 0.37952410    
+## 1 0.10237952    
+## 2 0.28174365    
 ## 3 0.04159168   .</code></pre>
 <p><br></p>
 <hr />
@@ -826,12 +826,12 @@ vegan::adonis(dist_matrix_w ~ phyloseq::sample_data(phyfoods)$GLU_index, permuta
 ##   DMDHRMAR DMDHSEDU WTINT2YR  WTMEC2YR SDMVPSU SDMVSTRA INDHHIN2 INDFMIN2
 ## 1        2       NA  14080.1  13991.64       1      126        5        5
 ## 2        6       NA 181684.4 181461.24       1      132       10        9
-##   INDFMPIR      Axis.1     Axis.2     Axis.3     Axis.4     Axis.5      Axis.6
-## 1     2.04 -0.11413644 0.01853760  0.2228960 0.09391391 0.02043464  0.13305918
-## 2     5.00  0.01223164 0.08089919 -0.1105602 0.01012084 0.08713431 -0.05002812
-##        Axis.7     Axis.8     Axis.9     Axis.10
-## 1 -0.01394363 0.08233172 -0.0472045  0.09805121
-## 2 -0.01313861 0.07987124 -0.1266659 -0.02734302</code></pre>
+##   INDFMPIR      Axis.1      Axis.2     Axis.3       Axis.4      Axis.5
+## 1     2.04 -0.11664677 -0.02798665  0.2150702 -0.101761495 -0.01171610
+## 2     5.00  0.01421703 -0.07604162 -0.1075092 -0.007704721 -0.09039281
+##        Axis.6     Axis.7     Axis.8     Axis.9     Axis.10
+## 1  0.13498463 -0.0115458 0.08167232 0.04694426 -0.09992649
+## 2 -0.05136006 -0.0142396 0.08034174 0.12698673  0.02684341</code></pre>
 <p><br></p>
 <hr />
 <p>Save Axes 1 &amp; 2, 1 &amp; 3, 2 &amp; 3, 3 &amp; 4, 2 &amp; 4 biplots with and without ellipses with specified confidence interval. The reults are saved with filenames with the specified “prefix_AxisXY.pdf” or “prefix_AxisXY_ellipses.pdf”. You need to supply the same number of colors in the order of the factor level to be used. <code>dot.colors</code> are for datapoints, and <code>ellipses.colors</code> are for ellipses outlines.</p>
@@ -867,8 +867,8 @@ vegan::permutest(dispr_u, perm = 5000)</code></pre>
 ## 
 ## Response: Distances
 ##            Df   Sum Sq    Mean Sq      F N.Perm Pr(&gt;F)
-## Groups      2 0.000399 0.00019942 0.4076   5000 0.6663
-## Residuals 234 0.114493 0.00048929</code></pre>
+## Groups      2 0.000383 0.00019149 0.3883   5000 0.6707
+## Residuals 233 0.114892 0.00049310</code></pre>
 <p>If p&gt;0.05, which is true in this case, the dispersion of each group are not different, and the assumption for adonis is met.</p>
 <p>Use adonis to test whether there is a difference between groups’ composition. # i.e., composition among groups (food they consumed) is similar or not.</p>
 <pre class="r"><code>set.seed(123)
@@ -883,11 +883,11 @@ vegan::adonis(dist_matrix_u ~ phyloseq::sample_data(phyfoods)$GLU_index, permuta
 ## Terms added sequentially (first to last)
 ## 
 ##                                            Df SumsOfSqs MeanSqs F.Model      R2
-## phyloseq::sample_data(phyfoods)$GLU_index   2     0.989 0.49467  1.0944 0.00927
-## Residuals                                 234   105.769 0.45200         0.99073
-## Total                                     236   106.758                 1.00000
+## phyloseq::sample_data(phyfoods)$GLU_index   2     0.991 0.49544  1.0963 0.00932
+## Residuals                                 233   105.295 0.45191         0.99068
+## Total                                     235   106.286                 1.00000
 ##                                            Pr(&gt;F)  
-## phyloseq::sample_data(phyfoods)$GLU_index 0.07598 .
+## phyloseq::sample_data(phyfoods)$GLU_index 0.07259 .
 ## Residuals                                          
 ## Total                                              
 ## ---
@@ -896,13 +896,13 @@ vegan::adonis(dist_matrix_u ~ phyloseq::sample_data(phyfoods)$GLU_index, permuta
 <pre class="r"><code>pairwise.adonis(dist_matrix_u, phyloseq::sample_data(phyfoods)$GLU_index, perm = 5000,
                 p.adjust.m = &quot;none&quot;)</code></pre>
 <pre><code>##                     pairs Df SumsOfSqs  F.Model          R2    p.value
-## 1 Diabetic vs Prediabetic  1 0.4776303 1.057101 0.005591438 0.24635073
-## 2      Diabetic vs Normal  1 0.5053377 1.114338 0.010212571 0.10517896
-## 3   Prediabetic vs Normal  1 0.5065434 1.122512 0.006483920 0.09458108
+## 1 Diabetic vs Prediabetic  1 0.4728741 1.046838 0.005566902 0.27774445
+## 2      Diabetic vs Normal  1 0.5168609 1.140209 0.010543805 0.06098780
+## 3   Prediabetic vs Normal  1 0.5065434 1.122512 0.006483920 0.09438112
 ##   p.adjusted sig
-## 1 0.24635073    
-## 2 0.10517896    
-## 3 0.09458108</code></pre>
+## 1 0.27774445    
+## 2 0.06098780    
+## 3 0.09438112</code></pre>
 <p><br></p>
 <hr />
 </div>

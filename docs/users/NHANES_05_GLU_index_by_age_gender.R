@@ -58,7 +58,7 @@
 # Select females 
   glu_2_females <- subset(glu_2, Gender == "F") 
   
-# Check the dimension of the selected data - 851 rows.
+# Check the dimension of the selected data - 845 rows.
   nrow(glu_2_females)
 
 # Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked barchart.
@@ -88,7 +88,7 @@
 # Select males 
   glu_2_males <- subset(glu_2, Gender == "M") 
   
-# Check the number of rows of the selected data - 774 rows.
+# Check the number of rows of the selected data - 765 rows.
   nrow(glu_2_males)
   
 # Calculate percentages of each level of GLU_index for each AgeGroup in order to generate a stacked

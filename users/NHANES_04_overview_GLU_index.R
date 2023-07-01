@@ -41,7 +41,7 @@
 # Check the summary data - this will also show the number of missing data if any.
   summary(glu_2$BMXBMI)
 
-# 14 are missing BMI and has NA's. You can also see that by counting the number of NAs
+# 13 are missing BMI and has NA's. You can also see that by counting the number of NAs
 # in specified rows.
   colSums(is.na(glu_2[, c("SEQN", "BMXBMI")]))
 
@@ -53,10 +53,10 @@
   BMIfreq
 
 # If there are missing data, it will give a Warning message:
-# "Removed 14 rows containing non-finite values (stat_density)."
+# "Removed 13 rows containing non-finite values (stat_density)."
 
-# Save the chart as .pdf. It is helpful to make note of the number of datapoints: n = 1625 - 14 missing = 1611.
-  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1611_BMI_by_GLU_index.pdf",
+# Save the chart as .pdf. It is helpful to make note of the number of datapoints: n = 1610 - 13 missing = 1597.
+  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1597_BMI_by_GLU_index.pdf",
          BMIfreq, device="pdf", width=5.3, height=4.5)
 
 #### The diabetic population seems to have higher BMI than the prediabetic, and the lowest BMI was
@@ -68,7 +68,7 @@
 
 # Check the summary data - this will show the number of missing data if any.
   summary(glu_2$BMXWT)
-  # 12 are missing body weight and has NA's.
+  # 11 are missing body weight and has NA's.
 
 # Show histogram of body weight.
   hist(glu_2$BMXWT)
@@ -80,8 +80,8 @@
     labs(x="Body weight (kg)", y="Density")
   weightfreq
 
-# Save the chart as .pdf. n = 1625 - 12 missing = 1613.
-  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1613_weight_by_GLU_index.pdf",
+# Save the chart as .pdf. n = 1610 - 11 missing = 1599.
+  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1599_weight_by_GLU_index.pdf",
          weightfreq, device="pdf", width=5.3, height=4.5)
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -92,14 +92,14 @@
 
 # Create a line chart of the KCAL frequency of each group.
   KCALfreq <- ggplot(data=glu_2, aes(x=KCAL, group=GLU_index, color=GLU_index)) +
-    geom_density(adjust=1.5, alpha=.4, size=1.2, linetype="longdash") + space_axes + no_grid +
+    geom_density(adjust=1.5, alpha=.4, linewidth=1.2, linetype="longdash") + space_axes + no_grid +
     scale_color_manual(values= c("steelblue3", "gold3", "hotpink") ) +
     labs(x="KCAL", y="Density") +
     scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
   KCALfreq
 
 # Save the chart as .pdf.
-  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1625_KCAL_by_GLU_index_line.pdf",
+  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_n1610_KCAL_by_GLU_index_line.pdf",
          KCALfreq, device="pdf", width=5.3, height=4.5)
 
 # ---------------------------------------------------------------------------------------------------------------

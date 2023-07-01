@@ -94,12 +94,12 @@ Create a folder called "Laboratory_data" under "NHANES", so that our results wit
 
 # Load NHANES15-16totals with demographic data
 
-Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4207 people.
+Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4,164 people.
 ```{r}
 QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_demo.txt", sep="\t", header=T)
 ```
 
-Check the number of participants in the QCtotals - should be 4,207 people.
+Check the number of participants in the QCtotals - should be 4,164 people.
 ```{r}
 length(unique(QCtotal_d$SEQN))
 ```
@@ -324,7 +324,7 @@ DRQSDIET==1 is following a special diet, so select only rows with DRQSDIET==2.
 QCtotal_d_ga_body_meta_glu_comp_2 <- subset(QCtotal_d_ga_body_meta_glu_comp, DRQSDIET == 2)
 ```
 
-How many people remained? -- 1,625 remained.
+How many people remained? -- 1,610 remained.
 ```{r}
 table(QCtotal_d_ga_body_meta_glu_comp_2$DRQSDIET)
 ```

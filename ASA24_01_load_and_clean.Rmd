@@ -406,7 +406,9 @@ Totals data may contain outliers due to errors in dietary reporting. These error
   
 Here, we will identify records that contain values that fall outside typically observed ranges of kilocalories (KCAL), protein (PROT), total fat (TFAT), and vitamin C (VC). The ASA24 guide provides ranges of beta carotene (BCAR), too, however, outlier checking for BCAR is omitted in this tutorial but can be considered if you identify it as a nutrient that has a high variance in your study dataset.
   
-Please note that your input dataframe (QCtotals) will be overwritten after each outlier removal.
+> **[NOTE]** Your input dataframe (QCtotals) will be overwritten after each outlier removal.
+>
+> Run all these QC steps in this order. When asked, choose to remove the outliers that fall outside the specified range for each nutrient.
 
 <br>
 

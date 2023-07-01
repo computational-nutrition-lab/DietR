@@ -89,7 +89,7 @@ totals_males60to79 <- read.table("QCtotal_d_ga_body_meta_glu_comp_2_males60to79.
                                  sep="\t", header=T)
 ```
 
-It should have 237 individuals (rows) and 266 variables (columns).
+It should have 236 individuals (rows) and 266 variables (columns).
 ```{r}
 dim(totals_males60to79)
 ```

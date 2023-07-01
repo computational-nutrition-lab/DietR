@@ -511,11 +511,11 @@ source(&quot;lib/add_gender_and_age.R&quot;)</code></pre>
 </div>
 <div id="load-nhanes15-16totals-with-demographic-data" class="section level1">
 <h1>Load NHANES15-16totals with demographic data</h1>
-<p>Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4207 people.</p>
+<p>Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4,164 people.</p>
 <pre class="r"><code>QCtotal_d &lt;- read.table(&quot;Total_D12_FC_QC_mean_QC_demo.txt&quot;, sep=&quot;\t&quot;, header=T)</code></pre>
-<p>Check the number of participants in the QCtotals - should be 4,207 people.</p>
+<p>Check the number of participants in the QCtotals - should be 4,164 people.</p>
 <pre class="r"><code>length(unique(QCtotal_d$SEQN))</code></pre>
-<pre><code>## [1] 4207</code></pre>
+<pre><code>## [1] 4164</code></pre>
 </div>
 <div id="add-gender-and-age-body-measure-and-metadata" class="section level1">
 <h1>Add Gender and Age, body measure, and metadata</h1>
@@ -532,20 +532,20 @@ RIDAGEYR = age</p>
 ## 1        1      M       62      60s      M_60s
 ## 2        1      M       53      50s      M_50s
 ## 3        1      M       78      70s      M_70s
-## 4        2      F       42      40s      F_40s
-## 5        2      F       72      70s      F_70s
-## 6        1      M       22      20s      M_20s</code></pre>
+## 4        1      M       22      20s      M_20s
+## 5        1      M       56      50s      M_50s
+## 6        1      M       46      40s      M_40s</code></pre>
 <p>Check the frequency of the groups. As expected, people aged 18-19 are less frequent.</p>
 <pre class="r"><code>table(QCtotal_d_ga$Gender_Age)  </code></pre>
 <pre><code>## 
 ##  F_18_19    F_20s    F_30s    F_40s    F_50s    F_60s    F_70s F_80plus 
-##       95      346      335      383      347      365      207      138 
+##       95      344      331      381      344      360      207      138 
 ##  M_18_19    M_20s    M_30s    M_40s    M_50s    M_60s    M_70s M_80plus 
-##       94      280      311      293      305      349      235      124</code></pre>
+##       94      279      309      288      302      340      232      120</code></pre>
 <pre class="r"><code>table(QCtotal_d_ga$AgeGroup)    </code></pre>
 <pre><code>## 
 ##  18_19    20s    30s    40s    50s    60s    70s 80plus 
-##    189    626    646    676    652    714    442    262</code></pre>
+##    189    623    640    669    646    700    439    258</code></pre>
 <p><br></p>
 </div>
 <div id="add-body-measure-data" class="section level1">
@@ -740,17 +740,17 @@ end_col_num_c &lt;- match(&quot;DRD370V&quot;  , names(metadata_raw))</code></pr
 <pre class="r"><code>table(QCtotal_d_ga_body_meta_glu$GLU_index, useNA=&quot;always&quot;)</code></pre>
 <pre><code>## 
 ##    Diabetic      Normal Prediabetic        &lt;NA&gt; 
-##         293         794         856          89</code></pre>
+##         287         788         848          88</code></pre>
 <p>Select individuals that have no missing data in the LBXGLU column.</p>
 <pre class="r"><code>QCtotal_d_ga_body_meta_glu_comp &lt;-  QCtotal_d_ga_body_meta_glu[!is.na(QCtotal_d_ga_body_meta_glu$LBXGLU), ]</code></pre>
 <p>Check the number of rows - should have 1,943 rows.</p>
 <pre class="r"><code>nrow(QCtotal_d_ga_body_meta_glu_comp)</code></pre>
-<pre><code>## [1] 1943</code></pre>
+<pre><code>## [1] 1923</code></pre>
 <p>Double-check there is no missing data in GLU_index.</p>
 <pre class="r"><code>table(QCtotal_d_ga_body_meta_glu_comp$GLU_index, useNA=&quot;always&quot;)</code></pre>
 <pre><code>## 
 ##    Diabetic      Normal Prediabetic        &lt;NA&gt; 
-##         293         794         856           0</code></pre>
+##         287         788         848           0</code></pre>
 <p><br></p>
 </div>
 </div>
@@ -762,19 +762,19 @@ end_col_num_c &lt;- match(&quot;DRD370V&quot;  , names(metadata_raw))</code></pr
 <pre class="r"><code>table(QCtotal_d_ga_body_meta_glu_comp$DRQSDIET, useNA=&quot;always&quot;)</code></pre>
 <pre><code>## 
 ##    1    2 &lt;NA&gt; 
-##  318 1625    0</code></pre>
+##  313 1610    0</code></pre>
 <p>DRQSDIET==1 is following a special diet, so select only rows with DRQSDIET==2.</p>
 <pre class="r"><code>QCtotal_d_ga_body_meta_glu_comp_2 &lt;- subset(QCtotal_d_ga_body_meta_glu_comp, DRQSDIET == 2)</code></pre>
-<p>How many people remained? – 1,625 remained.</p>
+<p>How many people remained? – 1,610 remained.</p>
 <pre class="r"><code>table(QCtotal_d_ga_body_meta_glu_comp_2$DRQSDIET)</code></pre>
 <pre><code>## 
 ##    2 
-## 1625</code></pre>
+## 1610</code></pre>
 <p>Check the sample size of each category.</p>
 <pre class="r"><code>table(QCtotal_d_ga_body_meta_glu_comp_2$GLU_index, useNA=&quot;always&quot;)</code></pre>
 <pre><code>## 
 ##    Diabetic      Normal Prediabetic        &lt;NA&gt; 
-##         211         684         730           0</code></pre>
+##         208         679         723           0</code></pre>
 <p>Save the dataset as a .txt file in the folder called “Laboratory_data”.</p>
 <pre class="r"><code>write.table(QCtotal_d_ga_body_meta_glu_comp_2, file=&quot;Laboratory_data/QCtotal_d_ga_body_meta_glu_comp_2.txt&quot;,
             sep= &quot;\t&quot;, row.names=F, quote= F)</code></pre>
