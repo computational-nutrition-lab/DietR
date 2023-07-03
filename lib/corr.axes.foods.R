@@ -13,14 +13,14 @@
   source("lib/SubsetByFirstChaInCol.R") 
   source("lib/create_corr_frame.R") 
 
-CorrAxesFood <- function(food.ifc_soted,
-                         AmountSums.out.fn,
-                         meta.users,
-                         qval.threshold = 0.05,
-                         corr.axes.foods.outfn  ){
+CorrAxesFood <- function(food_ifc_soted,
+                         AmountSums_out_fn,
+                         meta_users,
+                         qval_threshold = 0.05,
+                         corr_axes_foods_outfn  ){
   
-  # Read in the food.ifc_soted.
-  food1 <- read.delim(food.ifc_soted)
+  # Read in the food_ifc_soted.
+  food1 <- read.delim(food_ifc_soted)
   
   # remove "taxonomy" column at the end of food1.
   food2 <- food1[, !colnames(food1) == "taxonomy"] 
@@ -35,10 +35,10 @@ CorrAxesFood <- function(food.ifc_soted,
   
   # Save the total amount consumed by all the individuals. 
   write.table(x=as.data.frame(colSums(x)), 
-              file = AmountSums.out.fn, sep="\t", row.names=T, quote=F )
+              file = AmountSums_out_fn, sep="\t", row.names=T, quote=F )
   
-  # Load the meta.users, which has userID and Axis values.
-  loaded_leg <- read.table(meta.users, sep="\t", header=T)  
+  # Load the meta_users, which has userID and Axis values.
+  loaded_leg <- read.table(meta_users, sep="\t", header=T)  
   
   # Add rownames: X83732 etc. This will stay even after selecting only Axis. columns. 
   # rownames(loaded_leg_u) <- paste("X", loaded_leg_u$SEQN, sep="")
@@ -52,8 +52,8 @@ CorrAxesFood <- function(food.ifc_soted,
   # make sure the samples are the same.
   if( identical(rownames(x), rownames(y)) == F){
     
-    return("The columnnames of X and Y are different. Ensure your food.ifc_soted and\n 
-                       meta.users have the same set of individuals.")
+    return("The columnnames of X and Y are different. Ensure your food_ifc_soted and\n 
+                       meta_users have the same set of individuals.")
     
   }else{
     
@@ -65,13 +65,13 @@ CorrAxesFood <- function(food.ifc_soted,
     colnames(dat)[1:2] <- c("Food","Axis")
     
     # Mark rows that have qvalues < 0.25 with an asterisk in a column called "Significance".
-    dat$Significance <- cut(dat$qval, breaks=c(-Inf, qval.threshold, Inf), label=c("*", ""))
+    dat$Significance <- cut(dat$qval, breaks=c(-Inf, qval_threshold, Inf), label=c("*", ""))
     
     # Sort dat by qval (small to large). 
     dat_s <- dat[order(dat$qval), ]
     
     # Save.
-    write.table(x=dat_s, file = corr.axes.foods.outfn, sep="\t", row.names=F, quote=F)
+    write.table(x=dat_s, file = corr_axes_foods_outfn, sep="\t", row.names=F, quote=F)
     
   } 
   
@@ -85,17 +85,17 @@ CorrAxesFood <- function(food.ifc_soted,
 # # and a table with correlation coefficients, p-values, and q-values with desired threshold between 
 # # food items and Axes that were saved in the ordination section. 
 # # Be careful about not to confuse WEIGHTED and UNweighted unifrac distances   
-#   CorrAxesFood(food.ifc_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt", 
-#                AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
-#                qval.threshold = 0.05,
-#                meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt",
-#                corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
+#   CorrAxesFood(food_ifc_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt", 
+#                AmountSums_out_fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
+#                qval_threshold = 0.05,
+#                meta_users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt",
+#                corr_axes_foods_outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
 # 
-#   # food.ifc_soted:     xxx.food.ifc.sorted.txt file, saved in the ordination section.
-#   # AmountSums.out.fn:  output filename to be saved which has the total consunption amount of each food.
-#   # qval.threshold:     q-value threshold to call a correlation significant.
-#   # meta.users:         xxx.meta_users.txt file, waved in the ordination section.
-#   # corr.axes.foods.outfn: output filename to be saved which has the correlation between foods and Axees.
+#   # food_ifc_soted:     xxx.food.ifc.sorted.txt file, saved in the ordination section.
+#   # AmountSums_out_fn:  output filename to be saved which has the total consunption amount of each food.
+#   # qval_threshold:     q-value threshold to call a correlation significant.
+#   # meta_users:         xxx.meta_users.txt file, waved in the ordination section.
+#   # corr_axes_foods_outfn: output filename to be saved which has the correlation between foods and Axees.
 # 
 
   

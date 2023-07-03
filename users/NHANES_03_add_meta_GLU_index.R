@@ -116,7 +116,7 @@
 # Add meatadata to QCtotal_d_glu_body
   QCtotal_d_ga_body_meta <- merge(x=QCtotal_d_ga_body, y=metadata_only, by="SEQN")
 
-# Save as a .txt file.  This can be used for answering research questions other than glycaemic index. 
+# Save as a .txt file. This can be used for answering research questions other than glycaemic index. 
   write.table(QCtotal_d_ga_body_meta, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta.txt",
               sep="\t", row.names=F, quote=F)
 

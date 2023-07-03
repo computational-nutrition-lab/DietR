@@ -536,7 +536,7 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <pre class="r"><code>MakeFoodTree(nodes_fn=&quot;../Food_tree_eg/NodeLabelsMCT.txt&quot;, 
              food_database_fn =            &quot;VVKAJ_Items_f_id_s_m_QCed.txt&quot;,  
              addl_foods_fn = NULL,
-             num.levels = 4,
+             num_levels = 4,
              output_tree_fn =     &quot;Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.tree.nwk&quot;, 
              output_taxonomy_fn = &quot;Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.tax.txt&quot;)  </code></pre>
 <table>
@@ -552,20 +552,28 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>food_database_fn</td>
-<td>Your food item data</td>
+<td>nodes_fn</td>
+<td>the food level (node) information for each food item.</td>
 </tr>
 <tr class="even">
+<td>food_database_fn</td>
+<td>whole ASA24 database to use.</td>
+</tr>
+<tr class="odd">
 <td>addl_foods_fn</td>
-<td>List of foods not present in the list can be added. NULL by default</td>
+<td>additional foods that are not in ASA24 database but you would like to add; soylent_codes could be added in this case. If none, enter “NULL” instead.</td>
+</tr>
+<tr class="even">
+<td>num_levels</td>
+<td>number of food levels (1 - 5) to save.</td>
 </tr>
 <tr class="odd">
 <td>output_tree_fn</td>
-<td>Name output tree file with .nwk at the end</td>
+<td>output tree file name. Should end with “.nwk”</td>
 </tr>
 <tr class="even">
 <td>output_taxonomy_fn</td>
-<td>Name output taxonomy file</td>
+<td>output taxonomy file (to be used later) name.</td>
 </tr>
 </tbody>
 </table>

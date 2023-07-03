@@ -512,11 +512,11 @@ source(&quot;lib/ggplot2themes.R&quot;)</code></pre>
 <h1>Weighted unifrac distance ordination results</h1>
 <p>From sorted IFC table, generate a table of total amount of food consumed by all the individuals, and a table with correlation coefficients, p-values, and q-values with desired threshold between food items and axes that were saved in the ordination section.<br />
 Be careful not to confuse WEIGHTED and UNweighted unifrac distances.</p>
-<pre class="r"><code>CorrAxesFood(food.ifc_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt&quot;, 
-             AmountSums.out.fn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt&quot;,
-             qval.threshold = 0.05,
-             meta.users =            &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt&quot;,
-             corr.axes.foods.outfn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt&quot;)</code></pre>
+<pre class="r"><code>CorrAxesFood(food_ifc_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt&quot;, 
+             AmountSums_out_fn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt&quot;,
+             qval_threshold = 0.05,
+             meta_users =            &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt&quot;,
+             corr_axes_foods_outfn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt&quot;)</code></pre>
 <table>
 <colgroup>
 <col width="21%" />
@@ -530,23 +530,23 @@ Be careful not to confuse WEIGHTED and UNweighted unifrac distances.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>food.ifc_soted</td>
+<td>food_ifc_soted</td>
 <td>xxx.food.ifc.sorted.txt file, saved in the ordination section</td>
 </tr>
 <tr class="even">
-<td>AmountSums.out.fn</td>
+<td>AmountSums_out_fn</td>
 <td>output filename to be saved which has the total consumption amount of each food</td>
 </tr>
 <tr class="odd">
-<td>qval.threshold</td>
+<td>qval_threshold</td>
 <td>q-value threshold to call a correlation significant</td>
 </tr>
 <tr class="even">
-<td>meta.users</td>
+<td>meta_users</td>
 <td>xxx.meta_users.txt file, waved in the ordination section</td>
 </tr>
 <tr class="odd">
-<td>corr.axes.foods.outfn</td>
+<td>corr_axes_foods_outfn</td>
 <td>output filename to be saved which has the correlation between foods and Axes</td>
 </tr>
 </tbody>
@@ -688,11 +688,11 @@ head(dat_4[order(dat_4$qval), ], 10)</code></pre>
 <div id="unweighted-unifrac-distance-ordination-results" class="section level1">
 <h1>Unweighted unifrac distance ordination results</h1>
 <p>xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method (weighted or unweighted unifrac or else) was used, as long as the food.ifc_sorted is the same.</p>
-<pre class="r"><code>CorrAxesFood(food.ifc_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt&quot;,
-             AmountSums.out.fn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt&quot;,
-             qval.threshold = 0.05,
-             meta.users =            &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt&quot;,
-             corr.axes.foods.outfn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt&quot;)</code></pre>
+<pre class="r"><code>CorrAxesFood(food_ifc_soted = &quot;../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt&quot;,
+             AmountSums_out_fn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt&quot;,
+             qval_threshold = 0.05,
+             meta_users =            &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt&quot;,
+             corr_axes_foods_outfn = &quot;VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt&quot;)</code></pre>
 <p><br></p>
 <hr />
 <div id="load-and-analyze-the-output-1" class="section level2">

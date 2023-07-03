@@ -41,17 +41,17 @@ Session --> Set working directory --> Choose directory.
 # names while calculating the correlation measures.
 # Be careful not to confuse WEIGHTED and UNweighted unifrac distances as you name the files.
   
-  CorrAxesFood(food.ifc_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc_sorted.txt", 
-               AmountSums.out.fn =          "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
-               qval.threshold = 0.05,
-               meta.users =            "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_meta_users.txt",
-               corr.axes.foods.outfn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
+  CorrAxesFood(food_ifc_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc_sorted.txt", 
+               AmountSums_out_fn =          "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
+               qval_threshold = 0.05,
+               meta_users =            "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_meta_users.txt",
+               corr_axes_foods_outfn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
   
-  # food.ifc_soted:     xxx.food.ifc.sorted.txt file, saved in the ordination section.
-  # AmountSums.out.fn:  output filename to be saved which has the total consumption amount of each food.
-  # qval.threshold:     q-value threshold to call a correlation significant.
-  # meta.users:         xxx.meta_users.txt file, waved in the ordination section.
-  # corr.axes.foods.outfn: output filename to be saved which has the correlation between foods and Axes.
+  # food_ifc_soted:     xxx.food.ifc.sorted.txt file, saved in the ordination section.
+  # AmountSums_out_fn:  output filename to be saved which has the total consumption amount of each food.
+  # qval_threshold:     q-value threshold to call a correlation significant.
+  # meta_users:         xxx.meta_users.txt file, waved in the ordination section.
+  # corr_axes_foods_outfn: output filename to be saved which has the correlation between foods and Axes.
 
 # ---------------------------------------------------------------------------------------------------------------
 # Load and analyze the output.
@@ -61,7 +61,8 @@ Session --> Set working directory --> Choose directory.
 # Check the number of food items with significant q-values.
   nrow(subset(dat, Significance=="*"))
   
-# There are 37 food items correlated with particular food items. 
+# There are 31 food items correlated with particular food items. 
+  
 # Show only food items that are significantly correlated with one of the axes.
   subset(dat, Significance=="*")
   
@@ -89,11 +90,11 @@ Session --> Set working directory --> Choose directory.
 # xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method
 # (weighted or unweighted unifrac or else) was used, as long as the food.ifc_sorted is the same.
   
-  CorrAxesFood(food.ifc_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc_sorted.txt",
-               AmountSums.out.fn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
-               qval.threshold = 0.05,
-               meta.users =            "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_meta_users.txt",
-               corr.axes.foods.outfn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
+  CorrAxesFood(food_ifc_soted = "../Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc_sorted.txt",
+               AmountSums_out_fn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_AmountSums.txt",
+               qval_threshold = 0.05,
+               meta_users =            "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_meta_users.txt",
+               corr_axes_foods_outfn = "Food_D12_FC_QC_demo_QCed_males60to79_3Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
   
 # ---------------------------------------------------------------------------------------------------------------
 # Load and analyze the output.
@@ -104,7 +105,7 @@ Session --> Set working directory --> Choose directory.
 # Check the number of food items with significant q-values.
   nrow(subset(dat, Significance=="*"))
   
-# There are as many as 75 food items at alpha=0.05, so it will be probably better to look at most significant food items 
+# There are as many as 78 food items at alpha=0.05, so it will be probably better to look at most significant food items 
 # or a particular Principal Coordinate Axis of your interest.
   
 # Show the first 10  food items that are significantly correlated with one of the axes.

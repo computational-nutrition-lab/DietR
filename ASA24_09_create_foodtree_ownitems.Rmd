@@ -121,17 +121,19 @@ Create foodtree with the reduced dataset (only reported foods) classified at a d
 MakeFoodTree(nodes_fn="../Food_tree_eg/NodeLabelsMCT.txt", 
              food_database_fn =            "VVKAJ_Items_f_id_s_m_QCed.txt",  
              addl_foods_fn = NULL,
-             num.levels = 4,
+             num_levels = 4,
              output_tree_fn =     "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.tree.nwk", 
              output_taxonomy_fn = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.tax.txt")  
 ```
 
 Arguments | Description
 --------- | -----------
-food_database_fn | Your food item data
-addl_foods_fn | List of foods not present in the list can be added. NULL by default 
-output_tree_fn | Name output tree file with .nwk at the end
-output_taxonomy_fn | Name output taxonomy file
+nodes_fn | the food level (node) information for each food item.
+food_database_fn | whole ASA24 database to use.
+addl_foods_fn | additional foods that are not in ASA24 database but you would like to add; soylent_codes could be added in this case. If none, enter “NULL” instead.
+num_levels | number of food levels (1 - 5) to save.
+output_tree_fn | output tree file name. Should end with “.nwk”
+output_taxonomy_fn | output taxonomy file (to be used later) name.
 
 <br>
 

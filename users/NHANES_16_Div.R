@@ -41,10 +41,10 @@
 # ===============================================================================================================
 
 # Load averaged totals data, nutrition & food categories with demographic, gender-age, body measurements, and
-# metadata. From line 118 in 04_add_meta_GLU_index_NHANES.R.
+# metadata. From NHANES_03_add_meta_GLU_index.R.
   totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta.txt")
 
-  # This should have 4,207 people.    
+  # This should have 4,164 people.    
   nrow(totals)    
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -59,7 +59,7 @@
 # Load the food items data where QC-ed individuals were removed based on their totals data. 
   food <- read.delim("Food_D12_FC_QC_demo_QCed.txt", sep= "\t", header=T)
   
-# Count the number of unique SEQNs. There should be 4207 people.   
+# Count the number of unique SEQNs. There should be 4164 people.   
   length(unique(food$SEQN)) 
 
 # Here, we are interested in food items with their foodcode tarting from 4; nuts/seeds/legumes.  
@@ -91,7 +91,7 @@
 
   MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt", 
                addl_foods_fn = NULL,
-               num.levels = 3,
+               num_levels = 3,
                food_database_fn =            "Food_D12_FC_QC_demo_QCed_4s.txt",  
                output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.nwk", 
                output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.tax.txt"
@@ -111,7 +111,7 @@
   ifc <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt")
   
 # It should have the dimension of number of unique foods x (1 food column + number of people + 1 taxonomy column). 
-# 243 x 2110, in this case.
+# 243 x 2092, in this case.
   dim(ifc)  
   
 # The column names have "X." at the beginning. We will take care of it later. 
@@ -171,8 +171,8 @@
 # Our goal is to mark samples as:
   # DivNA ... Did not report any foods with Food ID of 4xxxxxxxx. Shannon's diversity = NA.
   # Div0  ... Reported 1 food with Food ID of 4xxxxxxx.           Shannon's diversity = 0. 
-  # Div1  ... Reported >1 foods with Food ID of 4xxxxxxx. lower.  Shannon's diversity > 1. 
-  # Div2  ... Reported >1 foods with Food ID of 4xxxxxxx. upper.  Shannon's diversity > 1. 
+  # Div1  ... Reported >1 foods with Food ID of 4xxxxxxx. lower.  Shannon's diversity > 0. 
+  # Div2  ... Reported >1 foods with Food ID of 4xxxxxxx. upper.  Shannon's diversity > 0. 
   
 # Remove the "X" in the SEQNdiv$SEQN for merging. 
   SEQNdiv$SEQN <- gsub(SEQNdiv$SEQN, pattern = "X", replacement = "") 
@@ -240,7 +240,7 @@
 # 4xxxxxxx foods (or the lack thereof). The totals_divgroup has DivGroup column. 
   table(totals_divgroup$DivGroup, useNA = "ifany")
   # DivNA  Div0  Div1  Div2 
-  # 2099  1295   407   406 
+  # 2074  1284   403   403 
   
 # Save the totals with DivGroup.
   write.table(totals_divgroup, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup.txt",

@@ -516,9 +516,9 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 </div>
 <div id="select-only-food-items-with-foodcode-starting-with-4" class="section level1">
 <h1>Select only food items with FoodCode starting with 4</h1>
-<p>Load averaged totals data, nutrition &amp; food categories with demographic, gender-age, body measurements, and metadata. From line 118 in 04_add_meta_GLU_index_NHANES.R.</p>
+<p>Load averaged totals data, nutrition &amp; food categories with demographic, gender-age, body measurements, and metadata. From NHANES_03_add_meta_GLU_index.R..</p>
 <pre class="r"><code>totals &lt;- read.delim(&quot;Total_D12_FC_QC_mean_QC_demo_ga_body_meta.txt&quot;)</code></pre>
-<p>This should have 4,207 people.</p>
+<p>This should have 4,164 people.</p>
 <pre class="r"><code>nrow(totals)</code></pre>
 <pre><code>## [1] 4164</code></pre>
 <p><br></p>
@@ -528,7 +528,7 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <p>As an input, we need to have a table with SEQN as rows and food items as columns. So, we will create an IFC table first.</p>
 <p>Load the food items data where QC-ed individuals were removed based on their totals data.</p>
 <pre class="r"><code>food &lt;- read.delim(&quot;Food_D12_FC_QC_demo_QCed.txt&quot;, sep= &quot;\t&quot;, header=T)</code></pre>
-<p>Count the number of unique SEQNs. There should be 4207 people.</p>
+<p>Count the number of unique SEQNs. There should be 4164 people.</p>
 <pre class="r"><code>length(unique(food$SEQN))</code></pre>
 <pre><code>## [1] 4164</code></pre>
 <p>Here, we are interested in food items with their foodcode tarting from 4; nuts/seeds/legumes. Select only the rows that contain those food items.</p>
@@ -553,7 +553,7 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <pre class="r"><code>SpecifyDataDirectory(&quot;eg_data/NHANES/Div&quot;)</code></pre>
 <pre class="r"><code>MakeFoodTree(nodes_fn=&quot;../../Food_tree_eg/NodeLabelsMCT.txt&quot;,
              addl_foods_fn = NULL,
-             num.levels = 3,
+             num_levels = 3,
              food_database_fn =            &quot;Food_D12_FC_QC_demo_QCed_4s.txt&quot;,
              output_tree_fn =     &quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.nwk&quot;,
              output_taxonomy_fn = &quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.tax.txt&quot;
@@ -570,7 +570,7 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 ## TRUE): appending column names to file</code></pre>
 <p>Load the generated IFC table.</p>
 <pre class="r"><code>ifc &lt;- read.delim(&quot;Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt&quot;)</code></pre>
-<p>It should have the dimension of number of unique foods x (1 food column + number of people + 1 taxonomy column). 243 x 2110, in this case.</p>
+<p>It should have the dimension of number of unique foods x (1 food column + number of people + 1 taxonomy column). 243 x 2092, in this case.</p>
 <pre class="r"><code>dim(ifc)</code></pre>
 <pre><code>## [1]  243 2092</code></pre>
 <p>The column names have “X.” at the beginning. We will take care of it later.</p>

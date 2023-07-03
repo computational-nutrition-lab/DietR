@@ -103,12 +103,12 @@ Session --> Set working directory --> Choose directory.
 # Generate a tree with the whole ASA24 food database first as a reference.
 # The file specified by the addl_foods argument will be added to that specified by food_database_fn.
 # NodeLabelsMCT.txt has the full classification level of each food items and its Main.food.description.  
-# The classification level (num.levels) will be the basis of hierarchical food tree generation. 
+# The classification level (num_levels) will be the basis of hierarchical food tree generation. 
 
     MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
                food_database_fn= "all.food.desc_formatted.txt", 
                addl_foods_fn=    "Soylent_codes_formatted.txt", 
-               num.levels= 4,
+               num_levels= 4,
                output_tree_fn=    "Food_tree_all_ASA24/ASA24_4Lv.tree.nwk",
                output_taxonomy_fn="Food_tree_all_ASA24/ASA24_4Lv.tax.txt")  
 
@@ -116,7 +116,7 @@ Session --> Set working directory --> Choose directory.
   # food_database_fn:   the whole ASA24 database to use. 
   # addl_foods_fn:      additional foods that are not in ASA24 database but you would like to add; 
   #                     soylent_codes in this case.  If none, enter "NULL" instead.
-  # num.levels:         the number of food levels (1 - 5) to save.
+  # num_levels:         the number of food levels (1 - 5) to save.
   # output_tree_fn:     the output tree file name. Should end with ".nwk".
   # output_taxonomy_fn: the output taxonomy file (to be used later) name.
   

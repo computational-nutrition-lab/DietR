@@ -487,7 +487,7 @@ blockquote{
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>In this script, we will build a foodtree with the NHANES 2-day average totals, subsetted for males, 60-79 years old.</p>
-<p>First, we will load the QC-ed averaged totals of males 60-79 years old (n=237) and all food records (n=4,207). Then, we will keep the food records of only the individuals in males 60-79 years old and generate a foodtree with the filtered food data.</p>
+<p>First, we will load the QC-ed averaged totals of males 60-79 years old (n=236) and all food records (n=4,164). Then, we will keep the food records of only the individuals in males 60-79 years old and generate a foodtree with the filtered food data.</p>
 <p><br></p>
 </div>
 <div id="load-functions-and-packages" class="section level1">
@@ -537,9 +537,9 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 <p>Create a foodtree with the foods classified at a desired level of classification (Lv. 1-6).</p>
 <p>“NodeLabelsMCT.txt” has a list of food levels and names, which comes with the DietR package.</p>
 <pre class="r"><code>MakeFoodTree(nodes_fn= &quot;../../Food_tree_eg/NodeLabelsMCT.txt&quot;, 
-             num.levels = 3,
-             food_database_fn =            &quot;Food_D12_FC_QC_demo_QCed_males60to79.txt&quot;,  
              addl_foods_fn = NULL,
+             num_levels = 3,
+             food_database_fn =            &quot;Food_D12_FC_QC_demo_QCed_males60to79.txt&quot;,  
              output_tree_fn =     &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.nwk&quot;, 
              output_taxonomy_fn = &quot;Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt&quot;)</code></pre>
 <table>
@@ -555,20 +555,28 @@ source(&quot;lib/Food_tree_scripts/make.dhydrt.ifc.r&quot;)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>food_database_fn</td>
-<td>Your food item data</td>
+<td>nodes_fn</td>
+<td>he food level (node) information for each food item</td>
 </tr>
 <tr class="even">
 <td>addl_foods_fn</td>
 <td>List of foods not present in the list can be added. NULL by default</td>
 </tr>
 <tr class="odd">
+<td>num_levels</td>
+<td>Number of food levels (1 - 5) to save</td>
+</tr>
+<tr class="even">
+<td>food_database_fn</td>
+<td>Your food item data</td>
+</tr>
+<tr class="odd">
 <td>output_tree_fn</td>
-<td>Name output tree file with .nwk at the end</td>
+<td>Output tree file name. Should end with “.nwk”</td>
 </tr>
 <tr class="even">
 <td>output_taxonomy_fn</td>
-<td>Name output taxonomy file</td>
+<td>Output taxonomy file (to be used later) name</td>
 </tr>
 </tbody>
 </table>
@@ -609,7 +617,7 @@ appending column names to file”</p>
 </tr>
 <tr class="even">
 <td>output_fn</td>
-<td>Name output ifc file</td>
+<td>Name output ifc file to be saved</td>
 </tr>
 </tbody>
 </table>

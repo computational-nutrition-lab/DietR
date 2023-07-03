@@ -3,7 +3,7 @@
 #   food_database_fn = file containing food id and full food description (e.g. ASA24 or SuperTracker database)
 #   nodes_fn = file containing all numbered nodes and their descriptions (constructed manually from previous file)
 #   addl_foods_fn = vector of files containing additional foods to add [optional]
-#   num.levels = number of levels to create tree on
+#   num_levels = number of levels to create tree on
 
 # 02/25/2022 Added a semicolon in line 61 so that the output_tree_fn will be loaded correctly.
 # 03/31/2022 dplyr::select fucntion was replaced by a base R equivalent.
@@ -12,7 +12,7 @@
 # library(reshape2)
 # source('lib/Food_tree_scripts/newick.tree.r')
 
-MakeFoodTree <- function(nodes_fn, food_database_fn, addl_foods_fn=NULL, output_tree_fn, output_taxonomy_fn, num.levels=5)
+MakeFoodTree <- function(nodes_fn, food_database_fn, addl_foods_fn=NULL, output_tree_fn, output_taxonomy_fn, num_levels=5)
 {
     fdata <- read.table(food_database_fn, header = TRUE, sep="\t", colClasses="character", quote="", strip.white=T)
     nodes <- read.table(nodes_fn, header = TRUE, sep="\t", colClasses="character")
@@ -29,9 +29,9 @@ MakeFoodTree <- function(nodes_fn, food_database_fn, addl_foods_fn=NULL, output_
     main <- main[!duplicated(main$FoodID),]
 
     flevels <- NULL
-    for(i in 1:num.levels)
+    for(i in 1:num_levels)
         flevels <- cbind(flevels, I(substr(main$FoodID, 1, i)))
-    colnames(flevels) <- paste0("L",1:num.levels)
+    colnames(flevels) <- paste0("L",1:num_levels)
     main <- data.frame(main, flevels, stringsAsFactors=F)
     
     # melt the data, merge to get the node names, then cast back

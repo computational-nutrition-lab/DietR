@@ -204,7 +204,7 @@ Generate a tree with the whole ASA24 food database first as a reference. The fil
 MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
              food_database_fn= "all.food.desc_formatted.txt", 
              addl_foods_fn=    "Soylent_codes_formatted.txt", 
-             num.levels= 4,
+             num_levels= 4,
              output_tree_fn=    "Food_tree_all_ASA24/ASA24_4Lv.tree.nwk",
              output_taxonomy_fn="Food_tree_all_ASA24/ASA24_4Lv.tax.txt")  
 ```
@@ -215,7 +215,7 @@ Arguments | Description
 nodes_fn |          food level (node) information for each food item.
 food_database_fn |   whole ASA24 database to use. 
 addl_foods_fn |      additional foods that are not in ASA24 database but you would like to add; soylent_codes in this case.  If none, enter "NULL" instead.
-num.levels |         number of food levels (1 - 5) to save.
+num_levels |         number of food levels (1 - 5) to save.
 output_tree_fn |      output tree file name. Should end with ".nwk".
 output_taxonomy_fn| output taxonomy file (to be used later) name.
 

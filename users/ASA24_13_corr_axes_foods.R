@@ -41,17 +41,17 @@
 # Be careful about not to confuse WEIGHTED and UNweighted unifrac distances.
 
 # WEIGHTED unifrac distance results.
-  CorrAxesFood(food.ifc_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt", 
-               AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
-               qval.threshold = 0.05,
-               meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt",
-               corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
+  CorrAxesFood(food_ifc_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt", 
+               AmountSums_out_fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
+               qval_threshold = 0.05,
+               meta_users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt",
+               corr_axes_foods_outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_corr_axes_foods_thr0.05.txt")
 
-  # food.ifc_soted:     xxx.food.ifc.sorted.txt file, saved in the ordination section.
-  # AmountSums.out.fn:  output filename to be saved which has the total consumption amount of each food.
-  # qval.threshold:     q-value threshold to call a correlation significant.
-  # meta.users:         xxx.meta_users.txt file, waved in the ordination section.
-  # corr.axes.foods.outfn: output filename to be saved which has the correlation between foods and Axes.
+  # food_ifc_soted:     xxx.food.ifc.sorted.txt file, saved in the ordination section.
+  # AmountSums_out_fn:  output filename to be saved which has the total consumption amount of each food.
+  # qval_threshold:     q-value threshold to call a correlation significant.
+  # meta_users:         xxx.meta_users.txt file, waved in the ordination section.
+  # corr_axes_foods_outfn: output filename to be saved which has the correlation between foods and Axes.
 
 # ---------------------------------------------------------------------------------------------------------------
 # Load and analyze the output.
@@ -99,11 +99,11 @@
 # xxx_AmountSums.txt will be generated again, but its content will be the same regardless of which distance method
 # (weighted or unweighted unifrac or else) was used, as long as the food.ifc_sorted is the same.
   
-  CorrAxesFood(food.ifc_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt",
-               AmountSums.out.fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
-               qval.threshold = 0.05,
-               meta.users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt",
-               corr.axes.foods.outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
+  CorrAxesFood(food_ifc_soted = "../Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt",
+               AmountSums_out_fn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_AmountSums.txt",
+               qval_threshold = 0.05,
+               meta_users =            "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt",
+               corr_axes_foods_outfn = "VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_corr_axes_foods_thr0.05.txt")
   
 # ---------------------------------------------------------------------------------------------------------------
 # Load and analyze the output.

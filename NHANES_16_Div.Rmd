@@ -95,13 +95,13 @@ knitr::opts_knit$set(root.dir = 'eg_data/NHANES/')
 
 # Select only food items with FoodCode starting with 4
 
-Load averaged totals data, nutrition & food categories with demographic, gender-age, body measurements, and metadata. From line 118 in 04_add_meta_GLU_index_NHANES.R.
+Load averaged totals data, nutrition & food categories with demographic, gender-age, body measurements, and metadata. From NHANES_03_add_meta_GLU_index.R..
 
 ```{r}
 totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta.txt")
 ```
 
-This should have 4,207 people.
+This should have 4,164 people.
 ```{r}
 nrow(totals)
 ```
@@ -121,7 +121,7 @@ Load the food items data where QC-ed individuals were removed based on their tot
 food <- read.delim("Food_D12_FC_QC_demo_QCed.txt", sep= "\t", header=T)
 ```
 
-Count the number of unique SEQNs. There should be 4207 people.
+Count the number of unique SEQNs. There should be 4164 people.
 ```{r}
 length(unique(food$SEQN))
 ```
@@ -168,7 +168,7 @@ knitr::opts_knit$set(root.dir = "eg_data/NHANES/Div")
 ```{r}
 MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt",
              addl_foods_fn = NULL,
-             num.levels = 3,
+             num_levels = 3,
              food_database_fn =            "Food_D12_FC_QC_demo_QCed_4s.txt",
              output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.nwk",
              output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.tax.txt"
@@ -198,7 +198,7 @@ ifc <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt")
 ```
 
 It should have the dimension of number of unique foods x (1 food column + number of people + 1 taxonomy column).
-243 x 2110, in this case.
+243 x 2092, in this case.
 ```{r}
 dim(ifc)
 ```
