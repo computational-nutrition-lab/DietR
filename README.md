@@ -11,11 +11,11 @@ https://computational-nutrition-lab.github.io/DietR/
 
 ## Customize working directory in your R environment
 - Working directory is a specific location on your computer where files are pulled from and saved in when using R.
-- Each script starts with a line of code to set your working directory, and it assumes that you have a directory called "DietR" in a folder called "GitHub", which is in your home direcotry.
+- Each script starts with a line of code to set your working directory, and it assumes that you have a directory called "DietR" in a folder called "GitHub", which is in your home directory.
 - You can customize it to suit your own folder structures, but the most straightforward way to use the R scripts in "users" is to create a "GitHub" folder in your home directory, and inside it, save the downloaded repo as "DietR".
 - That way, the code to set your working directory, `setwd("~/GitHub/DietR")`, can be run as is. 
 
-## Find out more details about DietR in our publication and cite DietR
+## Find out more about DietR in our publication and cite DietR
 Dietary pattern and diversity analysis using 'DietR' package in R
 Rie Sadohara, David Jacobs, Mark A Pereira, Abigail J Johnson
 medRxiv 2023.07.07.23292390; doi: https://doi.org/10.1101/2023.07.07.23292390
