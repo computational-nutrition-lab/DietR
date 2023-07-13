@@ -22,7 +22,5 @@ medRxiv 2023.07.07.23292390; doi: https://doi.org/10.1101/2023.07.07.23292390
 
 The tutorials assume that you are using [R Studio](https://posit.co/downloads/). However, [basic R](https://www.r-project.org/) alone can also work. Please note that you need R in order to run R Studio.
 
-<img src='lib/DietR Logo.png'
-     width: 60%;
-	 height: auto;
-	 >
+<img src='lib/DietR Logo.png' alt="DietR logo" width=60% height=auto/>
+
