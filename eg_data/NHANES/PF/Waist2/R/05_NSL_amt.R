@@ -32,11 +32,11 @@
   ifc[, c('X92254','X.FOODID')]  # 3004.38  + 47.25 = 3051.63 g. 
   
   # Calculate the sum of 4xxxxxxx foods for each SEQN. This is the sum of two days.
-  head(colnames(ifc)) # X.FOODID, X87496, X88725, ...
-  tail(colnames(ifc)) # X92316, ..., taxonomy.
+  head(colnames(ifc)) # "X.FOODID" "X84804"   "X86670", ...
+  tail(colnames(ifc)) # X88231, ..., taxonomy.
   ifc[1:4, 1:4]
   
-# exclude the food description and taxonomy columns.
+# Calculate column sumns (how much each SEQN ate), excluding the food description and taxonomy columns.
   colsum <- colSums(ifc[, 2: (ncol(ifc)-1) ] , na.rm=T) 
   head(colsum) # This is a named vector.
   length(colsum)  # 1823 people
@@ -126,7 +126,7 @@
               sep="\t", row.names = F, quote=F)
   
 # ---------------------------------------------------------------------------------------------------------------
-# Read in the food data with 4s only. n3677, which means the outlier IS included, and needs to be removed.
+# Read in the food data with 4s only. n3642, which means the outlier IS included, and needs to be removed.
   food4s <- read.delim("Food_D12_FC_QC_demo_QCed_n3642_4s.txt")   
   
 # Exclude this outlier individual 92254 from the food data, and count the number of foods.
@@ -138,7 +138,9 @@
   # Count how many foods were reported by n=3641 (without the outlier) including duplicates?
   length(food4s_woOutlier$Food_code)
   # 3460 4xxxxxxxx foods were reported.   
-  
+  length(unique(food4s_woOutlier$Food_code))
+  # Still, there are 237 unique foods.
+    
   # Save the food data of n=3641.
   write.table(food4s_woOutlier, "Food_D12_FC_QC_demo_QCed_n3641_4s.txt",
               sep="\t", row.names = F, quote=F)

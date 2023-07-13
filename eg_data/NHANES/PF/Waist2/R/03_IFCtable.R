@@ -92,7 +92,7 @@
   
   MakeFoodTree(nodes_fn="../../../Food_tree_eg/NodeLabelsMCT.txt", 
                addl_foods_fn = NULL,
-               num.levels = 3,
+               num_levels = 3,
                food_database_fn =            "Food_D12_FC_QC_demo_QCed_n3642_4s.txt",  
                output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_n3642_4s_3Lv.nwk", 
                output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_n3642_4s_3Lv.tax.txt"

@@ -34,6 +34,7 @@
 # DO NOT FORGET TO DEFINE DivGroup as a factor!
   df$DivGroup <- factor(df$DivGroup, 
                         levels = c('DivNA', 'Div0', 'Div1', 'Div2'))  
+  is(df$DivGroup)
   table(df$DivGroup, useNA = 'ifany')
   
   # DivNA  Div0  Div1  Div2 
@@ -43,6 +44,11 @@
   df$FIPL <- factor(df$FIPL, 
                     levels = c('<1.85', '1.85-2.99', '>= 3.00'))  
   table(df$FIPL, useNA = 'ifany')
+
+# Also define edu as a factor to change the level order.
+  df$edu <- factor(df$edu, 
+                    levels = c('< HS', 'HS grad or some collage', 'Collage grad or above'))  
+  table(df$edu, useNA = 'ifany')
   
 
 # ===============================================================================================================

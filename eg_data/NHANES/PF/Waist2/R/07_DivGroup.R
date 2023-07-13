@@ -36,12 +36,15 @@
   
   # Take out the foodID (description) and taxonomy from ifc.
   ifc2 <- ifc_QCed[, 2: (ncol(ifc_QCed)-1) ]
+  ifc2[1:4,1:4]
   
   # transpose so that the SEQN will come to rows.   
   ifc2t <- as.data.frame(t(ifc2)) 
+  ifc2t[1:4,1:4]
   
   # Add taxonomy as the column names of ifc2t. 
-  colnames(ifc2t) <- ifc$X.FOODID
+  colnames(ifc2t) <- ifc_QCed$X.FOODID #### It was ifc????
+  
   
   # Each row of ifc2t is SEQN. So, diversity needs to be calculated per each row.
   
@@ -88,9 +91,11 @@
   
   # Remove the "X" in the SEQNdiv$SEQN for merging. 
   SEQNdiv$SEQN <- gsub(SEQNdiv$SEQN, pattern = "X", replacement = "") 
+  head(SEQNdiv$SEQN)
   
 # Load totals without the outlier (SEQN==92254).
   totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641.txt")
+  which(totals$SEQN == 92254)
   
 # First, need to add the diversity values to totals. Only take the rows present in both datasets.
   totals_div <- merge(totals, SEQNdiv, by='SEQN')
@@ -99,7 +104,7 @@
 # Select individuals whose diversity score is > 0, and group them into groups lower and upper (2-tiles) 
 # based on their Shannon's diversity measure.
   DivNthTile(input= totals_div, div.var="Shannon", nth.tile=2)
-  
+
   # Define Div1 and Div2. 
   out$DivGroup <- 
     ifelse(
@@ -160,7 +165,7 @@
   table(totals_divgroup$DivGroup, useNA = "ifany")
   
   # DivNA  Div0  Div1  Div2 
-  # 1819  1105   360   357 with n=3641.
+  # 1819  1105   360   357     with n=3641.
 
 # Save the totals with DivGroup.
   write.table(totals_divgroup, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_n3641_DivGroup.txt",

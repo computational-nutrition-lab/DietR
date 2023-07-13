@@ -6,11 +6,13 @@
 # Replaced "OTU" with "IFC" and "n3677" with "n3642" on 06/28/2023 by Rie Sadohara
 # Output as comments were updated. 
 # ===============================================================================================================
-  source("lib/specify_data_dir.R")
 
 # Set your working directory to the main directory.
 # Session --> Set working directory --> Choose directory.
   setwd("~/GitHub/DietR")
+
+# Call for necessary functions.
+  source("lib/specify_data_dir.R")
 
 # Name your main directory for future use. 
   main_wd <- file.path(getwd())
@@ -158,6 +160,7 @@
   
 # DONE! 5/19.
 # DONE! 6/28 after QC-ing males females separately.
+# DONE! 7/6 checking once more.
   
   
 # ---------------------------------------------------------------------------------------------------------------

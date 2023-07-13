@@ -52,7 +52,7 @@
   
 # KCAL - different
   mylm1 <- lm(KCAL ~ DivGroup, data= df)
-  summary(mylm1)  # p-value: 4.03e-11
+  summary(mylm1)  # p-value: 1.418e-09
   ggplot(data=df, aes(x=DivGroup, y=KCAL)) +
     geom_boxplot( ) 
   ggplot(data=df, aes(x=DivGroup, y=KCAL)) +
@@ -68,12 +68,15 @@
   
 # SFAT were not different among the DivGroups.
   mylm3 <- lm(SFAT ~ DivGroup, data= df) 
-  summary(mylm3) #  p-value: 0.3245.
+  summary(mylm3) #  p-value: 0.847.
   lm3p <- summary(mylm3)
   ggplot(data=df, aes(x=DivGroup, y=SFAT)) +
     geom_boxplot( ) 
   ggplot(data=df, aes(x=DivGroup, y=SFAT)) +
     geom_boxplot( outlier.shape = NA) + geom_jitter()
+  library(dplyr)
+  df %>% group_by(DivGroup) %>% summarise(means= mean(SFAT))
+  
   
 # Define a function to calculate p-value for the F-test again. It's doing an F test with the parameters in the model.
   overall_p <- function(my_model) {
@@ -200,7 +203,6 @@
   variables <- variablesdf$V1
   # Or type.
   # variables <- c("CARB", "PROT", "FIBE", "TFAT", "SFAT", "MFAT", "PFAT", "total_MPFAT", "ALCO", "ADD_SUGARS" )
-  # df$
   
   # make a dataframe to save means, SD, and p-values for ANOVA and p-values for trend.
   rtable <- data.frame(matrix(nrow= length(variables), ncol=11))
@@ -230,7 +232,7 @@
     
     rtable[i, 1] <- variables[i]
     
-    # run anova.
+    # Run anova.
     myanova <- aov(i_variable ~ DivGroup, data=subset)
     ss <- summary(myanova)
     # Take out the p-value.
@@ -239,7 +241,7 @@
     
     # Run regression 
     mylm <- lm(i_variable ~ DivGroup, data=subset)
-    print(summary(mylm))  
+    # print(summary(mylm))  
     
     # Save the p-value for the overall significance of the regression model.
     rtable[i, 11] <- overall_p(mylm)
@@ -266,6 +268,10 @@
   # The p-values for ANOVA and the p-values for the regression were exactly the same.
   # Makes sense, becuase DivGroup is a categorical variable. Running a regression with a categorical
   # variable doesn't really make sense, and it ended up doing the same thing with anova. 
+  
+  mylm <- lm(PROT_adj ~ DivGroup, data= df)
+  print(summary(mylm))  
+  
   
   # Safety check with PROT  
   df$PROT_adj <- df$PROT / df$KCAL *2000

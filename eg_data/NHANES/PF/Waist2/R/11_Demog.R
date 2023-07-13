@@ -156,7 +156,7 @@
 # INDFMPIR - Ratio of family income to poverty
 # 77 = Refused, 99= Don't know. So, we need to remove them.
   library(dplyr)
-  df %>% filter(INDFMPIR == 77 | INDFMPIR == 99) %>% count() 
+  df %>% filter(INDFMPIR == 77 | INDFMPIR == 99 | INDFMPIR == ".") %>% count() 
   summary(df$INDFMPIR)
 # No need, all values are 1-5. 
 
@@ -231,10 +231,12 @@
 
 # Check.
 table(df$edu, useNA = 'ifany') # there is no missing data in age.
+table(df$edu, df$DMDEDUC3)
+table(df$edu, df$DMDEDUC2)
   df[10:100, c('DMDEDUC2','DMDEDUC3', 'edu')] 
 
   educ <- table(df$edu, df$`DivGroup` , useNA = "ifany")
-  educ
+  educ[c(1,3,2), ]
   write.table(educ[c(1,3,2), ], "clipboard", sep="\t", row.names=T, col.names = F, quote=F)
 
 
