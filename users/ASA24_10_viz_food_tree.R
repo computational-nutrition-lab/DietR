@@ -2,6 +2,7 @@
 # Plot a food tree generated without using the FilterDBByDiet or Check.db functions.
 # Version 1
 # Created on 02/08/2023 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC".
 # ===============================================================================================================
 
 # Set your working directory as the main directory (dietary_patterns)
@@ -17,7 +18,11 @@
   if (!require("BiocManager", quietly = TRUE))install.packages("BiocManager")
   
 # Then, use BiocManager to install the "ggtree" package.
-  BiocManager::install("ggtree")
+  # BiocManager::install("ggtree")
+  
+# The documentation for the ggtree package can be found in the developer’s GitHub page 
+# (https://guangchuangyu.github.io/software/ggtree/).
+  
 
 # Load the functions necessary to set directories.
   library(ggtree)
@@ -27,7 +32,9 @@
 # You can come back to the main directory by:
   setwd(main_wd)
   
-# ---------------------------------------------------------------------------------------------------------------
+# ===============================================================================================================
+  # Plot foodtrees
+# ===============================================================================================================
 # Go to the "Foodtree" directory where the tree files are saved. 
   SpecifyDataDirectory(directory.name = "eg_data/VVKAJ/Foodtree")
   

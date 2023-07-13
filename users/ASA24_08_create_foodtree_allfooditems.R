@@ -5,6 +5,7 @@
 # separated to this script.
 # Version 1
 # Created on 01/18/2023 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC" by Rie Sadohara
 # ===============================================================================================================
 
 # This brief script is to serve as an example of formatting and generating food trees with your own dataset. 
@@ -44,9 +45,9 @@ Session --> Set working directory --> Choose directory.
   source("lib/Food_tree_scripts/format.foods_2.r")
   source("lib/Food_tree_scripts/filter.db.by.diet.records.r")
   source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
-  source("lib/Food_tree_scripts/make.food.otu.r")
-  source("lib/Food_tree_scripts/make.fiber.otu.r")
-  source("lib/Food_tree_scripts/make.dhydrt.otu.r")
+  source("lib/Food_tree_scripts/make.food.ifc.r")
+  source("lib/Food_tree_scripts/make.fiber.ifc.r")
+  source("lib/Food_tree_scripts/make.dhydrt.ifc.r")
 
 # ---------------------------------------------------------------------------------------------------------------
 # Load the packages/scripts necessary for tree visualization.
@@ -56,7 +57,7 @@ Session --> Set working directory --> Choose directory.
   if (!require("BiocManager", quietly = TRUE))install.packages("BiocManager")
   
 # Then, use BiocManager to install the "ggtree" package.
-  BiocManager::install("ggtree")
+  # BiocManager::install("ggtree")
   
 # Load the functions necessary to visualize foodtrees.
   library(ggtree)
@@ -102,12 +103,12 @@ Session --> Set working directory --> Choose directory.
 # Generate a tree with the whole ASA24 food database first as a reference.
 # The file specified by the addl_foods argument will be added to that specified by food_database_fn.
 # NodeLabelsMCT.txt has the full classification level of each food items and its Main.food.description.  
-# The classification level (num.levels) will be the basis of hierarchical food tree generation. 
+# The classification level (num_levels) will be the basis of hierarchical food tree generation. 
 
     MakeFoodTree(nodes_fn=         "NodeLabelsMCT.txt", 
                food_database_fn= "all.food.desc_formatted.txt", 
                addl_foods_fn=    "Soylent_codes_formatted.txt", 
-               num.levels= 4,
+               num_levels= 4,
                output_tree_fn=    "Food_tree_all_ASA24/ASA24_4Lv.tree.nwk",
                output_taxonomy_fn="Food_tree_all_ASA24/ASA24_4Lv.tax.txt")  
 
@@ -115,7 +116,7 @@ Session --> Set working directory --> Choose directory.
   # food_database_fn:   the whole ASA24 database to use. 
   # addl_foods_fn:      additional foods that are not in ASA24 database but you would like to add; 
   #                     soylent_codes in this case.  If none, enter "NULL" instead.
-  # num.levels:         the number of food levels (1 - 5) to save.
+  # num_levels:         the number of food levels (1 - 5) to save.
   # output_tree_fn:     the output tree file name. Should end with ".nwk".
   # output_taxonomy_fn: the output taxonomy file (to be used later) name.
   
@@ -179,7 +180,7 @@ Session --> Set working directory --> Choose directory.
   
 # Save the tree as a PDF file. 
   ggsave("Food_tree_all_ASA24/ASA24_4Lv.tree.pdf",
-         annotated_tree, device="png", width=6, height=6, units="in", dpi=300)
+         annotated_tree, device="pdf", width=6, height=6, units="in", dpi=300)
   
 # ---------------------------------------------------------------------------------------------------------------
 # You can come back to the main directory by:

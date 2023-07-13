@@ -2,6 +2,7 @@
 # Select reported food items in a certain group, compute diversity, and divide them into n-th tile groups. 
 # Version 1
 # Created on 04/12/2023 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC".
 # ===============================================================================================================
 
 # Dietary diversity may have an important role in predicting health outcomes, and nuts/seeds/legumes food 
@@ -17,17 +18,19 @@
   main_wd <- file.path(getwd())
   
   library(vegan)
+  library(reshape2)
+  library(data.tree)
   
   source("lib/specify_data_dir.R")
   source("lib/diversity_nth_tile.R") 
   
-  # Load source scripts to build foodtrees and OTU tables.
+  # Load source scripts to build foodtrees and IFC tables.
   source("lib/specify_data_dir.R")
   source("lib/Food_tree_scripts/newick.tree.r")
   source("lib/Food_tree_scripts/make.food.tree.r")
-  source("lib/Food_tree_scripts/make.food.otu.r")
-  source("lib/Food_tree_scripts/make.fiber.otu.r")
-  source("lib/Food_tree_scripts/make.dhydrt.otu.r")
+  source("lib/Food_tree_scripts/make.food.ifc.r")
+  source("lib/Food_tree_scripts/make.fiber.ifc.r")
+  source("lib/Food_tree_scripts/make.dhydrt.ifc.r")
   
 # Specify the directory where the data is.
   SpecifyDataDirectory(directory.name = "eg_data/NHANES")  
@@ -38,10 +41,10 @@
 # ===============================================================================================================
 
 # Load averaged totals data, nutrition & food categories with demographic, gender-age, body measurements, and
-# metadata. From line 118 in 04_add_meta_GLU_index_NHANES.R.
+# metadata. From NHANES_03_add_meta_GLU_index.R.
   totals <- read.delim("Total_D12_FC_QC_mean_QC_demo_ga_body_meta.txt")
 
-  # This should have 4,207 people.    
+  # This should have 4,164 people.    
   nrow(totals)    
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -51,12 +54,12 @@
 # vegan::diversity calculates Shannon's diversity index one by one.
   
 # As an input, we need to have a table with SEQN as rows and food items as columns. So, we will create 
-# a food OTU table first. 
+# an IFC table first. 
   
 # Load the food items data where QC-ed individuals were removed based on their totals data. 
   food <- read.delim("Food_D12_FC_QC_demo_QCed.txt", sep= "\t", header=T)
   
-# Count the number of unique SEQNs. There should be 4207 people.   
+# Count the number of unique SEQNs. There should be 4164 people.   
   length(unique(food$SEQN)) 
 
 # Here, we are interested in food items with their foodcode tarting from 4; nuts/seeds/legumes.  
@@ -75,72 +78,72 @@
   write.table(food4s, "Div/Food_D12_FC_QC_demo_QCed_4s.txt", sep= "\t", row.names=F,quote=F)
 
 # ===============================================================================================================
-# Generate a food OTU table
+# Generate an IFC table
 # ===============================================================================================================
   
-# To calculate diversity of 4xxxxxxxs for each SEQN, we need to create a food OTU table.
+# To calculate diversity of 4xxxxxxxs for each SEQN, we need to create an IFC table.
 
 # Specify where the data is.
   SpecifyDataDirectory("eg_data/NHANES/Div")
   
 # ---------------------------------------------------------------------------------------------------------------
-# Generate a foodtree and OTU table. 
+# Generate a foodtree and IFC table. 
 
   MakeFoodTree(nodes_fn="../../Food_tree_eg/NodeLabelsMCT.txt", 
                addl_foods_fn = NULL,
-               num.levels = 3,
+               num_levels = 3,
                food_database_fn =            "Food_D12_FC_QC_demo_QCed_4s.txt",  
                output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.nwk", 
                output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.tax.txt"
   )
   
 # --------------------------------------------------------------------------------------------------------------
-# Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.
+# Generate IFC tables for downstream analyses; IT MAY TAKE SOME TIME.
   # It is OK to see the following warning message:
-  # In write.table(fiber.otu, output_fn, sep = "\t", quote = F, append = TRUE) :
+  # In write.table(fiber.ifc, output_fn, sep = "\t", quote = F, append = TRUE) :
   # appending column names to file.
-  MakeFoodOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_4s.txt",   
+  MakeFoodIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_4s.txt",   
               food_record_id =  "SEQN",                              # The ID of your participants
               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.tax.txt",       # Your taxonomy file produced by MakeFoodTree.
-              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.otu.txt")  # Output otu file to be saved.
+              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt")  # Output ifc file to be saved.
   
-# Load the generated OTU table.
-  otu <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.otu.txt")
+# Load the generated IFC table.
+  ifc <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt")
   
 # It should have the dimension of number of unique foods x (1 food column + number of people + 1 taxonomy column). 
-# 243 x 2110, in this case.
-  dim(otu)  
+# 243 x 2092, in this case.
+  dim(ifc)  
   
 # The column names have "X." at the beginning. We will take care of it later. 
-  otu[1:4, 1:4]
+  ifc[1:4, 1:4]
   
 # ===============================================================================================================
 # calculate diversity of 4xxxxxxxs for each SEQN
 # ===============================================================================================================
   
-# Take out the foodID (description) and taxonomy from otu.
-  otu2 <- otu[, 2: (ncol(otu)-1) ]
+# Take out the foodID (description) and taxonomy from ifc.
+  ifc2 <- ifc[, 2: (ncol(ifc)-1) ]
 
-# transpose so that the SEQN will come to rows.   
- otu2t <- as.data.frame(t(otu2)) 
+# Transpose so that the SEQN will come to rows.   
+ ifc2t <- as.data.frame(t(ifc2)) 
  
-# Add taxonomy as the column names of otu2t. 
- colnames(otu2t) <- otu$X.FOODID
+# Add taxonomy as the column names of ifc2t. 
+ colnames(ifc2t) <- ifc$X.FOODID
 
-# Each row of otu2t is SEQN. So, diversity needs to be calculated per each row.
+# Each row of ifc2t is SEQN. So, diversity needs to be calculated per each row.
 
 # Make a table to save results. 
-  SEQNdiv <- as.data.frame(matrix(nrow = nrow(otu2t) , ncol = 4))
+  SEQNdiv <- as.data.frame(matrix(nrow = nrow(ifc2t) , ncol = 4))
   colnames(SEQNdiv) <- c("SEQN", "Shannon", "Simpson", "Invsimpson")
   
 # Do a loop to calculate Shannon's, Simpson, and inverse-Simpson diversity  for all SEQNs (in rows).
 # This may take a few minutes.
   
-  for( i in 1: nrow(otu2t) ){
-    SEQNdiv[i, 1] <- rownames(otu2t)[i]
-    SEQNdiv[i, 2] <- diversity(otu2t[i, ], 'shannon')
-    SEQNdiv[i, 3] <- diversity(otu2t[i, ], 'simpson')
-    SEQNdiv[i, 4] <- diversity(otu2t[i, ], 'invsimpson')
+  for( i in 1: nrow(ifc2t) ){
+    SEQNdiv[i, 1] <- rownames(ifc2t)[i]
+    SEQNdiv[i, 2] <- diversity(ifc2t[i, ], 'shannon')
+    SEQNdiv[i, 3] <- diversity(ifc2t[i, ], 'simpson')
+    SEQNdiv[i, 4] <- diversity(ifc2t[i, ], 'invsimpson')
   } 
   
   head(SEQNdiv)
@@ -168,8 +171,8 @@
 # Our goal is to mark samples as:
   # DivNA ... Did not report any foods with Food ID of 4xxxxxxxx. Shannon's diversity = NA.
   # Div0  ... Reported 1 food with Food ID of 4xxxxxxx.           Shannon's diversity = 0. 
-  # Div1  ... Reported >1 foods with Food ID of 4xxxxxxx. lower.  Shannon's diversity > 1. 
-  # Div2  ... Reported >1 foods with Food ID of 4xxxxxxx. upper.  Shannon's diversity > 1. 
+  # Div1  ... Reported >1 foods with Food ID of 4xxxxxxx. lower.  Shannon's diversity > 0. 
+  # Div2  ... Reported >1 foods with Food ID of 4xxxxxxx. upper.  Shannon's diversity > 0. 
   
 # Remove the "X" in the SEQNdiv$SEQN for merging. 
   SEQNdiv$SEQN <- gsub(SEQNdiv$SEQN, pattern = "X", replacement = "") 
@@ -237,7 +240,7 @@
 # 4xxxxxxx foods (or the lack thereof). The totals_divgroup has DivGroup column. 
   table(totals_divgroup$DivGroup, useNA = "ifany")
   # DivNA  Div0  Div1  Div2 
-  # 2099  1295   407   406 
+  # 2074  1284   403   403 
   
 # Save the totals with DivGroup.
   write.table(totals_divgroup, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta_DivGroup.txt",

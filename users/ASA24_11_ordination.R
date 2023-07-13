@@ -4,6 +4,7 @@
 # After running formatfoods first and keeping ".0" in FoodIDs. 
 # Version 2 
 # Created on 02/16/2022 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC".
 # ===============================================================================================================
 
 # In this section, we will take the phylogeny of food items into account in clustering individuals according to 
@@ -42,7 +43,7 @@
   source("lib/specify_data_dir.R")
   source("lib/ordination.R")
   source("lib/ggplot2themes.R")
-  source("lib/sort_OTU_by_ID.R")
+  source("lib/sort_IFC_by_ID.R")
   source("lib/plot.axis.1to4.by.factor.R")
 
 # Load the distinct 100 colors for use.   
@@ -61,16 +62,16 @@
 # Load the necessary files for creating a phyloseq object.  
   
 # Food
-# Load food OTU table, and sort the columnnames (userID), leaving the last column (taxonomy) intact.
+# Load IFC table, and sort the columnnames (userID), leaving the last column (taxonomy) intact.
 # This dataframe will be saved as "food".
 # Also, save "food" as a .txt file to be used in the "correlation between Axes and foods" section.  
-  SortOTUByID(otu.input =           "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu.txt",
-              outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.otu_sorted.txt")
+  SortIFCByID(ifc.input =           "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc.txt",
+              outfn.for.corr.axis = "Foodtree/VVKAJ_Items_f_id_s_m_QCed_4Lv.food.ifc_sorted.txt")
   
   # "food" is a matrix of Food descriptions (rows) x SampleID (columns).
   head(food)[1:6, 1:4]
   
-  # Format the food object and create an otu_table called OTU.
+  # Format the food object and create an ifc_table called IFC.
   PrepFood(data= food)
   
 # Taxonomy (tax)
@@ -96,8 +97,8 @@
   # Again, it is OK to see the same message as the previous line. 
 
 # ---------------------------------------------------------------------------------------------------------------
-# Make a phyloseq object with OTU, TAX, SAMPLES, and TREE.
-  phyfoods <- phyloseq(OTU, TAX, SAMPLES, TREE)
+# Make a phyloseq object with IFC, TAX, SAMPLES, and TREE.
+  phyfoods <- phyloseq(IFC, TAX, SAMPLES, TREE)
   # It is OK to see a message (or multiple of them) saying that
     # Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
     # Also defined by 'tidytree'.
@@ -147,7 +148,11 @@
   
 # Read in the metadata and users' Axis values.
   meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_WEIGHTED_meta_users.txt", header=T)    
-  
+
+# Change Diet to a factor so that factor levels will be displayed in order.
+  meta_usersdf$Diet <- factor(meta_usersdf$Diet,
+                              levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))  
+    
 # Take a look at meta_usersdf that has been loaded. 
   head(meta_usersdf, 3)
   
@@ -181,15 +186,19 @@
 # Show the centroids and dispersion of each group. 
   plot(dispr)
   
-# Use dispr to do a permutation test for homogeneity of multivariate dispersion
+# Use dispr to do a permutation test for homogeneity of multivariate dispersion.  
+# The set.seed function ensures the same permutation results will be obtained every time; 
+# otherwise, the p-values will slightly differ each run, as it is a permutation test.
+
+  set.seed(123)
   vegan::permutest(dispr, perm=5000)
   # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
-  # Note that the p-values will slightly differ each run, as it is a permutation test. The results here 
-  # indicate that the dispersion of each group may be different, so we should consider this information in 
-  # discussion. Nevertheless, we will proceed for demonstration purposes. 
+  # The results here indicate that the dispersion of each group may be different, so we should consider 
+  # this information in discussion. Nevertheless, we will proceed for demonstration purposes. 
   
 # Use adonis to test whether there is a difference between groups' composition. 
 # i.e., composition among groups (food they consumed) is similar or not.
+  set.seed(123)
   vegan::adonis(dist_matrix ~ phyloseq::sample_data(phyfoods)$Diet, permutations = 5000)
   
 # If overall adonis is significant, which is true in this case,  
@@ -212,7 +221,7 @@
 # You can perform Principal Coordinate Analysis (PCoA) with UNweighted unifrac distance of your food data.
   ordinated_u = phyloseq::ordinate(phyfoods, method="PCoA", distance="unifrac", weighted=FALSE)  
   
-# Use the same code above for creating plots, but now with ordinated_2 for the ord.object argument, and 
+# Use the same code above for creating plots, but now with ordinated_u for the ord.object argument, and 
 # change WEIGHTED to UNweighted, or an appropriate name for the method you selected.
   
   # Save the percent variance explained as a txt file.
@@ -236,7 +245,11 @@
   
 # Read in the metadata and users' Axis values. 
   meta_usersdf <- read.table("VVKAJ_Items_f_id_s_m_QCed_4Lv_ord_UNweighted_meta_users.txt", header=T)    
-  
+
+# Change Diet to a factor so that factor levels will be displayed in order.
+  meta_usersdf$Diet <- factor(meta_usersdf$Diet,
+                              levels= c("Vegetarian", "Vegan", "Keto", "American", "Japanese"))  
+    
 # Take a look at meta_usersdf that has been loaded. 
   head(meta_usersdf, 3)
   
@@ -270,13 +283,17 @@
   # Show the centroids and dispersion of each group. 
   plot(dispr)
   
-  # Use dispr to do a permutation test for homogeneity of multivariate dispersion
+  # Use dispr to do a permutation test for homogeneity of multivariate dispersion.
+  set.seed(123)
   vegan::permutest(dispr, perm=5000)
+
   # If p>0.05, the dispersion of each group are not different, and the assumption for adonis is met.
-  # Note that the p-values will slightly differ each run, as it is a permutation test.
+  # The results here indicate that the dispersion of each group may be different, so we should consider 
+  # this information in discussion. Nevertheless, we will proceed for demonstration purposes. 
   
   # Use adonis to test whether there is a difference between groups' composition. 
   # i.e., composition among groups (food they consumed) is similar or not.
+  set.seed(123)
   vegan::adonis(dist_matrix ~ phyloseq::sample_data(phyfoods)$Diet, permutations = 5000)
   
   # If overall adonis is significant, which is true in this case,  

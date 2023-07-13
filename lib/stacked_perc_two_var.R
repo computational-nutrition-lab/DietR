@@ -26,7 +26,7 @@ StackedPercTwoVar <- function(input.df, var.x, var.y, by){
   # Define the number of levels of VarY here.
   nlevels_VarY <- ncol(shorttable)-1
   
-  print(paste("There are ", nlevels_VarY, " leveles in var.y.", sep=""))
+  print(paste("There are ", nlevels_VarY, " levels in var.y.", sep=""))
   
   # Calculate the sum of all the levels of VarX.
   shorttable$sum <- rowSums(shorttable[, 2: ncol(shorttable)])

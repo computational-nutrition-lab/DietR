@@ -31,10 +31,10 @@
 # Load NHANES15-16totals with demographic data
 # ===============================================================================================================
  
-# Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4207 people.
+# Load the QC-ed total (with food categories), filtered for KCAL, PROT, TFAT, VC. 4,164 people.
   QCtotal_d <- read.table("Total_D12_FC_QC_mean_QC_demo.txt", sep="\t", header=T)
                            
-# Check the number of participants in the QCtotals - should be 4,207 people.
+# Check the number of participants in the QCtotals - should be 4,614 people.
   length(unique(QCtotal_d$SEQN))
 
     
@@ -116,7 +116,7 @@
 # Add meatadata to QCtotal_d_glu_body
   QCtotal_d_ga_body_meta <- merge(x=QCtotal_d_ga_body, y=metadata_only, by="SEQN")
 
-# Save as a .txt file.  This can be used for answering research questions other than glycaemic index. 
+# Save as a .txt file. This can be used for answering research questions other than glycaemic index. 
   write.table(QCtotal_d_ga_body_meta, "Total_D12_FC_QC_mean_QC_demo_ga_body_meta.txt",
               sep="\t", row.names=F, quote=F)
 
@@ -179,13 +179,13 @@
   table(QCtotal_d_ga_body_meta_glu_comp$GLU_index, useNA="always")
   
   
-# ===============================================================================================================
-# Exclude individuals who are following special diets
-# ===============================================================================================================
+  # ===============================================================================================================
+  # Exclude individuals who are following special diets
+  # ===============================================================================================================
   
   # There may be some participants following special diets such as low-sodium or gluten-free. Detailed explanation 
   # about the special diet question can be found on the documentation
-  # [https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Dietary&Cycle=2017-2018].
+  # [https://wwwn.cdc.gov/nchs/nhanes/search/variablelist.aspx?Component=Dietary&Cycle=2015-2016].
   # For this demonstration, we will select only those who are eating freely without following any diet.  
   
   # Check the number of individuals who are following any specific diet (DRQSDIET==1).
@@ -194,14 +194,14 @@
   # DRQSDIET==1 is following a special diet, so select only rows with DRQSDIET==2. 
   QCtotal_d_ga_body_meta_glu_comp_2 <- subset(QCtotal_d_ga_body_meta_glu_comp, DRQSDIET == 2)
   
-  # How many people remained? -- 1625 remained.
+  # How many people remained? -- 1610 remained.
   table(QCtotal_d_ga_body_meta_glu_comp_2$DRQSDIET)
   
   # Check the sample size of each category.
   table(QCtotal_d_ga_body_meta_glu_comp_2$GLU_index, useNA="always")
   
   # Diabetic      Normal Prediabetic        <NA> 
-  # 211         684         730           0 
+  #   208         679         723           0 
   
   # Save the dataset as a .txt file in the folder called "Laboratory_data".
   write.table(QCtotal_d_ga_body_meta_glu_comp_2, file="Laboratory_data/QCtotal_d_ga_body_meta_glu_comp_2.txt",

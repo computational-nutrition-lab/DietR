@@ -79,8 +79,8 @@
                   order.by = "NULL", 
                   macronut.order=c("Protein", "Total Fat", "Carbohydrate"),
                   group.order = c("Normal", "Prediabetic", "Diabetic"))
-                  
   stacked_wo_SD
+
   
 # ==============================================================================================================
 # Plot the "dodge"-type of barchart (3 bars per group, NOT STACKED).
@@ -97,7 +97,7 @@
   dodged_w_SD
  
 # Save it as a .pdf.
-  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_dodged_w_SD_NotOrdered.pdf", dodged_w_SD,
+  ggsave("QCtotal_d_ga_body_meta_glu_comp_2_M60to79_CPT_kcal_dodged_w_SD.pdf", dodged_w_SD,
          device="pdf", width=6.2, height=4, units="in", dpi=300)
 
 # When order.by="NULL", the diabetic status will be in the alphabetical order by default.
@@ -108,6 +108,7 @@
              group.order = c("Normal", "Prediabetic", "Diabetic"))
   dodged_w_SD
   
+    
 # ==============================================================================================================
 # Generate a stacked barchart with SD as error bars.
 # ==============================================================================================================
@@ -138,14 +139,15 @@
                     macronut.order= c("Protein", "Total Fat", "Carbohydrate"),
                     group.order = c("Normal", "Prediabetic", "Diabetic"))
   stacked_with_SD
-    
+  
+      
 # Change the Y axis scale if necessary. Note that if the error bars of Carbohydrates disappear 
 # after changing the limits of Y axis, it may be because the error bars are higher than the max Y.
 # Ensure you have enough max Y value to accommodate the error bars.
   
   # You can also change the breakpoints of the Y axis.
   stacked_with_SD + scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100))
-  
+
 # --------------------------------------------------------------------------------------------------------------
   # Come back to the main directory
   setwd(main_wd)

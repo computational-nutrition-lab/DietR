@@ -39,7 +39,7 @@
   table(glu_2$GLU_index, useNA = "always")
   
   # Normal Prediabetic    Diabetic        <NA> 
-  #   684         730         211           0 
+  #   679         723         208           0 
 
 # Age - no missing data, and spread pretty evenly. 
   summary(glu_2$RIDAGEYR)     
@@ -56,7 +56,7 @@
 # Select those who are males and whose ages fall between 60-79.
   glu_2_males60to79 <- subset(glu_2, RIAGENDR == 1 & RIDAGEYR >= 60 & RIDAGEYR <= 79) 
   
-# Check the dimension of the selected data - 237 rows.
+# Check the dimension of the selected data - 236 rows.
   dim(glu_2_males60to79)
   
 # Ensure the ages of the selected subpopulation are between 60-79.  
@@ -97,8 +97,8 @@
     geom_jitter(width=0.3)
   males60to79_BMIbox
   
-  ggsave("males60to79_BMI_by_GLU_index_box.pdf", 
-         males60to79_BMIbox, device="pdf", width=5.3, height=4.5)
+  ggsave("males60to79_BMI_by_GLU_index_box.png", 
+         males60to79_BMIbox, device="png", width=5.3, height=4.5)
   
 # ----------------------------------------------------------------------------------------------------------------  
 # ANOVA between groups
@@ -147,16 +147,15 @@
 # Other methods that can be used: "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none".
   pairwise.t.test(df$BMXBMI, df$GLU_index, p.adjust.method = "holm") 
   
-# Based on the p-values, Normal and Prediabetic have the same mean BMI (p=0.12832 > 0.05). 
-# Normal and Diabetic have different mean BMI (p=0.00056 < 0.05), as do 
-# Prediabetic and Diabetic (p=0.00499 < 0.05).   
+# Based on the p-values, Normal and Prediabetic have the same mean BMI (p=0.12765 > 0.05). Normal and Diabetic 
+# have different mean BMI (p=0.00037 < 0.05), as do Prediabetic and Diabetic (p=0.00324 < 0.05).    
   
 # ----------------------------------------------------------------------------------------------------------------  
 # KCAL
 # Look at the KCAL frequency of each group.   
   males60to79_KCALfreq <- 
     ggplot(data=glu_2_males60to79, aes(x=KCAL, group=GLU_index, color=GLU_index)) +
-    geom_density(adjust=1.5, alpha=0.4, size=1.2, linetype="longdash") + space_axes + no_grid +
+    geom_density(adjust=1.5, alpha=0.4, linewidth=1.2, linetype="longdash") + space_axes + no_grid +
     scale_color_manual(values= c("aquamarine3", "lightgoldenrod3", "lightpink1")) +
     labs(x="KCAL", y="Density") +
     scale_y_continuous(labels= function(x) format(x, scientific = FALSE))

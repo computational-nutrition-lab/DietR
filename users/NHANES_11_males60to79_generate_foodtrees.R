@@ -3,12 +3,13 @@
 # Do not use format.foods or CheckDB or FilterDBByDiet functions. Clean version. 
 # Version 3
 # Created on 02/16/2023 by Rie Sadohara
+# 06/26/2023 replaced "OTU" with "IFC".
 # ===============================================================================================================
 
 # In this script, we will build a foodtree with the NHANES 2-day average totals, subsetted for males, 
 # 60-79 years old. 
 
-# First, we will load the QC-ed averaged totals of males 60-79 years old (n=237) and all food records (n=4,207). 
+# First, we will load the QC-ed averaged totals of males 60-79 years old (n=236) and all food records (n=4,164). 
 # Then, we will keep the food records of only the individuals in males 60-79 years old and generate a foodtree
 # with the filtered food data. 
 
@@ -31,9 +32,9 @@
 
   source("lib/Food_tree_scripts/newick.tree.r")
   source("lib/Food_tree_scripts/make.food.tree.r") # This needs 'newick.tree.r' already loaded.
-  source("lib/Food_tree_scripts/make.food.otu.r")
-  source("lib/Food_tree_scripts/make.fiber.otu.r")
-  source("lib/Food_tree_scripts/make.dhydrt.otu.r")
+  source("lib/Food_tree_scripts/make.food.ifc.r")
+  source("lib/Food_tree_scripts/make.fiber.ifc.r")
+  source("lib/Food_tree_scripts/make.dhydrt.ifc.r")
   
 # You can come back to the main directory by:
   setwd(main_wd) 
@@ -69,52 +70,54 @@
 # Create foodtrees
 # ===============================================================================================================
 
-# Create foodtree with the foods classified at a desired level of classification (Lv. 1-6).
+# Create foodtree with the foods classified at a desired level of classification (Lv. 1-5).
 # "NodeLabelsMCT.txt" has a list of food levels and names, which comes with the DietR package.
   MakeFoodTree(nodes_fn= "../../Food_tree_eg/NodeLabelsMCT.txt", 
-               num.levels = 3,
-               food_database_fn =            "Food_D12_FC_QC_demo_QCed_males60to79.txt",  
                addl_foods_fn = NULL,
+               num_levels = 3,
+               food_database_fn =            "Food_D12_FC_QC_demo_QCed_males60to79.txt",  
                output_tree_fn =     "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.nwk", 
                output_taxonomy_fn = "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt"
   )
 
+  # nodes_fn:           The food level (node) information for each food item.
+  # num_levels:         Number of food levels (1 - 5) to save.
   # food_database_fn:   Your food item data.
-  # addl_foods_fn:      List of foods not present in the list can be added. NULL by default. 
-  # output_tree_fn:     Name output tree file with .nwk at the end.
-  # output_taxonomy_fn: Name output taxonomy file.  
+  # addl_foods_fn:      List of foods not present in the list can be added. NULL by default.
+  # output_tree_fn:     Output tree file name. Should end with ".nwk"
+  # output_taxonomy_fn: Output taxonomy file (to be used later) name.  
   
-# The xxx.nwk is the foodtree, and xxx.tax.txt is the taxonomy file that is to be used to OTU tables next. 
+# The xxx.nwk is the foodtree, and xxx.tax.txt is the taxonomy file that is to be used to IFC tables next. 
     
 # --------------------------------------------------------------------------------------------------------------
-# Generate OTU tables for downstream analyses; IT MAY TAKE SOME TIME.
+# Generate IFC tables for downstream analyses; IT MAY TAKE SOME TIME.
 # It is OK to see the following warning message:
-  # In write.table(fiber.otu, output_fn, sep = "\t", quote = F, append = TRUE) :
+  # In write.table(fiber.ifc, output_fn, sep = "\t", quote = F, append = TRUE) :
   # appending column names to file.
   
-# Make the standard food otu table with data in gram weights of food.
+# Make the standard IFC table with data in gram weights of food.
 # For the food_records_fn argument, you need to supply 'sel.food.records' file that have 'FoodAmt' column.     
-  MakeFoodOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt",   
+  MakeFoodIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt",   
               food_record_id =  "SEQN",                              
               food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt",       
-              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.otu.txt")  
+              output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.food.ifc.txt")  
   
   # food_records_fn:   Same as food_records_fn in MakeFoodTree.
   # food_record_id:    The colunmname of your participants' ID.
-  # food_taxonomy_fn:  taxonomy file produced by MakeFoodTree.
-  # output_fn:         Name output otu file to be saved.
+  # food_taxonomy_fn:  Taxonomy file produced by MakeFoodTree.
+  # output_fn:         Name output ifc file to be saved.
   
-# Make a food otu table with data in grams of fiber per food.
-  MakeFiberOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
+# Make a IFC table with data in grams of fiber per food.
+  MakeFiberIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
                food_record_id=   "SEQN", 
                food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt", 
-               output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.fiber.otu.txt")
+               output_fn=        "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.fiber.ifc.txt")
   
-# Make a food otu table as dehydrated grams per kcal.
-  MakeDhydrtOtu(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
+# Make a IFC table as dehydrated grams per kcal.
+  MakeDhydrtIfc(food_records_fn=  "Food_D12_FC_QC_demo_QCed_males60to79.txt", 
                 food_record_id =  "SEQN", 
                 food_taxonomy_fn= "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.tax.txt", 
-                output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.dhydrt.otu.txt")  
+                output_fn =       "Foodtree/Food_D12_FC_QC_demo_QCed_males60to79_3Lv.dhydrt.ifc.txt")  
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.

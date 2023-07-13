@@ -88,7 +88,7 @@
     scale_fill_manual(values= distinct100colors) 
   Nut_asis_PC12_diet
   
-  ggsave("PCA_NUt_asis/VVKAJ_Nut_asis_PC12_diet.pdf", 
+  ggsave("PCA_NUt_asis/VVKAJ_Nut_asis_PC12_diet5.pdf", 
          Nut_asis_PC12_diet, device="pdf", width=7, height=6.5)  
   
 # You can do this operation for the other three datasets: Nut_ave, Cat_asis, Cat_ave, by
@@ -127,7 +127,7 @@
   SaveInputAndPCs(input="VVKAJ_Tot_mean_m_QCed_Nut_ave_c.txt", pca.results = scaled_pca,
                   out.dir= res_dir_nut_ave, out.prefix= res_prefix_nut_ave)
   
-# ---------------------------------------------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------------------------------------------
 # Color-code datapoints on a biplot by a factor - Diet, in this case.   
   
 # Load the complete Nut average data. (before filtering variables)
