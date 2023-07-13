@@ -1,1 +1,0 @@
-FoodCodes	drxfcsd	Main.food.description	Old.Main.food.description	ModCode	FoodID
