@@ -139,6 +139,42 @@ Session --> Set working directory --> Choose directory.
 # It is OK to see some warning messages about Coordinate system and scale for 'y' already being present.
   VizFoodTree(input.tree=tree, layout="circular")
 
+#####
+  input.tree=tree
+  layout = "radial"
+  ggtree()
+    ggtree(input.tree, ladderize=F, layout = layout) 
+      # geom_text(aes(label=node), hjust= -0.3) +
+      geom_hilight(   node=L1nodenum[1],  fill=L1hilightcolors[1]) +  # Milk products
+      geom_cladelabel(node=L1nodenum[1], color=  L1labelcolors[1], label=L1nodelabels[1], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[2],  fill=L1hilightcolors[2]) +  # Meat & fish
+      geom_cladelabel(node=L1nodenum[2], color=  L1labelcolors[2], label=L1nodelabels[2], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[3],  fill=L1hilightcolors[3]) +  # Eggs
+      geom_cladelabel(node=L1nodenum[3], color=  L1labelcolors[3], label=L1nodelabels[3], offset=0.5, geom="label", fill='white', hjust=0.5) +  
+      geom_hilight(   node=L1nodenum[4],  fill=L1hilightcolors[4]) +  # Legumes, nuts & seeds
+      geom_cladelabel(node=L1nodenum[4], color=  L1labelcolors[4], label=L1nodelabels[4], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[5],  fill=L1hilightcolors[5]) +  # Grain products
+      geom_cladelabel(node=L1nodenum[5], color=  L1labelcolors[5], label=L1nodelabels[5], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[6],  fill=L1hilightcolors[6]) +  # Fruits
+      geom_cladelabel(node=L1nodenum[6], color=  L1labelcolors[6], label=L1nodelabels[6], offset=0.5, geom="label", fill='white', hjust=0.5) +
+      geom_hilight(   node=L1nodenum[7],  fill=L1hilightcolors[7]) +  # Vegetables
+      geom_cladelabel(node=L1nodenum[7], color=  L1labelcolors[7], label=L1nodelabels[7], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[8],  fill=L1hilightcolors[8]) +  # Fats & oils
+      geom_cladelabel(node=L1nodenum[8], color=  L1labelcolors[8], label=L1nodelabels[8], offset=0.5, geom="label", fill='white', hjust=0.5) + 
+      geom_hilight(   node=L1nodenum[9],  fill=L1hilightcolors[9]) +  # Sweets & beverages
+      geom_cladelabel(node=L1nodenum[9], color=  L1labelcolors[9], label=L1nodelabels[9], offset=0.5, geom="label", fill='white', hjust=0.5) 
+    
+    # Widen the opening of the tree  
+    tree_an_hi_o <- open_tree(tree_an_hi, 10)
+    
+    # Rotate the tree so that the root (break) will come to the bottom
+    tree_an_hi_o_rt <- rotate_tree(tree_an_hi_o, 275) # 270 + 10*0.5 
+    
+    # Rename the tree with a better name.
+    annotated_tree <<- tree_an_hi_o_rt
+  
+#####
+    
 # Look at the color-coded and annotated food tree, saved as annotated_tree.
   annotated_tree
   
