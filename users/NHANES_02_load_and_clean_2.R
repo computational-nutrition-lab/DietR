@@ -67,8 +67,9 @@
   Food_D2_FC_cc_f <- read.table("Food_D2_FC_cc_f.txt", sep="\t", header=T)
 
 # Check the number of complete and incomplete data for each day. According to the documentation  
-# (https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm), value 4 is incomplete, 
-# so 2,208 rows are marked incomplete for Day 1, and 1,902 rows for Day 2.
+# (https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm), DR1DRSTZ = 1 is complete data and
+# values other than 1 are incomplete for Day 1. Same goes with DR2DRSTZ for Day 2. 
+# so 2,208 rows are marked incomplete for Day 1, and 1,902 rows for Day 2.,
   table(Food_D1_FC_cc_f$DR1DRSTZ)  # Day 1
   table(Food_D2_FC_cc_f$DR2DRSTZ)  # Day 2
 
