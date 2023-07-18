@@ -2,7 +2,6 @@
 # Load and clean NHANES food - 2 - QC food data, calculate totals, QC mean totals 
 # Version 2 clean version.
 # Created on 01/08/2023 by Rie Sadohara and Suzie Hoops
-# QC males and female records separately. 06/30/2023.
 # ===============================================================================================================
 
 # So far, all the edits made to this script are reflected on the tutorial (01/08/2023). 
@@ -66,13 +65,11 @@
 # Load the formatted food data prepared in the previous section.   
   Food_D1_FC_cc_f <- read.table("Food_D1_FC_cc_f.txt", sep="\t", header=T)
   Food_D2_FC_cc_f <- read.table("Food_D2_FC_cc_f.txt", sep="\t", header=T)
-  
-# Check the number of complete and incomplete data for each day. According to the documentation  
-# (https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm), DR1DRSTZ = 1 is complete data and 
-# values other than 1 are incomplete for Day 1. Same goes with DR2DRSTZ for Day 2.
 
-# Using the table function, we will find that 119,273 rows are complete for Day 1, and 
-# 98,778 rows for Day 2.
+# Check the number of complete and incomplete data for each day. According to the documentation  
+# (https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DR1IFF_I.htm), DR1DRSTZ = 1 is complete data and
+# values other than 1 are incomplete for Day 1. Same goes with DR2DRSTZ for Day 2. 
+# so 2,208 rows are marked incomplete for Day 1, and 1,902 rows for Day 2.,
   table(Food_D1_FC_cc_f$DR1DRSTZ)  # Day 1
   table(Food_D2_FC_cc_f$DR2DRSTZ)  # Day 2
 
@@ -288,12 +285,7 @@
   
 # Load the mean total.
   meantotal12d <- read.table("Total_D12_FC_QC_mean.txt", sep="\t", header=T)
-  
-###
-# Add demographic data to mean total. 
-# Merge QC-totals and demographics by SEQN.
-  meantotal12d_demo <- merge(x= meantotal12d, y=demog, by="SEQN", all.x=TRUE)
-  
+
 # ===============================================================================================================
 # B-4: QC the mean total in the same way as ASA24. 
 # ===============================================================================================================
@@ -322,82 +314,54 @@
 # Run all these QC steps in this order. When asked, choose to remove the outliers
 # that fall outside the specified range for each nutrient.
 
-#####
-# Split your dataset to males and females because different thresholds apply for males and females.
-  meantotal12d_demo_M <- subset(meantotal12d_demo, RIAGENDR==1)  
-  meantotal12d_demo_F <- subset(meantotal12d_demo, RIAGENDR==2)  
+# Define the input data.  This dataframe will be modified after each filter.
+  QCtotals <- meantotal12d
+  
+# Flag if KCAL is <600 or >5700 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, 
+             target.colname = "KCAL", min = 600, max = 5700)
+  
+# This function will print out rows that fall outside the specified min-max range, and a dialogue box 
+# will appear outside the R Studio, asking whether to remove them. You should make sure to review these records 
+# carefully to double-check if the removal is warranted. It is possible to have a valid record that could 
+# meet the threshold for removal. Only you will know if you can trust the record when working with real data.
+
+# If you find potential outlier(s) here, click "No", and view those 
+# total(s) with their other nutrient intake information by running the following;
+  KCAL_outliers <- subset(QCtotals, KCAL < 600 | KCAL > 5700)     
+# Sort the rows by KCAL and show only the specified variables.
+  KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
+                c('SEQN', 'KCAL', 'GRMS', 'PROT', 'TFAT', 'CARB')]  
+# If you think they are true outliers, then run the QCOutliers command for KCAL again, and click "Yes" to 
+# remove the outlier. Here for this tutorial, we will remove this individual.
+  
+# Flag if PROT is <10 or >240 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, 
+             target.colname = "PROT", min = 10, max = 240)
+  
+# Flag if TFAT is <15 or >230 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals, 
+             target.colname = "TFAT", min = 15, max = 230)
+
+# Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
+  QCOutliers(input.data = QCtotals,  
+             target.colname = "VC", min = 5, max = 400)
+
+# Look at how many rows (observations) were kept after QC.
+# If you have removed all the detected outliers in the above order, there should be 4,207 rows. 
+  nrow(QCtotals)
 
 # ---------------------------------------------------------------------------------------------------------------
-# QC for males  
-  # Define your totals dataset to be used as input.
-  QCtotals <- meantotal12d_demo_M  
-  
-  # Flag if KCAL is <650 or >5700 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 650, max = 5700)
-  
-  # This function will print out rows that fall outside the specified min-max range, and a dialogue box 
-  # will appear outside the R Studio, asking whether to remove them. You should make sure to review these records 
-  # carefully to double-check if the removal is warranted. It is possible to have a valid record that could 
-  # meet the threshold for removal. Only you will know if you can trust the record when working with real data.
-  
-  # If you find potential outlier(s) here, click "No", and view those 
-  # total(s) with their other nutrient intake information by running the following;
-    KCAL_outliers <- subset(QCtotals, KCAL < 650 | KCAL > 5700)     
-    # Sort the rows by KCAL and show only the specified variables.
-    KCAL_outliers[order(KCAL_outliers$KCAL, decreasing = T),
-                  c('SEQN', 'KCAL', 'GRMS', 'PROT', 'TFAT', 'CARB')]  
-  # If you think they are true outlier(s), then run the QCOutliers command for KCAL again, and click "Yes" to 
-  # remove the outlier. Here for this tutorial, we will remove this individual.
-    QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 650, max = 5700)
-  
-  # Continue the QC process with other variables.
-  
-  # Flag if PROT is <25 or >240 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 25, max = 240)
-  
-  # Flag if TFAT is <25 or >230 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "TFAT", min = 25, max = 230)
-  
-  # Flag if VC (Vitamin C) is <5 or >400 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 400)
-  
-  # Name the males totals after QC. 
-  QCed_M <- QCtotals
-  
-# ---------------------------------------------------------------------------------------------------------------
-# QC for females  
-  # Define your totals dataset to be used as input.
-  QCtotals <- meantotal12d_demo_F  
-  
-  # Flag if KCAL is <600 or >4400 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "KCAL", min = 600, max = 4400)
-  
-  # Flag if PROT is <10 or >180 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "PROT", min = 10, max = 180)
-  
-  # Flag if TFAT is <15 or >185 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "TFAT", min = 15, max = 185)
-  
-  # Flag if VC (Vitamin C) is <5 or >350 --> ask remove or not --> if yes, remove those rows
-  QCOutliers(input.data = QCtotals, target.colname = "VC", min = 5, max = 350)
-  
-  # Name the females totals after QC. 
-  QCed_F <- QCtotals
-  
-# ---------------------------------------------------------------------------------------------------------------
-# Combine M and F. 
-  QCtotals_MF <- rbind(QCed_M, QCed_F)
-  
-# Save as a .txt file.
-  write.table(QCtotals_MF, "Total_D12_FC_QC_mean_QC_demo.txt", sep="\t", quote=F, row.names=F)
+# Add demographic data to the QC-ed total. 
 
+# Merge QC-totals and demographics by SEQN.
+  QCtotals_demo <- merge(x= QCtotals, y=demog, by="SEQN", all.x=TRUE)
 
+# Save QCtotal_demo as a .txt file. 
+  write.table(QCtotals_demo, "Total_D12_FC_QC_mean_QC_demo.txt", sep="\t", quote=F, row.names=F)
+  
 # Now, you have prepared formatted and QC-ed food items, totals for each day, and mean totals across two days 
 # for each participant.
-
-# ===============================================================================================================
-# Adjust items and totals after QC
-# ===============================================================================================================
 
 # ===============================================================================================================
 # Remove the QC-ed individual(s) from the totals each day.
@@ -407,8 +371,8 @@
 # We will remove those individual(s) from the totals (calculated in B-2, before taking means of days), 
 # so that we will have the same individuals in QC-ed mean_total and total for each day. 
   
-# Among the individuals in total12d_demo, select only those in QCtotals_MF. 
-  total12d_demo_QCed <- total12d_demo[total12d_demo$SEQN %in% QCtotals_MF$SEQN, ]
+# Among the individuals in total12d_demo, select only those in QCtotals_demo. 
+  total12d_demo_QCed <- total12d_demo[total12d_demo$SEQN %in% QCtotals_demo$SEQN, ]
 
 # Save as a .txt file. This will be the total for each of the "QC-ed" individuals for each day, if you would
 # like to perform clustering analyses with Day 1 and Day 2 separately. 
@@ -418,12 +382,13 @@
 # Similarly, remove the QC-ed individual(s) from the food items to be consistent with the QC-ed averaged totals
 # ===============================================================================================================
 
-# Among the individuals in food12f_demo (generated in Procedure A), select only those in QCtotals_MF.
-  food12f_demo_QCed <- food12f_demo[ food12f_demo$SEQN %in% QCtotals_MF$SEQN, ]
+# Among the individuals in food12f_demo (generated in Procedure A), select only those in QCtotals_demo.
+  food12f_demo_QCed <- food12f_demo[ food12f_demo$SEQN %in% QCtotals_demo$SEQN, ]
 
 # Save as a .txt file. This will be the items for each of the "QC-ed" individuals for each day, to be
 # used for ordination etc.
   write.table(food12f_demo_QCed, "Food_D12_FC_QC_demo_QCed.txt", sep="\t", quote=F, row.names=F)
+
   
 # ---------------------------------------------------------------------------------------------------------------
 # Come back to the main directory.
