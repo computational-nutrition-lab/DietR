@@ -97,8 +97,8 @@
     geom_jitter(width=0.3)
   males60to79_BMIbox
   
-  ggsave("males60to79_BMI_by_GLU_index_box.png", 
-         males60to79_BMIbox, device="png", width=5.3, height=4.5)
+  ggsave("males60to79_BMI_by_GLU_index_box.pdf", 
+         males60to79_BMIbox, device="pdf", width=5.3, height=4.5)
   
 # ----------------------------------------------------------------------------------------------------------------  
 # ANOVA between groups

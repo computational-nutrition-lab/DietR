@@ -84,19 +84,6 @@
   PrepareFoodCodeTable(raw.food.code.table = "Raw_data/FoodCodes_DRXFCD_I.XPT", 
                        out.fn =              "FoodCodes_DRXFCD_I_f.txt")  
   
-  #### Checking. To be deleted.
-  codetable <- read.xport("Raw_data/FoodCodes_DRXFCD_I.XPT")
-  dim(codetable)
-  head(codetable,1)
-  # has special characters...
-  
-  FoodCodes_DRXFCD_I_f <- read.table("FoodCodes_DRXFCD_I_f.txt", header=T)
-  dim(FoodCodes_DRXFCD_I_f)
-  head(FoodCodes_DRXFCD_I_f, 50)
-  # special characters have been replaced with "_".
-  ####
-  
-  
   # Load the formatted foodcode table.
   foodcodetable_f <- read.table("FoodCodes_DRXFCD_I_f.txt", sep="\t", header=T)
   

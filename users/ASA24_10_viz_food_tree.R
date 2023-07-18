@@ -20,7 +20,7 @@
 # Then, use BiocManager to install the "ggtree" package.
   # BiocManager::install("ggtree")
   
-# The documentation for the ggtree package can be found in the developer’s GitHub page 
+# The documentation for the ggtree package can be found in the developer's GitHub page 
 # (https://guangchuangyu.github.io/software/ggtree/).
   
 
