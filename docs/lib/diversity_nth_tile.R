@@ -17,7 +17,6 @@ DivNthTile <- function(input, div.var, nth.tile){
   percentage <- (nrow(input_largerthanzero)/nrow(input)*100)
   
   print(paste(round(percentage) , "% of the ", nrow(input), " individuals have > 0 in ", div.var, sep=""))   
-  # 39% of the 2108 individuals consumed more than one nus/seeds/legumes and have diversity > 0.
   
   # Define breaks to split Shannon into halves.   
   breaks <- quantile(input_largerthanzero[, div.var], probs= seq(0, 1, 1/nth.tile))
@@ -100,36 +99,36 @@ DivNthTile <- function(input, div.var, nth.tile){
 #   
 #   
 # # ---------------------------------------------------------------------------------------------------------------
-# # How to use it with real dietary data (OTU table): need a long prep....
+# # How to use it with real dietary data (IFC table): need a long prep....
 # 
-# # Load the generated OTU table.
-#   otu <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.otu.txt")
+# # Load the generated IFC table.
+#   ifc <- read.delim("Foodtree/Food_D12_FC_QC_demo_QCed_4s_3Lv.food.ifc.txt")
 # 
 # 
-# # Take out the foodID (description) and taxonomy from otu.
-#   otu2 <- otu[, 2: (ncol(otu)-1) ]
+# # Take out the foodID (description) and taxonomy from ifc.
+#   ifc2 <- ifc[, 2: (ncol(ifc)-1) ]
 # 
 # # transpose so that the SEQN will come to rows.   
-#   otu2t <- as.data.frame(t(otu2)) 
+#   ifc2t <- as.data.frame(t(ifc2)) 
 # 
-# # Add taxonomy as the column names of otu2t. 
-#   colnames(otu2t) <- otu$X.FOODID
+# # Add taxonomy as the column names of ifc2t. 
+#   colnames(ifc2t) <- ifc$X.FOODID
 # 
 # 
 # # Make a table to save results. 
-#   SEQNdiv <- as.data.frame(matrix(nrow = nrow(otu2t) , ncol = 4))
+#   SEQNdiv <- as.data.frame(matrix(nrow = nrow(ifc2t) , ncol = 4))
 #   colnames(SEQNdiv) <- c("SEQN", "Shannon", "Simpson", "Invsimpson")
 #   head(SEQNdiv)
 # 
 # # Do a loop to calculate Shannon's, Simpson, and inverse-Simpson diversity  for all SEQNs (in rows).
 # # This may take a few minutes.
 # 
-#   for( i in 1: nrow(otu2t) ){
+#   for( i in 1: nrow(ifc2t) ){
 #     
-#     SEQNdiv[i, 1] <- rownames(otu2t)[i]
-#     SEQNdiv[i, 2] <- diversity(otu2t[i, ], 'shannon')
-#     SEQNdiv[i, 3] <- diversity(otu2t[i, ], 'simpson')
-#     SEQNdiv[i, 4] <- diversity(otu2t[i, ], 'invsimpson')
+#     SEQNdiv[i, 1] <- rownames(ifc2t)[i]
+#     SEQNdiv[i, 2] <- diversity(ifc2t[i, ], 'shannon')
+#     SEQNdiv[i, 3] <- diversity(ifc2t[i, ], 'simpson')
+#     SEQNdiv[i, 4] <- diversity(ifc2t[i, ], 'invsimpson')
 #   } 
 # 
 # # some have 0 diversity --> If a row has only one non-zero values, then diversity will be zero. e.g. c(20,0,0,0,0,0,0) 
